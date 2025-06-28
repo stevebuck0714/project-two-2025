@@ -5,7 +5,8 @@ const fs = require('fs');
 const XLSX = require('xlsx');
 const { parse: csvParse } = require('csv-parse');
 const app = express();
-const port = 3001;
+// const port = 3001;
+const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3001;
 
 // Enable CORS for all routes with specific options
 app.use(cors());
@@ -479,4 +480,4 @@ function startServer(port) {
 }
 
 // Start server on port 3001, will automatically try next port if busy
-startServer(3001); 
+startServer(port); 
