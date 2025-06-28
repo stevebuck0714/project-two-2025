@@ -1,0 +1,334 @@
+<%- include('partials/header') %>
+<%- include('partials/secondary-nav') %>
+<%- include('partials/client-header') %>
+
+<style>
+    .main-container {
+        padding: 1rem;
+    }
+
+    .transactions-header {
+        margin-bottom: 1rem;
+    }
+
+    .transactions-tabs {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .tab {
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        font-weight: 500;
+        color: #666;
+        transition: all 0.3s ease;
+    }
+
+    .tab.active {
+        color: #e31e24;
+        border-bottom-color: #e31e24;
+    }
+
+    .tab-content {
+        display: none;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    .transaction-list {
+        display: grid;
+        gap: 0.5rem;
+    }
+
+    .transaction-card {
+        background: white;
+        border-radius: 6px;
+        padding: 0.75rem 1rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    .transaction-card h3 {
+        margin: 0 0 0.25rem 0;
+    }
+
+    .transaction-card p {
+        margin: 0;
+    }
+
+    .transaction-card:hover {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .status-badge {
+        display: inline-block;
+        padding: 2px 12px;
+        border-radius: 12px;
+        color: #fff;
+        font-weight: bold;
+        font-size: 0.95em;
+        text-align: center;
+    }
+
+    .status-active { background: #4caf50; }
+    .status-closed { background: #e31e24; }
+    .status-pending { background: #ff9800; }
+
+    .action-button {
+        padding: 0.375rem 0.75rem;
+        border-radius: 4px;
+        background: #e31e24;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background 0.3s ease;
+    }
+
+    .action-button:hover {
+        background: #c4161b;
+    }
+
+    .negative-percent {
+        color: #e31e24;
+        font-weight: bold;
+    }
+</style>
+
+<div class="main-container">
+    <div class="transactions-header">
+        <h1>Your Recent Transactions</h1>
+    </div>
+
+    <div class="transactions-tabs">
+        <div class="tab active" onclick="showTab('bids', event)">Bids Placed</div>
+        <div class="tab" onclick="showTab('offers', event)">Offers Received</div>
+    </div>
+
+    <div class="transactions-container">
+        <!-- Bids Section -->
+        <div id="bids" class="tab-content active">
+            <div class="transaction-list">
+                <div class="transaction-row transaction-header" style="display: flex; gap: 2rem; align-items: center; font-weight: bold; border-bottom: 1px solid #ccc; margin-bottom: 0.5rem; cursor: pointer;">
+                    <span style="white-space: nowrap; flex-basis: 400px;">Fund Name</span>
+                    <span style="flex-basis: 180px; text-align: right;">Bid Amount</span>
+                    <span style="flex-basis: 140px; text-align: right;">Discount</span>
+                    <span style="flex-basis: 100px; text-align: right;">Vintage</span>
+                    <span style="flex-basis: 100px; text-align: right;">Status</span>
+                    <span style="flex-basis: 120px; text-align: right;"></span>
+                </div>
+                <!-- Sample Bid Items -->
+                <div class="transaction-card">
+                    <div class="transaction-row" style="display: flex; gap: 2rem; align-items: center;">
+                        <span style="white-space: nowrap; flex-basis: 400px; font-weight: bold;">LOMBARD ODIER PE FUND III</span>
+                        <span style="flex-basis: 180px; text-align: right;">€2,500,000</span>
+                        <span style="flex-basis: 140px; text-align: right;">8.00%</span>
+                        <span style="flex-basis: 100px; text-align: right;">2019</span>
+                        <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-active">Active</span></span>
+                        <span style="flex-basis: 120px; text-align: right;"><button class="action-button">View Detail</button></span>
+                    </div>
+                </div>
+
+                <div class="transaction-card">
+                    <div class="transaction-row" style="display: flex; gap: 2rem; align-items: center;">
+                        <span style="white-space: nowrap; flex-basis: 400px; font-weight: bold;">LOMBARD ODIER DIRECT PE</span>
+                        <span style="flex-basis: 180px; text-align: right;">€1,800,000</span>
+                        <span style="flex-basis: 140px; text-align: right;">5.00%</span>
+                        <span style="flex-basis: 100px; text-align: right;">2020</span>
+                        <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-pending">Pending</span></span>
+                        <span style="flex-basis: 120px; text-align: right;"><button class="action-button">View Detail</button></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Offers Section -->
+        <div id="offers" class="tab-content">
+            <div class="transaction-list">
+                <div class="transaction-row transaction-header" style="display: flex; gap: 2rem; align-items: center; font-weight: bold; border-bottom: 1px solid #ccc; margin-bottom: 0.5rem; cursor: pointer;">
+                    <span style="white-space: nowrap; flex-basis: 400px;">Fund Name</span>
+                    <span style="flex-basis: 180px; text-align: right;">Amount</span>
+                    <span style="flex-basis: 140px; text-align: right;">Premium/(Discount)</span>
+                    <span style="flex-basis: 100px; text-align: right;">Vintage</span>
+                    <span style="flex-basis: 100px; text-align: right;">Status</span>
+                    <span style="flex-basis: 120px; text-align: right;"></span>
+                </div>
+
+                <!-- Fund 1 Header -->
+                <div class="transaction-row" style="display: flex; align-items: center; font-weight: bold; background: #e5e5e5; border-radius: 4px; margin-top: 1.5rem;">
+                    <span style="flex-basis: 220px; white-space: nowrap;">LOMMBARD ODIER IMPACT FUND</span>
+                    <span style="flex: 1 1 auto;"></span>
+                </div>
+                <!-- Fund 1 Offers -->
+                <div class="transaction-row offer-row" style="display: flex; gap: 2rem; align-items: center; background: #fff;">
+                    <span style="white-space: nowrap; flex-basis: 400px; font-weight: bold;">LOMMBARD ODIER IMPACT FUND</span>
+                    <span style="flex-basis: 180px; text-align: right;">$2,732,000</span>
+                    <span style="flex-basis: 140px; text-align: right; color: #e31e24;">-5.00%</span>
+                    <span style="flex-basis: 100px; text-align: right;">2021</span>
+                    <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-active">Active</span></span>
+                    <span style="flex-basis: 120px; text-align: right;"><button class="action-button" style="background: #e31e24; color: #fff; font-weight: bold;">View Detail</button></span>
+                </div>
+                <div class="transaction-row offer-row" style="display: flex; gap: 2rem; align-items: center; background: #fff;">
+                    <span style="white-space: nowrap; flex-basis: 400px; font-weight: bold;">LOMMBARD ODIER IMPACT FUND</span>
+                    <span style="flex-basis: 180px; text-align: right;">$2,028,000</span>
+                    <span style="flex-basis: 140px; text-align: right; color: #e31e24;">-12.00%</span>
+                    <span style="flex-basis: 100px; text-align: right;">2020</span>
+                    <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-closed">Closed</span></span>
+                    <span style="flex-basis: 120px; text-align: right;"><button class="action-button" style="background: #e31e24; color: #fff; font-weight: bold;">View Detail</button></span>
+                </div>
+                <div class="transaction-row offer-row" style="display: flex; gap: 2rem; align-items: center; background: #fff;">
+                    <span style="white-space: nowrap; flex-basis: 400px; font-weight: bold;">LOMMBARD ODIER IMPACT FUND</span>
+                    <span style="flex-basis: 180px; text-align: right;">$1,900,000</span>
+                    <span style="flex-basis: 140px; text-align: right; color: #e31e24;">-20.00%</span>
+                    <span style="flex-basis: 100px; text-align: right;">2019</span>
+                    <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-pending">Pending</span></span>
+                    <span style="flex-basis: 120px; text-align: right;"><button class="action-button" style="background: #e31e24; color: #fff; font-weight: bold;">View Detail</button></span>
+                </div>
+                <div class="transaction-row offer-row" style="display: flex; gap: 2rem; align-items: center; background: #fff;">
+                    <span style="white-space: nowrap; flex-basis: 400px; font-weight: bold;">LOMMBARD ODIER IMPACT FUND</span>
+                    <span style="flex-basis: 180px; text-align: right;">$625,000</span>
+                    <span style="flex-basis: 140px; text-align: right; color: #e31e24;">-18.00%</span>
+                    <span style="flex-basis: 100px; text-align: right;">2018</span>
+                    <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-active">Active</span></span>
+                    <span style="flex-basis: 120px; text-align: right;"><button class="action-button" style="background: #e31e24; color: #fff; font-weight: bold;">View Detail</button></span>
+                </div>
+
+                <!-- Fund 2 Header -->
+                <div class="transaction-row" style="display: flex; align-items: center; font-weight: bold; background: #e5e5e5; border-radius: 4px; margin-top: 1.5rem;">
+                    <span style="flex-basis: 220px; white-space: nowrap;">LOMMBARD ODIER GROWTH FUND II</span>
+                    <span style="flex: 1 1 auto;"></span>
+                </div>
+                <!-- Fund 2 Offers -->
+                <div class="transaction-row offer-row" style="display: flex; gap: 2rem; align-items: center; background: #fff;">
+                    <span style="white-space: nowrap; flex-basis: 400px; font-weight: bold;">LOMMBARD ODIER GROWTH FUND II</span>
+                    <span style="flex-basis: 180px; text-align: right;">$1,950,000</span>
+                    <span style="flex-basis: 140px; text-align: right; color: #4caf50;">+2.50%</span>
+                    <span style="flex-basis: 100px; text-align: right;">2022</span>
+                    <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-pending">Pending</span></span>
+                    <span style="flex-basis: 120px; text-align: right;"><button class="action-button" style="background: #e31e24; color: #fff; font-weight: bold;">View Detail</button></span>
+                </div>
+                <div class="transaction-row offer-row" style="display: flex; gap: 2rem; align-items: center; background: #fff;">
+                    <span style="white-space: nowrap; flex-basis: 400px; font-weight: bold;">LOMMBARD ODIER GROWTH FUND II</span>
+                    <span style="flex-basis: 180px; text-align: right;">$3,400,000</span>
+                    <span style="flex-basis: 140px; text-align: right; color: #e31e24;">-3.75%</span>
+                    <span style="flex-basis: 100px; text-align: right;">2020</span>
+                    <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-closed">Closed</span></span>
+                    <span style="flex-basis: 120px; text-align: right;"><button class="action-button" style="background: #e31e24; color: #fff; font-weight: bold;">View Detail</button></span>
+                </div>
+                <div class="transaction-row offer-row" style="display: flex; gap: 2rem; align-items: center; background: #fff;">
+                    <span style="white-space: nowrap; flex-basis: 400px; font-weight: bold;">LOMMBARD ODIER GROWTH FUND II</span>
+                    <span style="flex-basis: 180px; text-align: right;">$2,100,000</span>
+                    <span style="flex-basis: 140px; text-align: right; color: #e31e24;">-7.00%</span>
+                    <span style="flex-basis: 100px; text-align: right;">2019</span>
+                    <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-active">Active</span></span>
+                    <span style="flex-basis: 120px; text-align: right;"><button class="action-button" style="background: #e31e24; color: #fff; font-weight: bold;">View Detail</button></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function formatPercent(val) {
+    let num = parseFloat(val.replace(/[^0-9.-]/g, ''));
+    if (isNaN(num)) return val;
+    return (num > 0 ? '' : '-') + Math.abs(num).toFixed(2) + '%';
+}
+
+function sortTransactions(type, colIdx) {
+    const list = document.querySelector(`#${type} .transaction-list`);
+    const header = list.querySelector('.transaction-header');
+    const rows = Array.from(list.querySelectorAll('.transaction-row:not(.transaction-header)'));
+    let getValue = (row) => row.children[colIdx].innerText.trim();
+    let isNumeric = colIdx === 1 || colIdx === 2 || colIdx === 3;
+    let isPercent = colIdx === 2;
+    let isStatus = colIdx === 4;
+    let statusOrder = { 'Active': 1, 'Pending': 2, 'Closed': 3 };
+    rows.sort((a, b) => {
+        let va = getValue(a), vb = getValue(b);
+        if (isNumeric) {
+            va = parseFloat(va.replace(/[^\d.-]/g, ''));
+            vb = parseFloat(vb.replace(/[^\d.-]/g, ''));
+            return va - vb;
+        } else if (isStatus) {
+            return statusOrder[va] - statusOrder[vb];
+        } else {
+            return va.localeCompare(vb);
+        }
+    });
+    // Toggle sort direction
+    if (list.getAttribute('data-sorted') == colIdx) {
+        rows.reverse();
+        list.setAttribute('data-sorted', '');
+    } else {
+        list.setAttribute('data-sorted', colIdx);
+    }
+    // Remove all children
+    while (list.firstChild) list.removeChild(list.firstChild);
+    // Re-add header and sorted rows
+    list.appendChild(header);
+    rows.forEach(row => {
+        // Format percent column
+        if (row.children[2]) {
+            row.children[2].innerText = formatPercent(row.children[2].innerText);
+        }
+        list.appendChild(row);
+    });
+}
+
+// Highlight negative percentages in red
+window.addEventListener('DOMContentLoaded', function() {
+    // Only format the Premium/(Discount) column (4th column, nth-child(4)) as percent
+    document.querySelectorAll('.transaction-row:not(.transaction-header) span:nth-child(4)').forEach(span => {
+        let num = parseFloat(span.innerText.replace(/[^0-9.-]/g, ''));
+        if (!isNaN(num) && num < 0) {
+            span.classList.add('negative-percent');
+        } else {
+            span.classList.remove('negative-percent');
+        }
+        span.innerText = formatPercent(span.innerText);
+    });
+});
+
+function toggleOffers(row) {
+    const card = row.parentElement;
+    const subcontainer = card.querySelector('.offer-subcontainer');
+    const chevron = row.querySelector('.chevron');
+    if (subcontainer.style.display === 'none') {
+        subcontainer.style.display = 'block';
+        chevron.innerHTML = '&#9660;'; // ▼
+    } else {
+        subcontainer.style.display = 'none';
+        chevron.innerHTML = '&#9654;'; // ▶
+    }
+}
+
+function showTab(tabId, event) {
+    // Hide all tab contents
+    document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.remove('active');
+    });
+    // Deactivate all tabs
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    // Show selected tab content
+    document.getElementById(tabId).classList.add('active');
+    // Activate selected tab
+    if (event && event.target) {
+        event.target.classList.add('active');
+    } else {
+        document.querySelector(`.tab[onclick*=\"showTab('${tabId}'\"]`).classList.add('active');
+    }
+}
+</script>
+
+<%- include('partials/footer') %> 

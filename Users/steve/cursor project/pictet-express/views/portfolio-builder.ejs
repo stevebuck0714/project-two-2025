@@ -1,0 +1,658 @@
+<%- include('partials/header') %>
+<%- include('partials/secondary-nav') %>
+<%- include('partials/client-header') %>
+
+<style>
+/* Ultra-compact Strategy Selection Section */
+.strategy-columns {
+    gap: 4px !important;
+    margin-bottom: 4px !important;
+}
+.strategy-category-container {
+    padding: 4px !important;
+}
+.strategy-category-header {
+    margin-bottom: 2px !important;
+    padding-bottom: 2px !important;
+    font-size: 1.05rem !important;
+}
+.strategy-list {
+    gap: 2px !important;
+}
+.strategy-option {
+    padding: 4px !important;
+    margin-bottom: 2px !important;
+}
+.strategy-header {
+    gap: 0.25rem !important;
+}
+.strategy-name {
+    font-size: 1rem !important;
+}
+.strategy-description {
+    margin: 0.1rem 0 !important;
+    font-size: 0.85rem !important;
+}
+.selection-counter {
+    margin-top: 2px !important;
+    font-size: 0.85rem !important;
+}
+</style>
+
+<div class="main-container">
+    <div class="container">
+        <!-- Navigation Tabs -->
+        <div class="builder-tabs mb-4">
+            <a href="#income-goal" class="builder-tab active">Income Goal Calculator</a>
+            <a href="#investment-capacity" class="builder-tab">Investment Capacity Calculator</a>
+            <a href="#strategy-selection" class="builder-tab">Custom Portfolio Calculator</a>
+        </div>
+
+        <!-- Content Sections -->
+        <div class="portfolio-builder-content">
+            <!-- Strategy Selection Section -->
+            <section id="strategy-selection" class="builder-section" style="position:relative;">
+                <div class="strategy-columns">
+                    <!-- Private Equity Strategies Column -->
+                    <div class="strategy-column">
+                        <div class="strategy-category-container">
+                            <h3 class="strategy-category-header">
+                                <span class="ubs-text">LOMBARD ODIER</span> Private Equity Strategies
+                            </h3>
+                            <div class="strategy-list">
+                                <div class="strategy-option" data-strategy="large-cap-buyout">
+                                    <div class="strategy-header">
+                                        <input type="checkbox" class="strategy-checkbox" id="large-cap-buyout">
+                                        <label class="strategy-name" for="large-cap-buyout">Large-Cap Buyout</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">>$1B enterprise value</div>
+                                </div>
+
+                                <div class="strategy-option" data-strategy="mid-market-buyout">
+                                    <div class="strategy-header">
+                                        <input type="checkbox" class="strategy-checkbox" id="mid-market-buyout">
+                                        <label class="strategy-name" for="mid-market-buyout">Mid-Market Buyout</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">$100M-$1B enterprise value</div>
+                                </div>
+
+                                <div class="strategy-option" data-strategy="small-cap-buyout">
+                                    <div class="strategy-header">
+                                        <input type="checkbox" class="strategy-checkbox" id="small-cap-buyout">
+                                        <label class="strategy-name" for="small-cap-buyout">Small-Cap Buyout</label>
+                                    </div>
+                                    <div class="strategy-description text-muted"><$100M enterprise value</div>
+                                </div>
+
+                                <div class="strategy-option" data-strategy="growth-equity">
+                                    <div class="strategy-header">
+                                        <input type="checkbox" class="strategy-checkbox" id="growth-equity">
+                                        <label class="strategy-name" for="growth-equity">Growth Equity</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">Minority stakes in growth companies</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Alternative Asset Strategies Column -->
+                    <div class="strategy-column">
+                        <div class="strategy-category-container">
+                            <h3 class="strategy-category-header">
+                                <span class="ubs-text">LOMBARD ODIER</span> Alternative Asset Strategies
+                            </h3>
+                            <div class="strategy-list">
+                                <div class="strategy-option" data-strategy="real-estate-core">
+                                    <div class="strategy-header">
+                                        <input type="checkbox" class="strategy-checkbox" id="real-estate-core">
+                                        <label class="strategy-name" for="real-estate-core">Real Estate (Core)</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">Stable, income-producing properties</div>
+                                </div>
+
+                                <div class="strategy-option" data-strategy="real-estate-opportunistic">
+                                    <div class="strategy-header">
+                                        <input type="checkbox" class="strategy-checkbox" id="real-estate-opportunistic">
+                                        <label class="strategy-name" for="real-estate-opportunistic">Real Estate (Opportunistic)</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">Value-add and development</div>
+                                </div>
+
+                                <div class="strategy-option" data-strategy="infrastructure-core">
+                                    <div class="strategy-header">
+                                        <input type="checkbox" class="strategy-checkbox" id="infrastructure-core">
+                                        <label class="strategy-name" for="infrastructure-core">Infrastructure (Core)</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">Stable, regulated infrastructure</div>
+                                </div>
+
+                                <div class="strategy-option" data-strategy="infrastructure-value-add">
+                                    <div class="strategy-header">
+                                        <input type="checkbox" class="strategy-checkbox" id="infrastructure-value-add">
+                                        <label class="strategy-name" for="infrastructure-value-add">Infrastructure (Value-Add)</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">Emerging infrastructure sectors</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Other Alternatives Column -->
+                    <div class="strategy-column">
+                        <div class="strategy-category-container">
+                            <h3 class="strategy-category-header">
+                                <span class="ubs-text">LOMBARD ODIER</span> Other Alternatives
+                            </h3>
+                            <div class="strategy-list">
+                                <div class="strategy-option" data-strategy="direct-lending">
+                                    <div class="strategy-header">
+                                        <input type="checkbox" class="strategy-checkbox" id="direct-lending">
+                                        <label class="strategy-name" for="direct-lending">Direct Lending</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">Senior debt to mid-market companies</div>
+                                </div>
+
+                                <div class="strategy-option" data-strategy="mezzanine-finance">
+                                    <div class="strategy-header">
+                                        <input type="checkbox" class="strategy-checkbox" id="mezzanine-finance">
+                                        <label class="strategy-name" for="mezzanine-finance">Mezzanine Finance</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">Hybrid debt-equity financing</div>
+                                </div>
+
+                                <div class="strategy-option" data-strategy="natural-resources">
+                                    <div class="strategy-header">
+                                        <input type="checkbox" class="strategy-checkbox" id="natural-resources">
+                                        <label class="strategy-name" for="natural-resources">Natural Resources</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">Energy, mining, and commodities</div>
+                                </div>
+
+                                <div class="strategy-option" data-strategy="hedge-strategies">
+                                    <div class="strategy-header">
+                                        <input type="checkbox" class="strategy-checkbox" id="hedge-strategies">
+                                        <label class="strategy-name" for="hedge-strategies">Hedge Strategies</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">Alternative hedge fund strategies</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="selection-counter text-muted mt-3">
+                    <small><span id="selected-count">0</span> selected | Recommended: 2-4</small>
+                </div>
+
+                <!-- ESG Framework Section (already moved here) -->
+                <h2 class="strategy-category-header" style="text-align:center;margin-bottom:2rem;">ESG Framework</h2>
+                <div class="strategy-columns">
+                    <!-- Environmental Criteria Column -->
+                    <div class="strategy-column">
+                        <div class="strategy-category-container">
+                            <h3 class="strategy-category-header">
+                                <span class="ubs-text">LOMBARD ODIER</span> Environmental Criteria
+                            </h3>
+                            <div class="strategy-list">
+                                <div class="strategy-option">
+                                    <div class="strategy-header">
+                                        <label class="strategy-name">Climate Change Impact</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">Assessment of company's initiatives to combat climate change</div>
+                                    <div class="score-input mt-2">
+                                        <select class="form-control">
+                                            <option value="">Select Impact Score...</option>
+                                            <option value="1">Low Impact</option>
+                                            <option value="2">Moderate-Low Impact</option>
+                                            <option value="3">Moderate Impact</option>
+                                            <option value="4">Moderate-High Impact</option>
+                                            <option value="5">High Impact</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="strategy-option">
+                                    <div class="strategy-header">
+                                        <label class="strategy-name">Resource Efficiency</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">Evaluation of resource management and conservation practices</div>
+                                    <div class="score-input mt-2">
+                                        <select class="form-control">
+                                            <option value="">Select Efficiency Score...</option>
+                                            <option value="1">Poor Efficiency</option>
+                                            <option value="2">Fair Efficiency</option>
+                                            <option value="3">Good Efficiency</option>
+                                            <option value="4">Very Good Efficiency</option>
+                                            <option value="5">Excellent Efficiency</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="strategy-option">
+                                    <div class="strategy-header">
+                                        <label class="strategy-name">Environmental Innovation</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">Investment in sustainable technologies and practices</div>
+                                    <div class="score-input mt-2">
+                                        <select class="form-control">
+                                            <option value="">Select Innovation Score...</option>
+                                            <option value="1">Minimal Innovation</option>
+                                            <option value="2">Emerging Innovation</option>
+                                            <option value="3">Moderate Innovation</option>
+                                            <option value="4">Advanced Innovation</option>
+                                            <option value="5">Leading Innovation</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Social Criteria Column -->
+                    <div class="strategy-column">
+                        <div class="strategy-category-container">
+                            <h3 class="strategy-category-header">
+                                <span class="ubs-text">LOMBARD ODIER</span> Social Criteria
+                            </h3>
+                            <div class="strategy-list">
+                                <div class="strategy-option">
+                                    <div class="strategy-header">
+                                        <label class="strategy-name">Workforce Management</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">Employee relations, diversity, and workplace safety</div>
+                                    <div class="score-input mt-2">
+                                        <select class="form-control">
+                                            <option value="">Select Management Score...</option>
+                                            <option value="1">Poor Management</option>
+                                            <option value="2">Fair Management</option>
+                                            <option value="3">Good Management</option>
+                                            <option value="4">Very Good Management</option>
+                                            <option value="5">Excellent Management</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="strategy-option">
+                                    <div class="strategy-header">
+                                        <label class="strategy-name">Community Relations</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">Impact on local communities and social initiatives</div>
+                                    <div class="score-input mt-2">
+                                        <select class="form-control">
+                                            <option value="">Select Community Score...</option>
+                                            <option value="1">Poor Engagement</option>
+                                            <option value="2">Fair Engagement</option>
+                                            <option value="3">Good Engagement</option>
+                                            <option value="4">Very Good Engagement</option>
+                                            <option value="5">Excellent Engagement</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="strategy-option">
+                                    <div class="strategy-header">
+                                        <label class="strategy-name">Human Rights</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">Human rights policies and implementation</div>
+                                    <div class="score-input mt-2">
+                                        <select class="form-control">
+                                            <option value="">Select Rights Score...</option>
+                                            <option value="1">Poor Protection</option>
+                                            <option value="2">Fair Protection</option>
+                                            <option value="3">Good Protection</option>
+                                            <option value="4">Very Good Protection</option>
+                                            <option value="5">Excellent Protection</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Governance Criteria Column -->
+                    <div class="strategy-column">
+                        <div class="strategy-category-container">
+                            <h3 class="strategy-category-header">
+                                <span class="ubs-text">LOMBARD ODIER</span> Governance Criteria
+                            </h3>
+                            <div class="strategy-list">
+                                <div class="strategy-option">
+                                    <div class="strategy-header">
+                                        <label class="strategy-name">Board Structure</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">Board composition, independence, and diversity</div>
+                                    <div class="score-input mt-2">
+                                        <select class="form-control">
+                                            <option value="">Select Structure Score...</option>
+                                            <option value="1">Poor Structure</option>
+                                            <option value="2">Fair Structure</option>
+                                            <option value="3">Good Structure</option>
+                                            <option value="4">Very Good Structure</option>
+                                            <option value="5">Excellent Structure</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="strategy-option">
+                                    <div class="strategy-header">
+                                        <label class="strategy-name">Business Ethics</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">Ethical practices, transparency, and compliance</div>
+                                    <div class="score-input mt-2">
+                                        <select class="form-control">
+                                            <option value="">Select Ethics Score...</option>
+                                            <option value="1">Poor Ethics</option>
+                                            <option value="2">Fair Ethics</option>
+                                            <option value="3">Good Ethics</option>
+                                            <option value="4">Very Good Ethics</option>
+                                            <option value="5">Excellent Ethics</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="strategy-option">
+                                    <div class="strategy-header">
+                                        <label class="strategy-name">Risk Management</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">Risk assessment and mitigation strategies</div>
+                                    <div class="score-input mt-2">
+                                        <select class="form-control">
+                                            <option value="">Select Risk Score...</option>
+                                            <option value="1">Poor Management</option>
+                                            <option value="2">Fair Management</option>
+                                            <option value="3">Good Management</option>
+                                            <option value="4">Very Good Management</option>
+                                            <option value="5">Excellent Management</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Risk Return Profile Section (moved here) -->
+                <h2 class="strategy-category-header" style="text-align:center;margin-bottom:2rem;">Risk Return Profile</h2>
+                <div class="strategy-columns">
+                    <!-- Scenario Analysis Column -->
+                    <div class="strategy-column">
+                        <div class="strategy-category-container">
+                            <h3 class="strategy-category-header">
+                                <span class="ubs-text">LOMBARD ODIER</span> Scenario Analysis
+                            </h3>
+                            <div class="strategy-list">
+                                <div class="strategy-option">
+                                    <div class="strategy-header">
+                                        <label class="strategy-name">Base Case</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">Expected return under normal market conditions</div>
+                                    <div class="scenario-input mt-2">
+                                        <div class="input-group">
+                                            <input type="number" 
+                                                   class="form-control scenario-value" 
+                                                   value="14" 
+                                                   step="0.1" 
+                                                   min="-100" 
+                                                   max="100"
+                                                   id="base-case-input">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="strategy-option">
+                                    <div class="strategy-header">
+                                        <label class="strategy-name">Down Case</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">Potential loss in adverse conditions</div>
+                                    <div class="scenario-input mt-2">
+                                        <div class="input-group">
+                                            <input type="number" 
+                                                   class="form-control scenario-value" 
+                                                   value="-8" 
+                                                   step="0.1" 
+                                                   min="-100" 
+                                                   max="100"
+                                                   id="down-case-input">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="strategy-option">
+                                    <div class="strategy-header">
+                                        <label class="strategy-name">Up Case</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">Potential return in favorable conditions</div>
+                                    <div class="scenario-input mt-2">
+                                        <div class="input-group">
+                                            <input type="number" 
+                                                   class="form-control scenario-value" 
+                                                   value="22" 
+                                                   step="0.1" 
+                                                   min="-100" 
+                                                   max="100"
+                                                   id="up-case-input">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Risk Profile Column -->
+                    <div class="strategy-column">
+                        <div class="strategy-category-container">
+                            <h3 class="strategy-category-header">
+                                <span class="ubs-text">LOMBARD ODIER</span> Risk Profile
+                            </h3>
+                            <div class="strategy-list">
+                                <div class="strategy-option">
+                                    <div class="strategy-header">
+                                        <input type="radio" name="risk-profile" id="conservative" value="conservative">
+                                        <label class="strategy-name" for="conservative">Conservative</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">Lower risk, stable returns, capital preservation focus</div>
+                                    <div class="expected-return">Expected Return: 6-8%</div>
+                                </div>
+                                <div class="strategy-option">
+                                    <div class="strategy-header">
+                                        <input type="radio" name="risk-profile" id="balanced" value="balanced">
+                                        <label class="strategy-name" for="balanced">Balanced</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">Moderate risk, balanced growth and stability</div>
+                                    <div class="expected-return">Expected Return: 8-12%</div>
+                                </div>
+                                <div class="strategy-option">
+                                    <div class="strategy-header">
+                                        <input type="radio" name="risk-profile" id="growth" value="growth">
+                                        <label class="strategy-name" for="growth">Growth</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">Higher risk, focus on capital appreciation</div>
+                                    <div class="expected-return">Expected Return: 12-16%</div>
+                                </div>
+                                <div class="strategy-option">
+                                    <div class="strategy-header">
+                                        <input type="radio" name="risk-profile" id="aggressive" value="aggressive">
+                                        <label class="strategy-name" for="aggressive">Aggressive</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">Highest risk, maximum growth potential</div>
+                                    <div class="expected-return">Expected Return: 16%+</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Risk Metrics Column -->
+                    <div class="strategy-column">
+                        <div class="strategy-category-container">
+                            <h3 class="strategy-category-header">
+                                <span class="ubs-text">LOMBARD ODIER</span> Risk Metrics
+                            </h3>
+                            <div class="strategy-list">
+                                <div class="strategy-option">
+                                    <div class="strategy-header">
+                                        <label class="strategy-name">Volatility</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">Portfolio price fluctuation measure</div>
+                                    <div class="risk-metric">12.5%</div>
+                                </div>
+                                <div class="strategy-option">
+                                    <div class="strategy-header">
+                                        <label class="strategy-name">Sharpe Ratio</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">Risk-adjusted return measure</div>
+                                    <div class="risk-metric">1.8</div>
+                                </div>
+                                <div class="strategy-option">
+                                    <div class="strategy-header">
+                                        <label class="strategy-name">Maximum Drawdown</label>
+                                    </div>
+                                    <div class="strategy-description text-muted">Largest peak-to-trough decline</div>
+                                    <div class="risk-metric">-15.2%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div style="width:100%; display:flex; justify-content:flex-end; margin-top: 24px;">
+                <button id="build-portfolio-btn" style="background: #e31e24; color: #fff; border: none; border-radius: 6px; padding: 0.85rem 2.2rem; font-size: 1.1rem; font-weight: bold; box-shadow: 0 2px 8px rgba(0,0,0,0.10); cursor: pointer;">Build Portfolio</button>
+            </div>
+
+            <!-- Investment Capacity Calculator Section -->
+            <section id="investment-capacity" class="builder-section" style="margin-top: 0.1rem;">
+                <div class="investment-capacity-container" style="max-width: 600px; margin: 0 auto; padding: 1.1rem 1.5rem 1.5rem 1.5rem; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+                    <h2 style="margin-top: 0; margin-bottom: 0.7rem;">Return by Investment Capacity Calculator</h2>
+                    <p style="margin-bottom: 0.7rem;">Calculate income potential from available investment capacity</p>
+                    <div style="margin-bottom: 1.1rem;">
+                        <strong>Answer the core question:</strong> "I can invest $X now + $Y/month for Z years - how much income can I generate?"
+                    </div>
+                    <form>
+                        <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                            <div style="flex: 1;">
+                                <label for="ic-initial-investment" style="display: block; font-weight: 500;">Initial Investment</label>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span style="font-weight: bold;">$</span>
+                                    <input id="ic-initial-investment" name="ic-initial-investment" type="number" placeholder="1,000,000" style="flex:1; padding: 0.4rem; border: 1px solid #ccc; border-radius: 4px;" />
+                                </div>
+                                <small style="color: #888;">Available capital to invest now</small>
+                            </div>
+                            <div style="flex: 1;">
+                                <label for="ic-monthly-addition" style="display: block; font-weight: 500;">Monthly Addition</label>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span style="font-weight: bold;">$</span>
+                                    <input id="ic-monthly-addition" name="ic-monthly-addition" type="number" placeholder="25,000" style="flex:1; padding: 0.4rem; border: 1px solid #ccc; border-radius: 4px;" />
+                                </div>
+                                <small style="color: #888;">Monthly investment capacity (optional)</small>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 1rem; margin-bottom: 1.2rem;">
+                            <div style="flex:1;">
+                                <label for="ic-investment-period" style="display: block; font-weight: 500;">Investment Period</label>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <input id="ic-investment-period" name="ic-investment-period" type="number" placeholder="10" style="width: 70px; padding: 0.4rem; border: 1px solid #ccc; border-radius: 4px;" />
+                                    <span>years</span>
+                                </div>
+                                <small style="color: #888;">Investment accumulation period</small>
+                            </div>
+                            <div style="flex:1;">
+                                <label for="ic-income-start" style="display: block; font-weight: 500;">Income Start</label>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <input id="ic-income-start" name="ic-income-start" type="number" placeholder="10" style="width: 70px; padding: 0.4rem; border: 1px solid #ccc; border-radius: 4px;" />
+                                    <span>years</span>
+                                </div>
+                                <small style="color: #888;">When income generation begins</small>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Income Goal Calculator Section -->
+            <section id="income-goal" class="builder-section active">
+                <div class="income-goal-container" style="max-width: 600px; margin: 0 auto; padding: 1.1rem 1.5rem 1.5rem 1.5rem; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+                    <h2 style="margin-top: 0; margin-bottom: 0.7rem;">Income Goal Calculator</h2>
+                    <p style="margin-bottom: 0.7rem;">Calculate investment required to meet specific income targets</p>
+                    <div style="margin-bottom: 1.1rem;">
+                        <strong>Answer the core question:</strong> "I can invest $X now + $Y/month for Z years - how much income can I generate?"
+                    </div>
+                    <form>
+                        <div style="display: flex; gap: 1rem; margin-bottom: 0.7rem;">
+                            <div style="flex: 1;">
+                                <label for="initial-investment">Initial Investment</label>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span>$</span>
+                                    <input id="initial-investment" type="number" class="form-control" value="1000000" style="width: 100%;" />
+                                </div>
+                                <small style="color: #888;">Available capital to invest now</small>
+                            </div>
+                            <div style="flex: 1;">
+                                <label for="monthly-addition">Monthly Addition</label>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span>$</span>
+                                    <input id="monthly-addition" type="number" class="form-control" value="25000" style="width: 100%;" />
+                                </div>
+                                <small style="color: #888;">Monthly investment capacity (optional)</small>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 1.2rem; margin-bottom: 0.7rem;">
+                            <div style="flex: 1;">
+                                <label for="investment-period">Investment Period</label>
+                                <input id="investment-period" type="number" class="form-control" value="10" style="width: 80px; display: inline-block;" />
+                                <span style="margin-left: 0.3rem;">years</span>
+                                <br />
+                                <small style="color: #888;">Investment accumulation period</small>
+                            </div>
+                            <div style="flex: 1;">
+                                <label for="income-start">Income Start</label>
+                                <input id="income-start" type="number" class="form-control" value="10" style="width: 80px; display: inline-block;" />
+                                <span style="margin-left: 0.3rem;">years</span>
+                                <br />
+                                <small style="color: #888;">When income generation begins</small>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Commitment Criteria Section -->
+            <section id="commitment" class="builder-section">
+                <div class="commitment-criteria-container" style="max-width: 600px; margin: 0 auto; padding: 2rem; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+                    <h2 style="margin-bottom: 2rem;">Commitment Criteria</h2>
+                    <h3>Income Goal Calculator</h3>
+                    <p style="margin-bottom: 1rem;">Calculate investment required to meet specific income targets</p>
+                    <h3>Return by Investment Capacity Calculator</h3>
+                    <p style="margin-bottom: 2rem;">Calculate income potential from available investment capacity</p>
+                    <div style="margin-bottom: 2rem;">
+                        <strong>Answer the core question:</strong> "I need $X income for Y years starting in Z years - how much do I invest now?"
+                    </div>
+                    <form>
+                        <div style="margin-bottom: 1.5rem;">
+                            <label for="annual-income" style="display: block; font-weight: 500;">Annual Income Needed</label>
+                            <input id="annual-income" name="annual-income" type="number" placeholder="$500,000" style="width: 100%; padding: 0.5rem; margin-top: 0.25rem; border: 1px solid #ccc; border-radius: 4px;" />
+                            <small style="color: #888;">After-tax annual income requirement</small>
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <label for="duration" style="display: block; font-weight: 500;">Duration</label>
+                            <input id="duration" name="duration" type="number" placeholder="15" style="width: 100%; padding: 0.5rem; margin-top: 0.25rem; border: 1px solid #ccc; border-radius: 4px;" />
+                            <small style="color: #888;">How long income is needed (years)</small>
+                        </div>
+                        <div style="margin-bottom: 2rem;">
+                            <label for="start-in" style="display: block; font-weight: 500;">Start In</label>
+                            <input id="start-in" name="start-in" type="number" placeholder="10" style="width: 100%; padding: 0.5rem; margin-top: 0.25rem; border: 1px solid #ccc; border-radius: 4px;" />
+                            <small style="color: #888;">Years until income starts</small>
+                        </div>
+                        <button type="submit" style="background: #e31e24; color: #fff; border: none; padding: 0.75rem 2rem; border-radius: 4px; font-size: 1rem; font-weight: bold; cursor: pointer;">Calculate</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Build Portfolio Section -->
+            <section id="build-portfolio" class="builder-section">
+                <!-- Content will be added here -->
+            </section>
+        </div>
+    </div>
+</div>
+
+<!-- Include the JavaScript file -->
+<script src="/js/portfolio-builder.js"></script>
+
+<%- include('partials/footer') %> 

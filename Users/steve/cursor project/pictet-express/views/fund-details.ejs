@@ -1,0 +1,559 @@
+<%- include('partials/header') %>
+<%- include('partials/secondary-nav') %>
+<%- include('partials/client-header') %>
+
+<style>
+.fund-details-container h1, .fund-details-container .fund-name {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+.fund-details-container {
+    padding-top: 0.1rem !important;
+}
+.cashflows-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+.cashflows-container th, .cashflows-container td {
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    min-width: 110px;
+    text-align: left;
+}
+.cashflows-container th {
+    background: #f2f2f2;
+    font-weight: bold;
+}
+.cashflows-container tr:nth-child(even) {
+    background: #f9f9f9;
+}
+.cashflows-container tr:nth-child(odd) {
+    background: #fff;
+}
+.cashflows-container td.amount {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    min-width: 130px;
+}
+.cashflows-container td.name {
+    min-width: 140px;
+}
+.cashflows-container td.date {
+    min-width: 120px;
+}
+</style>
+
+<% var capitalCalledData = typeof capitalCalledData !== 'undefined' ? capitalCalledData : []; %>
+<% var distributionsData = typeof distributionsData !== 'undefined' ? distributionsData : []; %>
+
+<div class="main-container">
+    <h1 class="fund-title">Fund Details</h1>
+    
+    <div class="fund-details-container">
+        <div class="fund-header-wrapper">
+            <div class="fund-tabs">
+                <button class="fund-tab active" onclick="showFundSection('summary')">Fund Summary</button>
+                <button class="fund-tab" onclick="showFundSection('positions')">Fund Positions</button>
+                <button class="fund-tab" onclick="showFundSection('cashflows')">Fund Cash Flows</button>
+                <button class="fund-tab" onclick="showFundSection('dataroom')">Data Room</button>
+            </div>
+            <div class="fund-action">
+                <a href="/create-bid" class="btn btn-primary">Make a Bid</a>
+            </div>
+        </div>
+
+        <section id="fund-summary" class="fund-section active">
+            <div class="fund-header">
+                <div class="fund-title-section">
+                    <h2>LOMBARD ODIER SPV 1</h2>
+                    <div class="current-date" id="currentDate"></div>
+                </div>
+            </div>
+
+            <div class="fund-metrics-grid">
+                <div class="metric-group">
+                    <div class="metric-item">
+                        <div class="metric-label">Current NAV</div>
+                        <div class="metric-value">€ 4.000.000</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-label">Strategy</div>
+                        <div class="metric-value">Buyout- Mid Market</div>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">Posted Date:</span>
+                        <span class="metric-value">5/14/2025</span>
+                    </div>
+                </div>
+
+                <div class="metric-group">
+                    <div class="metric-item">
+                        <div class="metric-label">Total Called</div>
+                        <div class="metric-value">€ 8.000.000</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-label"># of Investments</div>
+                        <div class="metric-value">9</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-label">Bidding Ends</div>
+                        <div class="metric-value">6/30/2025</div>
+                    </div>
+                </div>
+
+                <div class="metric-group">
+                    <div class="metric-item">
+                        <div class="metric-label">Total Commitment</div>
+                        <div class="metric-value">€ 9.000.000</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-label">Exits</div>
+                        <div class="metric-value">4</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-label">Views</div>
+                        <div class="metric-value">39</div>
+                    </div>
+                </div>
+
+                <div class="metric-group">
+                    <div class="metric-item">
+                        <div class="metric-label">Current DPI</div>
+                        <div class="metric-value">1.10</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-label"># of Co-Investments</div>
+                        <div class="metric-value">3</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-label">Offers</div>
+                        <div class="metric-value">3</div>
+                    </div>
+                </div>
+
+                <div class="metric-group">
+                    <div class="metric-item">
+                        <div class="metric-label">Current Exposure</div>
+                        <div class="metric-value">€ 6.000.000</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-label">Market</div>
+                        <div class="metric-value">Primary</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-label">Status</div>
+                        <div class="metric-value">In Review</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="fund-positions" class="fund-section">
+            <div class="positions-header">
+                <h2>LOMBARD ODIER SPV 1</h2>
+            </div>
+            
+            <div class="table-responsive">
+                <table class="positions-table">
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Security Type</th>
+                            <th>Number of Shares</th>
+                            <th>Fund Ownership %</th>
+                            <th>Initial Investment Date</th>
+                            <th>Fund Commitment</th>
+                            <th>Total Invested</th>
+                            <th>Current Cost</th>
+                            <th>Reported Value</th>
+                            <th>Realized Proceeds</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Acme Holdings</td>
+                            <td>Equity</td>
+                            <td>1.250.000</td>
+                            <td>55,00%</td>
+                            <td>3/15/2007</td>
+                            <td>€ 5.000.000</td>
+                            <td>€ 5.000.000</td>
+                            <td>€ 4.500.000</td>
+                            <td>€ 4.700.000</td>
+                            <td>€ 1.000.000</td>
+                        </tr>
+                        <tr>
+                            <td>Acme Holdings</td>
+                            <td>Debt</td>
+                            <td>12.789</td>
+                            <td>55,00%</td>
+                            <td>6/15/2007</td>
+                            <td>€ 5.000.000</td>
+                            <td>€ 5.000.000</td>
+                            <td>€ 5.000.000</td>
+                            <td>€ 5.200.000</td>
+                            <td>€ 500.000</td>
+                        </tr>
+                        <tr>
+                            <td>BluePeak Technologies</td>
+                            <td>Equity</td>
+                            <td>-</td>
+                            <td>12,00%</td>
+                            <td>9/15/2007</td>
+                            <td>€ 5.000.000</td>
+                            <td>€ 5.000.000</td>
+                            <td>€ 2.500.000</td>
+                            <td>€ 2.700.000</td>
+                            <td>€ -</td>
+                        </tr>
+                        <tr>
+                            <td>BluePeak Technologies</td>
+                            <td>Debt</td>
+                            <td>-</td>
+                            <td>12,00%</td>
+                            <td>9/15/2007</td>
+                            <td>€ 5.000.000</td>
+                            <td>€ 5.000.000</td>
+                            <td>€ 5.000.000</td>
+                            <td>€ 5.200.000</td>
+                            <td>€ 1.000.000</td>
+                        </tr>
+                        <tr>
+                            <td>Greenfield Foods</td>
+                            <td>Equity</td>
+                            <td>-</td>
+                            <td>90,00%</td>
+                            <td>2/15/2008</td>
+                            <td>€ 5.000.000</td>
+                            <td>€ 5.000.000</td>
+                            <td>€ 5.000.000</td>
+                            <td>€ 10.000.000</td>
+                            <td>€ -</td>
+                        </tr>
+                        <tr>
+                            <td>NovaMed Pharma</td>
+                            <td>Equity</td>
+                            <td>-</td>
+                            <td>80,00%</td>
+                            <td>5/15/2008</td>
+                            <td>€ 4.000.000</td>
+                            <td>€ 4.000.000</td>
+                            <td>€ 4.000.000</td>
+                            <td>€ -</td>
+                            <td>€ -</td>
+                        </tr>
+                        <tr>
+                            <td>UrbanGrid Energy</td>
+                            <td>Equity</td>
+                            <td>-</td>
+                            <td>65.00%</td>
+                            <td>8/15/2008</td>
+                            <td>€ 4.000.000</td>
+                            <td>€ 4.000.000</td>
+                            <td>€ 4.000.000</td>
+                            <td>€ 5.000.000</td>
+                            <td>€ -</td>
+                        </tr>
+                        <tr>
+                            <td>Summit Retail Group</td>
+                            <td>Equity</td>
+                            <td>-</td>
+                            <td>100.00%</td>
+                            <td>11/15/2008</td>
+                            <td>€ 4.000.000</td>
+                            <td>€ 4.000.000</td>
+                            <td>€ 4.000.000</td>
+                            <td>€ 4.500.000</td>
+                            <td>€ -</td>
+                        </tr>
+                        <tr>
+                            <td>NextGen Mobility</td>
+                            <td>Equity</td>
+                            <td>-</td>
+                            <td>60.00%</td>
+                            <td>6/15/2010</td>
+                            <td>€ 8.000.000</td>
+                            <td>€ 4.000.000</td>
+                            <td>€ 4.000.000</td>
+                            <td>€ 4.000.000</td>
+                            <td>€ 250.000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="fund-cashflows" class="fund-section">
+            <div class="fund-header">
+                <h2>LOMBARD ODIER SPV 1</h2>
+                <h3>Fund Cash Flows</h3>
+            </div>
+            <div class="cashflows-container">
+                <table>
+                    <tr>
+                        <td colspan="3"><strong>Capital Called</strong></td>
+                        <td></td>
+                        <td colspan="3"><strong>Distributions</strong></td>
+                    </tr>
+                    <tr>
+                        <th class="date">Date</th>
+                        <th class="amount">Amount</th>
+                        <th class="name">Name</th>
+                        <td></td>
+                        <th class="date">Date</th>
+                        <th class="amount">Amount</th>
+                        <th class="name">Name</th>
+                    </tr>
+                    <tr><td class="date">8/14/2019</td><td class="amount">$600,000</td><td class="name">Capital Call</td><td></td><td class="date">1/19/2021</td><td class="amount">$154,252</td><td class="name">Capital Gain</td></tr>
+                    <tr><td class="date">10/25/2019</td><td class="amount">$240,000</td><td class="name">Capital Call</td><td></td><td class="date">1/19/2021</td><td class="amount">$52,280</td><td class="name">Capital Returned</td></tr>
+                    <tr><td class="date">12/4/2019</td><td class="amount">$240,000</td><td class="name">Capital Call</td><td></td><td class="date">1/19/2021</td><td class="amount">$26,980</td><td class="name">Other Income</td></tr>
+                    <tr><td class="date">4/15/2020</td><td class="amount">$600,000</td><td class="name">Capital Call</td><td></td><td class="date">5/24/2021</td><td class="amount">$51,660</td><td class="name">Capital Gain</td></tr>
+                    <tr><td class="date">8/24/2020</td><td class="amount">$960,000</td><td class="name">Capital Call</td><td></td><td class="date">5/24/2021</td><td class="amount">$129,449</td><td class="name">Capital Returned</td></tr>
+                    <tr><td class="date">11/23/2020</td><td class="amount">$480,000</td><td class="name">Capital Call</td><td></td><td class="date">5/24/2021</td><td class="amount">$32,242</td><td class="name">Dist - Dividend</td></tr>
+                    <tr><td class="date">12/23/2020</td><td class="amount">$960,000</td><td class="name">Capital Call</td><td></td><td class="date">5/24/2021</td><td class="amount">$1,299</td><td class="name">Other Income</td></tr>
+                    <tr><td class="date">3/8/2021</td><td class="amount">$600,000</td><td class="name">Capital Call</td><td></td><td class="date">6/10/2021</td><td class="amount">$596,122</td><td class="name">Capital Gain</td></tr>
+                    <tr><td class="date">8/25/2021</td><td class="amount">$600,000</td><td class="name">Capital Call</td><td></td><td class="date">6/10/2021</td><td class="amount">$157,449</td><td class="name">Capital Returned</td></tr>
+                    <tr><td class="date">9/14/2021</td><td class="amount">$3,251</td><td class="name">Fees</td><td></td><td class="date">9/14/2021</td><td class="amount">$100,525</td><td class="name">Capital Gain</td></tr>
+                    <tr><td class="date">10/14/2021</td><td class="amount">$600,000</td><td class="name">Capital Call</td><td></td><td class="date">9/14/2021</td><td class="amount">$114,901</td><td class="name">Capital Returned</td></tr>
+                    <tr><td class="date">11/26/2021</td><td class="amount">$600,000</td><td class="name">Capital Call</td><td></td><td class="date">9/14/2021</td><td class="amount">$24</td><td class="name">Dist - Dividend</td></tr>
+                    <tr><td class="date">2/3/2022</td><td class="amount">$600,000</td><td class="name">Capital Call</td><td></td><td class="date">9/14/2021</td><td class="amount">$5,752</td><td class="name">Other Income</td></tr>
+                    <tr><td class="date">5/12/2022</td><td class="amount">$600,000</td><td class="name">Capital Call</td><td></td><td class="date">11/26/2021</td><td class="amount">$53,607</td><td class="name">Capital Gain</td></tr>
+                    <tr><td class="date">10/5/2022</td><td class="amount">$600,000</td><td class="name">Capital Call</td><td></td><td class="date">11/26/2021</td><td class="amount">$60,461</td><td class="name">Capital Returned</td></tr>
+                    <tr><td class="date">10/12/2022</td><td class="amount">$1,535</td><td class="name">Fees</td><td></td><td class="date">11/26/2021</td><td class="amount">$7,418</td><td class="name">Dist - Dividend</td></tr>
+                    <tr><td class="date">12/21/2022</td><td class="amount">$1,211</td><td class="name">Fees</td><td></td><td class="date">11/26/2021</td><td class="amount">$1,003</td><td class="name">Other Income</td></tr>
+                    <tr><td class="date">2/17/2023</td><td class="amount">$600,000</td><td class="name">Capital Call</td><td></td><td class="date">7/29/2022</td><td class="amount">$943,060</td><td class="name">Capital Gain</td></tr>
+                    <tr><td class="date">5/11/2023</td><td class="amount">$600,000</td><td class="name">Capital Call</td><td></td><td class="date">7/29/2022</td><td class="amount">$569,280</td><td class="name">Capital Returned</td></tr>
+                    <tr><td class="date">6/30/2023</td><td class="amount">$600,000</td><td class="name">Capital Call</td><td></td><td class="date">7/29/2022</td><td class="amount">$8,465</td><td class="name">Dist - Dividend</td></tr>
+                    <tr><td class="date">Total</td><td class="amount">$12,000,000</td><td class="name"></td><td></td><td class="date">7/29/2022</td><td class="amount">$4,174</td><td class="name">Other Income</td></tr>
+                    <tr><td class="date"></td><td class="amount"></td><td class="name"></td><td></td><td class="date">10/12/2022</td><td class="amount">$207,252</td><td class="name">Capital Gain</td></tr>
+                    <tr><td class="date"></td><td class="amount"></td><td class="name"></td><td></td><td class="date">10/12/2022</td><td class="amount">$78,603</td><td class="name">Capital Returned</td></tr>
+                    <tr><td class="date"></td><td class="amount"></td><td class="name"></td><td></td><td class="date">10/12/2022</td><td class="amount">$1,382</td><td class="name">Dist - Dividend</td></tr>
+                    <tr><td class="date"></td><td class="amount"></td><td class="name"></td><td></td><td class="date">10/12/2022</td><td class="amount">$208</td><td class="name">Other Income</td></tr>
+                    <tr><td class="date"></td><td class="amount"></td><td class="name"></td><td></td><td class="date">12/21/2022</td><td class="amount">$172,977</td><td class="name">Capital Gain</td></tr>
+                    <tr><td class="date"></td><td class="amount"></td><td class="name"></td><td></td><td class="date">12/21/2022</td><td class="amount">$195,094</td><td class="name">Capital Returned</td></tr>
+                    <tr><td class="date"></td><td class="amount"></td><td class="name"></td><td></td><td class="date">12/21/2022</td><td class="amount">$6,164</td><td class="name">Other Income</td></tr>
+                    <tr><td class="date"></td><td class="amount"></td><td class="name"></td><td></td><td class="date">1/18/2023</td><td class="amount">$378,544</td><td class="name">Capital Gain</td></tr>
+                    <tr><td class="date"></td><td class="amount"></td><td class="name"></td><td></td><td class="date">44944</td><td class="amount">$2,346</td><td class="name">Capital Returned</td></tr>
+                    <tr><td class="date"></td><td class="amount"></td><td class="name"></td><td></td><td class="date">44944</td><td class="amount">$152</td><td class="name">Other Income</td></tr>
+                    <tr><td class="date"></td><td class="amount"></td><td class="name"></td><td></td><td class="date">Total</td><td class="amount">$4,113,125</td><td class="name"></td></tr>
+                </table>
+            </div>
+        </section>
+
+        <section id="fund-dataroom" class="fund-section">
+            <div class="dataroom-header">
+                <div class="fund-title-section">
+                    <h2>LOMBARD ODIER SPV 1</h2>
+                </div>
+            </div>
+
+            <div class="dataroom-container">
+                <!-- Financial Reports Section -->
+                <div class="dataroom-section">
+                    <div class="section-header" onclick="toggleSection('financial-reports')">
+                        <h4>Financial Reports</h4>
+                        <span class="toggle-icon">&#9660;</span>
+                    </div>
+                    <div id="financial-reports" class="section-content">
+                        <div class="file-grid">
+                            <div class="file-item">
+                                <div class="file-icon">📄</div>
+                                <div class="file-details">
+                                    <span class="file-name">Q4 2024 Financial Report.pdf</span>
+                                    <span class="file-meta">PDF • 2.4 MB • Added Jan 15, 2024</span>
+                                </div>
+                                <a href="/dataroom/Q4-2024-Financial-Report.pdf" class="download-btn" download>Download</a>
+                            </div>
+                            <div class="file-item">
+                                <div class="file-icon">📄</div>
+                                <div class="file-details">
+                                    <span class="file-name">Q3 2024 Financial Report.pdf</span>
+                                    <span class="file-meta">PDF • 2.1 MB • Added Oct 15, 2023</span>
+                                </div>
+                                <a href="/dataroom/Q3-2024-Financial-Report.pdf" class="download-btn" download>Download</a>
+                            </div>
+                            <div class="file-item">
+                                <div class="file-icon">📄</div>
+                                <div class="file-details">
+                                    <span class="file-name">Capital Call Notice - Jan 2025.pdf</span>
+                                    <span class="file-meta">PDF • 0.5 MB • Added Jan 10, 2025</span>
+                                </div>
+                                <a href="/dataroom/Capital-Call-Notice-Jan-2025.pdf" class="download-btn" download>Download</a>
+                            </div>
+                            <div class="file-item">
+                                <div class="file-icon">📄</div>
+                                <div class="file-details">
+                                    <span class="file-name">Distribution Notice - Mar 2025.pdf</span>
+                                    <span class="file-meta">PDF • 0.4 MB • Added Mar 20, 2025</span>
+                                </div>
+                                <a href="/dataroom/Distribution-Notice-Mar-2025.pdf" class="download-btn" download>Download</a>
+                            </div>
+                            <div class="file-item">
+                                <div class="file-icon">📄</div>
+                                <div class="file-details">
+                                    <span class="file-name">PCAP Statement - Q4 2024.xlsx</span>
+                                    <span class="file-meta">Excel • 0.2 MB • Added Jan 15, 2025</span>
+                                </div>
+                                <a href="/dataroom/PCAP-Statement-Q4-2024.xlsx" class="download-btn" download>Download</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Due Diligence Section -->
+                <div class="dataroom-section">
+                    <div class="section-header" onclick="toggleSection('due-diligence')">
+                        <h4>Due Diligence</h4>
+                        <span class="toggle-icon">&#9660;</span>
+                    </div>
+                    <div id="due-diligence" class="section-content">
+                        <div class="file-grid">
+                            <div class="file-item">
+                                <div class="file-icon">📊</div>
+                                <div class="file-details">
+                                    <span class="file-name">Investment Memo.pdf</span>
+                                    <span class="file-meta">PDF • 5.2 MB • Added Dec 1, 2023</span>
+                                </div>
+                                <a href="/dataroom/Investment-Memo.pdf" class="download-btn" download>Download</a>
+                            </div>
+                            <div class="file-item">
+                                <div class="file-icon">📊</div>
+                                <div class="file-details">
+                                    <span class="file-name">Market Analysis Report.pdf</span>
+                                    <span class="file-meta">PDF • 3.8 MB • Added Nov 28, 2023</span>
+                                </div>
+                                <a href="/dataroom/Market-Analysis-Report.pdf" class="download-btn" download>Download</a>
+                            </div>
+                            <div class="file-item">
+                                <div class="file-icon">📊</div>
+                                <div class="file-details">
+                                    <span class="file-name">Due Diligence Questionnaire (DDQ).docx</span>
+                                    <span class="file-meta">Word • 0.3 MB • Added Jan 5, 2025</span>
+                                </div>
+                                <a href="/dataroom/Due-Diligence-Questionnaire.docx" class="download-btn" download>Download</a>
+                            </div>
+                            <div class="file-item">
+                                <div class="file-icon">📊</div>
+                                <div class="file-details">
+                                    <span class="file-name">Sample Case Study.pdf</span>
+                                    <span class="file-meta">PDF • 1.2 MB • Added Jan 5, 2025</span>
+                                </div>
+                                <a href="/dataroom/Sample-Case-Study.pdf" class="download-btn" download>Download</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Legal Documents Section -->
+                <div class="dataroom-section">
+                    <div class="section-header" onclick="toggleSection('legal-documents')">
+                        <h4>Legal Documents</h4>
+                        <span class="toggle-icon">&#9660;</span>
+                    </div>
+                    <div id="legal-documents" class="section-content">
+                        <div class="file-grid">
+                            <div class="file-item">
+                                <div class="file-icon">📑</div>
+                                <div class="file-details">
+                                    <span class="file-name">Limited Partnership Agreement.pdf</span>
+                                    <span class="file-meta">PDF • 1.8 MB • Added Dec 15, 2023</span>
+                                </div>
+                                <a href="/dataroom/Limited-Partnership-Agreement.pdf" class="download-btn" download>Download</a>
+                            </div>
+                            <div class="file-item">
+                                <div class="file-icon">📑</div>
+                                <div class="file-details">
+                                    <span class="file-name">Subscription Documents.pdf</span>
+                                    <span class="file-meta">PDF • 2.3 MB • Added Dec 15, 2023</span>
+                                </div>
+                                <a href="/dataroom/Subscription-Documents.pdf" class="download-btn" download>Download</a>
+                            </div>
+                            <div class="file-item">
+                                <div class="file-icon">📑</div>
+                                <div class="file-details">
+                                    <span class="file-name">Sample Term Sheet.pdf</span>
+                                    <span class="file-meta">PDF • 0.7 MB • Added Jan 10, 2025</span>
+                                </div>
+                                <a href="/dataroom/Sample-Term-Sheet.pdf" class="download-btn" download>Download</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Companies Section -->
+                <div class="dataroom-section">
+                    <div class="section-header" onclick="toggleSection('portfolio-companies')">
+                        <h4>Portfolio Companies</h4>
+                        <span class="toggle-icon">&#9660;</span>
+                    </div>
+                    <div id="portfolio-companies" class="section-content">
+                        <div class="file-grid">
+                            <div class="file-item">
+                                <div class="file-icon">📈</div>
+                                <div class="file-details">
+                                    <span class="file-name">Company A Performance Report.pdf</span>
+                                    <span class="file-meta">PDF • 3.1 MB • Added Jan 5, 2024</span>
+                                </div>
+                                <a href="/dataroom/Company-A-Performance-Report.pdf" class="download-btn" download>Download</a>
+                            </div>
+                            <div class="file-item">
+                                <div class="file-icon">📈</div>
+                                <div class="file-details">
+                                    <span class="file-name">Company B Performance Report.pdf</span>
+                                    <span class="file-meta">PDF • 2.9 MB • Added Jan 5, 2024</span>
+                                </div>
+                                <a href="/dataroom/Company-B-Performance-Report.pdf" class="download-btn" download>Download</a>
+                            </div>
+                            <div class="file-item">
+                                <div class="file-icon">📈</div>
+                                <div class="file-details">
+                                    <span class="file-name">Portfolio Case Study.pdf</span>
+                                    <span class="file-meta">PDF • 1.5 MB • Added Jan 10, 2025</span>
+                                </div>
+                                <a href="/dataroom/Portfolio-Case-Study.pdf" class="download-btn" download>Download</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script>
+function showFundSection(section) {
+    // Hide all sections
+    document.querySelectorAll('.fund-section').forEach(section => {
+        section.classList.remove('active');
+    });
+    
+    // Remove active class from all tabs
+    document.querySelectorAll('.fund-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    // Show selected section
+    document.getElementById('fund-' + section).classList.add('active');
+    
+    // Add active class to selected tab
+    event.target.classList.add('active');
+}
+
+// Update current date
+function updateCurrentDate() {
+    const now = new Date();
+    const options = { 
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    };
+    document.getElementById('currentDate').textContent = now.toLocaleString('en-US', options);
+}
+
+// Initialize date on load
+document.addEventListener('DOMContentLoaded', updateCurrentDate);
+</script>
+
+<%- include('partials/footer') %> 

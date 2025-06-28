@@ -1,0 +1,198 @@
+<%- include('partials/header') %>
+<%- include('partials/secondary-nav') %>
+
+<div class="main-container">
+    <h1>Risk/Return Profile & Scenarios</h1>
+
+    <!-- Scenario Analysis Section -->
+    <div class="section scenario-analysis">
+        <h2>Scenario Analysis</h2>
+        <div class="scenario-cards">
+            <div class="scenario-card base">
+                <h3>Base Case</h3>
+                <div class="scenario-value">+<%= scenarios.base %>%</div>
+                <p>Expected return under normal market conditions</p>
+            </div>
+            <div class="scenario-card down">
+                <h3>Downside</h3>
+                <div class="scenario-value">-<%= scenarios.down %>%</div>
+                <p>Potential loss in adverse conditions</p>
+            </div>
+            <div class="scenario-card up">
+                <h3>Upside</h3>
+                <div class="scenario-value">+<%= scenarios.up %>%</div>
+                <p>Potential return in favorable conditions</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Risk Profiles Section -->
+    <div class="section risk-profiles">
+        <h2>Risk Profiles</h2>
+        <div class="risk-profile-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Profile</th>
+                        <th>Expected Return</th>
+                        <th>Risk Level</th>
+                        <th>Max Drawdown</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% riskProfiles.forEach(profile => { %>
+                        <tr class="risk-profile-row <%= profile.id %>">
+                            <td><%= profile.name %></td>
+                            <td><%= profile.expectedReturn %></td>
+                            <td><%= profile.riskLevel %></td>
+                            <td><%= profile.maxDrawdown %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Risk Metrics Chart -->
+    <div class="section risk-metrics">
+        <h2>Risk Metrics Visualization</h2>
+        <div class="chart-wrapper">
+            <canvas id="riskMetricsChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<style>
+.main-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section {
+    background: white;
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.scenario-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.scenario-card {
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    color: white;
+}
+
+.scenario-card.base {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+}
+
+.scenario-card.down {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+
+.scenario-card.up {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+
+.scenario-value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 1rem 0;
+}
+
+.risk-profile-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+}
+
+.risk-profile-table th,
+.risk-profile-table td {
+    padding: 1rem;
+    border: 1px solid #e2e8f0;
+    text-align: left;
+}
+
+.risk-profile-table th {
+    background-color: #f8fafc;
+    font-weight: 600;
+}
+
+.risk-profile-row {
+    transition: background-color 0.2s;
+}
+
+.risk-profile-row:hover {
+    background-color: #f8fafc;
+}
+
+.chart-wrapper {
+    height: 400px;
+    margin-top: 1.5rem;
+}
+
+h1 {
+    margin-bottom: 2rem;
+    color: #2c3e50;
+}
+
+h2 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+h3 {
+    color: white;
+    margin: 0;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Create Risk Metrics Chart
+    const ctx = document.getElementById('riskMetricsChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: ['Expected Return', 'Volatility', 'Sharpe Ratio', 'Max Drawdown', 'Recovery Time', 'Beta'],
+            datasets: [{
+                label: 'Current Portfolio',
+                data: [85, 65, 75, 80, 70, 60],
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 2,
+                pointBackgroundColor: 'rgba(54, 162, 235, 1)'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: {
+                        stepSize: 20
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'top'
+                }
+            }
+        }
+    });
+});
+</script>
+
+<%- include('partials/footer') %> 

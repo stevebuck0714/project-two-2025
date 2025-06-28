@@ -1,0 +1,129 @@
+<%- include('partials/header') %>
+<%- include('partials/secondary-nav') %>
+<%- include('partials/client-header') %>
+
+<div class="main-container">
+    <div class="container">
+        <div class="create-bid-container">
+            <div class="bid-header">
+                <h2 class="text-left lombard-odier-header">
+                    <span class="lombard-odier-text">LOMBARD ODIER</span> SPV 1
+                </h2>
+                <h3>Place a Bid</h3>
+            </div>
+
+            <form id="bidForm" class="bid-form">
+                <div class="bid-form-grid">
+                    <!-- Left Column -->
+                    <div class="bid-form-column">
+                        <div class="form-group">
+                            <label>Date:</label>
+                            <input type="text" id="currentDate" class="form-control" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Fund Market Value:</label>
+                            <div class="input-group">
+                                <span class="input-group-text">€</span>
+                                <input type="text" class="form-control currency-input" value="4.000.000" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Remaining Commitments:</label>
+                            <div class="input-group">
+                                <span class="input-group-text">€</span>
+                                <input type="text" class="form-control currency-input" value="975.000" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="bid-form-column">
+                        <div class="form-group">
+                            <label>Bid:</label>
+                            <div class="input-group">
+                                <span class="input-group-text">€</span>
+                                <input type="text" id="bidAmount" class="form-control currency-input" value="3.150.000">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Percent Prem/(Discount) to MV:</label>
+                            <div class="input-group">
+                                <input type="text" id="discountPercent" class="form-control" value="-21,25%" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Bid is open for # of Days:</label>
+                            <input type="number" class="form-control" value="5" min="1" max="30">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bid-actions">
+                    <button type="submit" class="btn btn-success">Submit Bid</button>
+                    <a href="/fund-details" class="btn btn-outline-danger">Cancel Bid</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set current date
+        const now = new Date();
+        document.getElementById('currentDate').value = now.toLocaleDateString('de-DE'); // Using German locale for EU date format
+
+        // Format currency inputs
+        function formatCurrency(input) {
+            let value = input.value.replace(/[^\d,-]/g, '');
+            if (value) {
+                value = parseFloat(value.replace(',', '.'));
+                input.value = new Intl.NumberFormat('de-DE', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                }).format(value);
+            }
+        }
+
+        // Initialize currency formatting for all currency inputs
+        document.querySelectorAll('.currency-input').forEach(input => {
+            formatCurrency(input);
+            input.addEventListener('blur', function() {
+                formatCurrency(this);
+            });
+            input.addEventListener('input', function() {
+                // Allow only numbers and dots while typing
+                this.value = this.value.replace(/[^\d.]/g, '');
+            });
+        });
+
+        // Calculate discount percentage when bid amount changes
+        const bidAmountInput = document.getElementById('bidAmount');
+        const discountPercentInput = document.getElementById('discountPercent');
+        const marketValue = 4000000;
+
+        function calculateDiscount(bidAmount) {
+            // Remove dots and convert to number
+            bidAmount = parseFloat(bidAmount.replace(/\./g, ''));
+            const discount = ((bidAmount - marketValue) / marketValue) * 100;
+            return discount.toFixed(2).replace('.', ',') + '%';
+        }
+
+        bidAmountInput.addEventListener('change', function() {
+            discountPercentInput.value = calculateDiscount(this.value);
+        });
+
+        // Form submission
+        document.getElementById('bidForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Add your bid submission logic here
+            alert('Bid submitted successfully!');
+        });
+    });
+</script>
+
+<%- include('partials/footer') %> 
