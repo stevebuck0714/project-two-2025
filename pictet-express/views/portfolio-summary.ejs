@@ -1,0 +1,498 @@
+<%- include('partials/header') %>
+<%- include('partials/secondary-nav') %>
+<%- include('partials/client-header') %>
+
+<!-- Add Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="main-container">
+    <h1>Portfolio Summary</h1>
+
+    <!-- Portfolio Overview Cards -->
+    <div class="metrics-container">
+        <div class="metric-item">
+            <div class="metric-label">Total Portfolio Value</div>
+            <div class="metric-value"><%= typeof formatNumber === 'function' ? formatNumber(processedData.metrics.totalValue) : processedData.metrics.totalValue.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' }).replace('EUR', '€') %></div>
+        </div>
+        <div class="metric-item">
+            <div class="metric-label">Total Investments</div>
+            <div class="metric-value"><%= processedData.metrics.totalInvestments %></div>
+        </div>
+        <div class="metric-item">
+            <div class="metric-label">Average Investment Size</div>
+            <div class="metric-value"><%= typeof formatNumber === 'function' ? formatNumber(processedData.metrics.averageInvestmentSize) : processedData.metrics.averageInvestmentSize.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' }).replace('EUR', '€') %></div>
+        </div>
+    </div>
+
+    <!-- Asset Allocation Charts -->
+    <div class="charts-container">
+        <div class="chart-section">
+            <h2>Asset Allocation</h2>
+            <div class="chart-wrapper">
+                <canvas id="assetAllocationChart"></canvas>
+            </div>
+        </div>
+        <div class="chart-section">
+            <h2>Geographic Distribution</h2>
+            <div class="chart-wrapper">
+                <canvas id="geographicAllocationChart"></canvas>
+            </div>
+        </div>
+        <div class="chart-section">
+            <h2>Investment Distribution</h2>
+            <div class="chart-wrapper">
+                <canvas id="investmentDistributionChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detailed Portfolio Tables -->
+    <div class="portfolio-container">
+        <div class="portfolio-section">
+            <h2>Portfolio Details</h2>
+            <div class="table-container">
+                <table class="portfolio-table">
+                    <thead>
+                        <tr>
+                            <th>Asset Type</th>
+                            <th>Number of Investments</th>
+                            <th>Total Value</th>
+                            <th>Allocation %</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% Object.entries(processedData.metrics.assetTypeBreakdown).forEach(([type, count]) => { %>
+                            <tr>
+                                <td><%= type %></td>
+                                <td><%= count %></td>
+                                <td><%= typeof formatNumber === 'function' ? formatNumber(processedData.metrics.assetAllocation[type] * processedData.metrics.totalValue / 100) : (processedData.metrics.assetAllocation[type] * processedData.metrics.totalValue / 100).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' }).replace('EUR', '€') %></td>
+                                <td><%= processedData.metrics.assetAllocation[type] %>%</td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Individual Portfolio Tables -->
+        <div class="portfolio-section">
+            <h2>Portfolio 1</h2>
+            <div class="table-container">
+                <table class="portfolio-table">
+                    <thead>
+                        <tr>
+                            <% if (portfolio1.length > 0) { %>
+                                <% Object.keys(portfolio1[0]).forEach(header => { %>
+                                    <th><%= header %></th>
+                                <% }); %>
+                            <% } %>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% portfolio1.forEach(row => { %>
+                            <tr>
+                                <% Object.entries(row).forEach(([key, value]) => { %>
+                                    <td>
+                                        <% if (key === 'Fund Name') { %>
+                                            <%= value %>
+                                        <% } else if (typeof value === 'number') { %>
+                                            <%= value.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' }).replace('EUR', '€') %>
+                                        <% } else { %>
+                                            <%= value %>
+                                        <% } %>
+                                    </td>
+                                <% }); %>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="portfolio-section">
+            <h2>Portfolio 2</h2>
+            <div class="table-container">
+                <table class="portfolio-table">
+                    <thead>
+                        <tr>
+                            <% if (portfolio2.length > 0) { %>
+                                <% Object.keys(portfolio2[0]).forEach(header => { %>
+                                    <th><%= header %></th>
+                                <% }); %>
+                            <% } %>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% portfolio2.forEach(row => { %>
+                            <tr>
+                                <% Object.entries(row).forEach(([key, value]) => { %>
+                                    <td>
+                                        <% if (key === 'Fund Name') { %>
+                                            <%= value %>
+                                        <% } else if (typeof value === 'number') { %>
+                                            <%= value.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' }).replace('EUR', '€') %>
+                                        <% } else { %>
+                                            <%= value %>
+                                        <% } %>
+                                    </td>
+                                <% }); %>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.main-container {
+    padding-top: 0.1rem !important;
+}
+.main-container h1, .main-container .fund-name {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+.metrics-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 0.5rem !important;
+}
+
+.metric-item {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.metric-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.25rem;
+}
+
+.metric-value {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.charts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1rem;
+    margin-bottom: 0.5rem !important;
+}
+
+.chart-section {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-height: 350px;
+}
+
+.chart-section h2 {
+    margin: 0 0 0.75rem 0;
+    font-size: 1.1rem;
+}
+
+.chart-wrapper {
+    height: 300px;
+    position: relative;
+    margin-top: 0.5rem;
+}
+
+.portfolio-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.portfolio-section {
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 0.5rem !important;
+}
+
+.portfolio-section h2 {
+    margin: 0 0 0.75rem 0;
+    font-size: 1.1rem;
+}
+
+.table-container {
+    overflow-x: auto;
+    margin-top: 0.5rem;
+}
+
+.portfolio-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+    font-size: 0.9rem;
+}
+
+.portfolio-table th,
+.portfolio-table td {
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+}
+
+.portfolio-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #333;
+}
+
+.portfolio-table td {
+    font-size: 0.875rem;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.5rem 0;
+}
+
+th, td {
+    padding: 0.6rem 0.75rem;
+    border: 1px solid #e2e8f0;
+}
+
+th {
+    background-color: #f8fafc;
+    font-weight: 600;
+}
+
+/* Right justify Total Value column */
+td:nth-child(2),
+th:nth-child(2) {
+    text-align: right;
+}
+
+.value-cell {
+    text-align: right;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .main-container {
+        padding: 1rem;
+    }
+    
+    .chart-section {
+        min-height: 300px;
+    }
+    
+    .chart-wrapper {
+        height: 250px;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the chart contexts
+    const assetAllocationCtx = document.getElementById('assetAllocationChart').getContext('2d');
+    const geographicAllocationCtx = document.getElementById('geographicAllocationChart').getContext('2d');
+    const investmentDistributionCtx = document.getElementById('investmentDistributionChart').getContext('2d');
+
+    // Parse the data from server
+    const assetAllocation = <%- JSON.stringify(processedData.metrics.assetAllocation) %>;
+    const geographicAllocation = <%- JSON.stringify(processedData.metrics.geographicAllocation) %>;
+    const assetTypeBreakdown = <%- JSON.stringify(processedData.metrics.assetTypeBreakdown) %>;
+
+    // Professional color palette
+    const businessColors = {
+        primary: [
+            '#003f5c',  // Deep Blue
+            '#2f4b7c',  // Navy Blue
+            '#665191',  // Royal Purple
+            '#a05195',  // Plum
+            '#d45087',  // Burgundy
+            '#f95d6a',  // Deep Red
+            '#ff7c43',  // Burnt Orange
+            '#ffa600'   // Gold
+        ],
+        geographic: [
+            '#003f5c',  // Deep Blue
+            '#444e86',  // Navy
+            '#955196',  // Purple
+            '#dd5182'   // Burgundy
+        ],
+        bar: {
+            background: '#003f5c',
+            border: '#002b3f'
+        }
+    };
+
+    // Asset Allocation Chart
+    new Chart(assetAllocationCtx, {
+        type: 'pie',
+        data: {
+            labels: Object.keys(assetAllocation),
+            datasets: [{
+                data: Object.values(assetAllocation),
+                backgroundColor: businessColors.primary
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: {
+                        padding: 20,
+                        font: {
+                            size: 12
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.label}: ${context.raw}%`;
+                        }
+                    }
+                },
+                datalabels: {
+                    color: '#fff',
+                    font: {
+                        weight: 'bold',
+                        size: 14
+                    },
+                    formatter: function(value) {
+                        return value + '%';
+                    }
+                }
+            }
+        },
+        plugins: [{
+            beforeDraw: function(chart) {
+                var ctx = chart.ctx;
+                ctx.save();
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.font = '14px Arial';
+                ctx.fillStyle = '#fff';
+
+                var total = chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                chart.data.datasets[0].data.forEach(function(value, i) {
+                    var meta = chart.getDatasetMeta(0);
+                    var arc = meta.data[i];
+                    var centerX = (arc.x + arc.x) / 2;
+                    var centerY = (arc.y + arc.y) / 2;
+                    ctx.fillText(value + '%', centerX, centerY);
+                });
+                ctx.restore();
+            }
+        }]
+    });
+
+    // Geographic Distribution Chart
+    new Chart(geographicAllocationCtx, {
+        type: 'pie',
+        data: {
+            labels: Object.keys(geographicAllocation),
+            datasets: [{
+                data: Object.values(geographicAllocation),
+                backgroundColor: businessColors.geographic
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: {
+                        padding: 20,
+                        font: {
+                            size: 12
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.label}: ${context.raw}%`;
+                        }
+                    }
+                },
+                datalabels: {
+                    color: '#fff',
+                    font: {
+                        weight: 'bold',
+                        size: 14
+                    },
+                    formatter: function(value) {
+                        return value + '%';
+                    }
+                }
+            }
+        },
+        plugins: [{
+            beforeDraw: function(chart) {
+                var ctx = chart.ctx;
+                ctx.save();
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.font = '14px Arial';
+                ctx.fillStyle = '#fff';
+
+                var total = chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                chart.data.datasets[0].data.forEach(function(value, i) {
+                    var meta = chart.getDatasetMeta(0);
+                    var arc = meta.data[i];
+                    var centerX = (arc.x + arc.x) / 2;
+                    var centerY = (arc.y + arc.y) / 2;
+                    ctx.fillText(value + '%', centerX, centerY);
+                });
+                ctx.restore();
+            }
+        }]
+    });
+
+    // Investment Distribution Chart
+    new Chart(investmentDistributionCtx, {
+        type: 'bar',
+        data: {
+            labels: Object.keys(assetTypeBreakdown),
+            datasets: [{
+                label: 'Number of Investments',
+                data: Object.values(assetTypeBreakdown),
+                backgroundColor: businessColors.bar.background,
+                borderColor: businessColors.bar.border,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                }
+            }
+        }
+    });
+});
+</script>
+
+<%- include('partials/footer') %> 

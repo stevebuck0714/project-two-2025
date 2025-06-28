@@ -1,0 +1,87 @@
+<%- include('partials/header') %>
+<%- include('partials/secondary-nav') %>
+
+<div class="stability-message">
+    <h1>Welcome to LOMBARD ODIER Asset Management</h1>
+</div>
+
+<div class="main-container">
+    <div class="client-section">
+        <div class="client-info">
+            <div class="client-selection">
+                <img src="/images/lombard-odier.jpg" alt="LOMBARD ODIER Logo" class="client-logo">
+                <select class="client-dropdown" id="client-dropdown">
+                    <option value="" disabled selected>Select a client</option>
+                    <% const clients = [
+                        'John Smith - London, UK',
+                        'Marie Dubois - Paris, France',
+                        'Hans Weber - Munich, Germany',
+                        'Sofia Rossi - Milan, Italy',
+                        'Carlos Garcia - Madrid, Spain',
+                        'Anna Kowalski - Warsaw, Poland',
+                        'Erik Andersson - Stockholm, Sweden',
+                        'Elena Popov - Moscow, Russia',
+                        'Dimitris Papadopoulos - Athens, Greece',
+                        'Jan de Vries - Amsterdam, Netherlands',
+                        'Lars Nielsen - Copenhagen, Denmark',
+                        'Marco Silva - Lisbon, Portugal',
+                        'Andrei Ionescu - Bucharest, Romania',
+                        'Eva Novotna - Prague, Czech Republic',
+                        'Marta Kovac - Budapest, Hungary',
+                        'Liam O\'Brien - Dublin, Ireland',
+                        'Gustav Nilsson - Oslo, Norway',
+                        'Isabella Marino - Rome, Italy',
+                        'Thomas Müller - Vienna, Austria',
+                        'Sophie Laurent - Brussels, Belgium'
+                    ] %>
+                    <% clients.forEach(client => { %>
+                        <option value="<%= client %>"><%= client %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="client-dates">
+                <div class="date-info">
+                    <span class="date-label">Current Date:</span>
+                    <span class="date-value" id="current-date"></span>
+                </div>
+                <div class="date-info">
+                    <span class="date-label">Last Meeting:</span>
+                    <span class="date-value">June 15, 2025</span>
+                </div>
+                <div class="portfolio-button">
+                    <a href="/portfolio-summary" class="button">View Current Portfolio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function updateCurrentDate() {
+    const now = new Date();
+    const options = { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric'
+    };
+    document.getElementById('current-date').textContent = now.toLocaleString('en-US', options);
+}
+
+// Update immediately and then every second
+updateCurrentDate();
+setInterval(updateCurrentDate, 1000);
+
+// Client selection handling
+document.getElementById('client-dropdown').addEventListener('change', function(e) {
+    const selectedClient = e.target.value;
+    // Extract just the name part before the hyphen and trim any whitespace
+    const clientName = selectedClient.split(' - ')[0].trim();
+    localStorage.setItem('selectedClient', selectedClient);
+    localStorage.setItem('clientName', clientName);
+    // Reload the page to update the header
+    window.location.reload();
+});
+</script>
+
+<%- include('partials/footer') %> 

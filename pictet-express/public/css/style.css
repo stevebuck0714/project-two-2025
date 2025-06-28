@@ -1,0 +1,2263 @@
+/* Global Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+}
+
+.main-container h1 {
+    font-weight: normal;
+    color: #333;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Stability Message Styles */
+.stability-message {
+    max-width: 1200px;
+    margin: 4rem auto 2rem;
+    padding: 0 2rem;
+}
+
+.stability-message h1,
+.stability-message h2 {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 3.84rem;
+    font-weight: normal;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.stability-message h2 {
+    margin-top: 0.5rem;
+}
+
+/* Header Styles */
+.header {
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem 0;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.logo .logo-image {
+    height: 90px;
+    width: auto;
+    object-fit: contain;
+}
+
+.logo-text {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.banker-name {
+    font-weight: 400;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.login-link {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: color 0.2s ease;
+}
+
+.login-link:hover {
+    color: #000;
+}
+
+/* Main Content Styles */
+.main-content {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+/* Client Section Styles */
+.client-section {
+    background: white;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.client-info {
+    flex-grow: 1;
+    margin-right: 2rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: start;
+}
+
+.client-selection {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.client-logo {
+    width: 135px;
+    height: auto;
+    object-fit: contain;
+}
+
+.client-dropdown {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+}
+
+.client-dates {
+    display: grid;
+    gap: 1rem;
+    min-width: 300px;
+}
+
+.date-info {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: center;
+}
+
+.date-label {
+    color: #666;
+    white-space: nowrap;
+}
+
+.date-value {
+    text-align: right;
+}
+
+.date-value#current-date {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    color: #333;
+    min-width: 400px;
+    display: inline-block;
+}
+
+.portfolio-button {
+    flex-shrink: 0;
+}
+
+.button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #000;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #333;
+}
+
+/* Portfolio Page Styles */
+.portfolio-content {
+    background: white;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer Styles */
+.main-footer {
+    background-color: #f5f5f5;
+    padding: 4rem 0;
+    margin-top: 4rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+.footer-column h4 {
+    color: #333;
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+    font-weight: normal;
+}
+
+.footer-column ul {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 2rem !important;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.footer-column ul li {
+    margin-bottom: 0 !important;
+}
+
+.footer-column ul li a {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+}
+
+.footer-column ul li a:hover {
+    color: #000;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Secondary Navigation Styles */
+.secondary-nav {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #eee;
+    padding: 0.5rem 0;
+    margin-bottom: 2rem;
+}
+
+.secondary-nav-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    gap: 2rem;
+    overflow-x: auto;
+}
+
+.secondary-nav-link {
+    color: #666;
+    text-decoration: none;
+    padding: 0.5rem 0;
+    font-size: 0.95rem;
+    position: relative;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+}
+
+.secondary-nav-link:hover {
+    color: #333;
+}
+
+.secondary-nav-link.active {
+    color: #8B0000;
+    font-weight: normal;
+}
+
+.secondary-nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #8B0000;
+}
+
+.portfolio-tables {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.portfolio-table {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.portfolio-table h3 {
+    margin-bottom: 1rem;
+    color: #333;
+    font-size: 1.2rem;
+    font-weight: normal;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.table th {
+    background: #f5f5f5;
+    padding: 12px;
+    text-align: left;
+    font-weight: normal;
+    color: #333;
+    border-bottom: 2px solid #ddd;
+}
+
+.table td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    color: #666;
+}
+
+.table tr:hover {
+    background-color: #f9f9f9;
+}
+
+@media (min-width: 1024px) {
+    .portfolio-tables {
+        flex-direction: row;
+    }
+
+    .portfolio-table {
+        flex: 1;
+    }
+}
+
+.main-container {
+    background: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin: 2rem auto;
+    padding: 2rem;
+    max-width: 1400px;
+    width: 90%;
+}
+
+.selected-client-display {
+    background-color: #f8f9fa;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 2rem;
+}
+
+.selected-client-display .client-name {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    font-size: 1.25rem;
+    font-weight: normal;
+    color: #333;
+    font-family: "Times New Roman", Times, serif;
+}
+
+/* Client Header Styles */
+.client-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #eee;
+    padding: 0.75rem 0;
+    margin-bottom: 2rem;
+}
+
+.client-header .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.selected-client-display {
+    font-size: 1.2rem;
+    font-weight: normal;
+    color: #333;
+    display: none;
+    padding: 0.25rem 0;
+}
+
+/* Investment Opportunities Page Styles */
+.opportunities-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.market-section {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.market-section h2 {
+    font-size: 1.5rem;
+    font-weight: normal;
+    color: #333;
+    margin: 0.5rem 0;
+    padding: 0;
+}
+
+.funds-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.fund-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 0.5rem 1rem 0.5rem 1rem !important;
+    margin-bottom: 1rem !important;
+}
+
+.fund-header-wrapper {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: flex-start !important;
+}
+
+.fund-tabs {
+    margin-bottom: 0 !important;
+    gap: 0.2rem !important;
+}
+
+.fund-action {
+    align-self: flex-start !important;
+    margin-left: auto !important;
+}
+
+.fund-action .btn-primary {
+    padding: 0.5rem 1.5rem;
+    background: #1a5f7a;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    text-decoration: none;
+}
+
+.fund-action .btn-primary:hover {
+    background: #134b61;
+}
+
+.fund-logo {
+    width: 40px !important;
+    height: 40px !important;
+    flex-shrink: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fund-logo .logo-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+}
+
+.fund-title {
+    font-size: 1.1rem;
+    font-weight: normal;
+    color: #333;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.posted-date {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0;
+}
+
+.table-container {
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+}
+
+.fund-details, .fund-metrics {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+    font-size: 0.9rem;
+}
+
+.fund-details th, .fund-metrics th,
+.fund-details td, .fund-metrics td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    font-size: 0.875rem;
+    line-height: 1.4;
+}
+
+.fund-details th, .fund-metrics th {
+    background-color: #f8f9fa;
+    font-weight: normal;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+.fund-details tr:hover, .fund-metrics tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* Market Tabs Styles */
+.market-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0 1rem;
+}
+
+.market-tab {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    color: #666;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.market-tab:hover {
+    color: #1a5f7a;
+}
+
+.market-tab.active {
+    color: #1a5f7a;
+    border-bottom-color: #1a5f7a;
+    font-weight: normal;
+}
+
+/* Market Section Visibility */
+.market-section {
+    display: none;
+}
+
+.market-section.active {
+    display: block;
+}
+
+/* Fund Details Page Styles */
+.fund-details-container {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.fund-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem !important;
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    padding: 0 !important;
+}
+
+.fund-title-section {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.fund-title-section h2 {
+    margin-top: 0 !important;
+    margin-bottom: 0.2rem !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.current-date {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.fund-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2rem;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-top: 0.5rem !important;
+}
+
+@media (min-width: 768px) {
+    .fund-metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    .fund-metrics-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.metric-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+.metric-item {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    white-space: nowrap;
+}
+
+.metric-label {
+    font-size: 0.9rem;
+    color: #666;
+    flex-shrink: 0;
+    margin-right: 1rem;
+}
+
+.metric-value {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #333;
+    text-align: right;
+}
+
+/* Tab Styles */
+.fund-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+}
+
+.fund-tab {
+    padding: 0.5rem 1rem;
+    border: none;
+    background: none;
+    color: #666;
+    cursor: pointer;
+    font-size: 0.95rem;
+    position: relative;
+    transition: color 0.2s ease;
+}
+
+.fund-tab:hover {
+    color: #333;
+}
+
+.fund-tab.active {
+    color: #007bff;
+    font-weight: normal;
+}
+
+.fund-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1rem;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #007bff;
+}
+
+.fund-section {
+    display: none;
+}
+
+.fund-section.active {
+    display: block;
+}
+
+/* Messages Page Styles */
+.messages-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.messages-section {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.message-filters {
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.message-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.message-item {
+    padding: 1rem;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    background: #f8f9fa;
+}
+
+.message-item.unread {
+    border-left: 3px solid #007bff;
+}
+
+.message-item.important {
+    border-left: 3px solid #dc3545;
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.message-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: normal;
+}
+
+.date {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.preview {
+    color: #444;
+    margin: 0;
+}
+
+/* Support Page Styles */
+.support-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.support-section {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.contact-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.contact-card {
+    padding: 1.5rem;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    background: #f8f9fa;
+}
+
+.contact-card h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1.1rem;
+    font-weight: normal;
+}
+
+.contact-card p {
+    margin: 0 0 1rem 0;
+    color: #444;
+}
+
+.contact-card .phone {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #007bff;
+}
+
+.faq-section {
+    margin-top: 3rem;
+}
+
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.faq-item {
+    padding: 1.5rem;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    background: #f8f9fa;
+}
+
+.faq-item h3 {
+    margin: 0 0 0.75rem 0;
+    font-size: 1.1rem;
+    font-weight: normal;
+}
+
+.faq-item p {
+    margin: 0;
+    color: #444;
+}
+
+/* Fund Positions Styles */
+.positions-header {
+    margin-bottom: 2rem;
+}
+
+.positions-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: bold !important;
+}
+
+.positions-header h3 {
+    margin: 0.5rem 0 0 0;
+    font-size: 1.2rem;
+    color: #666;
+    font-weight: normal;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    margin: 0 -1.5rem;
+    padding: 0 1.5rem;
+}
+
+.positions-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.positions-table thead {
+    background-color: #f8f9fa;
+}
+
+.positions-table th {
+    padding: 1rem;
+    font-weight: bold !important;
+    text-align: left;
+    color: #333;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.positions-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #dee2e6;
+    color: #444;
+}
+
+.positions-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Specific column styles */
+.positions-table td:nth-child(1),  /* Company Name */
+.positions-table th:nth-child(1) {
+    position: sticky;
+    left: 0;
+    background: inherit;
+    z-index: 1;
+}
+
+.positions-table td:nth-child(3),  /* Number of Shares */
+.positions-table td:nth-child(4),  /* Fund Ownership */
+.positions-table td:nth-child(6),  /* Fund Commitment */
+.positions-table td:nth-child(7),  /* Total Invested */
+.positions-table td:nth-child(8),  /* Current Cost */
+.positions-table td:nth-child(9),  /* Reported Value */
+.positions-table td:nth-child(10) { /* Realized Proceeds */
+    text-align: right;
+}
+
+/* Add horizontal scrollbar styles */
+.table-responsive::-webkit-scrollbar {
+    height: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}
+
+/* Data Room Styles */
+.dataroom-container {
+    padding: 2rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dataroom-section {
+    margin-bottom: 1.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.section-header:hover {
+    background-color: #f0f0f0;
+}
+
+.section-header h4 {
+    margin: 0;
+    color: #333;
+    font-size: 1.1rem;
+    font-weight: normal;
+}
+
+.toggle-icon {
+    font-size: 0.8rem;
+    color: #666;
+    transition: transform 0.2s ease;
+}
+
+.section-header[aria-expanded="true"] .toggle-icon {
+    transform: rotate(180deg);
+}
+
+.section-content {
+    padding: 1.5rem;
+    border-top: 1px solid #e0e0e0;
+    background: #fff;
+}
+
+.file-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.file-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.file-icon {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+
+.file-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.file-name {
+    display: block;
+    font-weight: normal;
+    color: #333;
+    margin-bottom: 0.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.file-meta {
+    display: block;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.download-btn {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
+}
+
+.download-btn:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .dataroom-container {
+        padding: 1rem;
+    }
+
+    .file-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .file-item {
+        padding: 0.75rem;
+    }
+}
+
+/* Portfolio Builder Styles */
+.main-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.builder-tabs {
+    display: flex;
+    gap: 10px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.builder-tab {
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #666;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.builder-tab:hover {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.builder-tab.active {
+    background-color: #8B0000;
+    color: white;
+}
+
+.builder-section {
+    display: none;
+}
+
+.builder-section.active {
+    display: block;
+}
+
+/* Three-column layout */
+.strategy-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.strategy-column {
+    min-width: 0; /* Prevents column overflow */
+}
+
+.strategy-category-container {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    height: 100%;
+}
+
+.strategy-category-header {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e60012;
+    text-align: center;
+}
+
+.strategy-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.strategy-option {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+}
+
+.strategy-option:hover {
+    background-color: #e9ecef;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.strategy-option.selected {
+    border-color: #007bff;
+    background-color: rgba(0,123,255,0.1);
+    position: relative;
+}
+
+.strategy-option.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #007bff;
+    font-weight: normal;
+}
+
+.strategy-option.selected:hover {
+    background-color: rgba(0,123,255,0.15);
+}
+
+.strategy-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: left;
+}
+
+.strategy-checkbox {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.strategy-name {
+    font-weight: normal;
+    font-size: 1.1rem;
+    color: #333;
+    margin: 0;
+    text-align: left;
+}
+
+.strategy-description {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+    text-align: left;
+}
+
+.selection-counter {
+    text-align: right;
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+/* Add hover effect for checkboxes */
+.strategy-checkbox:hover + .strategy-name {
+    color: #e60012;
+}
+
+/* Style for checked items */
+.strategy-checkbox:checked + .strategy-name {
+    color: #e60012;
+}
+
+.strategy-option[data-selected="true"] {
+    border-color: #e60012;
+    background-color: #fff9f9;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .strategy-columns {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Make the last column full width on tablet */
+    .strategy-column:last-child {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 767px) {
+    .strategy-columns {
+        grid-template-columns: 1fr;
+    }
+    
+    .builder-tabs {
+        flex-wrap: wrap;
+    }
+    
+    .builder-tab {
+        flex: 1 1 auto;
+        text-align: center;
+        font-size: 0.9rem;
+    }
+    
+    .strategy-option {
+        padding: 10px;
+    }
+}
+
+/* Create Bid Page Styles */
+.create-bid-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 5px 30px 30px 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bid-header {
+    margin-bottom: 3px;
+    border-bottom: 2px solid #e60012;
+    padding-bottom: 2px;
+}
+
+.bid-header h2 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+    text-align: left;
+    font-weight: normal;
+}
+
+.bid-header h3 {
+    color: #666;
+    font-weight: normal;
+    font-size: 2.8rem;
+    margin-top: 0;
+}
+
+.bid-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.bid-form .form-group {
+    margin-bottom: 20px;
+}
+
+.bid-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.bid-actions .btn {
+    font-size: 2rem;
+}
+
+.lombard-odier-header {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.lombard-odier-header img {
+    height: 9px;
+    width: auto;
+}
+
+.lombard-odier-header .lombard-odier-text {
+    font-family: "Times New Roman", Times, serif;
+    display: inline-block;
+}
+
+/* For smaller headers */
+.lombard-odier-header.small img {
+    height: 6px;
+}
+
+/* For larger headers */
+.lombard-odier-header.large img {
+    height: 12px;
+}
+
+/* Cash Flows Section */
+.cashflows-header {
+    margin-bottom: 1.5rem;
+}
+
+.cashflows-header .fund-title-section {
+    margin-bottom: 0;
+}
+
+.cashflows-header h2 {
+    margin-bottom: 0.25rem;
+    color: #333;
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
+.cashflows-header h3 {
+    color: #666;
+    font-weight: normal;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.cashflow-table {
+    margin-bottom: 0;
+    width: 100%;
+}
+
+.cashflow-table .table-subtitle {
+    background-color: #f8f9fa;
+    color: #495057;
+    font-weight: normal;
+    text-align: center;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.cashflow-table th {
+    background: #f8f9fa;
+    color: #495057;
+    font-weight: normal;
+    padding: 0.75rem 1rem;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.cashflow-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #dee2e6;
+    color: #212529;
+}
+
+.cashflow-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Style amount columns */
+.cashflow-table td:nth-child(2),
+.cashflow-table td:nth-child(5) {
+    text-align: right;
+}
+
+/* Add euro symbol to amount columns */
+.cashflow-table td:nth-child(2)::before,
+.cashflow-table td:nth-child(5)::before {
+    content: "€ ";
+}
+
+.cashflow-table tfoot td {
+    border-top: 2px solid #dee2e6;
+    font-weight: normal;
+    background: #f8f9fa;
+}
+
+/* Add visual separation between Capital Called and Distributions */
+.cashflow-table td:nth-child(4),
+.cashflow-table th:nth-child(4) {
+    border-left: 2px solid #dee2e6;
+}
+
+/* Empty cells styling */
+.cashflow-table td:empty {
+    background: #fafafa;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .table-responsive {
+        overflow-x: auto;
+    }
+    
+    .cashflow-table {
+        min-width: 1000px;
+    }
+}
+
+.cashflow-table .separator {
+    width: 30px;
+    background-color: #f5f5f5;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+
+.tables-container {
+    display: flex;
+    gap: 2rem;
+    margin: 1rem 0;
+    width: 100%;
+}
+
+.tables-container .table-responsive {
+    flex: 1;
+    min-width: 0; /* Prevents flex items from overflowing */
+}
+
+.cashflow-table {
+    width: 100%;
+    margin-bottom: 1rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cashflow-table th,
+.cashflow-table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #dee2e6;
+    white-space: nowrap;
+}
+
+.cashflow-table td:nth-child(2) {
+    text-align: right;
+    font-family: monospace;
+}
+
+.cashflow-table td:nth-child(2)::before {
+    content: "€";
+    margin-right: 4px;
+}
+
+.cashflow-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.cashflow-table .table-subtitle {
+    background-color: #f8f9fa;
+    color: #495057;
+    font-weight: normal;
+    text-align: center;
+    border-bottom: 2px solid #dee2e6;
+    padding: 1rem;
+}
+
+.cashflow-table thead th {
+    background-color: #fff;
+    border-bottom: 2px solid #dee2e6;
+    font-weight: normal;
+}
+
+.cashflow-table tfoot {
+    background-color: #f8f9fa;
+    font-weight: normal;
+}
+
+.cashflow-table tfoot td {
+    border-top: 2px solid #dee2e6;
+}
+
+/* Make tables responsive */
+@media (max-width: 1200px) {
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Cash Flows Tables Styles */
+.cashflows-container {
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin-top: 1rem;
+}
+
+.cashflow-section {
+    margin-bottom: 2rem;
+}
+
+.cashflow-section h4 {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: normal;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
+}
+
+.table-responsive {
+    margin: 0 1rem;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
+    background: white;
+}
+
+.cashflows-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 0;
+    font-size: 0.95rem;
+    background: white;
+}
+
+.cashflows-table th {
+    background-color: #f8f9fa;
+    padding: 1.2rem 1.5rem;
+    text-align: left;
+    border-bottom: 2px solid #dee2e6;
+    font-weight: normal;
+    color: #495057;
+    white-space: nowrap;
+}
+
+.cashflows-table th:first-child {
+    width: 288px;  /* Increased from 240px by 20% */
+    text-align: right;
+}
+
+.cashflows-table th:nth-child(2) {
+    width: 200px;
+}
+
+.cashflows-table th:last-child {
+    width: 180px;
+    text-align: right;
+}
+
+.cashflows-table td {
+    padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid #dee2e6;
+    color: #212529;
+    vertical-align: middle;
+}
+
+/* Right align the dates */
+.cashflows-table td:first-child {
+    font-weight: normal;
+    color: #374151;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Ensure amounts are properly right-aligned */
+.cashflows-table .amount {
+    text-align: right;
+    font-family: 'Inter', sans-serif;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    font-weight: normal;
+    padding-right: 1.5rem;  /* Add consistent padding for alignment */
+}
+
+.cashflows-table tbody tr:nth-child(even) {
+    background-color: #f9fafb;
+}
+
+.cashflows-table tbody tr:hover {
+    background-color: #f3f4f6;
+    transition: background-color 0.2s ease;
+}
+
+.cashflows-table tfoot tr {
+    border-top: 2px solid #dee2e6;
+}
+
+.cashflows-table tfoot td {
+    font-weight: normal;
+    background-color: #f8f9fa;
+    padding: 1.2rem 1.5rem;
+    color: #1a1a1a;
+}
+
+/* Ensure the last column in footer is also right-aligned */
+.cashflows-table tfoot td:last-child {
+    text-align: right;
+    padding-right: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .cashflows-container {
+        padding: 1rem;
+        margin: 0;
+    }
+    
+    .table-responsive {
+        margin: 0;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border: none;
+        border-radius: 0;
+    }
+
+    .cashflows-table th,
+    .cashflows-table td {
+        padding: 1rem;
+    }
+
+    .cashflows-table th:first-child,
+    .cashflows-table th:nth-child(2),
+    .cashflows-table th:last-child {
+        width: auto;
+    }
+
+    /* Maintain right alignment on mobile */
+    .cashflows-table td:first-child,
+    .cashflows-table .amount,
+    .cashflows-table tfoot td:last-child {
+        text-align: right;
+        padding-right: 1rem;
+    }
+}
+
+/* Commitment Criteria Styles */
+.commitment-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.commitment-flex-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.commitment-group {
+    flex: 1;
+    min-width: 300px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.commitment-group h3 {
+    color: #333;
+    font-size: 1.2rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e60012;
+    font-weight: normal;
+}
+
+.commitment-group .form-group {
+    margin-bottom: 1rem;
+}
+
+.commitment-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #555;
+    font-weight: normal;
+}
+
+.commitment-group .input-group {
+    display: flex;
+    align-items: center;
+}
+
+.commitment-group .input-group-text {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+    padding: 0.375rem 0.75rem;
+}
+
+.commitment-group .form-control {
+    border-radius: 0 4px 4px 0;
+    border: 1px solid #ced4da;
+    padding: 0.375rem 0.75rem;
+    width: 100%;
+}
+
+.commitment-group select.form-control {
+    border-radius: 4px;
+}
+
+.commitment-group .form-text {
+    font-size: 0.875rem;
+    color: #6c757d;
+    margin-top: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .commitment-group {
+        flex: 1 1 calc(50% - 1rem);
+    }
+}
+
+@media (max-width: 768px) {
+    .commitment-group {
+        flex: 1 1 100%;
+    }
+}
+
+/* ESG Framework Styles */
+.esg-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.esg-flex-container {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 32px !important;
+    justify-content: space-between !important;
+    align-items: flex-start !important;
+    margin-bottom: 2rem !important;
+    border: 3px dashed #e74c3c !important;
+    background: #fffbe6 !important;
+}
+
+.esg-criteria-container {
+    flex: 1 1 0 !important;
+    min-width: 220px !important;
+    max-width: 400px !important;
+    background: #e3f2fd !important;
+    border: 2px solid #1976d2 !important;
+    border-radius: 10px !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
+    padding: 18px 16px 12px 16px !important;
+    margin: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.esg-criteria-container h3 {
+    color: #333;
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #e60012;
+    text-align: center;
+    font-weight: normal;
+}
+
+.criteria-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.criteria-item {
+    background: #f8f9fa;
+    padding: 1.25rem;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    transition: all 0.3s ease;
+}
+
+.criteria-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.criteria-item h4 {
+    color: #e60012;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    font-weight: normal;
+}
+
+.criteria-item p {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 1rem;
+}
+
+.score-input {
+    text-align: left;
+}
+
+.score-input label {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: #666;
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+.score-input .form-control {
+    width: 100%;
+    text-align: left;
+}
+
+.score-input .form-control:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.score-input .form-control:hover {
+    border-color: #999;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+    .esg-flex-container {
+        flex-direction: column !important;
+        gap: 16px !important;
+    }
+    .esg-criteria-container {
+        max-width: 100% !important;
+    }
+}
+
+/* Risk Return Profile Styles */
+.risk-return-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.risk-return-group {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid #eee;
+}
+
+.risk-return-group h3 {
+    color: #333;
+    font-size: 1.2rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e60012;
+    font-weight: normal;
+}
+
+.scenario-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.scenario-item {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 6px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.scenario-item h4 {
+    color: #333;
+    margin: 0 0 1rem 0;
+    font-size: 1.1rem;
+    font-weight: normal;
+}
+
+.scenario-value {
+    font-size: 1.5rem;
+    font-weight: normal;
+    text-align: left;
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+}
+
+.scenario-value.positive {
+    color: #28a745;
+    background-color: rgba(40, 167, 69, 0.1);
+}
+
+.scenario-value.negative {
+    color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
+.scenario-description {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.risk-profile-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.profile-option {
+    position: relative;
+}
+
+.profile-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+}
+
+.profile-option label {
+    display: block;
+    padding: 1rem;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.profile-option input[type="radio"]:checked + label {
+    border-color: #e60012;
+    background: #fff9f9;
+}
+
+.profile-name {
+    display: block;
+    font-weight: normal;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.profile-description {
+    display: block;
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.expected-return {
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    text-align: left;
+    display: block;
+}
+
+.risk-metrics-container {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 6px;
+    height: 300px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .esg-container,
+    .risk-return-container {
+        padding: 1rem;
+    }
+
+    .scenario-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .score-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.risk-metric {
+    font-size: 1.5rem;
+    font-weight: normal;
+    color: #333;
+    text-align: left;
+    margin-top: 0.5rem;
+}
+
+.risk-metric-value {
+    font-size: 1.5rem;
+    font-weight: normal;
+    text-align: left;
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+}
+
+.risk-metric-value.positive {
+    color: #28a745;
+    background-color: rgba(40, 167, 69, 0.1);
+}
+
+.risk-metric-value.negative {
+    color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
+.risk-metric-description {
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    text-align: center;
+}
+
+/* Update strategy-option for better spacing */
+.strategy-option {
+    padding: 1.25rem;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.strategy-option:hover {
+    border-color: #dee2e6;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Ensure form controls have consistent styling */
+.score-input .form-control {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: border-color 0.15s ease-in-out;
+}
+
+.score-input .form-control:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Update ESG container text alignment */
+.strategy-option .strategy-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: left;
+}
+
+.strategy-option .strategy-name {
+    font-weight: normal;
+    font-size: 1.1rem;
+    color: #333;
+    margin: 0;
+    text-align: left;
+}
+
+.strategy-option .strategy-description {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+    text-align: left;
+}
+
+.score-input {
+    text-align: left;
+}
+
+.score-input label {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: #666;
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+.score-input .form-control {
+    width: 100%;
+    text-align: left;
+}
+
+/* Ensure risk metrics stay left-aligned */
+.risk-metric {
+    text-align: left;
+    margin-top: 0.5rem;
+}
+
+/* Keep scenario values left-aligned but with their colored backgrounds */
+.scenario-value {
+    text-align: left;
+    display: inline-block;
+}
+
+/* Keep expected return values left-aligned */
+.expected-return {
+    text-align: left;
+    display: block;
+}
+
+/* Scenario Input Styles */
+.scenario-input {
+    width: 100%;
+}
+
+.scenario-input .input-group {
+    width: 100%;
+}
+
+.scenario-input .form-control {
+    text-align: right;
+    font-size: 1.2rem;
+    font-weight: normal;
+    padding: 0.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px 0 0 4px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.scenario-input .form-control:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.scenario-input .input-group-text {
+    font-size: 1.1rem;
+    font-weight: normal;
+    color: #495057;
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: 0 4px 4px 0;
+}
+
+/* Color the input text based on value */
+.scenario-input input[type="number"].scenario-value {
+    color: #333;
+}
+
+.scenario-input input[type="number"].scenario-value::-webkit-inner-spin-button,
+.scenario-input input[type="number"].scenario-value::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Add color indicators */
+.scenario-input input[type="number"].scenario-value.positive {
+    color: #28a745;
+    background-color: rgba(40, 167, 69, 0.1);
+}
+
+.scenario-input input[type="number"].scenario-value.negative {
+    color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
+/* Remove these overrides for Primary Market logo size */
+/* #primary-market .fund-logo {
+    width: 908px !important;
+    height: 908px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+}
+#primary-market .fund-logo .logo-image {
+    height: 90px !important;
+    width: auto !important;
+    object-fit: contain !important;
+} */
+
+/* Remove vertical space above fund name in fund details */
+.main-container.fund-details-page {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+.fund-details-container {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+.fund-header {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+.fund-title-section {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+}
+.fund-title-section h2 {
+    margin-top: 0 !important;
+    margin-bottom: 0.2rem !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.btn-success {
+    background-color: #28a745 !important;
+    border-color: #28a745 !important;
+    color: white !important;
+}
+.btn-success:hover {
+    background-color: #218838 !important;
+    border-color: #1e7e34 !important;
+}
+
+.bid-form label {
+    font-size: 1.6rem;
+}
+.bid-form .form-control {
+    font-size: 1.6rem;
+}
+.bid-form .input-group-text {
+    font-size: 1.6rem;
+} 

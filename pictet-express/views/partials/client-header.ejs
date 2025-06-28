@@ -1,0 +1,42 @@
+<div class="client-header">
+    <div class="container">
+        <div class="client-name" id="selected-client-name"></div>
+    </div>
+</div>
+
+<style>
+.client-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #eee;
+    padding: 0.4rem 0;
+    margin-bottom: 1rem;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.client-name {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #333;
+    font-family: "Times New Roman", Times, serif;
+    display: none;
+    line-height: 1.2;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const clientName = localStorage.getItem('clientName');
+    const clientNameElement = document.getElementById('selected-client-name');
+    if (clientName) {
+        clientNameElement.textContent = clientName;
+        clientNameElement.style.display = 'block';
+    } else {
+        clientNameElement.style.display = 'none';
+    }
+});
+</script> 

@@ -1,0 +1,42 @@
+<%- include('partials/header') %>
+<%- include('partials/secondary-nav') %>
+<%- include('partials/client-header') %>
+
+<div class="main-container">
+    <h1>Messages</h1>
+    
+    <div class="messages-container">
+        <div class="messages-section">
+            <div class="message-filters">
+                <button class="btn btn-outline-primary active">All Messages</button>
+                <button class="btn btn-outline-primary">Unread</button>
+                <button class="btn btn-outline-primary">Important</button>
+            </div>
+            <div class="message-list">
+                <div class="message-item unread">
+                    <div class="message-header">
+                        <h3>Portfolio Update Available</h3>
+                        <span class="date">Today, 10:30</span>
+                    </div>
+                    <p class="preview">Your Q2 2024 portfolio review is now available for viewing...</p>
+                </div>
+                <div class="message-item important">
+                    <div class="message-header">
+                        <h3>Investment Opportunity Alert</h3>
+                        <span class="date">Yesterday, 15:45</span>
+                    </div>
+                    <p class="preview">New sustainable energy fund launching next week...</p>
+                </div>
+                <div class="message-item">
+                    <div class="message-header">
+                        <h3>Market Update</h3>
+                        <span class="date">2 days ago</span>
+                    </div>
+                    <p class="preview">Weekly market insights from our chief investment officer...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %> 
