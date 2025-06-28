@@ -3,7 +3,7 @@ const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
 const XLSX = require('xlsx');
-const csvParse = require('csv-parse/lib/sync');
+const { parse: csvParse } = require('csv-parse');
 const app = express();
 const port = 3001;
 
