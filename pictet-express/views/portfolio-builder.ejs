@@ -65,7 +65,7 @@
                                         <input type="checkbox" class="strategy-checkbox" id="large-cap-buyout">
                                         <label class="strategy-name" for="large-cap-buyout">Large-Cap Buyout</label>
                                     </div>
-                                    <div class="strategy-description text-muted">>$1B enterprise value</div>
+                                    <div class="strategy-description text-muted">>€1B enterprise value</div>
                                 </div>
 
                                 <div class="strategy-option" data-strategy="mid-market-buyout">
@@ -73,7 +73,7 @@
                                         <input type="checkbox" class="strategy-checkbox" id="mid-market-buyout">
                                         <label class="strategy-name" for="mid-market-buyout">Mid-Market Buyout</label>
                                     </div>
-                                    <div class="strategy-description text-muted">$100M-$1B enterprise value</div>
+                                    <div class="strategy-description text-muted">€100M-€1B enterprise value</div>
                                 </div>
 
                                 <div class="strategy-option" data-strategy="small-cap-buyout">
@@ -81,7 +81,7 @@
                                         <input type="checkbox" class="strategy-checkbox" id="small-cap-buyout">
                                         <label class="strategy-name" for="small-cap-buyout">Small-Cap Buyout</label>
                                     </div>
-                                    <div class="strategy-description text-muted"><$100M enterprise value</div>
+                                    <div class="strategy-description text-muted"><€100M enterprise value</div>
                                 </div>
 
                                 <div class="strategy-option" data-strategy="growth-equity">
@@ -518,45 +518,45 @@
 
             <!-- Investment Capacity Calculator Section -->
             <section id="investment-capacity" class="builder-section" style="margin-top: 0.1rem;">
-                <div class="investment-capacity-container" style="max-width: 600px; margin: 0 auto; padding: 1.1rem 1.5rem 1.5rem 1.5rem; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-                    <h2 style="margin-top: 0; margin-bottom: 0.7rem;">Return by Investment Capacity Calculator</h2>
-                    <p style="margin-bottom: 0.7rem;">Calculate income potential from available investment capacity</p>
-                    <div style="margin-bottom: 1.1rem;">
-                        <strong>Answer the core question:</strong> "I can invest $X now + $Y/month for Z years - how much income can I generate?"
+                <div class="investment-capacity-container" style="max-width: 800px; margin: 0 auto; padding: 1.5rem 2rem 2rem 2rem; background: linear-gradient(135deg, #f8fafc 60%, #e3e6f3 100%); border-radius: 12px; box-shadow: 0 4px 16px rgba(44,62,80,0.08); margin-top: 0.7rem;">
+                    <h2 style="margin-top: 0.3rem; margin-bottom: 1.2rem; font-size: 2.2rem; font-weight: 700; color: #8B0000; letter-spacing: 0.5px;">Investment Capacity Calculator</h2>
+                    <p style="margin-bottom: 1.1rem; font-size: 1.15rem; color: #444;">Calculate income potential from available investment capacity</p>
+                    <div style="margin-bottom: 1.3rem; font-size: 1.05rem; color: #333;">
+                        <strong>Answer the core question:</strong> "I can invest €X now + €Y/month for Z years - how much income can I generate?"
                     </div>
                     <form>
-                        <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="display: flex; gap: 1.2rem; margin-bottom: 1.1rem;">
                             <div style="flex: 1;">
-                                <label for="ic-initial-investment" style="display: block; font-weight: 500;">Initial Investment</label>
-                                <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                    <span style="font-weight: bold;">$</span>
-                                    <input id="ic-initial-investment" name="ic-initial-investment" type="number" placeholder="1,000,000" style="flex:1; padding: 0.4rem; border: 1px solid #ccc; border-radius: 4px;" />
+                                <label for="ic-initial-investment" style="font-size: 1.1rem; font-weight: 600; color: #2d3748;">Initial Investment</label>
+                                <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.2rem;">
+                                    <span style="font-size: 1.2rem; font-weight: bold; color: #8B0000;">€</span>
+                                    <input id="ic-initial-investment" name="ic-initial-investment" type="number" placeholder="1,000,000" style="flex:1; padding: 0.55rem 0.7rem; font-size: 1.1rem; border: 1.5px solid #bfc9d9; border-radius: 6px; background: #fafdff;" />
                                 </div>
                                 <small style="color: #888;">Available capital to invest now</small>
                             </div>
                             <div style="flex: 1;">
-                                <label for="ic-monthly-addition" style="display: block; font-weight: 500;">Monthly Addition</label>
-                                <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                    <span style="font-weight: bold;">$</span>
-                                    <input id="ic-monthly-addition" name="ic-monthly-addition" type="number" placeholder="25,000" style="flex:1; padding: 0.4rem; border: 1px solid #ccc; border-radius: 4px;" />
+                                <label for="ic-monthly-addition" style="font-size: 1.1rem; font-weight: 600; color: #2d3748;">Monthly Addition</label>
+                                <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.2rem;">
+                                    <span style="font-size: 1.2rem; font-weight: bold; color: #8B0000;">€</span>
+                                    <input id="ic-monthly-addition" name="ic-monthly-addition" type="number" placeholder="25,000" style="flex:1; padding: 0.55rem 0.7rem; font-size: 1.1rem; border: 1.5px solid #bfc9d9; border-radius: 6px; background: #fafdff;" />
                                 </div>
                                 <small style="color: #888;">Monthly investment capacity (optional)</small>
                             </div>
                         </div>
-                        <div style="display: flex; gap: 1rem; margin-bottom: 1.2rem;">
+                        <div style="display: flex; gap: 1.5rem; margin-bottom: 1.1rem;">
                             <div style="flex:1;">
-                                <label for="ic-investment-period" style="display: block; font-weight: 500;">Investment Period</label>
-                                <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                    <input id="ic-investment-period" name="ic-investment-period" type="number" placeholder="10" style="width: 70px; padding: 0.4rem; border: 1px solid #ccc; border-radius: 4px;" />
-                                    <span>years</span>
+                                <label for="ic-investment-period" style="font-size: 1.1rem; font-weight: 600; color: #2d3748;">Investment Period</label>
+                                <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.2rem;">
+                                    <input id="ic-investment-period" name="ic-investment-period" type="number" placeholder="10" style="width: 90px; padding: 0.55rem 0.7rem; font-size: 1.1rem; border: 1.5px solid #bfc9d9; border-radius: 6px; background: #fafdff;" />
+                                    <span style="font-size: 1.1rem;">years</span>
                                 </div>
                                 <small style="color: #888;">Investment accumulation period</small>
                             </div>
                             <div style="flex:1;">
-                                <label for="ic-income-start" style="display: block; font-weight: 500;">Income Start</label>
-                                <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                    <input id="ic-income-start" name="ic-income-start" type="number" placeholder="10" style="width: 70px; padding: 0.4rem; border: 1px solid #ccc; border-radius: 4px;" />
-                                    <span>years</span>
+                                <label for="ic-income-start" style="font-size: 1.1rem; font-weight: 600; color: #2d3748;">Income Start</label>
+                                <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.2rem;">
+                                    <input id="ic-income-start" name="ic-income-start" type="number" placeholder="10" style="width: 90px; padding: 0.55rem 0.7rem; font-size: 1.1rem; border: 1.5px solid #bfc9d9; border-radius: 6px; background: #fafdff;" />
+                                    <span style="font-size: 1.1rem;">years</span>
                                 </div>
                                 <small style="color: #888;">When income generation begins</small>
                             </div>
@@ -567,44 +567,46 @@
 
             <!-- Income Goal Calculator Section -->
             <section id="income-goal" class="builder-section active">
-                <div class="income-goal-container" style="max-width: 600px; margin: 0 auto; padding: 1.1rem 1.5rem 1.5rem 1.5rem; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-                    <h2 style="margin-top: 0; margin-bottom: 0.7rem;">Income Goal Calculator</h2>
-                    <p style="margin-bottom: 0.7rem;">Calculate investment required to meet specific income targets</p>
-                    <div style="margin-bottom: 1.1rem;">
-                        <strong>Answer the core question:</strong> "I can invest $X now + $Y/month for Z years - how much income can I generate?"
+                <div class="income-goal-container" style="max-width: 800px; margin: 0 auto; padding: 1.5rem 2rem 2rem 2rem; background: linear-gradient(135deg, #f8fafc 60%, #e3e6f3 100%); border-radius: 12px; box-shadow: 0 4px 16px rgba(44,62,80,0.08);">
+                    <h2 style="margin-top: 0.7rem; margin-bottom: 1.2rem; font-size: 2.2rem; font-weight: 700; color: #8B0000; letter-spacing: 0.5px;">Income Goal Calculator</h2>
+                    <p style="margin-bottom: 1.1rem; font-size: 1.15rem; color: #444;">Calculate investment required to meet specific income targets</p>
+                    <div style="margin-bottom: 1.3rem; font-size: 1.05rem; color: #333;">
+                        <strong>Answer the core question:</strong> "I can invest €X now + €Y/month for Z years - how much income can I generate?"
                     </div>
                     <form>
-                        <div style="display: flex; gap: 1rem; margin-bottom: 0.7rem;">
+                        <div style="display: flex; gap: 1.2rem; margin-bottom: 1.1rem;">
                             <div style="flex: 1;">
-                                <label for="initial-investment">Initial Investment</label>
-                                <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                    <span>$</span>
-                                    <input id="initial-investment" type="number" class="form-control" value="1000000" style="width: 100%;" />
+                                <label for="initial-investment" style="font-size: 1.1rem; font-weight: 600; color: #2d3748;">Initial Investment</label>
+                                <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.2rem;">
+                                    <span style="font-size: 1.2rem; font-weight: bold; color: #8B0000;">€</span>
+                                    <input id="initial-investment" type="number" class="form-control" value="1000000" style="width: 100%; padding: 0.55rem 0.7rem; font-size: 1.1rem; border: 1.5px solid #bfc9d9; border-radius: 6px; background: #fafdff;" />
                                 </div>
                                 <small style="color: #888;">Available capital to invest now</small>
                             </div>
                             <div style="flex: 1;">
-                                <label for="monthly-addition">Monthly Addition</label>
-                                <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                    <span>$</span>
-                                    <input id="monthly-addition" type="number" class="form-control" value="25000" style="width: 100%;" />
+                                <label for="monthly-addition" style="font-size: 1.1rem; font-weight: 600; color: #2d3748;">Monthly Addition</label>
+                                <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.2rem;">
+                                    <span style="font-size: 1.2rem; font-weight: bold; color: #8B0000;">€</span>
+                                    <input id="monthly-addition" type="number" class="form-control" value="25000" style="width: 100%; padding: 0.55rem 0.7rem; font-size: 1.1rem; border: 1.5px solid #bfc9d9; border-radius: 6px; background: #fafdff;" />
                                 </div>
                                 <small style="color: #888;">Monthly investment capacity (optional)</small>
                             </div>
                         </div>
-                        <div style="display: flex; gap: 1.2rem; margin-bottom: 0.7rem;">
+                        <div style="display: flex; gap: 1.5rem; margin-bottom: 1.1rem;">
                             <div style="flex: 1;">
-                                <label for="investment-period">Investment Period</label>
-                                <input id="investment-period" type="number" class="form-control" value="10" style="width: 80px; display: inline-block;" />
-                                <span style="margin-left: 0.3rem;">years</span>
-                                <br />
+                                <label for="investment-period" style="font-size: 1.1rem; font-weight: 600; color: #2d3748;">Investment Period</label>
+                                <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.2rem;">
+                                    <input id="investment-period" type="number" class="form-control" value="10" style="width: 90px; padding: 0.55rem 0.7rem; font-size: 1.1rem; border: 1.5px solid #bfc9d9; border-radius: 6px; background: #fafdff;" />
+                                    <span style="font-size: 1.1rem;">years</span>
+                                </div>
                                 <small style="color: #888;">Investment accumulation period</small>
                             </div>
                             <div style="flex: 1;">
-                                <label for="income-start">Income Start</label>
-                                <input id="income-start" type="number" class="form-control" value="10" style="width: 80px; display: inline-block;" />
-                                <span style="margin-left: 0.3rem;">years</span>
-                                <br />
+                                <label for="income-start" style="font-size: 1.1rem; font-weight: 600; color: #2d3748;">Income Start</label>
+                                <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.2rem;">
+                                    <input id="income-start" type="number" class="form-control" value="10" style="width: 90px; padding: 0.55rem 0.7rem; font-size: 1.1rem; border: 1.5px solid #bfc9d9; border-radius: 6px; background: #fafdff;" />
+                                    <span style="font-size: 1.1rem;">years</span>
+                                </div>
                                 <small style="color: #888;">When income generation begins</small>
                             </div>
                         </div>
@@ -621,12 +623,12 @@
                     <h3>Return by Investment Capacity Calculator</h3>
                     <p style="margin-bottom: 2rem;">Calculate income potential from available investment capacity</p>
                     <div style="margin-bottom: 2rem;">
-                        <strong>Answer the core question:</strong> "I need $X income for Y years starting in Z years - how much do I invest now?"
+                        <strong>Answer the core question:</strong> "I need €X income for Y years starting in Z years - how much do I invest now?"
                     </div>
                     <form>
                         <div style="margin-bottom: 1.5rem;">
                             <label for="annual-income" style="display: block; font-weight: 500;">Annual Income Needed</label>
-                            <input id="annual-income" name="annual-income" type="number" placeholder="$500,000" style="width: 100%; padding: 0.5rem; margin-top: 0.25rem; border: 1px solid #ccc; border-radius: 4px;" />
+                            <input id="annual-income" name="annual-income" type="number" placeholder="€500,000" style="width: 100%; padding: 0.5rem; margin-top: 0.25rem; border: 1px solid #ccc; border-radius: 4px;" />
                             <small style="color: #888;">After-tax annual income requirement</small>
                         </div>
                         <div style="margin-bottom: 1.5rem;">

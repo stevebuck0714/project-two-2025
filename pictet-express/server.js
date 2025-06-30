@@ -463,9 +463,28 @@ app.post('/api/save-commitment-criteria', (req, res) => {
     }
 });
 
+// Minimal root route for connectivity test
+app.get('/plain-root', (req, res) => {
+    res.status(200).send('Server root is working!');
+});
+
+// Catch-all error handler for uncaught errors
+process.on('exit', (code) => {
+    console.log('Process exit event with code:', code);
+});
+process.on('SIGINT', () => {
+    console.log('Received SIGINT. Exiting...');
+    process.exit(0);
+});
+process.on('SIGTERM', () => {
+    console.log('Received SIGTERM. Exiting...');
+    process.exit(0);
+});
+
 // Start server with port retry logic
 function startServer(port) {
-    app.listen(port)
+    console.log('About to start server on port', port);
+    const server = app.listen(port, '0.0.0.0')
         .on('error', (err) => {
             if (err.code === 'EADDRINUSE') {
                 console.log(`Port ${port} is busy, trying ${port + 1}`);
@@ -477,7 +496,18 @@ function startServer(port) {
         .on('listening', () => {
             console.log(`Server is running on http://localhost:${port}`);
         });
+    console.log('app.listen called, waiting for events...');
 }
 
 // Start server on port 3001, will automatically try next port if busy
-startServer(port); 
+startServer(port);
+
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err);
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+  process.exit(1);
+}); 

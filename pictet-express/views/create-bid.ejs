@@ -4,32 +4,29 @@
 
 <div class="main-container">
     <div class="container">
-        <div class="create-bid-container">
-            <div class="bid-header">
+        <div class="create-bid-container improved-bid-container">
+            <div class="bid-header improved-bid-header">
                 <h2 class="text-left lombard-odier-header">
                     <span class="lombard-odier-text">LOMBARD ODIER</span> SPV 1
                 </h2>
-                <h3>Place a Bid</h3>
+                <h3 class="bid-title">Place a Bid</h3>
             </div>
-
-            <form id="bidForm" class="bid-form">
-                <div class="bid-form-grid">
+            <form id="bidForm" class="bid-form improved-bid-form">
+                <div class="bid-form-grid improved-bid-form-grid">
                     <!-- Left Column -->
-                    <div class="bid-form-column">
-                        <div class="form-group">
+                    <div class="bid-form-column improved-bid-form-column">
+                        <div class="form-group improved-form-group">
                             <label>Date:</label>
                             <input type="text" id="currentDate" class="form-control" readonly>
                         </div>
-
-                        <div class="form-group">
+                        <div class="form-group improved-form-group">
                             <label>Fund Market Value:</label>
                             <div class="input-group">
                                 <span class="input-group-text">€</span>
                                 <input type="text" class="form-control currency-input" value="4.000.000" readonly>
                             </div>
                         </div>
-
-                        <div class="form-group">
+                        <div class="form-group improved-form-group">
                             <label>Remaining Commitments:</label>
                             <div class="input-group">
                                 <span class="input-group-text">€</span>
@@ -37,34 +34,30 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Right Column -->
-                    <div class="bid-form-column">
-                        <div class="form-group">
-                            <label>Bid:</label>
+                    <div class="bid-form-column improved-bid-form-column">
+                        <div class="form-group improved-form-group">
+                            <label class="highlight-label">Bid:</label>
                             <div class="input-group">
                                 <span class="input-group-text">€</span>
-                                <input type="text" id="bidAmount" class="form-control currency-input" value="3.150.000">
+                                <input type="text" id="bidAmount" class="form-control currency-input highlight-input" value="3.150.000">
                             </div>
                         </div>
-
-                        <div class="form-group">
+                        <div class="form-group improved-form-group">
                             <label>Percent Prem/(Discount) to MV:</label>
                             <div class="input-group">
                                 <input type="text" id="discountPercent" class="form-control" value="-21,25%" readonly>
                             </div>
                         </div>
-
-                        <div class="form-group">
+                        <div class="form-group improved-form-group">
                             <label>Bid is open for # of Days:</label>
                             <input type="number" class="form-control" value="5" min="1" max="30">
                         </div>
                     </div>
                 </div>
-
-                <div class="bid-actions">
-                    <button type="submit" class="btn btn-success">Submit Bid</button>
-                    <a href="/fund-details" class="btn btn-outline-danger">Cancel Bid</a>
+                <div class="bid-actions improved-bid-actions">
+                    <button type="submit" class="btn btn-success highlight-btn">Submit Bid</button>
+                    <a href="/fund-details" class="btn btn-outline-danger cancel-btn">Cancel Bid</a>
                 </div>
             </form>
         </div>
