@@ -1,0 +1,300 @@
+<%- include('partials/header') %>
+<%- include('partials/secondary-nav') %>
+<%- include('partials/client-header') %>
+
+<div class="main-container">
+    <div class="contact-advisor-container">
+        <h1 class="page-title">Contact my Advisor</h1>
+        
+        <div class="advisor-contact-form">
+            <div class="form-header">
+                <h2>Share Fund Summary with Your Advisor</h2>
+                <p>Send the fund details and your interest to your financial advisor for review and guidance.</p>
+            </div>
+
+            <form id="advisorContactForm" class="advisor-form">
+                <div class="form-section">
+                    <h3>Fund Information</h3>
+                    <div class="fund-summary-box">
+                        <div class="fund-info-row">
+                            <span class="label">Fund Name:</span>
+                            <span class="value"><%= fundInfo ? fundInfo.title : 'Fund Details' %></span>
+                        </div>
+                        <div class="fund-info-row">
+                            <span class="label">Strategy:</span>
+                            <span class="value"><%= fundInfo ? fundInfo.strategy : 'N/A' %></span>
+                        </div>
+                        <div class="fund-info-row">
+                            <span class="label">Sector:</span>
+                            <span class="value"><%= fundInfo ? fundInfo.sector : 'N/A' %></span>
+                        </div>
+                        <div class="fund-info-row">
+                            <span class="label">Fund Size:</span>
+                            <span class="value"><%= fundInfo ? fundInfo.size : 'N/A' %></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Your Advisor Information</h3>
+                    <div class="form-group">
+                        <label for="advisor-name">Advisor Name *</label>
+                        <input type="text" id="advisor-name" name="advisor-name" value="Alexander Dubois" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="advisor-email">Advisor Email *</label>
+                        <input type="email" id="advisor-email" name="advisor-email" value="alexander.dubois@lombardodier.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="advisor-phone">Advisor Phone</label>
+                        <input type="tel" id="advisor-phone" name="advisor-phone" value="+41 22 709 2111">
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Your Message</h3>
+                    <div class="form-group">
+                        <label for="client-message">Message to Advisor</label>
+                        <textarea id="client-message" name="client-message" rows="4" placeholder="I'm interested in this fund opportunity and would like to discuss it with you. Please review the attached fund summary and let me know your thoughts."></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Your Contact Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="client-name">Your Name *</label>
+                            <input type="text" id="client-name" name="client-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="client-email">Your Email *</label>
+                            <input type="email" id="client-email" name="client-email" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="client-phone">Your Phone</label>
+                        <input type="tel" id="client-phone" name="client-phone">
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="window.history.back()">Back to Fund Details</button>
+                    <button type="submit" class="btn btn-primary">Send to Advisor</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+.contact-advisor-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.page-title {
+    color: #e60012;
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.advisor-contact-form {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    padding: 2rem;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #e60012;
+}
+
+.form-header h2 {
+    color: #333;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.form-header p {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.form-section {
+    margin-bottom: 2rem;
+}
+
+.form-section h3 {
+    color: #e60012;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.fund-summary-box {
+    background: #f8fafc;
+    border: 1px solid #e0e6ed;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.fund-info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.fund-info-row:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.fund-info-row .label {
+    font-weight: 600;
+    color: #333;
+}
+
+.fund-info-row .value {
+    color: #666;
+    font-weight: 500;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #e60012;
+    box-shadow: 0 0 0 2px rgba(230, 0, 18, 0.1);
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.btn {
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-primary {
+    background: #e60012;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #cc0010;
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background: #f8f9fa;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.btn-secondary:hover {
+    background: #e9ecef;
+}
+
+@media (max-width: 768px) {
+    .contact-advisor-container {
+        padding: 1rem;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto-populate advisor information from header
+    const bankerNameElement = document.getElementById('private-banker-name');
+    if (bankerNameElement) {
+        const bankerName = bankerNameElement.textContent.trim();
+        if (bankerName && bankerName !== 'Private Banker Name') {
+            document.getElementById('advisor-name').value = bankerName;
+            
+            // Generate email based on name
+            const emailName = bankerName.toLowerCase().replace(/\s+/g, '.');
+            document.getElementById('advisor-email').value = `${emailName}@lombardodier.com`;
+        }
+    }
+});
+
+document.getElementById('advisorContactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Get form data
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData);
+    
+    // Simple validation
+    if (!data['advisor-name'] || !data['advisor-email'] || !data['client-name'] || !data['client-email']) {
+        alert('Please fill in all required fields.');
+        return;
+    }
+    
+    // Simulate sending email
+    alert('Your message has been sent to your advisor successfully! They will receive the fund summary and your message shortly.');
+    
+    // Redirect back to fund details
+    window.history.back();
+});
+</script>
+
+<%- include('partials/footer') %>

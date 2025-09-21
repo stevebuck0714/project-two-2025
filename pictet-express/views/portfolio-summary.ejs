@@ -460,14 +460,21 @@ document.addEventListener('DOMContentLoaded', function() {
         }]
     });
 
-    // Investment Distribution Chart
+    // Calculate total values for each asset type
+    const totalValue = <%= processedData.metrics.totalValue %>;
+    const assetValues = {};
+    Object.keys(assetAllocation).forEach(assetType => {
+        assetValues[assetType] = (assetAllocation[assetType] / 100) * totalValue;
+    });
+
+    // Investment Distribution Chart (Total Values)
     new Chart(investmentDistributionCtx, {
         type: 'bar',
         data: {
-            labels: Object.keys(assetTypeBreakdown),
+            labels: Object.keys(assetValues),
             datasets: [{
-                label: 'Number of Investments',
-                data: Object.values(assetTypeBreakdown),
+                label: 'Total Value (€)',
+                data: Object.values(assetValues),
                 backgroundColor: businessColors.bar.background,
                 borderColor: businessColors.bar.border,
                 borderWidth: 1
@@ -480,7 +487,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 y: {
                     beginAtZero: true,
                     ticks: {
-                        stepSize: 1
+                        callback: function(value) {
+                            return '€' + value.toLocaleString('de-DE');
+                        }
                     }
                 }
             },
@@ -488,6 +497,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 legend: {
                     display: true,
                     position: 'top'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.dataset.label + ': €' + context.raw.toLocaleString('de-DE');
+                        }
+                    }
                 }
             }
         }

@@ -48,7 +48,13 @@
 <% var distributionsData = typeof distributionsData !== 'undefined' ? distributionsData : []; %>
 
 <div class="main-container">
-    <h1 class="fund-title">Fund Details</h1>
+    <h1 class="fund-title">
+        <% if (market === 'primary') { %>
+            Primary Market - Fund Details
+        <% } else { %>
+            Bulletin Board - Fund Details
+        <% } %>
+    </h1>
     
     <div class="fund-details-container">
         <div class="fund-header-wrapper">
@@ -59,15 +65,25 @@
                 <button class="fund-tab" onclick="showFundSection('dataroom')">Data Room</button>
             </div>
             <div class="fund-action">
-                <a href="/create-bid" class="btn btn-primary">Make a Bid</a>
+                <% if (market === 'secondary') { %>
+                    <a href="/contact-advisor?market=<%= market %>&fund=<%= fundType %>" class="btn btn-primary">Contact my Advisor</a>
+                <% } else { %>
+                    <a href="/create-bid" class="btn btn-primary">Make a Bid</a>
+                <% } %>
             </div>
         </div>
 
         <section id="fund-summary" class="fund-section active">
             <div class="fund-header">
                 <div class="fund-title-section">
-                    <h2>LOMBARD ODIER SPV 1</h2>
+                    <h2><%= fundInfo.title %></h2>
                     <div class="current-date" id="currentDate"></div>
+                    <div class="fund-type-info">
+                        <span><strong>Strategy:</strong> <%= fundInfo.strategy %></span> | 
+                        <span><strong>Sector:</strong> <%= fundInfo.sector %></span> | 
+                        <span><strong>Size:</strong> <%= fundInfo.size %></span> | 
+                        <span><strong>Vintage:</strong> <%= fundInfo.vintage %></span>
+                    </div>
                 </div>
             </div>
 

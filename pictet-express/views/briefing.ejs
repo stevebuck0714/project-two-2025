@@ -1,0 +1,519 @@
+<%- include('partials/header') %>
+<%- include('partials/secondary-nav') %>
+<%- include('partials/client-header') %>
+
+<div class="briefing-container">
+    <!-- Page Title -->
+    <div class="briefing-header">
+        <h1>Your Private Markets & Wealth Briefing</h1>
+    </div>
+
+
+        <!-- Section 1: Today at a Glance -->
+        <div class="briefing-section">
+            <h3>Today at a Glance</h3>
+            <div class="glance-grid">
+                <!-- Row 1 -->
+                <div class="glance-item portfolio-card">
+                    <div class="portfolio-nav-section">
+                        <div class="nav-metric">
+                            <span class="nav-label">Portfolio NAV</span>
+                            <span class="nav-value">€<%= portfolioNAV.toLocaleString() %></span>
+                        </div>
+                    </div>
+                    <div class="performance-section">
+                        <div class="performance-header">Portfolio Performance</div>
+                        <div class="performance-metrics">
+                            <div class="metric-row">
+                                <span class="period">1 Day</span>
+                                <span class="change positive">+<%= oneDayChange %>%</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="period">Month to Date</span>
+                                <span class="change positive">+<%= mtdChange %>%</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="period">Year to Date</span>
+                                <span class="change positive">+<%= ytdChange %>%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glance-item liquidity-card">
+                    <div class="card-header">
+                        <h4>Liquidity Forecast</h4>
+                        <div class="period-label">Next 90 Days</div>
+                    </div>
+                    <div class="liquidity-summary">
+                        <div class="net-position">
+                            <span class="label">Net Position</span>
+                            <span class="amount negative">-€<%= (upcomingCapitalCalls - expectedDistributions).toLocaleString() %></span>
+                        </div>
+                        <div class="breakdown">
+                            <div class="breakdown-item">
+                                <span class="type">Capital Calls</span>
+                                <span class="amount">€<%= upcomingCapitalCalls.toLocaleString() %></span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="type">Distributions</span>
+                                <span class="amount">€<%= expectedDistributions.toLocaleString() %></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glance-item actions-card">
+                    <div class="card-header">
+                        <h4>Quick Actions</h4>
+                    </div>
+                    <div class="action-grid">
+                        <a href="/transactions" class="action-item">
+                            <div class="action-icon">💰</div>
+                            <span class="action-text">Fund Capital Call</span>
+                        </a>
+                        <a href="#" class="action-item">
+                            <div class="action-icon">📊</div>
+                            <span class="action-text">Download Statement</span>
+                        </a>
+                        <a href="/messages" class="action-item">
+                            <div class="action-icon">💬</div>
+                            <span class="action-text">Message Banker</span>
+                        </a>
+                        <a href="/portfolio-summary" class="action-item">
+                            <div class="action-icon">📈</div>
+                            <span class="action-text">View Portfolio</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Row 2 -->
+                <div class="glance-item market-indexes-card">
+                    <div class="card-header">
+                        <h4>Global Stock Indexes</h4>
+                        <div class="period-label">Live</div>
+                    </div>
+                    <div class="index-list">
+                        <div class="index-item">
+                            <span class="index-name">S&P 500</span>
+                            <div>
+                                <span class="index-value">5,751.13</span>
+                                <span class="index-change positive">+0.85%</span>
+                            </div>
+                        </div>
+                        <div class="index-item">
+                            <span class="index-name">FTSE 100</span>
+                            <div>
+                                <span class="index-value">8,292.66</span>
+                                <span class="index-change negative">-0.23%</span>
+                            </div>
+                        </div>
+                        <div class="index-item">
+                            <span class="index-name">DAX</span>
+                            <div>
+                                <span class="index-value">19,189.24</span>
+                                <span class="index-change positive">+1.14%</span>
+                            </div>
+                        </div>
+                        <div class="index-item">
+                            <span class="index-name">Nikkei 225</span>
+                            <div>
+                                <span class="index-value">38,876.71</span>
+                                <span class="index-change positive">+0.47%</span>
+                            </div>
+                        </div>
+                        <div class="index-item">
+                            <span class="index-name">MSCI World</span>
+                            <div>
+                                <span class="index-value">3,624.55</span>
+                                <span class="index-change positive">+0.62%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glance-item crypto-indexes-card">
+                    <div class="card-header">
+                        <h4>Crypto Indexes</h4>
+                        <div class="period-label">Live</div>
+                    </div>
+                    <div class="index-list">
+                        <div class="index-item">
+                            <span class="index-name">Bitcoin</span>
+                            <div>
+                                <span class="index-value">$63,242</span>
+                                <span class="index-change positive">+2.14%</span>
+                            </div>
+                        </div>
+                        <div class="index-item">
+                            <span class="index-name">Ethereum</span>
+                            <div>
+                                <span class="index-value">$2,485</span>
+                                <span class="index-change positive">+1.87%</span>
+                            </div>
+                        </div>
+                        <div class="index-item">
+                            <span class="index-name">Solana</span>
+                            <div>
+                                <span class="index-value">$142.63</span>
+                                <span class="index-change negative">-0.95%</span>
+                            </div>
+                        </div>
+                        <div class="index-item">
+                            <span class="index-name">XRP</span>
+                            <div>
+                                <span class="index-value">$0.5847</span>
+                                <span class="index-change positive">+3.21%</span>
+                            </div>
+                        </div>
+                        <div class="index-item">
+                            <span class="index-name">Crypto Fear & Greed</span>
+                            <div>
+                                <span class="index-value">64</span>
+                                <span class="index-change neutral">Greed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glance-item market-card">
+                    <div class="card-header">
+                        <h4>Market Environment</h4>
+                        <div class="regime-indicator <%= macroRegime.toLowerCase() %>"><%= macroRegime %></div>
+                    </div>
+                    <div class="market-indicators">
+                        <div class="indicator-row">
+                            <span class="indicator-label">Volatility</span>
+                            <span class="indicator-value <%= volatility.toLowerCase() %>"><%= volatility %></span>
+                        </div>
+                        <div class="indicator-row">
+                            <span class="indicator-label">Credit Spreads</span>
+                            <span class="indicator-value <%= creditSpreads.toLowerCase() %>"><%= creditSpreads %></span>
+                        </div>
+                        <div class="indicator-row">
+                            <span class="indicator-label">PE Multiples</span>
+                            <span class="indicator-value elevated">Elevated</span>
+                        </div>
+                        <div class="indicator-row">
+                            <span class="indicator-label">Exit Activity</span>
+                            <span class="indicator-value improving">Improving</span>
+                        </div>
+                        <div class="indicator-row">
+                            <span class="indicator-label">Dry Powder</span>
+                            <span class="indicator-value high">High</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- Section 2: News & Insights -->
+    <div class="briefing-section">
+        <h3>News & Insights (Personalized)</h3>
+        <div class="news-filters">
+            <button class="filter-btn active">All</button>
+            <button class="filter-btn">Macro</button>
+            <button class="filter-btn">Rates</button>
+            <button class="filter-btn">Credit</button>
+            <button class="filter-btn">PE/VC</button>
+            <button class="filter-btn">Energy</button>
+            <button class="filter-btn">Healthcare</button>
+            <button class="filter-btn">Europe</button>
+            <button class="filter-btn">Asia</button>
+        </div>
+        <div class="news-toggle">
+            <label class="toggle-switch">
+                <input type="checkbox" checked>
+                <span class="toggle-slider"></span>
+                Only show items relevant to my investment policy
+            </label>
+        </div>
+        <div class="news-stories">
+            <h4>Top 3 Stories for You</h4>
+            <div class="story-item">
+                <div class="story-header">
+                    <h5>Fed Signals Pause in Rate Hikes Amid Banking Sector Concerns</h5>
+                    <div class="story-badges">
+                        <span class="badge external">External</span>
+                        <span class="read-time">3 min</span>
+                    </div>
+                </div>
+                <p>Recent banking sector volatility and slowing credit growth suggest the Federal Reserve may pause rate increases. This shift could improve private equity exit conditions and reduce debt financing costs for portfolio companies.</p>
+                <p class="story-impact"><strong>Why it matters to you:</strong> affects PE Growth/Buyout allocations, reduces refinancing pressure on portfolio companies, improves exit multiples outlook.</p>
+            </div>
+            <div class="story-item">
+                <div class="story-header">
+                    <h5>Healthcare IT M&A Activity Surges in Q4</h5>
+                    <div class="story-badges">
+                        <span class="badge bank">From Your Bank</span>
+                    </div>
+                </div>
+                <p>Strategic acquirers are actively pursuing healthcare technology assets, driving valuation multiples higher. Our analysis shows 15x+ EV/Revenue for quality SaaS platforms.</p>
+                <p class="story-impact"><strong>Our view:</strong> Tactical overweight Healthcare theme given strong exit demand and secular tailwinds.</p>
+            </div>
+            <div class="story-item">
+                <div class="story-header">
+                    <h5>EU Carried Interest Tax Changes Delayed to 2025</h5>
+                    <div class="story-badges">
+                        <span class="badge regulatory">Regulatory</span>
+                    </div>
+                </div>
+                <p>Proposed changes to carried interest taxation in key EU jurisdictions pushed back one year, providing clarity for fund formation and LP commitments.</p>
+                <p class="story-impact"><strong>Action:</strong> review affected vehicles by March 31st; banker can assist with impact assessment.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 3: Macro Snapshot -->
+    <div class="briefing-section">
+        <h3>Macro Snapshot</h3>
+        <div class="macro-grid">
+            <div class="macro-item">
+                <strong>Rates:</strong> Policy rate unchanged; futures imply 50 bps cuts in next 12 months.
+            </div>
+            <div class="macro-item">
+                <strong>Growth:</strong> Leading indicators stabilizing, <strong>Inflation:</strong> moderating, <strong>Labor:</strong> cooling but resilient.
+            </div>
+            <div class="macro-item">
+                <strong>Markets:</strong> Public equity breadth improving, HY spreads tightening, USD trend neutral.
+            </div>
+        </div>
+        <div class="macro-implication">
+            <strong>Implication for private markets:</strong> pacing outlook positive, entry multiples stabilizing, exit windows opening in H2.
+        </div>
+        <a href="#" class="btn-secondary">See the 3-minute house view</a>
+    </div>
+
+    <!-- Section 4: Your Portfolio Signals -->
+    <div class="briefing-section">
+        <h3>Your Portfolio Signals</h3>
+        <div class="portfolio-heatmap">
+            <div class="heatmap-header">
+                <div class="heatmap-title">Strategy Performance Overview</div>
+            </div>
+            <div class="heatmap-grid">
+                <div class="heatmap-row header">
+                    <div class="heatmap-cell">Strategy</div>
+                    <div class="heatmap-cell">Committed</div>
+                    <div class="heatmap-cell">DPI</div>
+                    <div class="heatmap-cell">TVPI</div>
+                    <div class="heatmap-cell">IRR</div>
+                    <div class="heatmap-cell">Pace vs Plan</div>
+                </div>
+                <div class="heatmap-row">
+                    <div class="heatmap-cell">Buyout</div>
+                    <div class="heatmap-cell">€2.1M</div>
+                    <div class="heatmap-cell">1.4x</div>
+                    <div class="heatmap-cell">2.1x</div>
+                    <div class="heatmap-cell">18.2%</div>
+                    <div class="heatmap-cell positive">+5%</div>
+                </div>
+                <div class="heatmap-row">
+                    <div class="heatmap-cell">Growth</div>
+                    <div class="heatmap-cell">€1.8M</div>
+                    <div class="heatmap-cell">0.8x</div>
+                    <div class="heatmap-cell">1.9x</div>
+                    <div class="heatmap-cell">22.5%</div>
+                    <div class="heatmap-cell negative">-15%</div>
+                </div>
+                <div class="heatmap-row">
+                    <div class="heatmap-cell">Private Credit</div>
+                    <div class="heatmap-cell">€1.2M</div>
+                    <div class="heatmap-cell">1.1x</div>
+                    <div class="heatmap-cell">1.3x</div>
+                    <div class="heatmap-cell">12.8%</div>
+                    <div class="heatmap-cell neutral">0%</div>
+                </div>
+            </div>
+        </div>
+        <div class="watchlist-alerts">
+            <h4>Watchlist Alerts</h4>
+            <div class="alert-item warning">
+                <span class="alert-icon">⚠️</span>
+                <strong>European Growth Fund II</strong> pacing 15% below plan — consider co-invests or secondary purchases.
+            </div>
+            <div class="alert-item info">
+                <span class="alert-icon">📈</span>
+                <strong>Healthcare Buyout Fund IV</strong> distribution wave likely in Q2 from portfolio exits in medtech sector.
+            </div>
+            <div class="alert-item attention">
+                <span class="alert-icon">🔍</span>
+                <strong>Direct Lending Fund III</strong> yield drift vs benchmark > +150 bps (check risk bands).
+            </div>
+        </div>
+        <a href="/portfolio-summary" class="btn-primary">Open Portfolio Diagnostics</a>
+    </div>
+
+    <!-- Section 5: PE Opportunities -->
+    <div class="briefing-section">
+        <h3>Private Equity Opportunities (Matched to Your Mandate)</h3>
+        <div class="mandate-summary">
+            <strong>Mandate summary:</strong> €2.5M commitment target • Strategies: Buyout/Growth/Secondaries/PC • Regions: Europe, North America • Sectors: Healthcare, Technology, Industrial • Ticket size: €250K–€500K • Co-invests: Yes
+        </div>
+        <div class="opportunity-filters">
+            <button class="filter-btn active">Primary</button>
+            <button class="filter-btn">Co-Invest</button>
+            <button class="filter-btn">Secondary</button>
+            <button class="filter-btn">Private Credit</button>
+            <button class="filter-btn">Real Assets</button>
+        </div>
+        <div class="opportunities">
+            <h4>Recommended for You</h4>
+            <div class="opportunity-item">
+                <div class="opportunity-header">
+                    <h5>Nordic Healthcare Growth Fund V — Growth, Europe</h5>
+                </div>
+                <p>Targets healthcare services and medtech across Nordics with proven digitization thesis and 3 successful exits in telehealth.</p>
+                <div class="opportunity-fit">
+                    <strong>Why it fits:</strong>
+                    <ul>
+                        <li>Healthcare sector alignment with mandate</li>
+                        <li>Fills 2024 vintage gap in growth allocation</li>
+                        <li>Geographic diversification into Nordics</li>
+                    </ul>
+                </div>
+                <div class="opportunity-terms">
+                    <strong>Key terms:</strong> €400M target size, 2%/20% fees, 3% GP commitment
+                </div>
+                <div class="sponsor-track">
+                    <strong>Sponsor track:</strong> DPI 1.8x / TVPI 2.4x / IRR 19.5%, recent exits include MedCore (3.2x) and HealthTech Solutions (2.8x)
+                </div>
+                <div class="opportunity-actions">
+                    <button class="btn-primary">Request Diligence Pack</button>
+                    <button class="btn-secondary">Soft-Circle €350K</button>
+                    <button class="btn-outline">Speak to Banker</button>
+                </div>
+            </div>
+            <div class="opportunity-item">
+                <div class="opportunity-header">
+                    <h5>European Software Secondary Portfolio — Secondary</h5>
+                </div>
+                <p>Portfolio rebalance opportunity from large pension fund seeking liquidity, featuring high-quality B2B software assets.</p>
+                <div class="opportunity-fit">
+                    <strong>Deal angle:</strong> adds Software/Tech exposure without vintage drift, accelerated DPI path, fee-efficient exposure to mature assets.
+                </div>
+                <div class="opportunity-scenario">
+                    <strong>Scenario:</strong> adds Technology exposure without vintage drift, targets 2.5x MOIC over 3-4 years.
+                </div>
+                <div class="opportunity-actions">
+                    <button class="btn-primary">View Model</button>
+                    <button class="btn-secondary">Hold/Pass</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 6: Cash flows & Liquidity -->
+    <div class="briefing-section">
+        <h3>Upcoming Cash Flows & Liquidity</h3>
+        <div class="cashflow-timeline">
+            <div class="timeline-header">Next 30/60/90 days:</div>
+            <div class="cashflow-grid">
+                <div class="cashflow-item">
+                    <span class="cashflow-label">Capital Calls:</span>
+                    <span class="cashflow-value">€350,000</span>
+                </div>
+                <div class="cashflow-item">
+                    <span class="cashflow-label">Projected Distributions:</span>
+                    <span class="cashflow-value">€180,000</span>
+                </div>
+                <div class="cashflow-item">
+                    <span class="cashflow-label">Net:</span>
+                    <span class="cashflow-value negative">-€170,000</span>
+                </div>
+            </div>
+        </div>
+        <div class="coverage-info">
+            <div class="coverage-grid">
+                <div class="coverage-item">
+                    <span class="coverage-label">Available cash:</span>
+                    <span class="coverage-value">€425,000</span>
+                </div>
+                <div class="coverage-item">
+                    <span class="coverage-label">Credit facility headroom:</span>
+                    <span class="coverage-value">€200,000</span>
+                </div>
+                <div class="coverage-item">
+                    <span class="coverage-label">Cushion:</span>
+                    <span class="coverage-value">8 months</span>
+                </div>
+            </div>
+        </div>
+        <div class="cashflow-actions">
+            <button class="btn-primary">Set Auto-Sweep Rules</button>
+            <button class="btn-secondary">Download Cash Plan (PDF)</button>
+        </div>
+    </div>
+
+    <!-- Section 7: Banker's Notes -->
+    <div class="briefing-section">
+        <h3>Banker's Notes & Documents</h3>
+        <div class="banker-notes">
+            <h4>From your team:</h4>
+            <div class="note-item">
+                <span class="note-icon">💼</span>
+                <p>"Quarterly pacing check ready. Suggest allocating €400K to secondaries in Q4 to smooth J-curve."</p>
+            </div>
+            <div class="note-item">
+                <span class="note-icon">📄</span>
+                <p>"Updated DDQ for Nordic Healthcare Growth Fund uploaded."</p>
+            </div>
+        </div>
+        <div class="document-links">
+            <a href="#" class="doc-link">Latest DDQ</a>
+            <a href="#" class="doc-link">Subscription docs</a>
+            <a href="#" class="doc-link">K-1 / Tax package</a>
+        </div>
+        <button class="btn-primary">Secure message your banker</button>
+    </div>
+
+    <!-- Section 8: Themes -->
+    <div class="briefing-section">
+        <h3>Themes You Follow</h3>
+        <div class="theme-chips">
+            <span class="theme-chip active">Chips & Compute</span>
+            <span class="theme-chip active">Energy Transition</span>
+            <span class="theme-chip active">HealthTech</span>
+            <span class="theme-chip">Software Roll-ups</span>
+            <span class="theme-chip">Europe Lower-Mid Market</span>
+            <span class="theme-chip add">+ Add / Edit themes</span>
+        </div>
+        <p class="theme-description">Add or edit themes to tune your news and opportunity feed.</p>
+    </div>
+
+    <!-- Section 9: Education -->
+    <div class="briefing-section">
+        <h3>Education</h3>
+        <div class="education-items">
+            <h4>2-min explainers:</h4>
+            <div class="education-item">
+                <h5>Secondaries vs. NAV Lending—what changes your DPI path</h5>
+                <span class="education-time">2 min read</span>
+            </div>
+            <div class="education-item">
+                <h5>How to read a capital call schedule</h5>
+                <span class="education-time">2 min read</span>
+            </div>
+            <div class="education-item">
+                <h5>Co-invest diligence checklist (what to ask in 10 minutes)</h5>
+                <span class="education-time">2 min read</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sticky Footer -->
+<div class="briefing-footer">
+    <div class="footer-links">
+        <a href="#">Disclosures</a>
+        <a href="#">Methodology</a>
+        <a href="#">Data sources</a>
+        <a href="#">Update preferences</a>
+        <a href="#">Accessibility</a>
+    </div>
+    <div class="footer-tagline">
+        Today's signal, not noise. • In plain English: here's what it means for your portfolio. • Matched to your mandate—no spray and pray.
+    </div>
+</div>
+
+<%- include('partials/footer') %>

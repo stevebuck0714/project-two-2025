@@ -6,7 +6,7 @@ const XLSX = require('xlsx');
 const { parse: csvParse } = require('csv-parse');
 const app = express();
 // const port = 3001;
-const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3001;
+const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 4001;
 
 // Enable CORS for all routes with specific options
 app.use(cors());
@@ -206,6 +206,23 @@ app.get('/', (req, res) => {
     res.render('index');
 });
 
+app.get('/briefing', (req, res) => {
+    // Sample data for the briefing page
+    const briefingData = {
+        portfolioNAV: 8750000,
+        oneDayChange: 0.42,
+        mtdChange: 2.15,
+        ytdChange: 14.8,
+        upcomingCapitalCalls: 350000,
+        expectedDistributions: 180000,
+        volatility: 'Medium',
+        creditSpreads: 'Neutral',
+        macroRegime: 'Expansion',
+        clientFirstName: 'John'
+    };
+    res.render('briefing', briefingData);
+});
+
 app.get('/portfolio', (req, res) => {
     res.render('portfolio');
 });
@@ -292,9 +309,67 @@ app.get('/support', (req, res) => {
 
 app.get('/fund-details', async (req, res) => {
     try {
+        // Get URL parameters to determine which fund to show
+        const market = req.query.market || 'primary'; // primary or secondary
+        const fund = req.query.fund || 'buyout'; // buyout, venture, hedge
+        
+        // Define fund-specific data
+        const fundData = {
+            primary: {
+                buyout: {
+                    title: 'LOMBARD ODIER SPV BUYOUT FUND 2025',
+                    strategy: 'Buyout',
+                    sector: 'Telecommunications',
+                    size: '>€1Bil',
+                    vintage: '2016'
+                },
+                venture: {
+                    title: 'LOMBARD ODIER SPV VENTURE FUND 2025',
+                    strategy: 'Venture Capital',
+                    sector: 'Multi-Balanced',
+                    size: '>€1Bil',
+                    vintage: '2016'
+                },
+                hedge: {
+                    title: 'LOMBARD ODIER SPV HEDGE FUND 2025',
+                    strategy: 'Growth',
+                    sector: 'Utility',
+                    size: '>€1Bil',
+                    vintage: '2016'
+                }
+            },
+            secondary: {
+                buyout: {
+                    title: 'BULLETIN BOARD - SECONDARY MARKET OPPORTUNITIES',
+                    strategy: 'Secondary Buyout',
+                    sector: 'Various',
+                    size: 'Mixed',
+                    vintage: 'Various'
+                }
+            }
+        };
+        
+        const currentFund = fundData[market]?.[fund] || fundData.primary.buyout;
         const filePath = path.join(__dirname, 'data', 'Fund cash flows 2.csv');
         const csvContent = fs.readFileSync(filePath, 'utf8');
-        const records = csvParse(csvContent, { skip_empty_lines: true });
+        
+        // Parse CSV using sync API
+        let records;
+        try {
+            // Split lines manually and parse
+            const lines = csvContent.split('\n').filter(line => line.trim());
+            records = lines.map(line => line.split(',').map(cell => cell.trim()));
+        } catch (error) {
+            console.error('CSV parsing error:', error);
+            return res.status(500).send('Error parsing CSV data');
+        }
+        
+        // Check if records is valid
+        if (!Array.isArray(records) || records.length < 3) {
+            console.error('Records is not valid:', records?.length || 'undefined');
+            return res.status(500).send('Invalid data format');
+        }
+        
         // records[0] is header row, records[1] is column header row
         const dataRows = records.slice(2);
         const capitalCalledData = [];
@@ -319,19 +394,75 @@ app.get('/fund-details', async (req, res) => {
         });
         res.render('fund-details', {
             capitalCalledData,
-            distributionsData
+            distributionsData,
+            fundInfo: currentFund,
+            market: market,
+            fundType: fund
         });
     } catch (error) {
         console.error(error);
         res.render('fund-details', {
             capitalCalledData: [],
-            distributionsData: []
+            distributionsData: [],
+            fundInfo: { title: 'Fund Details', strategy: 'N/A', sector: 'N/A', size: 'N/A', vintage: 'N/A' },
+            market: 'primary',
+            fundType: 'buyout'
         });
     }
 });
 
 app.get('/create-bid', (req, res) => {
     res.render('create-bid');
+});
+
+app.get('/contact-advisor', (req, res) => {
+    // Get URL parameters to pass fund information
+    const market = req.query.market || 'secondary';
+    const fund = req.query.fund || 'buyout';
+    
+    // Define fund-specific data (same as fund-details)
+    const fundData = {
+        primary: {
+            buyout: {
+                title: 'LOMBARD ODIER SPV BUYOUT FUND 2025',
+                strategy: 'Buyout',
+                sector: 'Telecommunications',
+                size: '>€1Bil',
+                vintage: '2016'
+            },
+            venture: {
+                title: 'LOMBARD ODIER SPV VENTURE FUND 2025',
+                strategy: 'Venture Capital',
+                sector: 'Multi-Balanced',
+                size: '>€1Bil',
+                vintage: '2016'
+            },
+            hedge: {
+                title: 'LOMBARD ODIER SPV HEDGE FUND 2025',
+                strategy: 'Growth',
+                sector: 'Utility',
+                size: '>€1Bil',
+                vintage: '2016'
+            }
+        },
+        secondary: {
+            buyout: {
+                title: 'BULLETIN BOARD - SECONDARY MARKET OPPORTUNITIES',
+                strategy: 'Secondary Buyout',
+                sector: 'Various',
+                size: 'Mixed',
+                vintage: 'Various'
+            }
+        }
+    };
+    
+    const currentFund = fundData[market]?.[fund] || fundData.secondary.buyout;
+    
+    res.render('contact-advisor', {
+        fundInfo: currentFund,
+        market: market,
+        fundType: fund
+    });
 });
 
 // API endpoint to get portfolio data
@@ -481,26 +612,21 @@ process.on('SIGTERM', () => {
     process.exit(0);
 });
 
-// Start server with port retry logic
-function startServer(port) {
-    console.log('About to start server on port', port);
-    const server = app.listen(port, '0.0.0.0')
-        .on('error', (err) => {
-            if (err.code === 'EADDRINUSE') {
-                console.log(`Port ${port} is busy, trying ${port + 1}`);
-                startServer(port + 1);
-            } else {
-                console.error('Server error:', err);
-            }
-        })
-        .on('listening', () => {
-            console.log(`Server is running on http://localhost:${port}`);
-        });
-    console.log('app.listen called, waiting for events...');
-}
+// Start server - simplified and more robust
+console.log('About to start server on port', port);
+const server = app.listen(port, (err) => {
+    if (err) {
+        console.error('Server failed to start:', err);
+        process.exit(1);
+    }
+    console.log(`Server is running on http://localhost:${port}`);
+    console.log('Server is ready to accept connections');
+});
 
-// Start server on port 3001, will automatically try next port if busy
-startServer(port);
+server.on('error', (err) => {
+    console.error('Server error:', err);
+    process.exit(1);
+});
 
 process.on('uncaughtException', (err) => {
   console.error('Uncaught Exception:', err);
