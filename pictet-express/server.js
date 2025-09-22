@@ -341,9 +341,12 @@ app.get('/portfolio', (req, res) => {
 
 app.get('/portfolio-summary', (req, res) => {
     try {
-        // Read portfolio data
-        const portfolio1 = readExcelFile(path.join(__dirname, 'data', 'portfolio1.xlsx'));
-        const portfolio2 = readExcelFile(path.join(__dirname, 'data', 'portfolio2.xlsx'));
+        // Read portfolio data - force CSV reading
+        console.log('Reading portfolio data from:', __dirname);
+        const portfolio1 = readCSVFile(path.join(__dirname, 'data', 'portfolio1.csv'));
+        const portfolio2 = readCSVFile(path.join(__dirname, 'data', 'portfolio2.csv'));
+        console.log('Portfolio1 data:', portfolio1);
+        console.log('Portfolio2 data:', portfolio2);
 
         // Sample data for portfolio summary
         const processedData = {
