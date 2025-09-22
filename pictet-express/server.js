@@ -36,6 +36,26 @@ let savedCommitmentCriteria = {
     deploymentDate: ''
 };
 
+// Store for posted investments (in memory for now)
+let postedInvestments = [];
+
+// Function to remove duplicates from posted investments
+function removeDuplicateInvestments() {
+    const uniqueInvestments = [];
+    const seenNames = new Set();
+    
+    for (const investment of postedInvestments) {
+        const normalizedName = investment.fundName.toLowerCase().trim();
+        if (!seenNames.has(normalizedName)) {
+            seenNames.add(normalizedName);
+            uniqueInvestments.push(investment);
+        }
+    }
+    
+    postedInvestments = uniqueInvestments;
+    console.log('Removed duplicates. Current posted investments:', postedInvestments.length);
+}
+
 // Add formatNumber to app.locals so it's available to all views
 app.locals.formatNumber = function(num) {
     if (num === undefined || num === null) return '0';
@@ -88,9 +108,39 @@ function excelDateToJSDate(serial) {
     return new Date(date_info.getFullYear(), date_info.getMonth(), date_info.getDate());
 }
 
+// Function to read CSV file
+function readCSVFile(filePath) {
+    try {
+        const csvContent = fs.readFileSync(filePath, 'utf8');
+        const lines = csvContent.split('\n').filter(line => line.trim());
+        const headers = lines[0].split(',');
+        const data = [];
+        
+        for (let i = 1; i < lines.length; i++) {
+            const values = lines[i].split(',');
+            const row = {};
+            headers.forEach((header, index) => {
+                row[header] = values[index] ? values[index].trim() : '';
+            });
+            data.push(row);
+        }
+        
+        return data;
+    } catch (error) {
+        console.error('Error reading CSV file:', error);
+        return [];
+    }
+}
+
 // Function to read Excel file
 function readExcelFile(filePath) {
     try {
+        // Try CSV first
+        const csvPath = filePath.replace('.xlsx', '.csv');
+        if (fs.existsSync(csvPath)) {
+            return readCSVFile(csvPath);
+        }
+        
         const workbook = XLSX.readFile(filePath);
         const sheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[sheetName];
@@ -108,7 +158,7 @@ function readExcelFile(filePath) {
         // Return sample data if file reading fails
         return [
             {
-                "Fund Name": "Lombard Odier SPV 1",
+                "Fund Name": "UBS SPV 1",
                 "Type": "Private Equity",
                 "Total Commitment": "€ 5.000.000",
                 "Called Capital": "€ 4.750.000",
@@ -218,7 +268,69 @@ app.get('/briefing', (req, res) => {
         volatility: 'Medium',
         creditSpreads: 'Neutral',
         macroRegime: 'Expansion',
-        clientFirstName: 'John'
+        clientFirstName: 'John',
+        portfolioCompanyNews: [
+            {
+                symbol: 'AAPL',
+                company: 'Apple Inc.',
+                headline: 'Apple Reports Record Q4 Revenue Driven by iPhone 15 Sales',
+                summary: 'Apple exceeded analyst expectations with $89.5B in quarterly revenue, led by strong iPhone 15 adoption and Services growth.',
+                impact: 'Positive',
+                timeAgo: '2 hours ago',
+                source: 'Reuters',
+                relevance: 'High - Largest holding in your portfolio'
+            },
+            {
+                symbol: 'NVDA',
+                company: 'NVIDIA Corporation',
+                headline: 'NVIDIA Announces New AI Chip Architecture for Data Centers',
+                summary: 'The new H200 chips promise 2.5x performance improvement over previous generation, targeting enterprise AI workloads.',
+                impact: 'Positive',
+                timeAgo: '4 hours ago',
+                source: 'TechCrunch',
+                relevance: 'High - Second largest holding, strong AI exposure'
+            },
+            {
+                symbol: 'MSFT',
+                company: 'Microsoft Corporation',
+                headline: 'Microsoft Azure Gains Market Share in Cloud Computing',
+                summary: 'Azure cloud services grew 29% YoY, closing the gap with AWS as enterprise customers accelerate digital transformation.',
+                impact: 'Positive',
+                timeAgo: '6 hours ago',
+                source: 'Bloomberg',
+                relevance: 'High - Significant position, cloud growth driver'
+            },
+            {
+                symbol: 'META',
+                company: 'Meta Platforms Inc.',
+                headline: 'Meta Invests $10B in VR/AR Development for 2024',
+                summary: 'Continued investment in Reality Labs despite current losses, targeting consumer and enterprise metaverse applications.',
+                impact: 'Neutral',
+                timeAgo: '8 hours ago',
+                source: 'Wall Street Journal',
+                relevance: 'Medium - Monitor VR investments vs core advertising'
+            },
+            {
+                symbol: 'TSLA',
+                company: 'Tesla Inc.',
+                headline: 'Tesla Cybertruck Production Ramp Faces Supply Chain Issues',
+                summary: 'Manufacturing delays expected to push full production to mid-2024, impacting delivery targets for the electric pickup.',
+                impact: 'Negative',
+                timeAgo: '12 hours ago',
+                source: 'Automotive News',
+                relevance: 'Medium - Production challenges may affect near-term performance'
+            },
+            {
+                symbol: 'GOOGL',
+                company: 'Alphabet Inc.',
+                headline: 'Google Cloud Wins Major Enterprise Contracts in AI Services',
+                summary: 'Significant partnerships with Fortune 500 companies for AI-powered business solutions, competing directly with Microsoft and Amazon.',
+                impact: 'Positive',
+                timeAgo: '1 day ago',
+                source: 'Financial Times',
+                relevance: 'Medium - Cloud and AI growth competitive position'
+            }
+        ]
     };
     res.render('briefing', briefingData);
 });
@@ -236,16 +348,16 @@ app.get('/portfolio-summary', (req, res) => {
         // Sample data for portfolio summary
         const processedData = {
             metrics: {
-                totalValue: 1000000,
+                totalValue: 20000000,
                 totalInvestments: 15,
-                averageInvestmentSize: 66666.67,
-                totalCommitment: 1200000,
+                averageInvestmentSize: 1333333.33,
+                totalCommitment: 24000000,
                 assetAllocation: {
                     'Cash': 5.00,
-                    'Marketable Securities': 60.00,
+                    'Marketable Securities': 45.3125,
                     'Fixed Income': 15.00,
-                    'Private Funds': 15.00,
-                    'Hedge Funds': 5.00,
+                    'Private Funds': 27.75,
+                    'Hedge Funds': 6.9375,
                     'Other Assets': 0.00
                 },
                 assetTypeBreakdown: {
@@ -264,10 +376,22 @@ app.get('/portfolio-summary', (req, res) => {
                 }
             },
             portfolioBreakdown: [
-                { category: 'Private Equity', value: 400000, percentage: 40 },
-                { category: 'Real Estate', value: 300000, percentage: 30 },
-                { category: 'Infrastructure', value: 200000, percentage: 20 },
-                { category: 'Hedge Funds', value: 100000, percentage: 10 }
+                { category: 'Private Equity', value: 8000000, percentage: 40 },
+                { category: 'Real Estate', value: 6000000, percentage: 30 },
+                { category: 'Infrastructure', value: 4000000, percentage: 20 },
+                { category: 'Hedge Funds', value: 2000000, percentage: 10 }
+            ],
+            marketableSecurities: [
+                { symbol: 'AAPL', name: 'Apple Inc.', shares: 6625, basis: 150.25, currentPrice: 185.40, dayChange: 2.85, dayChangePercent: 1.56, marketValue: 1227825, totalReturn: 232575, returnPercent: 23.39 },
+                { symbol: 'MSFT', name: 'Microsoft Corporation', shares: 4765, basis: 240.80, currentPrice: 412.50, dayChange: -5.20, dayChangePercent: -1.24, marketValue: 1965563, totalReturn: 817813, returnPercent: 71.20 },
+                { symbol: 'GOOGL', name: 'Alphabet Inc.', shares: 3180, basis: 98.50, currentPrice: 162.75, dayChange: 3.45, dayChangePercent: 2.17, marketValue: 517545, totalReturn: 204255, returnPercent: 65.08 },
+                { symbol: 'AMZN', name: 'Amazon.com Inc.', shares: 2515, basis: 105.20, currentPrice: 155.80, dayChange: -1.90, dayChangePercent: -1.20, marketValue: 391837, totalReturn: 127259, returnPercent: 48.09 },
+                { symbol: 'NVDA', name: 'NVIDIA Corporation', shares: 2120, basis: 220.00, currentPrice: 875.25, dayChange: 12.75, dayChangePercent: 1.48, marketValue: 1855530, totalReturn: 1389530, returnPercent: 298.75 },
+                { symbol: 'TSLA', name: 'Tesla Inc.', shares: 1590, basis: 180.50, currentPrice: 248.75, dayChange: -7.25, dayChangePercent: -2.83, marketValue: 395512, totalReturn: 108725, returnPercent: 37.90 },
+                { symbol: 'META', name: 'Meta Platforms Inc.', shares: 1853, basis: 195.30, currentPrice: 495.20, dayChange: 8.90, dayChangePercent: 1.83, marketValue: 917842, totalReturn: 555733, returnPercent: 153.60 },
+                { symbol: 'NFLX', name: 'Netflix Inc.', shares: 1192, basis: 385.75, currentPrice: 615.80, dayChange: -4.15, dayChangePercent: -0.67, marketValue: 733634, totalReturn: 274094, returnPercent: 59.64 },
+                { symbol: 'AMD', name: 'Advanced Micro Devices', shares: 2915, basis: 95.40, currentPrice: 142.60, dayChange: 4.20, dayChangePercent: 3.04, marketValue: 415579, totalReturn: 137279, returnPercent: 49.45 },
+                { symbol: 'CRM', name: 'Salesforce Inc.', shares: 2250, basis: 165.90, currentPrice: 285.30, dayChange: -2.70, dayChangePercent: -0.94, marketValue: 641925, totalReturn: 268650, returnPercent: 72.01 }
             ]
         };
 
@@ -292,7 +416,26 @@ app.get('/portfolio-builder', (req, res) => {
 });
 
 app.get('/investment-opportunities', (req, res) => {
-    res.render('investment-opportunities');
+    const tab = req.query.tab || 'primary';
+    const postedFund = req.query.posted || null;
+    const message = req.query.message || null;
+    
+    // Remove duplicates before rendering
+    removeDuplicateInvestments();
+    
+    let displayMessage = null;
+    if (postedFund) {
+        displayMessage = `${postedFund} has been successfully posted for sale!`;
+    } else if (message) {
+        displayMessage = message;
+    }
+    
+    res.render('investment-opportunities', {
+        postedInvestments: postedInvestments,
+        activeTab: tab,
+        successMessage: displayMessage,
+        isError: !!message && !postedFund // Flag to show error styling
+    });
 });
 
 app.get('/transactions', (req, res) => {
@@ -312,6 +455,41 @@ app.get('/fund-details', async (req, res) => {
         // Get URL parameters to determine which fund to show
         const market = req.query.market || 'primary'; // primary or secondary
         const fund = req.query.fund || 'buyout'; // buyout, venture, hedge
+        const source = req.query.source || null; // 'posted' if from Your Listings
+        const fundName = req.query.name || null; // name of posted investment
+        const fundId = req.query.fundId || null; // specific fund ID for available investments
+        
+        // If this is a posted investment, get the data from posted investments
+        if (source === 'posted' && fundName) {
+            const postedInvestment = postedInvestments.find(investment => 
+                investment.fundName === decodeURIComponent(fundName)
+            );
+            
+            if (postedInvestment) {
+                // Use posted investment data for fund details
+                const fundInfo = {
+                    title: `${postedInvestment.fundName} - Secondary Market`,
+                    strategy: postedInvestment.type,
+                    sector: 'Various',
+                    size: postedInvestment.totalCommitment,
+                    vintage: '2020-2025',
+                    currentValue: postedInvestment.currentValue,
+                    totalCommitment: postedInvestment.totalCommitment,
+                    calledCapital: postedInvestment.calledCapital,
+                    remaining: postedInvestment.remaining,
+                    postedDate: postedInvestment.postedDate,
+                    portfolioNumber: postedInvestment.portfolioNumber
+                };
+                
+                return res.render('fund-details', {
+                    market: 'secondary',
+                    fundType: fund,
+                    fundInfo: fundInfo,
+                    isPostedInvestment: true,
+                    postedInvestment: postedInvestment
+                });
+            }
+        }
         
         // Define fund-specific data
         const fundData = {
@@ -345,11 +523,71 @@ app.get('/fund-details', async (req, res) => {
                     sector: 'Various',
                     size: 'Mixed',
                     vintage: 'Various'
+                },
+                venture: {
+                    title: 'BULLETIN BOARD - SECONDARY MARKET OPPORTUNITIES',
+                    strategy: 'Secondary Venture Capital',
+                    sector: 'Various',
+                    size: 'Mixed',
+                    vintage: 'Various'
+                },
+                infrastructure: {
+                    title: 'BULLETIN BOARD - SECONDARY MARKET OPPORTUNITIES',
+                    strategy: 'Secondary Infrastructure',
+                    sector: 'Various',
+                    size: 'Mixed',
+                    vintage: 'Various'
                 }
             }
         };
+
+        // Define specific available investment data
+        const availableInvestments = {
+            spv1: {
+                title: 'LOMBARD ODIER SPV 1',
+                strategy: 'Buyout',
+                sector: 'Telecommunications',
+                size: '>€1Bil',
+                vintage: '2016',
+                currentValue: '€4,800,000',
+                totalCalled: '€2,900,000',
+                commitment: '€3,000,000',
+                currentDPI: '0.75x',
+                postedDate: '5/14/2025'
+            },
+            spv2: {
+                title: 'LOMBARD ODIER SPV 2',
+                strategy: 'Venture Capital',
+                sector: 'Multi-Balanced',
+                size: '>€800M',
+                vintage: '2017',
+                currentValue: '€6,200,000',
+                totalCalled: '€3,800,000',
+                commitment: '€4,500,000',
+                currentDPI: '0.85x',
+                postedDate: '3/22/2025'
+            },
+            spv3: {
+                title: 'LOMBARD ODIER SPV 3',
+                strategy: 'Infrastructure',
+                sector: 'Utility',
+                size: '>€1.2Bil',
+                vintage: '2018',
+                currentValue: '€7,200,000',
+                totalCalled: '€4,100,000',
+                commitment: '€5,000,000',
+                currentDPI: '0.92x',
+                postedDate: '1/15/2025'
+            }
+        };
         
-        const currentFund = fundData[market]?.[fund] || fundData.primary.buyout;
+        // Use specific fund data if fundId is provided (for available investments)
+        let currentFund;
+        if (fundId && availableInvestments[fundId]) {
+            currentFund = availableInvestments[fundId];
+        } else {
+            currentFund = fundData[market]?.[fund] || fundData.primary.buyout;
+        }
         const filePath = path.join(__dirname, 'data', 'Fund cash flows 2.csv');
         const csvContent = fs.readFileSync(filePath, 'utf8');
         
@@ -397,7 +635,9 @@ app.get('/fund-details', async (req, res) => {
             distributionsData,
             fundInfo: currentFund,
             market: market,
-            fundType: fund
+            fundType: fund,
+            isAvailableInvestment: !!(fundId && availableInvestments[fundId]),
+            availableInvestmentData: fundId && availableInvestments[fundId] ? availableInvestments[fundId] : null
         });
     } catch (error) {
         console.error(error);
@@ -463,6 +703,185 @@ app.get('/contact-advisor', (req, res) => {
         market: market,
         fundType: fund
     });
+});
+
+// Post for sale route
+app.get('/post-for-sale/:fundName', (req, res) => {
+    try {
+        const fundName = req.params.fundName;
+        
+        // Read both portfolio files to find the investment
+        const portfolio1 = readExcelFile(path.join(__dirname, 'data', 'portfolio1.xlsx'));
+        const portfolio2 = readExcelFile(path.join(__dirname, 'data', 'portfolio2.xlsx'));
+        
+        // Find the investment in either portfolio
+        let investment = null;
+        let portfolioNumber = null;
+        
+        const investment1 = portfolio1.find(item => {
+            const itemName = item['Fund Name'] || '';
+            const urlName = itemName.toLowerCase().replace(/\s+/g, '-');
+            return urlName === fundName.toLowerCase();
+        });
+        
+        if (investment1) {
+            investment = investment1;
+            portfolioNumber = 1;
+        } else {
+            const investment2 = portfolio2.find(item => {
+                const itemName = item['Fund Name'] || '';
+                const urlName = itemName.toLowerCase().replace(/\s+/g, '-');
+                return urlName === fundName.toLowerCase();
+            });
+            if (investment2) {
+                investment = investment2;
+                portfolioNumber = 2;
+            }
+        }
+        
+        if (!investment) {
+            return res.status(404).render('error', { 
+                error: 'Investment not found',
+                message: `No investment found with name: ${fundName}`
+            });
+        }
+        
+        // Check if already posted (case-insensitive comparison)
+        const fundNameToCheck = investment['Fund Name'].toLowerCase().trim();
+        const alreadyPosted = postedInvestments.find(posted => 
+            posted.fundName.toLowerCase().trim() === fundNameToCheck
+        );
+        
+        if (alreadyPosted) {
+            console.log('Investment already posted for sale:', investment['Fund Name']);
+            return res.redirect('/investment-opportunities?tab=listings&message=' + encodeURIComponent(`${investment['Fund Name']} is already posted for sale!`));
+        }
+        
+        // Add to posted investments
+        const postedInvestment = {
+            fundName: investment['Fund Name'],
+            type: investment['Type'],
+            totalCommitment: investment['Total Commitment'],
+            calledCapital: investment['Called Capital'],
+            currentValue: investment['Current Value'],
+            remaining: investment['Remaining'],
+            calledPercent: investment['Called %'],
+            remainingPercent: investment['Remaining %'],
+            postedDate: new Date().toLocaleDateString('en-US'),
+            portfolioNumber: portfolioNumber
+        };
+        
+        postedInvestments.push(postedInvestment);
+        
+        console.log('Investment posted for sale:', postedInvestment);
+        
+        // Redirect to investment opportunities page with success message
+        res.redirect('/investment-opportunities?tab=listings&posted=' + encodeURIComponent(investment['Fund Name']));
+        
+    } catch (error) {
+        console.error('Error posting investment for sale:', error);
+        res.status(500).render('error', { 
+            error: 'Failed to post investment for sale',
+            message: error.message
+        });
+    }
+});
+
+// Investment details route
+app.get('/investment-details/:fundName', (req, res) => {
+    try {
+        const fundName = req.params.fundName;
+        
+        // Read both portfolio files
+        const portfolio1 = readExcelFile(path.join(__dirname, 'data', 'portfolio1.xlsx'));
+        const portfolio2 = readExcelFile(path.join(__dirname, 'data', 'portfolio2.xlsx'));
+        
+        // Find the investment in either portfolio
+        let investment = null;
+        let portfolioNumber = null;
+        
+        // Search in portfolio 1
+        const investment1 = portfolio1.find(item => {
+            const itemName = item['Fund Name'] || '';
+            const urlName = itemName.toLowerCase().replace(/\s+/g, '-');
+            console.log('Comparing:', urlName, 'with', fundName.toLowerCase());
+            return urlName === fundName.toLowerCase();
+        });
+        
+        if (investment1) {
+            investment = investment1;
+            portfolioNumber = 1;
+        } else {
+            // Search in portfolio 2
+            const investment2 = portfolio2.find(item => {
+                const itemName = item['Fund Name'] || '';
+                const urlName = itemName.toLowerCase().replace(/\s+/g, '-');
+                console.log('Comparing:', urlName, 'with', fundName.toLowerCase());
+                return urlName === fundName.toLowerCase();
+            });
+            if (investment2) {
+                investment = investment2;
+                portfolioNumber = 2;
+            }
+        }
+        
+        if (!investment) {
+            return res.status(404).render('error', { 
+                error: 'Investment not found',
+                message: `No investment found with name: ${fundName}`
+            });
+        }
+        
+        // Generate additional KPIs and metrics
+        const totalCommitment = parseAmount(investment['Total Commitment']);
+        const calledCapital = parseAmount(investment['Called Capital']);
+        const currentValue = parseAmount(investment['Current Value']);
+        const remaining = parseAmount(investment['Remaining']);
+        
+        console.log('Parsed values:', { totalCommitment, calledCapital, currentValue, remaining });
+        
+        const kpis = {
+            // Performance metrics
+            totalReturn: ((currentValue - calledCapital) / calledCapital * 100).toFixed(2),
+            netIRR: (Math.random() * 15 + 5).toFixed(2), // Simulated
+            tvpi: (currentValue / calledCapital).toFixed(2),
+            dpi: (Math.random() * 0.5).toFixed(2), // Simulated distributions
+            
+            // Risk metrics
+            volatility: (Math.random() * 20 + 10).toFixed(1),
+            sharpeRatio: (Math.random() * 2 + 0.5).toFixed(2),
+            maxDrawdown: (Math.random() * 15 + 5).toFixed(1),
+            
+            // Operational metrics
+            deploymentProgress: ((calledCapital / totalCommitment) * 100).toFixed(1),
+            remainingCommitment: remaining,
+            vintageYear: 2020 + Math.floor(Math.random() * 5), // Simulated
+            fundSize: totalCommitment * (2 + Math.random() * 3), // Simulated total fund size
+            
+            // Market metrics
+            industryBenchmark: (Math.random() * 20 + 8).toFixed(2),
+            peerRanking: Math.floor(Math.random() * 25) + 1, // Top quartile
+            
+            // Cashflow metrics
+            monthlyIncome: (currentValue * 0.005).toFixed(0), // Simulated 0.5% monthly
+            lastDistribution: new Date(Date.now() - Math.random() * 90 * 24 * 60 * 60 * 1000).toLocaleDateString('en-GB'),
+            nextCapitalCall: new Date(Date.now() + Math.random() * 180 * 24 * 60 * 60 * 1000).toLocaleDateString('en-GB')
+        };
+        
+        res.render('investment-details', {
+            investment,
+            kpis,
+            portfolioNumber,
+            fundName: investment['Fund Name']
+        });
+        
+    } catch (error) {
+        console.error('Error loading investment details:', error);
+        res.status(500).render('error', { 
+            error: 'Failed to load investment details',
+            message: error.message
+        });
+    }
 });
 
 // API endpoint to get portfolio data

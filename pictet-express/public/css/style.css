@@ -14,6 +14,54 @@ body {
     margin-bottom: 1.5rem;
 }
 
+/* Portfolio Summary Header */
+.portfolio-summary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.portfolio-summary-header h1 {
+    margin: 0;
+    margin-bottom: 0;
+}
+
+.portfolio-date {
+    font-size: 1rem;
+    color: #666;
+    font-weight: 400;
+}
+
+/* Charts Container and Sizing */
+.charts-container {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    align-items: flex-start;
+}
+
+.chart-section {
+    flex: 1;
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.chart-section h2 {
+    margin: 0 0 1rem 0;
+    font-size: 1.2rem;
+    color: #333;
+    text-align: center;
+}
+
+.chart-wrapper {
+    position: relative;
+    width: 100%;
+    height: 300px;
+}
+
 /* Stability Message Styles */
 .stability-message {
     max-width: 1200px;
@@ -79,6 +127,12 @@ body {
 
 .nav-link:hover {
     border-bottom-color: #007bff;
+}
+
+.nav-link.active {
+    color: #007bff;
+    border-bottom-color: #007bff;
+    font-weight: 600;
 }
 
 .logo .logo-image {
@@ -2656,6 +2710,142 @@ button, .btn, .highlight-btn, .cancel-btn {
     margin: 0 0 0.5rem 0;
 }
 
+/* Portfolio Company News Styles */
+.portfolio-news-header {
+    margin-bottom: 1.5rem;
+}
+
+.portfolio-news-header p {
+    color: #6c757d;
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.portfolio-news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.portfolio-news-item {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 1.25rem;
+    transition: box-shadow 0.2s ease;
+}
+
+.portfolio-news-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.news-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+}
+
+.company-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.company-symbol {
+    background: #003f5c;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    font-family: 'Courier New', monospace;
+}
+
+.company-name {
+    font-weight: 500;
+    color: #495057;
+    font-size: 0.9rem;
+}
+
+.news-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+}
+
+.news-time {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+.news-impact {
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.news-impact.positive {
+    background: #d4edda;
+    color: #155724;
+}
+
+.news-impact.negative {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.news-impact.neutral {
+    background: #e2e3e5;
+    color: #383d41;
+}
+
+.news-headline {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0 0 0.75rem 0;
+    line-height: 1.4;
+}
+
+.news-summary {
+    color: #495057;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0 0 1rem 0;
+}
+
+.news-relevance {
+    background: #e3f2fd;
+    border-left: 4px solid #2196f3;
+    padding: 0.5rem;
+    margin: 0.75rem 0;
+    font-size: 0.85rem;
+}
+
+.news-relevance strong {
+    color: #1976d2;
+}
+
+.news-source {
+    font-size: 0.8rem;
+    color: #6c757d;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #e9ecef;
+}
+
+.portfolio-news-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
 /* Today at a Glance */
 .glance-grid {
     display: grid;
@@ -2714,8 +2904,8 @@ button, .btn, .highlight-btn, .cancel-btn {
 }
 
 .nav-label {
-    font-size: 0.9rem;
-    font-weight: 600;
+    font-size: 1rem;
+    font-weight: 700;
     color: #6c757d;
     text-transform: uppercase;
     letter-spacing: 0.5px;

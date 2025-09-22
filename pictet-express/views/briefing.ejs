@@ -264,6 +264,42 @@
         </div>
     </div>
 
+    <!-- Section 2.5: Portfolio Company News -->
+    <div class="briefing-section">
+        <h3>Portfolio Company News</h3>
+        <div class="portfolio-news-header">
+            <p>Recent news and developments for companies in your marketable securities portfolio</p>
+        </div>
+        <div class="portfolio-news-grid">
+            <% portfolioCompanyNews.forEach(news => { %>
+                <div class="portfolio-news-item">
+                    <div class="news-item-header">
+                        <div class="company-info">
+                            <span class="company-symbol"><%= news.symbol %></span>
+                            <span class="company-name"><%= news.company %></span>
+                        </div>
+                        <div class="news-meta">
+                            <span class="news-time"><%= news.timeAgo %></span>
+                            <span class="news-impact <%= news.impact.toLowerCase() %>"><%= news.impact %></span>
+                        </div>
+                    </div>
+                    <h4 class="news-headline"><%= news.headline %></h4>
+                    <p class="news-summary"><%= news.summary %></p>
+                    <div class="news-relevance">
+                        <strong>Portfolio Impact:</strong> <%= news.relevance %>
+                    </div>
+                    <div class="news-source">
+                        <span>Source: <%= news.source %></span>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+        <div class="portfolio-news-actions">
+            <button class="btn-secondary">View All Portfolio News</button>
+            <button class="btn-outline">Set News Alerts</button>
+        </div>
+    </div>
+
     <!-- Section 3: Macro Snapshot -->
     <div class="briefing-section">
         <h3>Macro Snapshot</h3>

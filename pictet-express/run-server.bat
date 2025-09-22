@@ -5,3 +5,6 @@ echo Current directory: %cd%
 echo Starting server on port 4001...
 node server.js
 pause
+
+
+

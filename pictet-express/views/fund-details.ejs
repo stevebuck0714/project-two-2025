@@ -51,8 +51,10 @@
     <h1 class="fund-title">
         <% if (market === 'primary') { %>
             Primary Market - Fund Details
+        <% } else if (typeof isPostedInvestment !== 'undefined' && isPostedInvestment) { %>
+            Bulletin Board - Your Listings - Fund Details
         <% } else { %>
-            Bulletin Board - Fund Details
+            Bulletin Board - Available Investments - Fund Details
         <% } %>
     </h1>
     
@@ -90,46 +92,104 @@
             <div class="fund-metrics-grid">
                 <div class="metric-group">
                     <div class="metric-item">
-                        <div class="metric-label">Current NAV</div>
-                        <div class="metric-value">€ 4.000.000</div>
+                        <div class="metric-label">Current Value</div>
+                        <div class="metric-value">
+                            <% if (typeof isPostedInvestment !== 'undefined' && isPostedInvestment) { %>
+                                <%= postedInvestment.currentValue %>
+                            <% } else if (typeof isAvailableInvestment !== 'undefined' && isAvailableInvestment && availableInvestmentData) { %>
+                                <%= availableInvestmentData.currentValue %>
+                            <% } else { %>
+                                € 4.000.000
+                            <% } %>
+                        </div>
                     </div>
                     <div class="metric-item">
                         <div class="metric-label">Strategy</div>
-                        <div class="metric-value">Buyout- Mid Market</div>
+                        <div class="metric-value">
+                            <% if (typeof isPostedInvestment !== 'undefined' && isPostedInvestment) { %>
+                                <%= postedInvestment.type %>
+                            <% } else { %>
+                                Buyout- Mid Market
+                            <% } %>
+                        </div>
                     </div>
                     <div class="metric-item">
                         <span class="metric-label">Posted Date:</span>
-                        <span class="metric-value">5/14/2025</span>
+                        <span class="metric-value">
+                            <% if (typeof isPostedInvestment !== 'undefined' && isPostedInvestment) { %>
+                                <%= postedInvestment.postedDate %>
+                            <% } else if (typeof isAvailableInvestment !== 'undefined' && isAvailableInvestment && availableInvestmentData) { %>
+                                <%= availableInvestmentData.postedDate %>
+                            <% } else { %>
+                                5/14/2025
+                            <% } %>
+                        </span>
                     </div>
                 </div>
 
                 <div class="metric-group">
                     <div class="metric-item">
-                        <div class="metric-label">Total Called</div>
-                        <div class="metric-value">€ 8.000.000</div>
+                        <div class="metric-label">Called Capital</div>
+                        <div class="metric-value">
+                            <% if (typeof isPostedInvestment !== 'undefined' && isPostedInvestment) { %>
+                                <%= postedInvestment.calledCapital %>
+                            <% } else { %>
+                                € 8.000.000
+                            <% } %>
+                        </div>
                     </div>
                     <div class="metric-item">
-                        <div class="metric-label"># of Investments</div>
-                        <div class="metric-value">9</div>
+                        <div class="metric-label">Portfolio</div>
+                        <div class="metric-value">
+                            <% if (typeof isPostedInvestment !== 'undefined' && isPostedInvestment) { %>
+                                Portfolio <%= postedInvestment.portfolioNumber %>
+                            <% } else { %>
+                                Various
+                            <% } %>
+                        </div>
                     </div>
                     <div class="metric-item">
-                        <div class="metric-label">Bidding Ends</div>
-                        <div class="metric-value">6/30/2025</div>
+                        <div class="metric-label">Called %</div>
+                        <div class="metric-value">
+                            <% if (typeof isPostedInvestment !== 'undefined' && isPostedInvestment) { %>
+                                <%= postedInvestment.calledPercent %>
+                            <% } else { %>
+                                75.00%
+                            <% } %>
+                        </div>
                     </div>
                 </div>
 
                 <div class="metric-group">
                     <div class="metric-item">
                         <div class="metric-label">Total Commitment</div>
-                        <div class="metric-value">€ 9.000.000</div>
+                        <div class="metric-value">
+                            <% if (typeof isPostedInvestment !== 'undefined' && isPostedInvestment) { %>
+                                <%= postedInvestment.totalCommitment %>
+                            <% } else { %>
+                                € 9.000.000
+                            <% } %>
+                        </div>
                     </div>
                     <div class="metric-item">
-                        <div class="metric-label">Exits</div>
-                        <div class="metric-value">4</div>
+                        <div class="metric-label">Remaining</div>
+                        <div class="metric-value">
+                            <% if (typeof isPostedInvestment !== 'undefined' && isPostedInvestment) { %>
+                                <%= postedInvestment.remaining %>
+                            <% } else { %>
+                                € 1.000.000
+                            <% } %>
+                        </div>
                     </div>
                     <div class="metric-item">
-                        <div class="metric-label">Views</div>
-                        <div class="metric-value">39</div>
+                        <div class="metric-label">Market Type</div>
+                        <div class="metric-value">
+                            <% if (typeof isPostedInvestment !== 'undefined' && isPostedInvestment) { %>
+                                Secondary Market
+                            <% } else { %>
+                                Primary Market
+                            <% } %>
+                        </div>
                     </div>
                 </div>
 

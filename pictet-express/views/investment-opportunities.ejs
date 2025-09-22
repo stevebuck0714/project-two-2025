@@ -3,160 +3,82 @@
 <%- include('partials/client-header') %>
 
 <div class="main-container">
+    <% if (typeof successMessage !== 'undefined' && successMessage) { %>
+        <div class="<%= typeof isError !== 'undefined' && isError ? 'error-message' : 'success-message' %>">
+            <div class="<%= typeof isError !== 'undefined' && isError ? 'error-content' : 'success-content' %>">
+                <strong><%= typeof isError !== 'undefined' && isError ? 'Error!' : 'Success!' %></strong> <%= successMessage %>
+            </div>
+        </div>
+    <% } %>
+    
     <div class="opportunities-container">
         <div class="market-tabs">
-            <button class="market-tab active" onclick="showMarket('primary')">Your Listings</button>
-            <button class="market-tab" onclick="showMarket('secondary')">Available Investments</button>
+            <button class="market-tab <%= activeTab === 'listings' ? 'active' : (activeTab === 'primary' ? 'active' : '') %>" onclick="showMarket('primary')">Your Listings</button>
+            <button class="market-tab <%= activeTab === 'secondary' ? 'active' : '' %>" onclick="showMarket('secondary')">Available Investments</button>
         </div>
 
         <section id="primary-market" class="market-section active">
             <div class="funds-container">
-                <!-- Fund 1 -->
-                <div class="fund-card">
-                    <div class="fund-header">
-                        <div class="fund-logo">
-                            <img src="/images/lombard-odier.jpg" alt="LOMBARD ODIER Logo" class="logo-image">
+                <!-- Dynamic Posted Investments -->
+                <% if (typeof postedInvestments !== 'undefined' && postedInvestments.length > 0) { %>
+                    <% postedInvestments.forEach(investment => { %>
+                        <div class="fund-card posted-investment">
+                            <div class="fund-header">
+                                <div class="fund-logo">
+                                    <img src="/images/lombard-odier.jpg" alt="LOMBARD ODIER Logo" class="logo-image">
+                                </div>
+                                <div class="fund-title"><%= investment.fundName %></div>
+                                <div class="posted-date">Posted Date: <%= investment.postedDate %></div>
+                            </div>
+                            
+                            <div class="table-container">
+                                <table class="fund-details">
+                                    <tr>
+                                        <th>Strategy</th>
+                                        <th>Type</th>
+                                        <th>Portfolio</th>
+                                        <th>Called %</th>
+                                        <th>Remaining %</th>
+                                    </tr>
+                                    <tr>
+                                        <td><%= investment.type %></td>
+                                        <td><%= investment.type %></td>
+                                        <td>Portfolio <%= investment.portfolioNumber %></td>
+                                        <td><%= investment.calledPercent %></td>
+                                        <td><%= investment.remainingPercent %></td>
+                                    </tr>
+                                </table>
+
+                                <table class="fund-metrics">
+                                    <tr>
+                                        <th>Current Value</th>
+                                        <th>Called Capital</th>
+                                        <th>Total Commitment</th>
+                                        <th>Remaining</th>
+                                    </tr>
+                                    <tr>
+                                        <td><%= investment.currentValue %></td>
+                                        <td><%= investment.calledCapital %></td>
+                                        <td><%= investment.totalCommitment %></td>
+                                        <td><%= investment.remaining %></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="fund-action">
+                                <a href="/fund-details?market=secondary&fund=<%= investment.type.toLowerCase().replace(/\s+/g, '') %>&source=posted&name=<%= encodeURIComponent(investment.fundName) %>" class="btn btn-primary">View Details</a>
+                            </div>
                         </div>
-                        <div class="fund-title">LOMBARD ODIER BUYOUT FUND 2025</div>
-                        <div class="posted-date">Posted Date: 5/14/2025</div>
+                    <% }); %>
+                <% } %>
+                
+                <!-- Show message when no investments are posted -->
+                <% if (typeof postedInvestments === 'undefined' || postedInvestments.length === 0) { %>
+                    <div class="empty-listings">
+                        <h3>No investments posted for sale</h3>
+                        <p>Visit your <a href="/portfolio-summary">Portfolio Summary</a> and click "Post for Sale" on any investment to list it here.</p>
                     </div>
-                    
-                    <div class="table-container">
-                        <table class="fund-details">
-                            <tr>
-                                <th>Strategy</th>
-                                <th>Sector</th>
-                                <th>Closed Fund Size</th>
-                                <th>Vintage</th>
-                                <th>Est. End Date</th>
-                            </tr>
-                            <tr>
-                                <td>Buyout</td>
-                                <td>Telecommunications</td>
-                                <td>>€1Bil</td>
-                                <td>2016</td>
-                                <td>9/30/2029</td>
-                            </tr>
-                        </table>
-
-                        <table class="fund-metrics">
-                            <tr>
-                                <th>Current NAV</th>
-                                <th>Total Called</th>
-                                <th>Commitment</th>
-                                <th>Current DPI</th>
-                            </tr>
-                            <tr>
-                                <td>€4,800,000</td>
-                                <td>€2,900,000</td>
-                                <td>€3,000,000</td>
-                                <td>0.75x</td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <div class="fund-action">
-                        <a href="/fund-details?market=primary&fund=buyout" class="btn btn-primary">View Investment</a>
-                    </div>
-                </div>
-
-                <!-- Fund 2 -->
-                <div class="fund-card">
-                    <div class="fund-header">
-                        <div class="fund-logo">
-                            <img src="/images/lombard-odier.jpg" alt="LOMBARD ODIER Logo" class="logo-image">
-                        </div>
-                        <div class="fund-title">LOMBARD ODIER VENTURE FUND 2025</div>
-                        <div class="posted-date">Posted Date: 5/14/2025</div>
-                    </div>
-                    
-                    <div class="table-container">
-                        <table class="fund-details">
-                            <tr>
-                                <th>Strategy</th>
-                                <th>Sector</th>
-                                <th>Closed Fund Size</th>
-                                <th>Vintage</th>
-                                <th>Est. End Date</th>
-                            </tr>
-                            <tr>
-                                <td>Buyout</td>
-                                <td>Multi-Balanced</td>
-                                <td>>€1Bil</td>
-                                <td>2016</td>
-                                <td>9/30/2029</td>
-                            </tr>
-                        </table>
-
-                        <table class="fund-metrics">
-                            <tr>
-                                <th>Current NAV</th>
-                                <th>Total Called</th>
-                                <th>Commitment</th>
-                                <th>Current DPI</th>
-                            </tr>
-                            <tr>
-                                <td>€4,800,000</td>
-                                <td>€2,900,000</td>
-                                <td>€3,000,000</td>
-                                <td>0.75x</td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <div class="fund-action">
-                        <a href="/fund-details?market=primary&fund=venture" class="btn btn-primary">View Investment</a>
-                    </div>
-                </div>
-
-                <!-- Fund 3 -->
-                <div class="fund-card">
-                    <div class="fund-header">
-                        <div class="fund-logo">
-                            <img src="/images/lombard-odier.jpg" alt="LOMBARD ODIER Logo" class="logo-image">
-                        </div>
-                        <div class="fund-title">LOMBARD ODIER HEDGE FUND 2025</div>
-                        <div class="posted-date">Posted Date: 5/14/2025</div>
-                    </div>
-                    
-                    <div class="table-container">
-                        <table class="fund-details">
-                            <tr>
-                                <th>Strategy</th>
-                                <th>Sector</th>
-                                <th>Closed Fund Size</th>
-                                <th>Vintage</th>
-                                <th>Est. End Date</th>
-                            </tr>
-                            <tr>
-                                <td>Growth</td>
-                                <td>Utility</td>
-                                <td>>€1Bil</td>
-                                <td>2016</td>
-                                <td>9/30/2029</td>
-                            </tr>
-                        </table>
-
-                        <table class="fund-metrics">
-                            <tr>
-                                <th>Current NAV</th>
-                                <th>Total Called</th>
-                                <th>Commitment</th>
-                                <th>Current DPI</th>
-                            </tr>
-                            <tr>
-                                <td>€4,800,000</td>
-                                <td>€2,900,000</td>
-                                <td>€3,000,000</td>
-                                <td>0.75x</td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <div class="fund-action">
-                        <a href="/fund-details?market=primary&fund=hedge" class="btn btn-primary">View Investment</a>
-                    </div>
-                </div>
+                <% } %>
             </div>
         </section>
 
@@ -207,7 +129,7 @@
                     </div>
 
                     <div class="fund-action">
-                        <a href="/fund-details?market=secondary&fund=buyout" class="btn btn-primary">View Investment</a>
+                        <a href="/fund-details?market=secondary&fund=buyout&fundId=spv1" class="btn btn-primary">View Investment</a>
                     </div>
                 </div>
 
@@ -218,7 +140,7 @@
                             <img src="/images/lombard-odier.jpg" alt="LOMBARD ODIER Logo" class="logo-image">
                         </div>
                         <div class="fund-title">LOMBARD ODIER SPV 2</div>
-                        <div class="posted-date">Posted Date: 5/14/2025</div>
+                        <div class="posted-date">Posted Date: 3/22/2025</div>
                     </div>
                     
                     <div class="table-container">
@@ -231,11 +153,11 @@
                                 <th>Est. End Date</th>
                             </tr>
                             <tr>
-                                <td>Buyout</td>
+                                <td>Venture Capital</td>
                                 <td>Multi-Balanced</td>
-                                <td>>€1Bil</td>
-                                <td>2016</td>
-                                <td>9/30/2029</td>
+                                <td>>€800M</td>
+                                <td>2017</td>
+                                <td>12/31/2030</td>
                             </tr>
                         </table>
 
@@ -247,16 +169,16 @@
                                 <th>Current DPI</th>
                             </tr>
                             <tr>
-                                <td>€4,800,000</td>
-                                <td>€2,900,000</td>
-                                <td>€3,000,000</td>
-                                <td>0.75x</td>
+                                <td>€6,200,000</td>
+                                <td>€3,800,000</td>
+                                <td>€4,500,000</td>
+                                <td>0.85x</td>
                             </tr>
                         </table>
                     </div>
 
                     <div class="fund-action">
-                        <a href="/fund-details?market=secondary&fund=buyout" class="btn btn-primary">View Investment</a>
+                        <a href="/fund-details?market=secondary&fund=venture&fundId=spv2" class="btn btn-primary">View Investment</a>
                     </div>
                 </div>
 
@@ -267,7 +189,7 @@
                             <img src="/images/lombard-odier.jpg" alt="LOMBARD ODIER Logo" class="logo-image">
                         </div>
                         <div class="fund-title">LOMBARD ODIER SPV 3</div>
-                        <div class="posted-date">Posted Date: 5/14/2025</div>
+                        <div class="posted-date">Posted Date: 1/15/2025</div>
                     </div>
                     
                     <div class="table-container">
@@ -280,11 +202,11 @@
                                 <th>Est. End Date</th>
                             </tr>
                             <tr>
-                                <td>Growth</td>
+                                <td>Infrastructure</td>
                                 <td>Utility</td>
-                                <td>>€1Bil</td>
-                                <td>2016</td>
-                                <td>9/30/2029</td>
+                                <td>>€1.2Bil</td>
+                                <td>2018</td>
+                                <td>6/30/2031</td>
                             </tr>
                         </table>
 
@@ -296,16 +218,16 @@
                                 <th>Current DPI</th>
                             </tr>
                             <tr>
-                                <td>€4,800,000</td>
-                                <td>€2,900,000</td>
-                                <td>€3,000,000</td>
-                                <td>0.75x</td>
+                                <td>€7,200,000</td>
+                                <td>€4,100,000</td>
+                                <td>€5,000,000</td>
+                                <td>0.92x</td>
                             </tr>
                         </table>
                     </div>
 
                     <div class="fund-action">
-                        <a href="/fund-details?market=secondary&fund=buyout" class="btn btn-primary">View Investment</a>
+                        <a href="/fund-details?market=secondary&fund=infrastructure&fundId=spv3" class="btn btn-primary">View Investment</a>
                     </div>
                 </div>
             </div>
@@ -314,6 +236,75 @@
 </div>
 
 <style>
+.success-message {
+    background: #d1fae5;
+    border: 1px solid #a7f3d0;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    color: #065f46;
+}
+
+.success-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.error-message {
+    background: #fee2e2;
+    border: 1px solid #fca5a5;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    color: #991b1b;
+}
+
+.error-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.posted-investment {
+    border-left: 4px solid #059669;
+    background: #f0fdf4;
+}
+
+.posted-investment .fund-title {
+    color: #065f46;
+    font-weight: 600;
+}
+
+.empty-listings {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: #666;
+    background: #f9fafb;
+    border-radius: 8px;
+    border: 2px dashed #d1d5db;
+}
+
+.empty-listings h3 {
+    margin: 0 0 1rem 0;
+    color: #374151;
+}
+
+.empty-listings p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.empty-listings a {
+    color: #e31e24;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.empty-listings a:hover {
+    text-decoration: underline;
+}
+
 .opportunities-container {
     padding: 0 !important;
     margin: 0 !important;

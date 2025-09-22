@@ -1,0 +1,556 @@
+<%- include('partials/header') %>
+<%- include('partials/secondary-nav') %>
+<%- include('partials/client-header') %>
+
+<!-- Add Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="main-container">
+    <!-- Investment Header -->
+    <div class="investment-header">
+        <div class="back-navigation">
+            <a href="/portfolio-summary" class="back-link">← Back to Portfolio Summary</a>
+        </div>
+        <h1><%= fundName %></h1>
+        <div class="investment-meta">
+            <span class="portfolio-badge">Portfolio <%= portfolioNumber %></span>
+            <span class="investment-type"><%= investment.Type %></span>
+        </div>
+    </div>
+
+    <!-- Key Metrics Cards -->
+    <div class="metrics-grid">
+        <div class="metric-card primary">
+            <div class="metric-label">Current Value</div>
+            <div class="metric-value"><%= investment['Current Value'] %></div>
+            <div class="metric-change positive">+<%= kpis.totalReturn %>%</div>
+        </div>
+        
+        <div class="metric-card">
+            <div class="metric-label">Total Commitment</div>
+            <div class="metric-value"><%= investment['Total Commitment'] %></div>
+            <div class="metric-progress">
+                <div class="progress-bar" style="width: <%= kpis.deploymentProgress %>%"></div>
+                <span><%= kpis.deploymentProgress %>% deployed</span>
+            </div>
+        </div>
+
+        <div class="metric-card">
+            <div class="metric-label">Net IRR</div>
+            <div class="metric-value"><%= kpis.netIRR %>%</div>
+            <div class="metric-benchmark">Industry: <%= kpis.industryBenchmark %>%</div>
+        </div>
+
+        <div class="metric-card">
+            <div class="metric-label">TVPI Multiple</div>
+            <div class="metric-value"><%= kpis.tvpi %>x</div>
+            <div class="metric-note">Total Value / Paid-In</div>
+        </div>
+    </div>
+
+    <!-- Performance Charts Section -->
+    <div class="charts-section">
+        <div class="chart-container">
+            <h2>Performance vs Benchmark</h2>
+            <canvas id="performanceChart"></canvas>
+        </div>
+        
+        <div class="chart-container">
+            <h2>Capital Deployment</h2>
+            <canvas id="deploymentChart"></canvas>
+        </div>
+    </div>
+
+    <!-- KPI Tables Section -->
+    <div class="kpi-section">
+        <div class="kpi-table-container">
+            <h2>Performance Metrics</h2>
+            <table class="kpi-table">
+                <tbody>
+                    <tr>
+                        <td>Total Return</td>
+                        <td class="value-cell positive"><%= kpis.totalReturn %>%</td>
+                    </tr>
+                    <tr>
+                        <td>Net IRR</td>
+                        <td class="value-cell"><%= kpis.netIRR %>%</td>
+                    </tr>
+                    <tr>
+                        <td>TVPI Multiple</td>
+                        <td class="value-cell"><%= kpis.tvpi %>x</td>
+                    </tr>
+                    <tr>
+                        <td>DPI Multiple</td>
+                        <td class="value-cell"><%= kpis.dpi %>x</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="kpi-table-container">
+            <h2>Risk Metrics</h2>
+            <table class="kpi-table">
+                <tbody>
+                    <tr>
+                        <td>Volatility</td>
+                        <td class="value-cell"><%= kpis.volatility %>%</td>
+                    </tr>
+                    <tr>
+                        <td>Sharpe Ratio</td>
+                        <td class="value-cell"><%= kpis.sharpeRatio %></td>
+                    </tr>
+                    <tr>
+                        <td>Max Drawdown</td>
+                        <td class="value-cell negative">-<%= kpis.maxDrawdown %>%</td>
+                    </tr>
+                    <tr>
+                        <td>Peer Ranking</td>
+                        <td class="value-cell">Top <%= kpis.peerRanking %>%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Investment Details Section -->
+    <div class="details-section">
+        <div class="detail-card">
+            <h2>Investment Overview</h2>
+            <div class="detail-grid">
+                <div class="detail-item">
+                    <span class="detail-label">Vintage Year</span>
+                    <span class="detail-value"><%= kpis.vintageYear %></span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Fund Size</span>
+                    <span class="detail-value">€<%= kpis.fundSize.toLocaleString('de-DE') %></span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Remaining Commitment</span>
+                    <span class="detail-value"><%= investment['Remaining'] %></span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Called %</span>
+                    <span class="detail-value"><%= investment['Called %'] %></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="detail-card">
+            <h2>Cash Flow Information</h2>
+            <div class="detail-grid">
+                <div class="detail-item">
+                    <span class="detail-label">Monthly Income</span>
+                    <span class="detail-value">€<%= kpis.monthlyIncome.toLocaleString('de-DE') %></span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Last Distribution</span>
+                    <span class="detail-value"><%= kpis.lastDistribution %></span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Next Capital Call</span>
+                    <span class="detail-value"><%= kpis.nextCapitalCall %></span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Industry Benchmark</span>
+                    <span class="detail-value"><%= kpis.industryBenchmark %>%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-section">
+        <a href="/fund-details?market=primary&fund=<%= investment.Type.toLowerCase().replace(' ', '') %>" class="action-btn primary">View Fund Details</a>
+        <a href="/contact-advisor?fund=<%= fundName.toLowerCase().replace(/\s+/g, '-') %>" class="action-btn secondary">Contact Advisor</a>
+        <a href="/transactions" class="action-btn">View Transactions</a>
+        <a href="/post-for-sale/<%= fundName.toLowerCase().replace(/\s+/g, '-') %>" class="action-btn post-sale">Post for Sale</a>
+    </div>
+</div>
+
+<style>
+.main-container {
+    padding: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.investment-header {
+    margin-bottom: 2rem;
+}
+
+.back-navigation {
+    margin-bottom: 1rem;
+}
+
+.back-link {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.back-link:hover {
+    color: #333;
+}
+
+.investment-header h1 {
+    margin: 0 0 0.5rem 0;
+    color: #003f5c;
+}
+
+.investment-meta {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.portfolio-badge {
+    background: #003f5c;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.investment-type {
+    background: #f0f8ff;
+    color: #003f5c;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.metric-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+}
+
+.metric-card.primary {
+    border-left: 4px solid #003f5c;
+}
+
+.metric-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.metric-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #003f5c;
+    margin-bottom: 0.5rem;
+}
+
+.metric-change {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.metric-change.positive {
+    color: #059669;
+}
+
+.metric-change.negative {
+    color: #dc2626;
+}
+
+.metric-progress {
+    margin-top: 0.5rem;
+}
+
+.progress-bar {
+    height: 6px;
+    background: #003f5c;
+    border-radius: 3px;
+    margin-bottom: 0.25rem;
+}
+
+.metric-progress span {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.metric-benchmark, .metric-note {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.charts-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.chart-container {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chart-container h2 {
+    margin: 0 0 1rem 0;
+    font-size: 1.1rem;
+    color: #003f5c;
+}
+
+.chart-container canvas {
+    max-height: 300px;
+}
+
+.kpi-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.kpi-table-container {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.kpi-table-container h2 {
+    margin: 0 0 1rem 0;
+    font-size: 1.1rem;
+    color: #003f5c;
+}
+
+.kpi-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.kpi-table td {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.kpi-table td:first-child {
+    color: #666;
+    font-weight: 500;
+}
+
+.value-cell {
+    text-align: right;
+    font-weight: 600;
+    color: #003f5c;
+}
+
+.value-cell.positive {
+    color: #059669;
+}
+
+.value-cell.negative {
+    color: #dc2626;
+}
+
+.details-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.detail-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.detail-card h2 {
+    margin: 0 0 1rem 0;
+    font-size: 1.1rem;
+    color: #003f5c;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.detail-label {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.detail-value {
+    font-weight: 600;
+    color: #003f5c;
+}
+
+.action-section {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.action-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.action-btn.primary {
+    background: #003f5c;
+    color: white;
+}
+
+.action-btn.primary:hover {
+    background: #002b3f;
+}
+
+.action-btn.secondary {
+    background: #f0f8ff;
+    color: #003f5c;
+    border: 1px solid #003f5c;
+}
+
+.action-btn.secondary:hover {
+    background: #003f5c;
+    color: white;
+}
+
+.action-btn {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.action-btn:hover {
+    background: #d1d5db;
+}
+
+.action-btn.post-sale {
+    background: #059669;
+    color: white;
+}
+
+.action-btn.post-sale:hover {
+    background: #047857;
+}
+
+@media (max-width: 768px) {
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .charts-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .kpi-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .details-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .action-section {
+        flex-direction: column;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Performance Chart
+    const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+    new Chart(performanceCtx, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+                label: '<%= fundName %>',
+                data: [100, 102, 105, 108, 112, 115, 118, 116, 119, 122, 125, 128],
+                borderColor: '#003f5c',
+                backgroundColor: 'rgba(0, 63, 92, 0.1)',
+                tension: 0.4,
+                fill: true
+            }, {
+                label: 'Industry Benchmark',
+                data: [100, 101, 103, 106, 108, 110, 112, 113, 115, 117, 119, 121],
+                borderColor: '#666',
+                backgroundColor: 'transparent',
+                borderDash: [5, 5],
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    title: {
+                        display: true,
+                        text: 'Performance Index'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'top'
+                }
+            }
+        }
+    });
+
+    // Deployment Chart
+    const deploymentCtx = document.getElementById('deploymentChart').getContext('2d');
+    new Chart(deploymentCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Called Capital', 'Remaining Commitment'],
+            datasets: [{
+                data: [<%= kpis.deploymentProgress %>, <%= 100 - parseFloat(kpis.deploymentProgress) %>],
+                backgroundColor: ['#003f5c', '#e5e7eb'],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+});
+</script>
+
+<%- include('partials/footer') %>
