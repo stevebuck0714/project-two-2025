@@ -14,16 +14,18 @@
                 <img src="/images/lombard-odier.jpg" alt="LOMBARD ODIER Logo" class="logo-image">
             </a>
             <nav class="main-nav">
+                <% if (typeof user !== 'undefined' && user && user.type === 'banker') { %>
+                    <a href="/client-alerts" class="nav-link <%= (typeof path !== 'undefined' && path.includes('/client-alerts')) ? 'active' : '' %>">Client Alerts</a>
+                <% } %>
                 <a href="/briefing" class="nav-link <%= (typeof path !== 'undefined' && path.includes('/briefing')) ? 'active' : '' %>">Briefing</a>
-                <a href="/portfolio-summary" class="nav-link <%= (typeof path !== 'undefined' && (path.includes('/portfolio') || path.includes('/investment-details'))) ? 'active' : '' %>">Portfolio Summary</a>
+                <a href="/portfolio-summary" class="nav-link <%= (typeof path !== 'undefined' && (path.includes('/portfolio-summary') || path.includes('/investment-details'))) ? 'active' : '' %>">Portfolio</a>
                 <a href="/portfolio-builder" class="nav-link <%= (typeof path !== 'undefined' && path.includes('/portfolio-builder')) ? 'active' : '' %>">Portfolio Builder</a>
-                <a href="/investment-opportunities" class="nav-link <%= (typeof path !== 'undefined' && (path.includes('/investment-opportunities') || path.includes('/fund-details') || path.includes('/create-bid') || path.includes('/contact-advisor'))) ? 'active' : '' %>">Bulletin Board</a>
-                <a href="/transactions" class="nav-link <%= (typeof path !== 'undefined' && path.includes('/transactions')) ? 'active' : '' %>">Transactions</a>
+                <a href="/investment-opportunities" class="nav-link <%= (typeof path !== 'undefined' && (path.includes('/investment-opportunities') || path.includes('/fund-details') || path.includes('/create-bid') || path.includes('/contact-advisor') || path.includes('/transactions'))) ? 'active' : '' %>">Bulletin Board</a>
                 <a href="/messages" class="nav-link <%= (typeof path !== 'undefined' && path.includes('/messages')) ? 'active' : '' %>">Messages</a>
                 <a href="/support" class="nav-link <%= (typeof path !== 'undefined' && path.includes('/support')) ? 'active' : '' %>">Support</a>
             </nav>
             <nav class="nav-menu">
-                <a href="#" class="login-link">LOGIN / LOGOUT</a>
+                <a href="/logout" class="login-link">LOGOUT</a>
             </nav>
         </div>
     </header>

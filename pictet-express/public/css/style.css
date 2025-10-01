@@ -224,18 +224,27 @@ body {
 }
 
 .client-info {
-    flex-grow: 1;
+    flex: 0 0 auto;
     margin-right: 2rem;
-    display: grid;
-    grid-template-columns: 1fr auto;
+    display: flex;
+    flex-direction: column;
     gap: 2rem;
     align-items: start;
+}
+
+.client-selection-row {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
 }
 
 .client-selection {
     display: flex;
     align-items: center;
     gap: 1rem;
+    flex: 1;
+    max-width: 500px;
 }
 
 .client-logo {
@@ -253,7 +262,7 @@ body {
     margin: 0;
 }
 
-.client-dates {
+.client-actions {
     display: grid;
     gap: 1rem;
     min-width: 300px;

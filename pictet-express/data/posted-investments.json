@@ -1,0 +1,24 @@
+[
+  {
+    "fundName": "UBS SPV 2",
+    "type": "Private Equity",
+    "totalCommitment": "€ 1.000.000",
+    "calledCapital": "€ 950.000",
+    "currentValue": "€ 800.000",
+    "remaining": "€ 50.000",
+    "calledPercent": "95.00%",
+    "postedDate": "9/28/2025",
+    "portfolioNumber": 1
+  },
+  {
+    "fundName": "UBS SPV 4",
+    "type": "Real Estate",
+    "totalCommitment": "€ 1.500.000",
+    "calledCapital": "€ 1.350.000",
+    "currentValue": "€ 1.200.000",
+    "remaining": "€ 150.000",
+    "calledPercent": "90.00%",
+    "postedDate": "9/28/2025",
+    "portfolioNumber": 2
+  }
+]

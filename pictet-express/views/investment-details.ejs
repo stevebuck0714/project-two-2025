@@ -1,6 +1,5 @@
 <%- include('partials/header') %>
 <%- include('partials/secondary-nav') %>
-<%- include('partials/client-header') %>
 
 <!-- Add Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -11,11 +10,7 @@
         <div class="back-navigation">
             <a href="/portfolio-summary" class="back-link">← Back to Portfolio Summary</a>
         </div>
-        <h1><%= fundName %></h1>
-        <div class="investment-meta">
-            <span class="portfolio-badge">Portfolio <%= portfolioNumber %></span>
-            <span class="investment-type"><%= investment.Type %></span>
-        </div>
+        <h1>Investment Summary: <%= fundName %></h1>
     </div>
 
     <!-- Key Metrics Cards -->

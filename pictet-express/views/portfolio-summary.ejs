@@ -1,18 +1,25 @@
 <%- include('partials/header') %>
 <%- include('partials/secondary-nav') %>
-<%- include('partials/client-header') %>
 
 <!-- Add Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <div class="main-container">
     <div class="portfolio-summary-header">
-        <h1>Portfolio Summary</h1>
         <div class="portfolio-date" id="portfolio-date"></div>
     </div>
 
-    <!-- Portfolio Overview Cards -->
-    <div class="metrics-container">
+    <!-- Portfolio Summary Tabs -->
+    <div class="portfolio-tabs">
+        <button class="portfolio-tab active" onclick="showPortfolioTab('summary')">Portfolio Summary</button>
+        <button class="portfolio-tab" onclick="showPortfolioTab('temporary')">Client Mandates</button>
+        <button class="portfolio-tab" onclick="showPortfolioTab('pe-investments')">Available PE Investments</button>
+    </div>
+
+    <!-- Portfolio Summary Tab Content -->
+    <div id="portfolio-summary-content" class="portfolio-tab-content active">
+        <!-- Portfolio Overview Cards -->
+        <div class="metrics-container">
         <div class="metric-item">
             <div class="metric-label">Total Portfolio Value</div>
             <div class="metric-value"><%= typeof formatNumber === 'function' ? formatNumber(processedData.metrics.totalValue) : processedData.metrics.totalValue.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' }).replace('EUR', '€') %></div>
@@ -58,10 +65,12 @@
                     <thead>
                         <tr>
                             <th>Asset Type</th>
-                            <th>Number of Investments</th>
+                            <th>Cost Basis</th>
                             <th>Total Value</th>
                             <th>Allocation %</th>
-                            <th>Target Allocation %</th>
+                            <th>Day Gain</th>
+                            <th>Total Gain</th>
+                            <th>Target Allocation</th>
                             <th>Deviation %</th>
                             <th>Deviation $</th>
                         </tr>
@@ -70,9 +79,11 @@
                         <% Object.entries(processedData.metrics.assetTypeBreakdown).forEach(([type, count]) => { %>
                             <tr data-asset-type="<%= type %>">
                                 <td><%= type %></td>
-                                <td><%= count %></td>
+                                <td><%= typeof formatNumber === 'function' ? formatNumber(processedData.metrics.assetAllocation[type] * processedData.metrics.totalValue / 100 * 0.85) : (processedData.metrics.assetAllocation[type] * processedData.metrics.totalValue / 100 * 0.85).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' }).replace('EUR', '€') %></td>
                                 <td><%= typeof formatNumber === 'function' ? formatNumber(processedData.metrics.assetAllocation[type] * processedData.metrics.totalValue / 100) : (processedData.metrics.assetAllocation[type] * processedData.metrics.totalValue / 100).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' }).replace('EUR', '€') %></td>
                                 <td class="current-allocation"><%= processedData.metrics.assetAllocation[type].toFixed(2) %>%</td>
+                                <td class="positive">+€<%= Math.floor(Math.random() * 50000 + 10000).toLocaleString('de-DE') %></td>
+                                <td class="positive">+€<%= Math.floor(processedData.metrics.assetAllocation[type] * processedData.metrics.totalValue / 100 * 0.15).toLocaleString('de-DE') %></td>
                                 <td class="target-allocation-cell">
                                     <input type="number" 
                                            class="target-allocation-input" 
@@ -92,9 +103,11 @@
                         <% }); %>
                         <tr class="total-row">
                             <td><strong>TOTAL</strong></td>
-                            <td><strong><%= Object.values(processedData.metrics.assetTypeBreakdown).reduce((sum, count) => sum + count, 0) %></strong></td>
+                            <td><strong><%= typeof formatNumber === 'function' ? formatNumber(processedData.metrics.totalValue * 0.85) : (processedData.metrics.totalValue * 0.85).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' }).replace('EUR', '€') %></strong></td>
                             <td><strong><%= typeof formatNumber === 'function' ? formatNumber(processedData.metrics.totalValue) : processedData.metrics.totalValue.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' }).replace('EUR', '€') %></strong></td>
                             <td><strong>100.00%</strong></td>
+                            <td class="positive"><strong>+€<%= Math.floor(processedData.metrics.totalValue * 0.05).toLocaleString('de-DE') %></strong></td>
+                            <td class="positive"><strong>+€<%= Math.floor(processedData.metrics.totalValue * 0.15).toLocaleString('de-DE') %></strong></td>
                             <td class="target-total-cell"><strong><span id="target-total">100.00%</span></strong></td>
                             <td class="deviation-total-cell"><strong>-</strong></td>
                             <td class="deviation-dollar-total-cell"><strong>-</strong></td>
@@ -202,6 +215,534 @@
                         <% }); %>
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Client Mandates Tab Content -->
+    <div id="temporary-content" class="portfolio-tab-content">
+        <div class="strategy-columns">
+            <!-- Private Equity Strategies Column -->
+            <div class="strategy-column">
+                <div class="strategy-category-container">
+                    <h3 class="strategy-category-header">
+                        <span class="ubs-text">LOMBARD ODIER</span> Private Equity Strategies
+                    </h3>
+                    <div class="strategy-list">
+                        <div class="strategy-option" data-strategy="large-cap-buyout">
+                            <div class="strategy-header">
+                                <input type="checkbox" class="strategy-checkbox" id="large-cap-buyout">
+                                <label class="strategy-name" for="large-cap-buyout">Large-Cap Buyout</label>
+                            </div>
+                            <div class="strategy-description text-muted">>€1B enterprise value</div>
+                        </div>
+
+                        <div class="strategy-option" data-strategy="mid-market-buyout">
+                            <div class="strategy-header">
+                                <input type="checkbox" class="strategy-checkbox" id="mid-market-buyout">
+                                <label class="strategy-name" for="mid-market-buyout">Mid-Market Buyout</label>
+                            </div>
+                            <div class="strategy-description text-muted">€100M-€1B enterprise value</div>
+                        </div>
+
+                        <div class="strategy-option" data-strategy="small-cap-buyout">
+                            <div class="strategy-header">
+                                <input type="checkbox" class="strategy-checkbox" id="small-cap-buyout">
+                                <label class="strategy-name" for="small-cap-buyout">Small-Cap Buyout</label>
+                            </div>
+                            <div class="strategy-description text-muted"><€100M enterprise value</div>
+                        </div>
+
+                        <div class="strategy-option" data-strategy="growth-equity">
+                            <div class="strategy-header">
+                                <input type="checkbox" class="strategy-checkbox" id="growth-equity">
+                                <label class="strategy-name" for="growth-equity">Growth Equity</label>
+                            </div>
+                            <div class="strategy-description text-muted">Minority stakes in growth companies</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alternative Asset Strategies Column -->
+            <div class="strategy-column">
+                <div class="strategy-category-container">
+                    <h3 class="strategy-category-header">
+                        <span class="ubs-text">LOMBARD ODIER</span> Alternative Asset Strategies
+                    </h3>
+                    <div class="strategy-list">
+                        <div class="strategy-option" data-strategy="real-estate-core">
+                            <div class="strategy-header">
+                                <input type="checkbox" class="strategy-checkbox" id="real-estate-core">
+                                <label class="strategy-name" for="real-estate-core">Real Estate (Core)</label>
+                            </div>
+                            <div class="strategy-description text-muted">Stable, income-producing properties</div>
+                        </div>
+
+                        <div class="strategy-option" data-strategy="real-estate-opportunistic">
+                            <div class="strategy-header">
+                                <input type="checkbox" class="strategy-checkbox" id="real-estate-opportunistic">
+                                <label class="strategy-name" for="real-estate-opportunistic">Real Estate (Opportunistic)</label>
+                            </div>
+                            <div class="strategy-description text-muted">Value-add and development</div>
+                        </div>
+
+                        <div class="strategy-option" data-strategy="infrastructure-core">
+                            <div class="strategy-header">
+                                <input type="checkbox" class="strategy-checkbox" id="infrastructure-core">
+                                <label class="strategy-name" for="infrastructure-core">Infrastructure (Core)</label>
+                            </div>
+                            <div class="strategy-description text-muted">Stable, regulated infrastructure</div>
+                        </div>
+
+                        <div class="strategy-option" data-strategy="infrastructure-value-add">
+                            <div class="strategy-header">
+                                <input type="checkbox" class="strategy-checkbox" id="infrastructure-value-add">
+                                <label class="strategy-name" for="infrastructure-value-add">Infrastructure (Value-Add)</label>
+                            </div>
+                            <div class="strategy-description text-muted">Emerging infrastructure sectors</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Alternatives Column -->
+            <div class="strategy-column">
+                <div class="strategy-category-container">
+                    <h3 class="strategy-category-header">
+                        <span class="ubs-text">LOMBARD ODIER</span> Other Alternatives
+                    </h3>
+                    <div class="strategy-list">
+                        <div class="strategy-option" data-strategy="direct-lending">
+                            <div class="strategy-header">
+                                <input type="checkbox" class="strategy-checkbox" id="direct-lending">
+                                <label class="strategy-name" for="direct-lending">Direct Lending</label>
+                            </div>
+                            <div class="strategy-description text-muted">Senior debt to mid-market companies</div>
+                        </div>
+
+                        <div class="strategy-option" data-strategy="mezzanine-finance">
+                            <div class="strategy-header">
+                                <input type="checkbox" class="strategy-checkbox" id="mezzanine-finance">
+                                <label class="strategy-name" for="mezzanine-finance">Mezzanine Finance</label>
+                            </div>
+                            <div class="strategy-description text-muted">Hybrid debt-equity financing</div>
+                        </div>
+
+                        <div class="strategy-option" data-strategy="natural-resources">
+                            <div class="strategy-header">
+                                <input type="checkbox" class="strategy-checkbox" id="natural-resources">
+                                <label class="strategy-name" for="natural-resources">Natural Resources</label>
+                            </div>
+                            <div class="strategy-description text-muted">Energy, mining, and commodities</div>
+                        </div>
+
+                        <div class="strategy-option" data-strategy="hedge-strategies">
+                            <div class="strategy-header">
+                                <input type="checkbox" class="strategy-checkbox" id="hedge-strategies">
+                                <label class="strategy-name" for="hedge-strategies">Hedge Strategies</label>
+                            </div>
+                            <div class="strategy-description text-muted">Alternative hedge fund strategies</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="selection-counter text-muted mt-3">
+            <small><span id="selected-count">0</span> selected | Recommended: 2-4</small>
+        </div>
+
+        <!-- ESG Framework Section -->
+        <h2 class="strategy-category-header" style="text-align:center;margin-bottom:2rem;">ESG Framework</h2>
+        <div class="strategy-columns">
+            <!-- Environmental Criteria Column -->
+            <div class="strategy-column">
+                <div class="strategy-category-container">
+                    <h3 class="strategy-category-header">
+                        <span class="ubs-text">LOMBARD ODIER</span> Environmental Criteria
+                    </h3>
+                    <div class="strategy-list">
+                        <div class="strategy-option">
+                            <div class="strategy-header">
+                                <label class="strategy-name">Climate Change Impact</label>
+                            </div>
+                            <div class="strategy-description text-muted">Assessment of company's initiatives to combat climate change</div>
+                            <div class="score-input mt-2">
+                                <select class="form-control">
+                                    <option value="">Select Impact Score...</option>
+                                    <option value="1">Low Impact</option>
+                                    <option value="2">Moderate-Low Impact</option>
+                                    <option value="3">Moderate Impact</option>
+                                    <option value="4">Moderate-High Impact</option>
+                                    <option value="5">High Impact</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="strategy-option">
+                            <div class="strategy-header">
+                                <label class="strategy-name">Resource Efficiency</label>
+                            </div>
+                            <div class="strategy-description text-muted">Evaluation of resource management and conservation practices</div>
+                            <div class="score-input mt-2">
+                                <select class="form-control">
+                                    <option value="">Select Efficiency Score...</option>
+                                    <option value="1">Poor Efficiency</option>
+                                    <option value="2">Fair Efficiency</option>
+                                    <option value="3">Good Efficiency</option>
+                                    <option value="4">Very Good Efficiency</option>
+                                    <option value="5">Excellent Efficiency</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="strategy-option">
+                            <div class="strategy-header">
+                                <label class="strategy-name">Environmental Innovation</label>
+                            </div>
+                            <div class="strategy-description text-muted">Investment in sustainable technologies and practices</div>
+                            <div class="score-input mt-2">
+                                <select class="form-control">
+                                    <option value="">Select Innovation Score...</option>
+                                    <option value="1">Minimal Innovation</option>
+                                    <option value="2">Emerging Innovation</option>
+                                    <option value="3">Moderate Innovation</option>
+                                    <option value="4">Advanced Innovation</option>
+                                    <option value="5">Leading Innovation</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Social Criteria Column -->
+            <div class="strategy-column">
+                <div class="strategy-category-container">
+                    <h3 class="strategy-category-header">
+                        <span class="ubs-text">LOMBARD ODIER</span> Social Criteria
+                    </h3>
+                    <div class="strategy-list">
+                        <div class="strategy-option">
+                            <div class="strategy-header">
+                                <label class="strategy-name">Workforce Management</label>
+                            </div>
+                            <div class="strategy-description text-muted">Employee relations, diversity, and workplace safety</div>
+                            <div class="score-input mt-2">
+                                <select class="form-control">
+                                    <option value="">Select Management Score...</option>
+                                    <option value="1">Poor Management</option>
+                                    <option value="2">Fair Management</option>
+                                    <option value="3">Good Management</option>
+                                    <option value="4">Very Good Management</option>
+                                    <option value="5">Excellent Management</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="strategy-option">
+                            <div class="strategy-header">
+                                <label class="strategy-name">Community Relations</label>
+                            </div>
+                            <div class="strategy-description text-muted">Impact on local communities and social initiatives</div>
+                            <div class="score-input mt-2">
+                                <select class="form-control">
+                                    <option value="">Select Community Score...</option>
+                                    <option value="1">Poor Engagement</option>
+                                    <option value="2">Fair Engagement</option>
+                                    <option value="3">Good Engagement</option>
+                                    <option value="4">Very Good Engagement</option>
+                                    <option value="5">Excellent Engagement</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="strategy-option">
+                            <div class="strategy-header">
+                                <label class="strategy-name">Human Rights</label>
+                            </div>
+                            <div class="strategy-description text-muted">Human rights policies and implementation</div>
+                            <div class="score-input mt-2">
+                                <select class="form-control">
+                                    <option value="">Select Rights Score...</option>
+                                    <option value="1">Poor Protection</option>
+                                    <option value="2">Fair Protection</option>
+                                    <option value="3">Good Protection</option>
+                                    <option value="4">Very Good Protection</option>
+                                    <option value="5">Excellent Protection</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Governance Criteria Column -->
+            <div class="strategy-column">
+                <div class="strategy-category-container">
+                    <h3 class="strategy-category-header">
+                        <span class="ubs-text">LOMBARD ODIER</span> Governance Criteria
+                    </h3>
+                    <div class="strategy-list">
+                        <div class="strategy-option">
+                            <div class="strategy-header">
+                                <label class="strategy-name">Board Structure</label>
+                            </div>
+                            <div class="strategy-description text-muted">Board composition, independence, and diversity</div>
+                            <div class="score-input mt-2">
+                                <select class="form-control">
+                                    <option value="">Select Structure Score...</option>
+                                    <option value="1">Poor Structure</option>
+                                    <option value="2">Fair Structure</option>
+                                    <option value="3">Good Structure</option>
+                                    <option value="4">Very Good Structure</option>
+                                    <option value="5">Excellent Structure</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="strategy-option">
+                            <div class="strategy-header">
+                                <label class="strategy-name">Business Ethics</label>
+                            </div>
+                            <div class="strategy-description text-muted">Ethical practices, transparency, and compliance</div>
+                            <div class="score-input mt-2">
+                                <select class="form-control">
+                                    <option value="">Select Ethics Score...</option>
+                                    <option value="1">Poor Ethics</option>
+                                    <option value="2">Fair Ethics</option>
+                                    <option value="3">Good Ethics</option>
+                                    <option value="4">Very Good Ethics</option>
+                                    <option value="5">Excellent Ethics</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="strategy-option">
+                            <div class="strategy-header">
+                                <label class="strategy-name">Risk Management</label>
+                            </div>
+                            <div class="strategy-description text-muted">Risk assessment and mitigation strategies</div>
+                            <div class="score-input mt-2">
+                                <select class="form-control">
+                                    <option value="">Select Risk Score...</option>
+                                    <option value="1">Poor Management</option>
+                                    <option value="2">Fair Management</option>
+                                    <option value="3">Good Management</option>
+                                    <option value="4">Very Good Management</option>
+                                    <option value="5">Excellent Management</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Risk Return Profile Section -->
+        <h2 class="strategy-category-header" style="text-align:center;margin-bottom:2rem;">Risk Return Profile</h2>
+        <div class="strategy-columns">
+            <!-- Scenario Analysis Column -->
+            <div class="strategy-column">
+                <div class="strategy-category-container">
+                    <h3 class="strategy-category-header">
+                        <span class="ubs-text">LOMBARD ODIER</span> Scenario Analysis
+                    </h3>
+                    <div class="strategy-list">
+                        <div class="strategy-option">
+                            <div class="strategy-header">
+                                <label class="strategy-name">Base Case</label>
+                            </div>
+                            <div class="strategy-description text-muted">Expected return under normal market conditions</div>
+                            <div class="scenario-input mt-2">
+                                <div class="input-group">
+                                    <input type="number" 
+                                           class="form-control scenario-value" 
+                                           value="14" 
+                                           step="0.1" 
+                                           min="-100" 
+                                           max="100"
+                                           id="base-case-input">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="strategy-option">
+                            <div class="strategy-header">
+                                <label class="strategy-name">Down Case</label>
+                            </div>
+                            <div class="strategy-description text-muted">Potential loss in adverse conditions</div>
+                            <div class="scenario-input mt-2">
+                                <div class="input-group">
+                                    <input type="number" 
+                                           class="form-control scenario-value" 
+                                           value="-8" 
+                                           step="0.1" 
+                                           min="-100" 
+                                           max="100"
+                                           id="down-case-input">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="strategy-option">
+                            <div class="strategy-header">
+                                <label class="strategy-name">Up Case</label>
+                            </div>
+                            <div class="strategy-description text-muted">Potential return in favorable conditions</div>
+                            <div class="scenario-input mt-2">
+                                <div class="input-group">
+                                    <input type="number" 
+                                           class="form-control scenario-value" 
+                                           value="22" 
+                                           step="0.1" 
+                                           min="-100" 
+                                           max="100"
+                                           id="up-case-input">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Risk Profile Column -->
+            <div class="strategy-column">
+                <div class="strategy-category-container">
+                    <h3 class="strategy-category-header">
+                        <span class="ubs-text">LOMBARD ODIER</span> Risk Profile
+                    </h3>
+                    <div class="strategy-list">
+                        <div class="strategy-option">
+                            <div class="strategy-header">
+                                <input type="radio" name="risk-profile" id="conservative" value="conservative">
+                                <label class="strategy-name" for="conservative">Conservative</label>
+                            </div>
+                            <div class="strategy-description text-muted">Lower risk, stable returns, capital preservation focus</div>
+                            <div class="expected-return">Expected Return: 6-8%</div>
+                        </div>
+                        <div class="strategy-option">
+                            <div class="strategy-header">
+                                <input type="radio" name="risk-profile" id="balanced" value="balanced">
+                                <label class="strategy-name" for="balanced">Balanced</label>
+                            </div>
+                            <div class="strategy-description text-muted">Moderate risk, balanced growth and stability</div>
+                            <div class="expected-return">Expected Return: 8-12%</div>
+                        </div>
+                        <div class="strategy-option">
+                            <div class="strategy-header">
+                                <input type="radio" name="risk-profile" id="growth" value="growth">
+                                <label class="strategy-name" for="growth">Growth</label>
+                            </div>
+                            <div class="strategy-description text-muted">Higher risk, focus on capital appreciation</div>
+                            <div class="expected-return">Expected Return: 12-16%</div>
+                        </div>
+                        <div class="strategy-option">
+                            <div class="strategy-header">
+                                <input type="radio" name="risk-profile" id="aggressive" value="aggressive">
+                                <label class="strategy-name" for="aggressive">Aggressive</label>
+                            </div>
+                            <div class="strategy-description text-muted">Highest risk, maximum growth potential</div>
+                            <div class="expected-return">Expected Return: 16%+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Risk Metrics Column -->
+            <div class="strategy-column">
+                <div class="strategy-category-container">
+                    <h3 class="strategy-category-header">
+                        <span class="ubs-text">LOMBARD ODIER</span> Risk Metrics
+                    </h3>
+                    <div class="strategy-list">
+                        <div class="strategy-option">
+                            <div class="strategy-header">
+                                <label class="strategy-name">Volatility</label>
+                            </div>
+                            <div class="strategy-description text-muted">Portfolio price fluctuation measure</div>
+                            <div class="risk-metric">12.5%</div>
+                        </div>
+                        <div class="strategy-option">
+                            <div class="strategy-header">
+                                <label class="strategy-name">Sharpe Ratio</label>
+                            </div>
+                            <div class="strategy-description text-muted">Risk-adjusted return measure</div>
+                            <div class="risk-metric">1.8</div>
+                        </div>
+                        <div class="strategy-option">
+                            <div class="strategy-header">
+                                <label class="strategy-name">Maximum Drawdown</label>
+                            </div>
+                            <div class="strategy-description text-muted">Largest peak-to-trough decline</div>
+                            <div class="risk-metric">-15.2%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="width:100%; display:flex; justify-content:flex-end; margin-top: 24px;">
+            <button id="build-portfolio-btn" style="background: #e31e24; color: #fff; border: none; border-radius: 6px; padding: 0.85rem 2.2rem; font-size: 1.1rem; font-weight: bold; box-shadow: 0 2px 8px rgba(0,0,0,0.10); cursor: pointer;">Build Portfolio</button>
+        </div>
+    </div>
+
+    <!-- Available PE Investments Tab Content -->
+    <div id="pe-investments-content" class="portfolio-tab-content">
+        <div class="pe-investments-container">
+            <h3>Private Equity Opportunities (Matched to Your Mandate)</h3>
+            <div class="mandate-summary">
+                <strong>Mandate summary:</strong> €2.5M commitment target • Strategies: Buyout/Growth/Secondaries/PC • Regions: Europe, North America • Sectors: Healthcare, Technology, Industrial • Ticket size: €250K–€500K • Co-invests: Yes
+            </div>
+            <div class="opportunity-filters">
+                <button class="filter-btn active">Primary</button>
+                <button class="filter-btn">Co-Invest</button>
+                <button class="filter-btn">Secondary</button>
+                <button class="filter-btn">Private Credit</button>
+                <button class="filter-btn">Real Assets</button>
+            </div>
+            <div class="opportunities">
+                <h4>Recommended for You</h4>
+                <div class="opportunity-item">
+                    <div class="opportunity-header">
+                        <h5>Nordic Healthcare Growth Fund V — Growth, Europe</h5>
+                    </div>
+                    <p>Targets healthcare services and medtech across Nordics with proven digitization thesis and 3 successful exits in telehealth.</p>
+                    <div class="opportunity-fit">
+                        <strong>Why it fits:</strong>
+                        <ul>
+                            <li>Healthcare sector alignment with mandate</li>
+                            <li>Fills 2024 vintage gap in growth allocation</li>
+                            <li>Geographic diversification into Nordics</li>
+                        </ul>
+                    </div>
+                    <div class="opportunity-terms">
+                        <strong>Key terms:</strong> €400M target size, 2%/20% fees, 3% GP commitment
+                    </div>
+                    <div class="sponsor-track">
+                        <strong>Sponsor track:</strong> DPI 1.8x / TVPI 2.4x / IRR 19.5%, recent exits include MedCore (3.2x) and HealthTech Solutions (2.8x)
+                    </div>
+                    <div class="opportunity-actions">
+                        <button class="btn-primary">Request Diligence Pack</button>
+                        <button class="btn-secondary">Soft-Circle €350K</button>
+                        <button class="btn-outline">Speak to Banker</button>
+                    </div>
+                </div>
+                <div class="opportunity-item">
+                    <div class="opportunity-header">
+                        <h5>European Software Secondary Portfolio — Secondary</h5>
+                    </div>
+                    <p>Portfolio rebalance opportunity from large pension fund seeking liquidity, featuring high-quality B2B software assets.</p>
+                    <div class="opportunity-fit">
+                        <strong>Deal angle:</strong> adds Software/Tech exposure without vintage drift, accelerated DPI path, fee-efficient exposure to mature assets.
+                    </div>
+                    <div class="opportunity-scenario">
+                        <strong>Scenario:</strong> adds Technology exposure without vintage drift, targets 2.5x MOIC over 3-4 years.
+                    </div>
+                    <div class="opportunity-actions">
+                        <button class="btn-primary">View Model</button>
+                        <button class="btn-secondary">Hold/Pass</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -332,9 +873,21 @@ th {
     font-weight: 600;
 }
 
-/* Right justify Total Value column */
-td:nth-child(2),
-th:nth-child(2) {
+/* Right justify numeric columns in Summary Portfolio Investments table */
+.portfolio-table td:nth-child(2),
+.portfolio-table th:nth-child(2),
+.portfolio-table td:nth-child(3),
+.portfolio-table th:nth-child(3),
+.portfolio-table td:nth-child(4),
+.portfolio-table th:nth-child(4),
+.portfolio-table td:nth-child(5),
+.portfolio-table th:nth-child(5),
+.portfolio-table td:nth-child(6),
+.portfolio-table th:nth-child(6),
+.portfolio-table td:nth-child(8),
+.portfolio-table th:nth-child(8),
+.portfolio-table td:nth-child(9),
+.portfolio-table th:nth-child(9) {
     text-align: right;
 }
 
@@ -394,6 +947,17 @@ th:nth-child(2) {
     color: #003f5c;
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
+}
+
+/* Ensure total row numeric columns are right-aligned */
+.total-row td:nth-child(2),
+.total-row td:nth-child(3),
+.total-row td:nth-child(4),
+.total-row td:nth-child(5),
+.total-row td:nth-child(6),
+.total-row td:nth-child(8),
+.total-row td:nth-child(9) {
+    text-align: right;
 }
 
 /* Target Allocation and Deviation Styles */
@@ -529,6 +1093,384 @@ th:nth-child(2) {
     .chart-wrapper {
         height: 250px;
     }
+}
+
+/* Portfolio Tab Styles */
+.portfolio-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.portfolio-tab {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 1.4rem;
+    font-weight: 600;
+    border-bottom: 3px solid transparent;
+    color: #666;
+    transition: all 0.3s ease;
+}
+
+.portfolio-tab.active {
+    border-bottom-color: #e31e24;
+    color: #e31e24;
+    font-weight: 700;
+}
+
+.portfolio-tab:hover {
+    color: #e31e24;
+}
+
+.portfolio-tab-content {
+    display: none;
+}
+
+.portfolio-tab-content.active {
+    display: block;
+}
+
+.temporary-placeholder {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.temporary-placeholder h2 {
+    margin: 0 0 1rem 0;
+    color: #333;
+}
+
+.temporary-placeholder p {
+    margin: 0;
+    color: #666;
+}
+
+/* Strategy Selection Styles */
+.strategy-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.strategy-column {
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.strategy-category-container {
+    padding: 0.5rem;
+}
+
+.strategy-category-header {
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    font-size: 1.1rem;
+    border-bottom: 2px solid #e31e24;
+}
+
+.ubs-text {
+    color: #e31e24;
+    font-weight: 700;
+}
+
+.strategy-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.strategy-option {
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.strategy-option:hover {
+    border-color: #e31e24;
+    background-color: #fafafa;
+}
+
+.strategy-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.strategy-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+    cursor: pointer;
+}
+
+/* Ensure checkboxes are visible and clickable */
+input[type="checkbox"].strategy-checkbox {
+    appearance: auto;
+    -webkit-appearance: checkbox;
+    -moz-appearance: checkbox;
+    display: inline-block !important;
+    width: 16px !important;
+    height: 16px !important;
+    margin: 0 0.5rem 0 0 !important;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.strategy-description {
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.text-muted {
+    color: #6c757d;
+}
+
+.selection-counter {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.strategy-checkbox {
+    margin-right: 0.5rem;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* ESG and Form Control Styles */
+.form-control {
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+}
+
+.form-control:focus {
+    border-color: #e31e24;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(227, 30, 36, 0.25);
+}
+
+.score-input, .scenario-input {
+    margin-top: 0.5rem;
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 100%;
+}
+
+.input-group .form-control {
+    position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+    margin-bottom: 0;
+}
+
+.input-group-append {
+    margin-left: -1px;
+    display: flex;
+}
+
+.input-group-text {
+    display: flex;
+    align-items: center;
+    padding: 0.375rem 0.75rem;
+    margin-bottom: 0;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: 0 0.25rem 0.25rem 0;
+}
+
+.expected-return {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #28a745;
+}
+
+.risk-metric {
+    margin-top: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #e31e24;
+}
+
+.mt-2 {
+    margin-top: 0.5rem;
+}
+
+/* Available PE Investments Styles */
+.pe-investments-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.pe-investments-container h3 {
+    margin: 0 0 1rem 0;
+    color: #333;
+    font-size: 1.5rem;
+}
+
+.mandate-summary {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    border-left: 4px solid #e31e24;
+}
+
+.opportunity-filters {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid #e0e0e0;
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+    background: #e31e24;
+    color: white;
+    border-color: #e31e24;
+}
+
+.opportunities h4 {
+    margin: 0 0 1rem 0;
+    color: #333;
+    font-size: 1.2rem;
+}
+
+.opportunity-item {
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.opportunity-header h5 {
+    margin: 0 0 0.75rem 0;
+    color: #e31e24;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.opportunity-item p {
+    margin: 0 0 1rem 0;
+    color: #666;
+    line-height: 1.5;
+}
+
+.opportunity-fit,
+.opportunity-terms,
+.opportunity-scenario,
+.sponsor-track {
+    margin: 1rem 0;
+    padding: 0.75rem;
+    background: white;
+    border-radius: 4px;
+    border-left: 3px solid #e31e24;
+}
+
+.opportunity-fit ul {
+    margin: 0.5rem 0 0 0;
+    padding-left: 1.5rem;
+}
+
+.opportunity-fit li {
+    margin-bottom: 0.25rem;
+    color: #666;
+}
+
+.opportunity-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-outline {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    border: 1px solid;
+}
+
+.btn-primary {
+    background: #e31e24;
+    color: white;
+    border-color: #e31e24;
+}
+
+.btn-primary:hover {
+    background: #c4161b;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background: #545b62;
+}
+
+.btn-outline {
+    background: transparent;
+    color: #e31e24;
+    border-color: #e31e24;
+}
+
+.btn-outline:hover {
+    background: #e31e24;
+    color: white;
 }
 </style>
 
@@ -990,7 +1932,98 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(window.calculateDeviations, 100);
     }
     });
+
+// Portfolio Tab Switching Function
+function showPortfolioTab(tabName) {
+    // Remove active class from all tabs and content
+    document.querySelectorAll('.portfolio-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    document.querySelectorAll('.portfolio-tab-content').forEach(content => {
+        content.classList.remove('active');
+    });
+    
+    // Add active class to clicked tab and corresponding content
+    event.target.classList.add('active');
+    
+    if (tabName === 'summary') {
+        document.getElementById('portfolio-summary-content').classList.add('active');
+    } else if (tabName === 'temporary') {
+        document.getElementById('temporary-content').classList.add('active');
+    } else if (tabName === 'pe-investments') {
+        document.getElementById('pe-investments-content').classList.add('active');
+    }
+}
+
+// Strategy Selection Counter Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const checkboxes = document.querySelectorAll('.strategy-checkbox');
+    const selectedCountElement = document.getElementById('selected-count');
+    
+    function updateSelectedCount() {
+        const selectedCount = document.querySelectorAll('.strategy-checkbox:checked').length;
+        if (selectedCountElement) {
+            selectedCountElement.textContent = selectedCount;
+        }
+    }
+    
+    // Add event listeners to all strategy checkboxes
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', updateSelectedCount);
+    });
+    
+    // Initial count
+    updateSelectedCount();
+    
+    // Build Portfolio button functionality
+    const buildPortfolioBtn = document.getElementById('build-portfolio-btn');
+    if (buildPortfolioBtn) {
+        buildPortfolioBtn.addEventListener('click', function() {
+            const selectedStrategies = [];
+            const checkedBoxes = document.querySelectorAll('.strategy-checkbox:checked');
+            
+            checkedBoxes.forEach(checkbox => {
+                const strategyOption = checkbox.closest('.strategy-option');
+                const strategyName = strategyOption.querySelector('.strategy-name').textContent;
+                const strategyData = checkbox.getAttribute('data-strategy') || strategyName.toLowerCase().replace(/\s+/g, '-');
+                selectedStrategies.push({
+                    name: strategyName,
+                    data: strategyData
+                });
+            });
+            
+            console.log('Selected strategies:', selectedStrategies);
+            
+            // Get ESG scores
+            const esgScores = {};
+            document.querySelectorAll('.score-input select').forEach(select => {
+                if (select.value) {
+                    const label = select.closest('.strategy-option').querySelector('.strategy-name').textContent;
+                    esgScores[label] = select.value;
+                }
+            });
+            
+            console.log('ESG Scores:', esgScores);
+            
+            // Get Risk Profile
+            const riskProfile = document.querySelector('input[name="risk-profile"]:checked');
+            if (riskProfile) {
+                console.log('Risk Profile:', riskProfile.value);
+            }
+            
+            // Get Scenario Values
+            const baseCase = document.getElementById('base-case-input')?.value;
+            const downCase = document.getElementById('down-case-input')?.value;
+            const upCase = document.getElementById('up-case-input')?.value;
+            
+            console.log('Scenario Analysis:', { baseCase, downCase, upCase });
+            
+            alert(`Portfolio building initiated with ${selectedStrategies.length} selected strategies!`);
+        });
+    }
+});
 </script>
 
-<%- include('partials/footer') %> < ! - -   F o r c e   r e f r e s h   - - >  
+<%- include('partials/footer') %> < ! - -   F o r c e   r e f r e s h   - - > 
+ 
  

@@ -36,8 +36,44 @@ let savedCommitmentCriteria = {
     deploymentDate: ''
 };
 
-// Store for posted investments (in memory for now)
+// Store for posted investments (persistent file storage)
+const POSTED_INVESTMENTS_FILE = path.join(__dirname, 'data', 'posted-investments.json');
 let postedInvestments = [];
+
+// Load posted investments from file on startup
+function loadPostedInvestments() {
+    try {
+        if (fs.existsSync(POSTED_INVESTMENTS_FILE)) {
+            const data = fs.readFileSync(POSTED_INVESTMENTS_FILE, 'utf8');
+            postedInvestments = JSON.parse(data);
+            console.log('Loaded', postedInvestments.length, 'posted investments from file');
+        } else {
+            console.log('No posted investments file found, starting with empty array');
+        }
+    } catch (error) {
+        console.error('Error loading posted investments:', error);
+        postedInvestments = [];
+    }
+}
+
+// Save posted investments to file
+function savePostedInvestments() {
+    try {
+        // Ensure data directory exists
+        const dataDir = path.join(__dirname, 'data');
+        if (!fs.existsSync(dataDir)) {
+            fs.mkdirSync(dataDir, { recursive: true });
+        }
+        
+        fs.writeFileSync(POSTED_INVESTMENTS_FILE, JSON.stringify(postedInvestments, null, 2));
+        console.log('Saved', postedInvestments.length, 'posted investments to file');
+    } catch (error) {
+        console.error('Error saving posted investments:', error);
+    }
+}
+
+// Load posted investments on server startup
+loadPostedInvestments();
 
 // Function to remove duplicates from posted investments
 function removeDuplicateInvestments() {
@@ -52,8 +88,11 @@ function removeDuplicateInvestments() {
         }
     }
     
-    postedInvestments = uniqueInvestments;
-    console.log('Removed duplicates. Current posted investments:', postedInvestments.length);
+    if (postedInvestments.length !== uniqueInvestments.length) {
+        postedInvestments = uniqueInvestments;
+        savePostedInvestments(); // Save to file after removing duplicates
+        console.log('Removed duplicates. Current posted investments:', postedInvestments.length);
+    }
 }
 
 // Add formatNumber to app.locals so it's available to all views
@@ -87,15 +126,167 @@ app.get('/health', (req, res) => {
     res.status(200).send('OK');
 });
 
+// Simple user authentication (in production, use proper authentication)
+const users = {
+    // Private Bankers
+    'alexandra.steinberg': { password: 'venturis0801', type: 'banker', name: 'Alexandra Steinberg - Senior Private Banker' },
+    'maximilian.dubois': { password: 'venturis0801', type: 'banker', name: 'Maximilian Dubois - Portfolio Manager' },
+    'catherine.whitmore': { password: 'venturis0801', type: 'banker', name: 'Catherine Whitmore - Wealth Advisor' },
+    
+    // Clients - each assigned to one of the three bankers
+    // Alexandra Steinberg's clients (7 clients)
+    'john.smith': { password: 'venturis0801', type: 'client', name: 'John Smith - London, UK', banker: 'Alexandra Steinberg - Senior Private Banker' },
+    'marie.dubois': { password: 'venturis0801', type: 'client', name: 'Marie Dubois - Paris, France', banker: 'Alexandra Steinberg - Senior Private Banker' },
+    'hans.weber': { password: 'venturis0801', type: 'client', name: 'Hans Weber - Munich, Germany', banker: 'Alexandra Steinberg - Senior Private Banker' },
+    'sofia.rossi': { password: 'venturis0801', type: 'client', name: 'Sofia Rossi - Milan, Italy', banker: 'Alexandra Steinberg - Senior Private Banker' },
+    'carlos.garcia': { password: 'venturis0801', type: 'client', name: 'Carlos Garcia - Madrid, Spain', banker: 'Alexandra Steinberg - Senior Private Banker' },
+    'anna.kowalski': { password: 'venturis0801', type: 'client', name: 'Anna Kowalski - Warsaw, Poland', banker: 'Alexandra Steinberg - Senior Private Banker' },
+    'erik.andersson': { password: 'venturis0801', type: 'client', name: 'Erik Andersson - Stockholm, Sweden', banker: 'Alexandra Steinberg - Senior Private Banker' },
+    
+    // Maximilian Dubois's clients (7 clients)
+    'elena.popov': { password: 'venturis0801', type: 'client', name: 'Elena Popov - Moscow, Russia', banker: 'Maximilian Dubois - Portfolio Manager' },
+    'dimitris.papadopoulos': { password: 'venturis0801', type: 'client', name: 'Dimitris Papadopoulos - Athens, Greece', banker: 'Maximilian Dubois - Portfolio Manager' },
+    'jan.devries': { password: 'venturis0801', type: 'client', name: 'Jan de Vries - Amsterdam, Netherlands', banker: 'Maximilian Dubois - Portfolio Manager' },
+    'lars.nielsen': { password: 'venturis0801', type: 'client', name: 'Lars Nielsen - Copenhagen, Denmark', banker: 'Maximilian Dubois - Portfolio Manager' },
+    'marco.silva': { password: 'venturis0801', type: 'client', name: 'Marco Silva - Lisbon, Portugal', banker: 'Maximilian Dubois - Portfolio Manager' },
+    'andrei.ionescu': { password: 'venturis0801', type: 'client', name: 'Andrei Ionescu - Bucharest, Romania', banker: 'Maximilian Dubois - Portfolio Manager' },
+    'eva.novotna': { password: 'venturis0801', type: 'client', name: 'Eva Novotna - Prague, Czech Republic', banker: 'Maximilian Dubois - Portfolio Manager' },
+    
+    // Catherine Whitmore's clients (6 clients)
+    'marta.kovac': { password: 'venturis0801', type: 'client', name: 'Marta Kovac - Budapest, Hungary', banker: 'Catherine Whitmore - Wealth Advisor' },
+    'liam.obrien': { password: 'venturis0801', type: 'client', name: 'Liam O\'Brien - Dublin, Ireland', banker: 'Catherine Whitmore - Wealth Advisor' },
+    'gustav.nilsson': { password: 'venturis0801', type: 'client', name: 'Gustav Nilsson - Oslo, Norway', banker: 'Catherine Whitmore - Wealth Advisor' },
+    'isabella.marino': { password: 'venturis0801', type: 'client', name: 'Isabella Marino - Rome, Italy', banker: 'Catherine Whitmore - Wealth Advisor' },
+    'thomas.muller': { password: 'venturis0801', type: 'client', name: 'Thomas Müller - Vienna, Austria', banker: 'Catherine Whitmore - Wealth Advisor' },
+    'sophie.laurent': { password: 'venturis0801', type: 'client', name: 'Sophie Laurent - Brussels, Belgium', banker: 'Catherine Whitmore - Wealth Advisor' }
+};
+
+// Session middleware (persistent file storage)
+const SESSIONS_FILE = path.join(__dirname, 'data', 'sessions.json');
+let sessions = {};
+
+// Load sessions from file on startup
+function loadSessions() {
+    try {
+        if (fs.existsSync(SESSIONS_FILE)) {
+            const data = fs.readFileSync(SESSIONS_FILE, 'utf8');
+            sessions = JSON.parse(data);
+            console.log('Loaded', Object.keys(sessions).length, 'sessions from file');
+        } else {
+            console.log('No sessions file found, starting with empty sessions');
+        }
+    } catch (error) {
+        console.error('Error loading sessions:', error);
+        sessions = {};
+    }
+}
+
+// Save sessions to file
+function saveSessions() {
+    try {
+        // Ensure data directory exists
+        const dataDir = path.join(__dirname, 'data');
+        if (!fs.existsSync(dataDir)) {
+            fs.mkdirSync(dataDir, { recursive: true });
+        }
+        
+        fs.writeFileSync(SESSIONS_FILE, JSON.stringify(sessions, null, 2));
+        console.log('Saved', Object.keys(sessions).length, 'sessions to file');
+    } catch (error) {
+        console.error('Error saving sessions:', error);
+    }
+}
+
+// Load sessions on server startup
+loadSessions();
+
+// Middleware to check authentication
+function requireAuth(req, res, next) {
+    const sessionId = req.headers.cookie?.match(/sessionId=([^;]+)/)?.[1];
+    
+    console.log('Auth check for:', req.path, 'Session ID:', sessionId ? sessionId.substring(0, 10) + '...' : 'none');
+    
+    if (sessionId && sessions[sessionId]) {
+        req.user = sessions[sessionId];
+        console.log('Auth successful for user:', sessions[sessionId].username);
+        next();
+    } else {
+        console.log('Auth failed - redirecting to login. Available sessions:', Object.keys(sessions).length);
+        res.redirect('/login');
+    }
+}
+
+// Login page route
+app.get('/login', (req, res) => {
+    res.render('login', { error: null });
+});
+
+// Login form handler
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+    const user = users[username];
+    
+    if (user && user.password === password) {
+        // Create session
+        const sessionId = Date.now().toString() + Math.random().toString(36);
+        sessions[sessionId] = {
+            username: username,
+            type: user.type,
+            name: user.name,
+            banker: user.banker || null, // Include banker info for clients
+            createdAt: new Date().toISOString()
+        };
+        
+        // Save sessions to file
+        saveSessions();
+        
+        // Set cookie with better settings
+        res.setHeader('Set-Cookie', `sessionId=${sessionId}; HttpOnly; Path=/; Max-Age=86400; SameSite=Lax`);
+        
+        console.log('User logged in:', username, 'Session ID:', sessionId);
+        
+        // Redirect based on user type
+        if (user.type === 'banker') {
+            res.redirect('/'); // Current home page for bankers
+        } else {
+            res.redirect('/briefing'); // Briefing page for clients
+        }
+    } else {
+        res.render('login', { error: 'Invalid username or password' });
+    }
+});
+
+// Logout route
+app.get('/logout', (req, res) => {
+    const sessionId = req.headers.cookie?.match(/sessionId=([^;]+)/)?.[1];
+    if (sessionId) {
+        console.log('User logged out, Session ID:', sessionId);
+        delete sessions[sessionId];
+        saveSessions(); // Save sessions after logout
+    }
+    // Clear cookie
+    res.setHeader('Set-Cookie', 'sessionId=; HttpOnly; Path=/; Max-Age=0');
+    res.redirect('/login');
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
     console.error('Error:', err.stack);
     res.status(500).send('Something broke!');
 });
 
-// Middleware to pass current path to all views
+// Middleware to pass current path and user to all views
 app.use((req, res, next) => {
     res.locals.path = req.path;
+    
+    // Make user session available to all views
+    const sessionId = req.headers.cookie?.match(/sessionId=([^;]+)/)?.[1];
+    if (sessionId && sessions[sessionId]) {
+        res.locals.user = sessions[sessionId];
+    } else {
+        res.locals.user = null;
+    }
+    
     next();
 });
 
@@ -252,11 +443,33 @@ function processPortfolioData(portfolios) {
 }
 
 // Routes
+
+// Root route - redirect to login if not authenticated
 app.get('/', (req, res) => {
-    res.render('index');
+    const sessionId = req.headers.cookie?.match(/sessionId=([^;]+)/)?.[1];
+    if (sessionId && sessions[sessionId]) {
+        // User is logged in, show the banker home page
+        res.render('index', { user: sessions[sessionId] });
+    } else {
+        // User not logged in, redirect to login
+        res.redirect('/login');
+    }
 });
 
-app.get('/briefing', (req, res) => {
+// Client Alerts route - only for Private Bankers
+app.get('/client-alerts', requireAuth, (req, res) => {
+    const sessionId = req.headers.cookie?.match(/sessionId=([^;]+)/)?.[1];
+    const session = sessions[sessionId];
+    
+    // Only allow bankers to access this page
+    if (session.type !== 'banker') {
+        return res.status(403).send('Access denied. This page is only available to Private Bankers.');
+    }
+    
+    res.render('client-alerts', { user: session });
+});
+
+app.get('/briefing', requireAuth, (req, res) => {
     // Sample data for the briefing page
     const briefingData = {
         portfolioNAV: 8750000,
@@ -335,11 +548,11 @@ app.get('/briefing', (req, res) => {
     res.render('briefing', briefingData);
 });
 
-app.get('/portfolio', (req, res) => {
+app.get('/portfolio', requireAuth, (req, res) => {
     res.render('portfolio');
 });
 
-app.get('/portfolio-summary', (req, res) => {
+app.get('/portfolio-summary', requireAuth, (req, res) => {
     try {
         // Read portfolio data - force CSV reading
         console.log('Reading portfolio data from:', __dirname);
@@ -410,15 +623,15 @@ app.get('/portfolio-summary', (req, res) => {
     }
 });
 
-app.get('/liquidity-summary', (req, res) => {
+app.get('/liquidity-summary', requireAuth, (req, res) => {
     res.render('liquidity-summary');
 });
 
-app.get('/portfolio-builder', (req, res) => {
+app.get('/portfolio-builder', requireAuth, (req, res) => {
     res.render('portfolio-builder');
 });
 
-app.get('/investment-opportunities', (req, res) => {
+app.get('/investment-opportunities', requireAuth, (req, res) => {
     const tab = req.query.tab || 'primary';
     const postedFund = req.query.posted || null;
     const message = req.query.message || null;
@@ -441,19 +654,20 @@ app.get('/investment-opportunities', (req, res) => {
     });
 });
 
-app.get('/transactions', (req, res) => {
-    res.render('transactions');
+// Redirect old transactions route to bulletin board with transactions tab
+app.get('/transactions', requireAuth, (req, res) => {
+    res.redirect('/investment-opportunities?tab=transactions');
 });
 
-app.get('/messages', (req, res) => {
+app.get('/messages', requireAuth, (req, res) => {
     res.render('messages');
 });
 
-app.get('/support', (req, res) => {
+app.get('/support', requireAuth, (req, res) => {
     res.render('support');
 });
 
-app.get('/fund-details', async (req, res) => {
+app.get('/fund-details', requireAuth, async (req, res) => {
     try {
         // Get URL parameters to determine which fund to show
         const market = req.query.market || 'primary'; // primary or secondary
@@ -654,11 +868,11 @@ app.get('/fund-details', async (req, res) => {
     }
 });
 
-app.get('/create-bid', (req, res) => {
+app.get('/create-bid', requireAuth, (req, res) => {
     res.render('create-bid');
 });
 
-app.get('/contact-advisor', (req, res) => {
+app.get('/contact-advisor', requireAuth, (req, res) => {
     // Get URL parameters to pass fund information
     const market = req.query.market || 'secondary';
     const fund = req.query.fund || 'buyout';
@@ -775,6 +989,7 @@ app.get('/post-for-sale/:fundName', (req, res) => {
         };
         
         postedInvestments.push(postedInvestment);
+        savePostedInvestments(); // Save to file
         
         console.log('Investment posted for sale:', postedInvestment);
         
@@ -790,8 +1005,50 @@ app.get('/post-for-sale/:fundName', (req, res) => {
     }
 });
 
+// Remove investment from listings route
+app.post('/remove-investment', requireAuth, (req, res) => {
+    try {
+        const { fundName } = req.body;
+        
+        if (!fundName) {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'Fund name is required' 
+            });
+        }
+        
+        // Find and remove the investment from posted investments
+        const initialLength = postedInvestments.length;
+        postedInvestments = postedInvestments.filter(investment => 
+            investment.fundName.toLowerCase().trim() !== fundName.toLowerCase().trim()
+        );
+        
+        if (postedInvestments.length < initialLength) {
+            savePostedInvestments(); // Save to file after removal
+            console.log('Investment removed from listings:', fundName);
+            res.json({ 
+                success: true, 
+                message: `${fundName} has been removed from your listings` 
+            });
+        } else {
+            console.log('Investment not found in listings:', fundName);
+            res.status(404).json({ 
+                success: false, 
+                message: 'Investment not found in listings' 
+            });
+        }
+        
+    } catch (error) {
+        console.error('Error removing investment:', error);
+        res.status(500).json({ 
+            success: false, 
+            message: 'Failed to remove investment from listings' 
+        });
+    }
+});
+
 // Investment details route
-app.get('/investment-details/:fundName', (req, res) => {
+app.get('/investment-details/:fundName', requireAuth, (req, res) => {
     try {
         const fundName = req.params.fundName;
         
@@ -904,7 +1161,7 @@ app.get('/api/portfolios', (req, res) => {
 });
 
 // Risk/Return Profile page
-app.get('/risk-return-profile', (req, res) => {
+app.get('/risk-return-profile', requireAuth, (req, res) => {
     res.render('risk-return-profile', {
         path: req.path,
         scenarios: {
@@ -922,7 +1179,7 @@ app.get('/risk-return-profile', (req, res) => {
 });
 
 // ESG Framework page
-app.get('/esg-framework', (req, res) => {
+app.get('/esg-framework', requireAuth, (req, res) => {
     res.render('esg-framework', {
         path: req.path,
         esgMetrics: {
@@ -949,7 +1206,7 @@ app.get('/esg-framework', (req, res) => {
 });
 
 // Add the new route for fund manager attributes
-app.get('/fund-manager-attributes', (req, res) => {
+app.get('/fund-manager-attributes', requireAuth, (req, res) => {
     res.render('fund-manager-attributes');
 });
 
@@ -977,7 +1234,7 @@ app.get('/api/get-strategies', (req, res) => {
 });
 
 // Commitment Criteria route
-app.get('/commitment-criteria', (req, res) => {
+app.get('/commitment-criteria', requireAuth, (req, res) => {
     res.render('commitment-criteria', { path: req.path });
 });
 
