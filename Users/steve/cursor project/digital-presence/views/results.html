@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results - Digital Presence</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; line-height: 1.6; color: #333; background-color: #f5f7fa; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
+        .nav { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s; padding: 8px 16px; border-radius: 6px; }
+        .nav-links a:hover { opacity: 0.8; background: rgba(255,255,255,0.1); }
+        .nav-links a.active { background: rgba(255,255,255,0.2); }
+        .main-content { padding: 40px 20px; min-height: 80vh; }
+        .loading { text-align: center; padding: 100px 20px; }
+        .loading-spinner { display: inline-block; width: 60px; height: 60px; border: 6px solid #f3f4f6; border-radius: 50%; border-top-color: #667eea; animation: spin 1s ease-in-out infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading h2 { margin-top: 20px; color: #2d3748; }
+        .loading p { color: #718096; margin-top: 10px; }
+        .error { text-align: center; padding: 100px 20px; }
+        .error h2 { color: #dc2626; margin-bottom: 10px; }
+        .error p { color: #718096; margin-bottom: 20px; }
+        .btn { padding: 12px 24px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; }
+        .btn:hover { opacity: 0.9; }
+        #dashboard-content { opacity: 0; transition: opacity 0.3s; }
+        #dashboard-content.show { opacity: 1; }
+        
+        /* Reuse styles from analytics.html */
+        .page-header { margin-bottom: 30px; }
+        .page-header h1 { font-size: 32px; color: #2d3748; margin-bottom: 8px; }
+        .page-header p { color: #718096; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.07); margin-bottom: 30px; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .card-title { font-size: 18px; font-weight: 600; color: #2d3748; }
+        .badge { padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 500; background: #f7fafc; color: #718096; }
+        .stat-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.07); }
+        .stat-label { 
+            font-size: 14px; 
+            color: #718096; 
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .stat-value { font-size: 32px; font-weight: 700; color: #2d3748; display: flex; align-items: center; justify-content: space-between; }
+        .stat-icon { width: 32px; height: 32px; color: #718096; }
+        
+        .info-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            color: #667eea;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: help;
+            position: relative;
+        }
+        
+        .info-tooltip {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2d3748;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            white-space: nowrap;
+            z-index: 1000;
+            transition: opacity 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            pointer-events: none;
+        }
+        
+        .info-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: #2d3748;
+        }
+        
+        .info-icon:hover .info-tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .benchmark-list {
+            list-style: none;
+            padding: 0;
+            margin: 8px 0 0 0;
+            text-align: left;
+        }
+        
+        .benchmark-list li {
+            padding: 4px 0;
+            font-size: 11px;
+        }
+        
+        .benchmark-excellent { color: #10b981; }
+        .benchmark-good { color: #3b82f6; }
+        .benchmark-average { color: #f59e0b; }
+        .chart-container { height: 300px; position: relative; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .social-metrics { display: grid; gap: 16px; }
+        .social-card { display: flex; justify-content: space-between; align-items: center; padding: 20px; border: 1px solid #e2e8f0; border-radius: 16px; }
+        .social-info { flex: 1; }
+        .social-platform { font-size: 14px; color: #718096; margin-bottom: 4px; }
+        .social-followers { font-size: 20px; font-weight: 600; }
+        .social-followers span { font-size: 14px; font-weight: 400; color: #718096; }
+        .social-stats { display: flex; gap: 24px; }
+        .metric-badge { text-align: center; }
+        .metric-value { font-size: 16px; font-weight: 600; }
+        .metric-label { font-size: 11px; color: #718096; }
+        .reputation-item { display: flex; justify-content: space-between; align-items: center; padding: 16px; border: 1px solid #e2e8f0; border-radius: 16px; margin-bottom: 12px; }
+        .stars { color: #fbbf24; font-size: 18px; letter-spacing: 2px; }
+        .star-rating { display: flex; align-items: center; gap: 12px; }
+        .rating-number { font-size: 14px; font-weight: 600; }
+        .sentiment-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+        .sentiment-card { padding: 20px; border: 1px solid #e2e8f0; border-radius: 16px; }
+        .sentiment-label { font-size: 14px; color: #718096; margin-bottom: 8px; }
+        .sentiment-value { font-size: 28px; font-weight: 700; }
+        .seo-item { display: flex; justify-content: space-between; align-items: center; padding: 16px; border: 1px solid #e2e8f0; border-radius: 16px; margin-bottom: 12px; }
+        .keyword-info { flex: 1; }
+        .keyword-name { font-size: 14px; color: #718096; }
+        .keyword-rank { font-size: 20px; font-weight: 600; }
+        .trend-badge { padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; background: #f7fafc; }
+        .trend-up { background: #d1fae5; color: #065f46; }
+        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+        .metric-card { padding: 20px; border: 1px solid #e2e8f0; border-radius: 16px; }
+        .recommendations-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; }
+        .recommendation-item { padding: 20px; border: 1px solid #e2e8f0; border-radius: 16px; margin-bottom: 12px; }
+        .recommendation-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .category-badge { font-weight: 600; font-size: 14px; }
+        .impact-badge { padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 600; text-transform: capitalize; }
+        .impact-high { background: #d1fae5; color: #065f46; }
+        .impact-medium { background: #fef3c7; color: #92400e; }
+        .impact-low { background: #f3f4f6; color: #6b7280; }
+        .recommendation-action { font-size: 14px; color: #718096; }
+        .industries-list { padding: 20px; border: 1px solid #e2e8f0; border-radius: 16px; }
+        .industries-list h3 { font-size: 14px; font-weight: 600; margin-bottom: 12px; }
+        .industries-list ul { list-style: disc; padding-left: 20px; }
+        .industries-list li { font-size: 14px; color: #718096; margin-bottom: 8px; }
+        .next-actions { padding: 20px; border: 1px solid #e2e8f0; border-radius: 16px; background: #f9fafb; margin-top: 16px; }
+        .footer { background: #2d3748; color: white; padding: 40px 20px; text-align: center; margin-top: 80px; }
+
+        /* Reputation comparison table styles */
+        .reputation-comparison { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.07); }
+        .reputation-header { background: #f8fafc; padding: 20px; text-align: center; border-bottom: 1px solid #e2e8f0; }
+        .reputation-header h3 { font-size: 18px; font-weight: 600; color: #2d3748; margin-bottom: 5px; }
+        .reputation-header p { color: #718096; font-size: 14px; }
+        .comparison-table { width: 100%; border-collapse: collapse; }
+        .comparison-table th,
+        .comparison-table td { padding: 16px; text-align: center; border-bottom: 1px solid #e2e8f0; }
+        .comparison-table th { background: #f8fafc; font-weight: 600; font-size: 14px; color: #4a5568; }
+        .comparison-table .platform-header { width: 120px; }
+        .comparison-table .company-name { font-weight: 600; text-align: left; padding-left: 20px; }
+        .comparison-table .stars-display { display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .comparison-table .review-count { font-size: 12px; color: #718096; margin-top: 4px; }
+        .comparison-table .your-company { background: #eff6ff; }
+        .comparison-table .best-rating { background: #f0fff4; }
+        .comparison-table .worst-rating { background: #fef5e7; }
+
+        @media (max-width: 768px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            .recommendations-grid { grid-template-columns: 1fr; }
+            .social-stats { flex-direction: column; gap: 12px; }
+            .comparison-table { font-size: 12px; }
+            .comparison-table th,
+            .comparison-table td { padding: 8px; }
+            .platform-header { width: 80px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <nav class="nav">
+                <div class="logo">📊 Digital Presence</div>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/input">Input</a></li>
+                    <li><a href="/analytics">Analytics</a></li>
+                    <li><a href="/your-metrics">Your Metrics</a></li>
+                    <li><a href="/reports">Historical Trends</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <!-- Loading State -->
+            <div id="loadingState" class="loading">
+                <div class="loading-spinner"></div>
+                <h2>Analyzing Digital Presence...</h2>
+                <p>This may take 30-60 seconds. Please wait...</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="errorState" class="error" style="display: none;">
+                <h2>❌ Analysis Not Found</h2>
+                <p id="errorMessage">We couldn't find the analysis results. The link may be invalid or expired.</p>
+                <a href="/analyze" class="btn">Start New Analysis</a>
+            </div>
+
+            <!-- Results Content -->
+            <div id="dashboard-content"></div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p><strong>Digital Presence</strong> - Market Analysis Platform</p>
+            <p>&copy; 2024 Digital Presence. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Get analysis ID from URL or use most recent
+        const urlParams = new URLSearchParams(window.location.search);
+        const analysisId = urlParams.get('id');
+
+        if (analysisId) {
+            loadAnalysisResults(analysisId);
+        } else {
+            // Try to get the most recent analysis
+            loadMostRecentAnalysis();
+        }
+
+        async function loadMostRecentAnalysis() {
+            try {
+                console.log('Loading most recent analysis...');
+                const response = await fetch('/api/analyses');
+
+                if (!response.ok) {
+                    throw new Error('Could not load analyses');
+                }
+
+                const analyses = await response.json();
+                console.log('Analyses loaded:', analyses);
+
+                if (analyses.length === 0) {
+                    showError('No analyses found. Please create an analysis first.');
+                    return;
+                }
+
+                // Load the most recent analysis
+                const mostRecent = analyses[0];
+                console.log('Loading most recent analysis:', mostRecent.id);
+                loadAnalysisResults(mostRecent.id);
+
+            } catch (error) {
+                console.error('Error loading most recent analysis:', error);
+                showError();
+            }
+        }
+
+        async function loadAnalysisResults(id) {
+            try {
+                console.log('Loading analysis ID:', id);
+                const response = await fetch(`/api/analysis/${id}`);
+                console.log('Response status:', response.status);
+
+                if (!response.ok) {
+                    const errorData = await response.text();
+                    console.error('Response error:', errorData);
+                    throw new Error('Analysis not found');
+                }
+
+                const data = await response.json();
+                console.log('Data loaded successfully:', data);
+                renderDashboard(data);
+
+                // Hide loading, show content
+                document.getElementById('loadingState').style.display = 'none';
+                const content = document.getElementById('dashboard-content');
+                content.classList.add('show');
+
+            } catch (error) {
+                console.error('Error loading analysis:', error);
+                showError();
+            }
+        }
+
+        function showError() {
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('errorState').style.display = 'block';
+        }
+
+        function formatNumber(num) {
+            return num.toLocaleString();
+        }
+
+        function renderStars(rating) {
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                stars += i <= Math.floor(rating) ? '★' : '☆';
+            }
+            return stars;
+        }
+
+        // Helper to safely convert to number (global scope)
+        function toNum(val) {
+            if (val === null || val === undefined) return 0;
+            const num = typeof val === 'string' ? parseFloat(val) : val;
+            return isNaN(num) ? 0 : num;
+        }
+
+        function renderDashboard(data) {
+            
+            // Create complete list of all platforms (show all, even if not found)
+            const allPlatforms = [
+                'Facebook', 'LinkedIn', '𝕏 (Twitter)', 'Instagram', 
+                'TikTok', 'Snapchat', 'Reddit', 'Yelp', 'Bluesky'
+            ];
+            
+            const completeMetrics = allPlatforms.map(platformName => {
+                const found = data.socialMetrics.find(m => m.platform === platformName);
+                if (found) {
+                    return found;
+                } else {
+                    return {
+                        platform: platformName,
+                        followers: 0,
+                        engagementRate: 0,
+                        monthlyGrowth: 0,
+                        notFound: true
+                    };
+                }
+            });
+            
+            const totalFollowers = data.socialMetrics.reduce((sum, m) => sum + toNum(m.followers), 0);
+            
+            const html = `
+                <div class="page-header" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px;">
+                    <div>
+                        <h1>${data.companyName} - Digital Presence Analysis</h1>
+                        <p>Analysis completed on ${new Date(data.analyzedAt).toLocaleString()}</p>
+                    </div>
+                    <div style="display: flex; gap: 12px;">
+                        <a href="/input" class="btn" style="text-decoration: none; padding: 12px 20px; border-radius: 8px; color: white; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;">
+                            🔍 New Analysis
+                        </a>
+                    </div>
+                </div>
+
+                <!-- KPI Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Total Followers</div>
+                        <div class="stat-value">
+                            <span>${formatNumber(totalFollowers)}</span>
+                            <svg class="stat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">
+                            Avg Engagement
+                            <span class="info-icon">
+                                ℹ
+                                <span class="info-tooltip">
+                                    <strong>Engagement Benchmarks:</strong>
+                                    <ul class="benchmark-list">
+                                        <li class="benchmark-average">1-2% = Average</li>
+                                        <li class="benchmark-good">3-5% = Good</li>
+                                        <li class="benchmark-excellent">5-10% = Excellent</li>
+                                        <li class="benchmark-excellent">10%+ = Outstanding</li>
+                                    </ul>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="stat-value">
+                            <span>${toNum(data.overallEngagement).toFixed(1)}%</span>
+                            <svg class="stat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">
+                            Monthly Growth
+                            <span class="info-icon">
+                                ℹ
+                                <span class="info-tooltip">
+                                    <strong>Growth Benchmarks:</strong>
+                                    <ul class="benchmark-list">
+                                        <li class="benchmark-average">&lt;5% = Slow</li>
+                                        <li class="benchmark-good">5-10% = Steady</li>
+                                        <li class="benchmark-excellent">10-15% = Strong</li>
+                                        <li class="benchmark-excellent">15%+ = Excellent</li>
+                                    </ul>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="stat-value">
+                            <span>+${toNum(data.overallGrowth).toFixed(1)}%</span>
+                            <svg class="stat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">
+                            Digital Presence Score
+                            <span class="info-icon">
+                                ℹ
+                                <span class="info-tooltip" style="white-space: normal; width: 280px; left: auto; right: 0;">
+                                    <strong>Score Calculation:</strong>
+                                    <ul class="benchmark-list" style="margin-top: 8px;">
+                                        <li style="margin-bottom: 6px;">Average of 5 factors:</li>
+                                        <li>• Brand Awareness</li>
+                                        <li>• Website Quality</li>
+                                        <li>• SEO Performance</li>
+                                        <li>• Review Ratings</li>
+                                        <li>• Social Presence</li>
+                                    </ul>
+                                    <div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.2);">
+                                        <div class="benchmark-excellent">70-100 = Strong</div>
+                                        <div class="benchmark-good">50-70 = Average</div>
+                                        <div class="benchmark-average">&lt;50 = Needs Work</div>
+                                    </div>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="stat-value">
+                            <span>${data.digitalPresenceScore}</span>
+                            <svg class="stat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social Media Analytics -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Social Media Analytics</h2>
+                        <span class="badge">Last 30 days average</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px;">
+                        ${completeMetrics.map(platform => `
+                            <div class="social-card" style="padding: 20px; border: 1px solid #e0e0e0; border-radius: 12px; ${platform.notFound ? 'opacity: 0.5; background: #fafafa;' : 'background: white;'}">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+                                    <div class="social-platform" style="font-weight: 600; font-size: 15px; color: #333;">${platform.platform}</div>
+                                    ${platform.notFound ? 
+                                        '<span style="font-size: 20px;">⚪</span>' : 
+                                        '<span style="font-size: 20px;">✅</span>'
+                                    }
+                                </div>
+                                ${platform.notFound ? `
+                                    <div style="color: #999; font-style: italic; font-size: 13px; margin-bottom: 16px;">
+                                        No account found
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; opacity: 0.3;">
+                                        <div style="padding: 8px; background: #f5f5f5; border-radius: 8px; text-align: center;">
+                                            <div style="font-size: 11px; color: #666; margin-bottom: 2px;">Followers</div>
+                                            <div style="font-size: 18px; font-weight: 600; color: #333;">—</div>
+                                        </div>
+                                        <div style="padding: 8px; background: #f5f5f5; border-radius: 8px; text-align: center;">
+                                            <div style="font-size: 11px; color: #666; margin-bottom: 2px;">Engagement</div>
+                                            <div style="font-size: 18px; font-weight: 600; color: #333;">—</div>
+                                        </div>
+                                    </div>
+                                ` : `
+                                    <div style="font-size: 24px; font-weight: 700; color: #333; margin-bottom: 16px;">
+                                        ${formatNumber(toNum(platform.followers))}
+                                        <span style="font-size: 12px; font-weight: 400; color: #999; margin-left: 4px;">followers</span>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                                        <div style="padding: 8px; background: #f0f4ff; border-radius: 8px; text-align: center;">
+                                            <div style="font-size: 11px; color: #666; margin-bottom: 2px;">Engagement</div>
+                                            <div style="font-size: 18px; font-weight: 600; color: #4A90E2;">${toNum(platform.engagementRate).toFixed(1)}%</div>
+                                        </div>
+                                        <div style="padding: 8px; background: #f0fff4; border-radius: 8px; text-align: center;">
+                                            <div style="font-size: 11px; color: #666; margin-bottom: 2px;">Growth</div>
+                                            <div style="font-size: 18px; font-weight: 600; color: #10B981;">+${toNum(platform.monthlyGrowth).toFixed(1)}%</div>
+                                        </div>
+                                    </div>
+                                `}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <!-- Competitor & Footprint -->
+                <div class="grid-2">
+                    ${data.competitors.length > 0 ? `
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Competitor Benchmarking</h2>
+                            <span class="badge">Score vs peers</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="competitorChart"></canvas>
+                        </div>
+                    </div>
+                    ` : ''}
+                    ${data.digitalFootprint && Object.keys(data.digitalFootprint).length > 0 ? `
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Digital Footprint</h2>
+                            <span class="badge">Interconnected presence</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="footprintChart"></canvas>
+                        </div>
+                    </div>
+                    ` : ''}
+                </div>
+
+                <!-- Competitor Social Media Comparison -->
+                ${data.competitors.length > 1 ? `
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Competitor Social Media Comparison</h2>
+                        <span class="badge">Side-by-side view</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px;">
+                        ${data.competitors.slice(1).map((competitor, index) => `
+                            <div class="competitor-card" style="padding: 20px; border: 1px solid #e0e0e0; border-radius: 12px; background: white;">
+                                <div style="font-weight: 600; font-size: 16px; color: #333; margin-bottom: 16px;">
+                                    ${competitor.name}
+                                </div>
+                                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+                                    ${['facebook', 'instagram', 'twitter', 'linkedin', 'tiktok'].map(platform => {
+                                        const platformData = competitor.socialMetrics?.[platform];
+                                        const followers = platformData?.followers || 0;
+                                        const engagement = platformData?.engagement || 0;
+                                        return `
+                                            <div style="text-align: center;">
+                                                <div style="font-size: 11px; color: #666; margin-bottom: 4px;">${platform.charAt(0).toUpperCase() + platform.slice(1)}</div>
+                                                <div style="font-size: 18px; font-weight: 600; color: ${followers > 0 ? '#333' : '#ccc'};">${followers > 0 ? formatNumber(followers) : '—'}</div>
+                                                ${followers > 0 ? `<div style="font-size: 10px; color: #666; margin-top: 2px;">${engagement.toFixed(1)}% eng</div>` : ''}
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                    ${competitor.socialMetrics?.yelp ? `
+                                        <div style="text-align: center;">
+                                            <div style="font-size: 11px; color: #666; margin-bottom: 4px;">Yelp</div>
+                                            <div style="font-size: 18px; font-weight: 600; color: #333;">${competitor.socialMetrics.yelp.rating ? competitor.socialMetrics.yelp.rating.toFixed(1) + '⭐' : '—'}</div>
+                                            ${competitor.socialMetrics.yelp.reviewCount ? `<div style="font-size: 10px; color: #666; margin-top: 2px;">${competitor.socialMetrics.yelp.reviewCount} reviews</div>` : ''}
+                                        </div>
+                                    ` : `
+                                        <div style="text-align: center;">
+                                            <div style="font-size: 11px; color: #666; margin-bottom: 4px;">Yelp</div>
+                                            <div style="font-size: 18px; font-weight: 600; color: #ccc;">—</div>
+                                        </div>
+                                    `}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                ` : ''}
+
+                <!-- Organic Traffic Analysis -->
+                ${data.organicTraffic && data.organicTraffic.monthlyVisitors ? `
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title" style="display: flex; align-items: center; gap: 8px;">
+                            Organic Traffic Analysis
+                            ${data.organicTraffic.isRealData ? '<span style="font-size: 12px; background: #d1fae5; color: #065f46; padding: 2px 8px; border-radius: 12px;">Real Data</span>' : '<span style="font-size: 12px; background: #fef3c7; color: #92400e; padding: 2px 8px; border-radius: 12px;">Estimated</span>'}
+                        </h2>
+                        <span class="badge">Website performance</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                        <div>
+                            <h4 style="font-size: 14px; font-weight: 600; color: #333; margin-bottom: 12px;">Traffic Overview</h4>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                                <div style="text-align: center; padding: 12px; background: #f8fafc; border-radius: 8px;">
+                                    <div style="font-size: 11px; color: #666; margin-bottom: 4px;">Monthly Visitors</div>
+                                    <div style="font-size: 20px; font-weight: 700; color: #333;">${formatNumber(data.organicTraffic.monthlyVisitors)}</div>
+                                </div>
+                                <div style="text-align: center; padding: 12px; background: #f8fafc; border-radius: 8px;">
+                                    <div style="font-size: 11px; color: #666; margin-bottom: 4px;">Growth Rate</div>
+                                    <div style="font-size: 20px; font-weight: 700; color: ${data.organicTraffic.growth >= 0 ? '#10b981' : '#ef4444'};">${data.organicTraffic.growth >= 0 ? '+' : ''}${data.organicTraffic.growth}%</div>
+                                </div>
+                            </div>
+                            <div style="margin-top: 16px;">
+                                <div style="font-size: 11px; color: #666; margin-bottom: 4px;">Avg Session Duration</div>
+                                <div style="font-size: 16px; font-weight: 600; color: #333;">${data.organicTraffic.avgSessionDuration}</div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 style="font-size: 14px; font-weight: 600; color: #333; margin-bottom: 12px;">Top Landing Pages</h4>
+                            <div style="space-y: 8px;">
+                                ${data.organicTraffic.topPages.slice(0, 5).map(page => `
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: #f8fafc; border-radius: 6px;">
+                                        <div>
+                                            <div style="font-size: 13px; font-weight: 500; color: #333;">${page.page}</div>
+                                            <div style="font-size: 11px; color: #666;">${page.url}</div>
+                                        </div>
+                                        <div style="text-align: right;">
+                                            <div style="font-size: 13px; font-weight: 600; color: #333;">${formatNumber(page.visits)}</div>
+                                            <div style="font-size: 10px; color: #666;">${page.bounceRate}% bounce</div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                ` : ''}
+
+                <!-- Competitor SEO Comparison -->
+                ${data.competitors.length > 1 ? `
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Competitor SEO Comparison</h2>
+                        <span class="badge">Search visibility</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px;">
+                        ${data.competitors.slice(1).map((competitor, index) => `
+                            <div class="competitor-card" style="padding: 20px; border: 1px solid #e0e0e0; border-radius: 12px; background: white;">
+                                <div style="font-weight: 600; font-size: 16px; color: #333; margin-bottom: 16px;">
+                                    ${competitor.name}
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 11px; color: #666; margin-bottom: 4px;">Est. Traffic</div>
+                                        <div style="font-size: 18px; font-weight: 600; color: ${competitor.seo?.organicTraffic > 0 ? '#333' : '#ccc'};">${competitor.seo?.organicTraffic > 0 ? formatNumber(competitor.seo.organicTraffic) : '—'}</div>
+                                        ${competitor.seo?.organicTraffic > 0 ? `<div style="font-size: 10px; color: #666; margin-top: 2px;">monthly</div>` : ''}
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 11px; color: #666; margin-bottom: 4px;">SEO Score</div>
+                                        <div style="font-size: 18px; font-weight: 600; color: ${competitor.seo?.seoScore > 0 ? '#333' : '#ccc'};">${competitor.seo?.seoScore > 0 ? competitor.seo.seoScore : '—'}</div>
+                                        ${competitor.seo?.seoScore > 0 ? `<div style="font-size: 10px; color: #666; margin-top: 2px;">/100</div>` : ''}
+                                    </div>
+                                </div>
+                                ${competitor.seo?.keywords && competitor.seo.keywords.length > 0 ? `
+                                    <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid #eee;">
+                                        <div style="font-size: 12px; color: #666; margin-bottom: 8px;">Top Keywords:</div>
+                                        <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                                            ${competitor.seo.keywords.slice(0, 3).map(keyword => `
+                                                <span style="font-size: 10px; padding: 2px 6px; background: #f0f4ff; border-radius: 4px; color: #333;">${keyword.keyword} (#${keyword.rank})</span>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                ` : ''}
+
+                <!-- Reputation & Sentiment -->
+                ${data.reputation.length > 0 || data.positiveSentiment > 0 ? `
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Reputation Monitoring</h2>
+                            <span class="badge">Reviews & ratings</span>
+                        </div>
+
+                        <div class="reputation-comparison">
+                            <div class="reputation-header">
+                                <h3>Review Platform Comparison</h3>
+                                <p>Compare ratings and review counts across platforms</p>
+                            </div>
+                            <table class="comparison-table">
+                                <thead>
+                                    <tr>
+                                        <th class="company-name">Company</th>
+                                        <th class="platform-header">
+                                            <div>Google Reviews</div>
+                                            <div style="font-size: 11px; color: #718096; font-weight: 400;">Rating (Reviews)</div>
+                                        </th>
+                                        <th class="platform-header">
+                                            <div>Yelp Reviews</div>
+                                            <div style="font-size: 11px; color: #718096; font-weight: 400;">Rating (Reviews)</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Your Company Row -->
+                                    <tr class="your-company">
+                                        <td class="company-name">${data.companyName}</td>
+                                        <td>
+                                            ${(() => {
+                                                const googleReview = data.reputation.find(r => r.site === 'Google');
+                                                return googleReview ? `
+                                                    <div class="stars-display">
+                                                        <span class="stars">${renderStars(googleReview.stars)}</span>
+                                                        <span class="rating-number">${googleReview.stars.toFixed(1)}</span>
+                                                    </div>
+                                                    <div class="review-count">${googleReview.reviewCount || 0} reviews</div>
+                                                ` : '<span style="color: #a0aec0;">No data</span>';
+                                            })()}
+                                        </td>
+                                        <td>
+                                            ${(() => {
+                                                const yelpReview = data.reputation.find(r => r.site === 'Yelp');
+                                                return yelpReview ? `
+                                                    <div class="stars-display">
+                                                        <span class="stars">${renderStars(yelpReview.stars)}</span>
+                                                        <span class="rating-number">${yelpReview.stars.toFixed(1)}</span>
+                                                    </div>
+                                                    <div class="review-count">${yelpReview.reviewCount || 0} reviews</div>
+                                                ` : '<span style="color: #a0aec0;">No data</span>';
+                                            })()}
+                                        </td>
+                                    </tr>
+
+                                    <!-- Competitor Rows -->
+                                    ${data.competitors.filter(comp => comp.name !== 'You' && comp.reviews && comp.reviews.length > 0).map(comp => {
+                                        const googleReview = comp.reviews.find(r => r.site === 'Google');
+                                        const yelpReview = comp.reviews.find(r => r.site === 'Yelp');
+
+                                        return `
+                                            <tr>
+                                                <td class="company-name">${comp.name}</td>
+                                                <td>
+                                                    ${googleReview ? `
+                                                        <div class="stars-display">
+                                                            <span class="stars">${renderStars(googleReview.stars)}</span>
+                                                            <span class="rating-number">${googleReview.stars.toFixed(1)}</span>
+                                                        </div>
+                                                        <div class="review-count">${googleReview.reviewCount || 0} reviews</div>
+                                                    ` : '<span style="color: #a0aec0;">No data</span>'}
+                                                </td>
+                                                <td>
+                                                    ${yelpReview ? `
+                                                        <div class="stars-display">
+                                                            <span class="stars">${renderStars(yelpReview.stars)}</span>
+                                                            <span class="rating-number">${yelpReview.stars.toFixed(1)}</span>
+                                                        </div>
+                                                        <div class="review-count">${yelpReview.reviewCount || 0} reviews</div>
+                                                    ` : '<span style="color: #a0aec0;">No data</span>'}
+                                                </td>
+                                            </tr>
+                                        `;
+                                    }).join('')}
+                                </tbody>
+                            </table>
+
+                            <div class="sentiment-grid">
+                                <div class="sentiment-card">
+                                    <div class="sentiment-label">Positive sentiment</div>
+                                    <div class="sentiment-value">${data.positiveSentiment}%</div>
+                                </div>
+                                <div class="sentiment-card">
+                                    <div class="sentiment-label">Monitoring coverage</div>
+                                    <div class="sentiment-value">100+</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Sentiment Analysis</h2>
+                            <span class="badge">Mentions</span>
+                        </div>
+                        <div style="padding: 20px;">
+                            <div class="sentiment-grid" style="margin-bottom: 20px;">
+                                <div class="sentiment-card">
+                                    <div class="sentiment-label">Positive sentiment</div>
+                                    <div class="sentiment-value">${data.positiveSentiment}%</div>
+                                </div>
+                                <div class="sentiment-card">
+                                    <div class="sentiment-label">Monitoring coverage</div>
+                                    <div class="sentiment-value">100+</div>
+                                </div>
+                            </div>
+                            <div class="chart-container" style="height: 180px;">
+                                <canvas id="sentimentChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                ` : ''}
+
+
+                <!-- SEO & Metrics -->
+                ${data.seoKeywords.length > 0 ? `
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title" style="display: flex; align-items: center; gap: 8px;">
+                                SEO Performance
+                                <span class="info-icon" style="width: 18px; height: 18px;">
+                                    ℹ
+                                    <span class="info-tooltip" style="white-space: normal; width: 300px;">
+                                        <strong>What is SEO Ranking?</strong>
+                                        <p style="margin: 8px 0; font-size: 11px; line-height: 1.4;">
+                                            Your position in Google search results for specific keywords. Lower numbers are better!
+                                        </p>
+                                        <ul class="benchmark-list" style="margin-top: 8px;">
+                                            <li><strong>Rank #1-3:</strong> First page top (excellent visibility)</li>
+                                            <li><strong>Rank #4-10:</strong> First page (good traffic)</li>
+                                            <li><strong>Rank #11-20:</strong> Second page (limited visibility)</li>
+                                            <li><strong>Rank #20+:</strong> Needs improvement</li>
+                                        </ul>
+                                        <div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.2); font-size: 10px; color: rgba(255,255,255,0.7);">
+                                            <strong>Note:</strong> Rankings are estimated based on website analysis. Connect Google Search Console for real data.
+                                        </div>
+                                    </span>
+                                </span>
+                            </h2>
+                            <span class="badge">Ranking keywords</span>
+                        </div>
+                        <div>
+                            ${data.seoKeywords.map(kw => `
+                                <div class="seo-item">
+                                    <div class="keyword-info">
+                                        <div class="keyword-name">${kw.keyword}</div>
+                                        <div class="keyword-rank">#${kw.rank}</div>
+                                    </div>
+                                    <span class="trend-badge ${kw.trend === 'up' ? 'trend-up' : ''}">${kw.trend === 'up' ? '↑' : kw.trend === 'down' ? '↓' : '→'}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Key Metrics</h2>
+                            <span class="badge">At a glance</span>
+                        </div>
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="sentiment-label">Avg Engagement</div>
+                                <div class="sentiment-value">${data.keyMetrics.avgEngagement}</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="sentiment-label">Monthly Growth</div>
+                                <div class="sentiment-value">${data.keyMetrics.monthlyGrowth}</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="sentiment-label">Brand Mentions</div>
+                                <div class="sentiment-value">${data.keyMetrics.brandMentions}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                ` : ''}
+
+
+                <!-- Recommendations -->
+                ${data.recommendations.length > 0 ? `
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Actionable Insights</h2>
+                        <span class="badge">Recommendations</span>
+                    </div>
+                    <div class="recommendations-grid">
+                        <div>
+                            ${data.recommendations.map(rec => `
+                                <div class="recommendation-item">
+                                    <div class="recommendation-header">
+                                        <span class="category-badge">${rec.category}</span>
+                                        <span class="impact-badge impact-${rec.impact}">${rec.impact} impact</span>
+                                    </div>
+                                    <div class="recommendation-action">${rec.action}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div>
+                            <div class="industries-list">
+                                <h3>Data Sources</h3>
+                                <ul>
+                                    <li>Website: ${data.websiteUrl}</li>
+                                    ${data.socialMetrics.length > 0 ? '<li>Social Media Profiles</li>' : ''}
+                                    ${data.reputation.length > 0 ? '<li>Online Reviews</li>' : ''}
+                                    ${data.seoKeywords.length > 0 ? '<li>SEO Rankings</li>' : ''}
+                                </ul>
+                            </div>
+                            <div class="next-actions">
+                                <h3>🚀 Next Steps</h3>
+                                <ul style="list-style: disc; padding-left: 20px; margin-top: 12px;">
+                                    <li style="font-size: 14px; color: #718096; margin-bottom: 8px;">Download this report</li>
+                                    <li style="font-size: 14px; color: #718096; margin-bottom: 8px;"><a href="/analyze">Analyze another company</a></li>
+                                    <li style="font-size: 14px; color: #718096; margin-bottom: 8px;">Schedule monthly tracking</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                ` : ''}
+            `;
+
+            document.getElementById('dashboard-content').innerHTML = html;
+            
+            // Render charts after DOM is ready
+            setTimeout(() => renderCharts(data), 100);
+        }
+
+        function renderCharts(data) {
+            console.log('📊 Rendering charts with competitor data:', data.competitors);
+            console.log('📊 Competitor count:', data.competitors?.length || 0);
+            if (data.competitors && data.competitors.length > 0) {
+                console.log('📊 First competitor:', data.competitors[0]);
+            }
+            // Growth Chart
+            if (data.socialMetrics.length > 0 && document.getElementById('growthChart')) {
+                new Chart(document.getElementById('growthChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: data.socialMetrics.map(m => m.platform),
+                        datasets: [{
+                            label: 'Monthly Growth %',
+                            data: data.socialMetrics.map(m => toNum(m.monthlyGrowth)),
+                            backgroundColor: 'rgba(102, 126, 234, 0.8)',
+                            borderRadius: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: { callback: v => v + '%' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Competitor Chart
+            if (data.competitors.length > 0 && document.getElementById('competitorChart')) {
+                // Ensure "You" has the correct score and structure
+                if (data.competitors[0].name === "You") {
+                    if (data.competitors[0].score === 0) {
+                        data.competitors[0].score = data.digitalPresenceScore;
+                    }
+                    // Add your social metrics to "You" competitor for comparison
+                    data.competitors[0].socialMetrics = data.socialMetrics.reduce((acc, metric) => {
+                        acc[metric.platform.toLowerCase()] = {
+                            followers: metric.followers,
+                            engagement: metric.engagementRate,
+                            growth: metric.monthlyGrowth
+                        };
+                        return acc;
+                    }, {});
+                    data.competitors[0].reviews = data.reputation;
+                    data.competitors[0].seo = {
+                        organicTraffic: data.keyMetrics?.organicTraffic || '0',
+                        seoScore: data.seoScore || 50,
+                        keywords: data.seoKeywords || []
+                    };
+                    data.competitors[0].isRealData = true;
+                }
+                
+                new Chart(document.getElementById('competitorChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: data.competitors.map(c => `${c.name}${c.isRealData ? ' ⭐' : ' 📊'}`),
+                        datasets: [{
+                            label: 'Digital Presence Score',
+                            data: data.competitors.map(c => c.score),
+                            backgroundColor: data.competitors.map(c =>
+                                c.isRealData ? 'rgba(102, 126, 234, 0.8)' : 'rgba(118, 75, 162, 0.4)'
+                            ),
+                            borderRadius: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const competitor = data.competitors[context.dataIndex];
+                                        let label = `Score: ${context.parsed.y}/100`;
+
+                                        if (competitor.isRealData) {
+                                            label += ' (Real Data)';
+                                            if (competitor.socialMetrics && Object.keys(competitor.socialMetrics).length > 0) {
+                                                const platforms = Object.keys(competitor.socialMetrics);
+                                                label += `\nSocial: ${platforms.length} platforms`;
+                                            }
+                                            if (competitor.reviews && competitor.reviews.length > 0) {
+                                                label += `\nReviews: ${competitor.reviews.length} sources`;
+                                            }
+                                        } else {
+                                            label += ' (Estimated)';
+                                        }
+
+                                        return label;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100,
+                                title: {
+                                    display: true,
+                                    text: 'Digital Presence Score'
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    callback: function(value, index) {
+                                        const competitor = data.competitors[index];
+                                        return competitor.name + (competitor.isRealData ? ' ⭐' : ' 📊');
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Footprint Radar
+            if (data.digitalFootprint && Object.keys(data.digitalFootprint).length > 0 && document.getElementById('footprintChart')) {
+                // Calculate social score if missing
+                const socialScore = data.digitalFootprint.social || 
+                    (data.socialMetrics.length > 0 ? Math.min(100, Math.round((toNum(data.overallEngagement) * 15) + 30)) : 0);
+                
+                new Chart(document.getElementById('footprintChart'), {
+                    type: 'radar',
+                    data: {
+                        labels: ['Brand', 'Web', 'SEO', 'Review', 'Social'],
+                        datasets: [{
+                            label: 'Score',
+                            data: [
+                                toNum(data.digitalFootprint.brand),
+                                toNum(data.digitalFootprint.web),
+                                toNum(data.digitalFootprint.seo),
+                                toNum(data.digitalFootprint.review),
+                                socialScore
+                            ],
+                            backgroundColor: 'rgba(102, 126, 234, 0.2)',
+                            borderColor: 'rgba(102, 126, 234, 1)',
+                            pointBackgroundColor: 'rgba(102, 126, 234, 1)',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: { r: { beginAtZero: true, max: 100 } }
+                    }
+                });
+            }
+
+            // Sentiment Pie
+            if (data.positiveSentiment > 0 && document.getElementById('sentimentChart')) {
+                new Chart(document.getElementById('sentimentChart'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Positive', 'Other'],
+                        datasets: [{
+                            data: [data.positiveSentiment, 100 - data.positiveSentiment],
+                            backgroundColor: ['rgba(16, 185, 129, 0.8)', 'rgba(229, 231, 235, 0.8)'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { position: 'bottom' } }
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
+

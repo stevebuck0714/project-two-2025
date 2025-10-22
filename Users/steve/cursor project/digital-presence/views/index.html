@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Presence - Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; line-height: 1.6; color: #333; background-color: #f5f7fa; }
+
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .nav { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s; padding: 8px 16px; border-radius: 6px; }
+        .nav-links a:hover { opacity: 0.8; background: rgba(255,255,255,0.1); }
+        .nav-links a.active { background: rgba(255,255,255,0.2); }
+
+
+        /* Hero Section - Redesigned */
+        .hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 60px 20px; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,138.7C960,139,1056,117,1152,101.3C1248,85,1344,75,1392,69.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom; background-size: cover; opacity: 0.3; }
+        
+        .hero-content { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+
+        .hero-title-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; }
+        .hero-title-row h1 { font-size: 48px; margin-bottom: 0; line-height: 1.2; flex: 1; }
+        .hero-title-cta { flex-shrink: 0; margin-left: 30px; }
+
+        .hero-left { flex: 1; }
+        .hero-left h1 { font-size: 48px; margin-bottom: 20px; line-height: 1.2; }
+        .hero-left h1 span { display: block; font-size: 56px; background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-left p { font-size: 18px; margin-bottom: 30px; opacity: 0.95; line-height: 1.8; }
+        
+        .hero-features { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
+        .hero-feature { display: flex; align-items: center; gap: 12px; font-size: 16px; }
+        .hero-feature-icon { width: 24px; height: 24px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+        
+        .hero-cta { display: flex; gap: 15px; }
+        .btn { padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; border: none; font-size: 16px; }
+        .btn-primary { background: white; color: #667eea; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+        .btn-secondary { background: rgba(255,255,255,0.15); color: white; border: 2px solid rgba(255,255,255,0.3); }
+        .btn-secondary:hover { background: rgba(255,255,255,0.25); }
+
+        /* Quick Analysis Form */
+        .hero-right { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 35px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+        .quick-form-header { margin-bottom: 25px; }
+        .quick-form-header h3 { font-size: 24px; margin-bottom: 8px; }
+        .quick-form-header p { font-size: 14px; opacity: 0.9; }
+        
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; opacity: 0.95; }
+        .form-group input { width: 100%; padding: 12px 16px; border: 2px solid rgba(255,255,255,0.3); border-radius: 8px; font-size: 15px; background: rgba(255,255,255,0.95); color: #2d3748; transition: all 0.3s; }
+        .form-group input:focus { outline: none; border-color: white; background: white; box-shadow: 0 0 0 3px rgba(255,255,255,0.3); }
+        .form-group input::placeholder { color: #94a3b8; }
+        
+        .form-hint { font-size: 12px; opacity: 0.85; margin-top: 6px; }
+        
+        .btn-analyze { width: 100%; background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); color: #1e293b; padding: 14px; font-size: 16px; font-weight: 700; border: none; border-radius: 8px; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-analyze:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(251, 191, 36, 0.4); }
+        
+        /* Stats Section */
+        .stats { background: white; padding: 60px 20px; margin-top: -40px; position: relative; z-index: 2; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; }
+        .stat-item { text-align: center; }
+        .stat-number { font-size: 48px; font-weight: 700; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 10px; }
+        .stat-label { font-size: 16px; color: #64748b; font-weight: 500; }
+
+        /* Features Grid */
+        .features { padding: 80px 20px; background: #f8fafc; }
+        .features h2 { text-align: center; font-size: 36px; color: #2d3748; margin-bottom: 15px; }
+        .features-subtitle { text-align: center; font-size: 18px; color: #64748b; margin-bottom: 50px; }
+        
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .feature-card { background: white; padding: 35px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: all 0.3s; border: 2px solid transparent; }
+        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(102, 126, 234, 0.15); border-color: #667eea; }
+        .feature-icon { font-size: 48px; margin-bottom: 20px; }
+        .feature-card h3 { font-size: 22px; color: #2d3748; margin-bottom: 12px; }
+        .feature-card p { color: #64748b; line-height: 1.8; }
+
+        /* CTA Section */
+        .cta-section { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 80px 20px; text-align: center; }
+        .cta-section h2 { font-size: 40px; margin-bottom: 20px; }
+        .cta-section p { font-size: 18px; opacity: 0.95; margin-bottom: 35px; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+        .footer { background: #1e293b; color: #cbd5e1; padding: 40px 20px; text-align: center; }
+        .footer p { margin: 5px 0; }
+
+        @media (max-width: 968px) {
+            .hero-content { grid-template-columns: 1fr; gap: 40px; }
+            .hero-left h1 { font-size: 36px; }
+            .hero-left h1 span { font-size: 42px; }
+            .feature-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <nav class="nav">
+                <div class="logo">📊 Digital Presence</div>
+                <ul class="nav-links">
+                    <li><a href="/" class="active">Home</a></li>
+                    <li><a href="/input">Input</a></li>
+                    <li><a href="/analytics">Analytics</a></li>
+                    <li><a href="/your-metrics">Your Metrics</a></li>
+                    <li><a href="/reports">Historical Trends</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-title-row">
+                    <h1>
+                        Analyze Your<br>
+                        <span>Digital Presence</span>
+                    </h1>
+                    <div class="hero-title-cta">
+                        <a href="/input" class="btn btn-primary">🚀 Get Started Now</a>
+                    </div>
+                </div>
+
+                <div class="hero-left">
+                    <p>Comprehensive insights into your digital footprint, social media performance, and market positioning. Make data-driven decisions to grow your online presence.</p>
+
+                    <div class="hero-features">
+                        <div class="hero-feature">
+                            <div class="hero-feature-icon">✓</div>
+                            <span>Auto-discover social media accounts</span>
+                        </div>
+                        <div class="hero-feature">
+                            <div class="hero-feature-icon">✓</div>
+                            <span>Track 9+ platforms (Facebook, Instagram, X, LinkedIn, etc.)</span>
+                        </div>
+                        <div class="hero-feature">
+                            <div class="hero-feature-icon">✓</div>
+                            <span>6-month historical trend analysis</span>
+                        </div>
+                        <div class="hero-feature">
+                            <div class="hero-feature-icon">✓</div>
+                            <span>SEO & organic traffic insights</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">9+</div>
+                <div class="stat-label">Social Platforms Tracked</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">6</div>
+                <div class="stat-label">Months Historical Data</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100+</div>
+                <div class="stat-label">Metrics Analyzed</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">Real-Time</div>
+                <div class="stat-label">Google Analytics Integration</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2>Powerful Analytics Features</h2>
+            <p class="features-subtitle">Everything you need to understand and grow your digital presence</p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Social Media Analytics</h3>
+                    <p>Track engagement, followers, and growth across Facebook, Instagram, X, LinkedIn, TikTok, Snapchat, Reddit, Yelp, and Bluesky.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Historical Trends</h3>
+                    <p>View 6-month growth trends with interactive charts showing follower growth, engagement rates, and post performance over time.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>SEO Performance</h3>
+                    <p>Analyze keyword rankings, organic traffic, and search visibility. Connect Google Analytics for real traffic data.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Auto-Discovery</h3>
+                    <p>Automatically find and track social media accounts by analyzing website links and common URL patterns.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3>Competitor Benchmarking</h3>
+                    <p>Compare your digital presence score against competitors and identify opportunities for improvement.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💡</div>
+                    <h3>Actionable Insights</h3>
+                    <p>Receive data-driven recommendations to optimize your content strategy, posting frequency, and platform focus.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Optimize Your Digital Presence?</h2>
+            <p>Get comprehensive insights into your online performance and discover opportunities for growth</p>
+            <div class="hero-cta" style="justify-content: center;">
+                <a href="/input" class="btn btn-primary">🚀 Get Started</a>
+                <a href="/analytics" class="btn btn-secondary">📊 View Analytics</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p><strong>Digital Presence</strong> - Comprehensive Digital Analytics Platform</p>
+            <p>&copy; 2024 Digital Presence. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Quick analysis form submission
+        document.getElementById('quick-analysis-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = e.target.querySelector('.btn-analyze');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '⏳ Analyzing...';
+            submitBtn.disabled = true;
+            
+            const formData = {
+                companyName: document.getElementById('company-name').value,
+                websiteUrl: document.getElementById('website-url').value,
+                socialMedia: {
+                    facebook: '', linkedin: '', twitter: '', instagram: '', 
+                    tiktok: '', snapchat: '', reddit: '', yelp: '', bluesky: ''
+                },
+                competitors: [],
+                options: {
+                    analyzeSocial: true,
+                    analyzeSEO: true,
+                    analyzeReviews: true,
+                    analyzeContent: true,
+                    analyzeCompetitors: true
+                }
+            };
+            
+            try {
+                const response = await fetch('/api/analyze', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Redirect to results page
+                    window.location.href = `/analysis-results?id=${result.analysisId}`;
+                } else {
+                    alert('Analysis failed: ' + result.message);
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred during analysis');
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

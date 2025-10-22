@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Results - Digital Presence</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: #f5f7fa;
+            min-height: 100vh; 
+        }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .nav { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s; padding: 8px 16px; border-radius: 6px; }
+        .nav-links a:hover { opacity: 0.8; background: rgba(255,255,255,0.1); }
+        .nav-links a.active { background: rgba(255,255,255,0.2); }
+        .main-wrapper { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 60px 20px;
+            min-height: calc(100vh - 80px);
+        }
+        .container { 
+            max-width: 800px; 
+            background: white; 
+            padding: 50px; 
+            border-radius: 20px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+        }
+        h1 { 
+            font-size: 32px; 
+            color: #2d3748; 
+            margin-bottom: 20px; 
+            text-align: center;
+        }
+        p { 
+            font-size: 16px; 
+            color: #718096; 
+            margin-bottom: 30px; 
+            text-align: center;
+        }
+        .results-list { 
+            list-style: none; 
+            margin-bottom: 30px; 
+        }
+        .results-list li { 
+            padding: 15px; 
+            border: 2px solid #e2e8f0; 
+            border-radius: 10px; 
+            margin-bottom: 10px; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .company-info {
+            flex: 1;
+        }
+        .company-name { 
+            font-weight: 600; 
+            color: #2d3748; 
+            font-size: 18px;
+        }
+        .company-date { 
+            font-size: 14px; 
+            color: #718096; 
+        }
+        .view-btn { 
+            padding: 10px 20px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; 
+            border: none; 
+            border-radius: 8px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            text-decoration: none;
+            display: inline-block;
+        }
+        .view-btn:hover { 
+            opacity: 0.9; 
+        }
+        .back-btn {
+            display: block;
+            text-align: center;
+            padding: 12px;
+            background: #f7fafc;
+            color: #667eea;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .loading {
+            text-align: center;
+            color: #718096;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <nav class="nav">
+                <div class="logo">📊 Digital Presence</div>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/input">Input</a></li>
+                    <li><a href="/analytics" class="active">Analytics</a></li>
+                    <li><a href="/your-metrics">Your Metrics</a></li>
+                    <li><a href="/reports">Historical Trends</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="main-wrapper">
+        <div class="container">
+        <h1>📊 Saved Analyses</h1>
+        <p>View your previously completed digital presence analyses</p>
+        
+        <div id="loading" class="loading">Loading analyses...</div>
+        <ul id="resultsList" class="results-list" style="display: none;"></ul>
+        
+            <a href="/input" class="back-btn">← Analyze New Company</a>
+        </div>
+    </div>
+
+    <script>
+        async function loadSavedAnalyses() {
+            try {
+                const response = await fetch('/api/analyses');
+                
+                if (!response.ok) {
+                    throw new Error('Could not load analyses');
+                }
+                
+                const analyses = await response.json();
+                
+                document.getElementById('loading').style.display = 'none';
+                const list = document.getElementById('resultsList');
+                list.style.display = 'block';
+                
+                if (analyses.length === 0) {
+                    list.innerHTML = '<li style="text-align: center; color: #718096;">No analyses found. <a href="/input">Create one!</a></li>';
+                    return;
+                }
+                
+                analyses.forEach(analysis => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <div class="company-info">
+                            <div class="company-name">${analysis.companyName}</div>
+                            <div class="company-date">${new Date(analysis.analyzedAt).toLocaleString()}</div>
+                        </div>
+                        <a href="/analysis-results?id=${analysis.id}" class="view-btn">View Results</a>
+                    `;
+                    list.appendChild(li);
+                });
+                
+            } catch (error) {
+                console.error('Error loading analyses:', error);
+                document.getElementById('loading').innerHTML = 'Error loading analyses. <a href="/input">Start new analysis</a>';
+            }
+        }
+        
+        loadSavedAnalyses();
+    </script>
+</body>
+</html>
+

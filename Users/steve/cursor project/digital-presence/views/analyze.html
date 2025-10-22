@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Presence - Analyze Company</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+        }
+        
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .nav { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s; padding: 8px 16px; border-radius: 6px; }
+        .nav-links a:hover { opacity: 0.8; background: rgba(255,255,255,0.1); }
+        .nav-links a.active { background: rgba(255,255,255,0.2); }
+        
+        .main-wrapper {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: calc(100vh - 80px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 42px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .form-section h3 {
+            font-size: 16px;
+            color: #2d3748;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-section p {
+            font-size: 14px;
+            color: #718096;
+            margin-bottom: 12px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .input-row .input-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+
+        .input-group input,
+        .input-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        .input-group input:focus,
+        .input-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .input-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .competitor-entry {
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .competitor-row {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .competitor-row .input-group {
+            margin-bottom: 0;
+        }
+
+        .input-hint {
+            font-size: 13px;
+            color: #718096;
+            margin-top: 6px;
+        }
+
+        @media (max-width: 768px) {
+            .input-row {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .checkbox-item label {
+            font-size: 14px;
+            color: #2d3748;
+            cursor: pointer;
+            margin-bottom: 0;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .alert {
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-info {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #93c5fd;
+        }
+
+        .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #6ee7b7;
+        }
+
+        .alert-error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .feature-item {
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .feature-label {
+            font-size: 13px;
+            color: #718096;
+        }
+
+        .example-box {
+            background: #f7fafc;
+            padding: 16px;
+            border-radius: 10px;
+            margin-top: 12px;
+            border-left: 4px solid #667eea;
+        }
+
+        .example-box strong {
+            color: #2d3748;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .example-box code {
+            background: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #667eea;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <nav class="nav">
+                <div class="logo">📊 Digital Presence</div>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/input" class="active">Input</a></li>
+                    <li><a href="/analytics">Analytics</a></li>
+                    <li><a href="/your-metrics">Your Metrics</a></li>
+                    <li><a href="/reports">Historical Trends</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="main-wrapper">
+        <div class="container">
+        <div class="card">
+            <div id="alertBox" class="alert"></div>
+
+            <form id="analyzeForm">
+                <!-- Company Info -->
+                <div class="form-section">
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label for="companyName">Company Name *</label>
+                            <input type="text" id="companyName" name="companyName" placeholder="e.g., Acme Corporation" required autocomplete="organization">
+                            <div class="input-hint">The official name of the company</div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="websiteUrl">Website URL *</label>
+                            <input type="text" id="websiteUrl" name="websiteUrl" placeholder="e.g., https://www.tridentgrill.com or www.tridentgrill.com" required autocomplete="url">
+                            <div class="input-hint">The main company website (https:// or www. format accepted)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Real Data Connection -->
+                <div class="form-section" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-left: 4px solid #0ea5e9; padding: 20px; border-radius: 8px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+                        <h3 style="margin: 0;">📊 Real Data Connection (Optional)</h3>
+                        <button type="button" id="showClientInstructions" style="background: #0ea5e9; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 14px;">
+                            📋 Client Setup Instructions
+                        </button>
+                    </div>
+                    <p style="margin-bottom: 16px;">Connect to Google Analytics for real time traffic data on your site.</p>
+                    
+                    <div style="background: white; padding: 16px; border-radius: 8px; margin-bottom: 16px;">
+                        <label style="display: flex; align-items: center; cursor: pointer;">
+                            <input type="checkbox" id="useRealData" name="useRealData" style="width: 20px; height: 20px; margin-right: 12px; cursor: pointer;">
+                            <span style="font-weight: 600; font-size: 15px;">Use Real Google Analytics Data</span>
+                        </label>
+                    </div>
+                    
+                    <div id="gaPropertySection" style="display: none;">
+                        <div class="input-group">
+                            <label for="gaPropertyId">Google Analytics Property ID</label>
+                            <input type="text" id="gaPropertyId" name="gaPropertyId" placeholder="properties/123456789">
+                            <div class="input-hint">Format: properties/123456789 (client provides this)</div>
+                        </div>
+                        <div style="background: #fff7ed; border-left: 3px solid #f59e0b; padding: 12px; border-radius: 6px; font-size: 13px;">
+                            <strong>⚠️ Note:</strong> Client must first add your service account to their Google Analytics.
+                            Click "Client Setup Instructions" button above for the guide to send them.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social Media -->
+                <div class="form-section">
+                    <h3>Social Media Profiles (Optional - Auto-Discovery Available! 🔍)</h3>
+                    <p>Leave blank to automatically search for social accounts, or provide URLs for accuracy</p>
+                    
+                    <div class="input-group">
+                        <label for="facebookUrl">Facebook Page</label>
+                        <input type="url" id="facebookUrl" name="facebookUrl" placeholder="https://facebook.com/company">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="linkedinUrl">LinkedIn Page</label>
+                        <input type="url" id="linkedinUrl" name="linkedinUrl" placeholder="https://linkedin.com/company/company-name">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="twitterUrl">Twitter/X Profile</label>
+                        <input type="url" id="twitterUrl" name="twitterUrl" placeholder="https://twitter.com/company">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="instagramUrl">Instagram Profile</label>
+                        <input type="url" id="instagramUrl" name="instagramUrl" placeholder="https://instagram.com/company">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="tiktokUrl">TikTok Profile</label>
+                        <input type="url" id="tiktokUrl" name="tiktokUrl" placeholder="https://tiktok.com/@company">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="snapchatUrl">Snapchat Profile</label>
+                        <input type="url" id="snapchatUrl" name="snapchatUrl" placeholder="https://snapchat.com/add/company">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="redditUrl">Reddit Community</label>
+                        <input type="url" id="redditUrl" name="redditUrl" placeholder="https://reddit.com/r/company">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="yelpUrl">Yelp Business Page</label>
+                        <input type="url" id="yelpUrl" name="yelpUrl" placeholder="https://yelp.com/biz/company-name">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="blueskyUrl">Bluesky Profile</label>
+                        <input type="url" id="blueskyUrl" name="blueskyUrl" placeholder="https://bsky.app/profile/company.bsky.social">
+                    </div>
+                </div>
+
+                <!-- Competitors -->
+                <div class="form-section">
+                    <h3>Competitors (Optional)</h3>
+                    <p>Enter up to 5 competitors for benchmarking - Maximum 5 competitors</p>
+                    
+                    <!-- Competitor 1 -->
+                    <div class="competitor-entry">
+                        <div class="competitor-row">
+                            <div class="input-group" style="flex: 1;">
+                                <label for="comp1Name">Competitor 1 Name</label>
+                                <input type="text" id="comp1Name" name="comp1Name" placeholder="e.g., Restaurant ABC">
+                            </div>
+                            <div class="input-group" style="flex: 2;">
+                                <label for="comp1Url">Competitor 1 Website</label>
+                                <input type="text" id="comp1Url" name="comp1Url" placeholder="https://competitor1.com or just competitor1.com">
+                                <div class="input-hint">Enter full URL with https:// or just the domain name</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Competitor 2 -->
+                    <div class="competitor-entry">
+                        <div class="competitor-row">
+                            <div class="input-group" style="flex: 1;">
+                                <label for="comp2Name">Competitor 2 Name</label>
+                                <input type="text" id="comp2Name" name="comp2Name" placeholder="e.g., Another Restaurant">
+                            </div>
+                            <div class="input-group" style="flex: 2;">
+                                <label for="comp2Url">Competitor 2 Website</label>
+                                <input type="text" id="comp2Url" name="comp2Url" placeholder="https://competitor2.com or just competitor2.com">
+                                <div class="input-hint">Enter full URL with https:// or just the domain name</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Competitor 3 -->
+                    <div class="competitor-entry">
+                        <div class="competitor-row">
+                            <div class="input-group" style="flex: 1;">
+                                <label for="comp3Name">Competitor 3 Name</label>
+                                <input type="text" id="comp3Name" name="comp3Name" placeholder="e.g., Third Competitor">
+                            </div>
+                            <div class="input-group" style="flex: 2;">
+                                <label for="comp3Url">Competitor 3 Website</label>
+                                <input type="url" id="comp3Url" name="comp3Url" placeholder="https://competitor3.com">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Competitor 4 -->
+                    <div class="competitor-entry">
+                        <div class="competitor-row">
+                            <div class="input-group" style="flex: 1;">
+                                <label for="comp4Name">Competitor 4 Name</label>
+                                <input type="text" id="comp4Name" name="comp4Name" placeholder="e.g., Fourth Competitor">
+                            </div>
+                            <div class="input-group" style="flex: 2;">
+                                <label for="comp4Url">Competitor 4 Website</label>
+                                <input type="url" id="comp4Url" name="comp4Url" placeholder="https://competitor4.com">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Competitor 5 -->
+                    <div class="competitor-entry">
+                        <div class="competitor-row">
+                            <div class="input-group" style="flex: 1;">
+                                <label for="comp5Name">Competitor 5 Name</label>
+                                <input type="text" id="comp5Name" name="comp5Name" placeholder="e.g., Fifth Competitor">
+                            </div>
+                            <div class="input-group" style="flex: 2;">
+                                <label for="comp5Url">Competitor 5 Website</label>
+                                <input type="url" id="comp5Url" name="comp5Url" placeholder="https://competitor5.com">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analysis Options -->
+                <div class="form-section">
+                    <h3>Analysis Options</h3>
+                    <p>Select what to analyze</p>
+                    
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="analyzeSocial" name="analyzeSocial" checked>
+                            <label for="analyzeSocial">Social Media</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="analyzeSEO" name="analyzeSEO" checked>
+                            <label for="analyzeSEO">SEO Performance</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="analyzeReviews" name="analyzeReviews" checked>
+                            <label for="analyzeReviews">Online Reviews</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="analyzeContent" name="analyzeContent" checked>
+                            <label for="analyzeContent">Content Analysis</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="analyzeCompetitors" name="analyzeCompetitors" checked>
+                            <label for="analyzeCompetitors">Competitor Benchmarking</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="button" class="btn" id="submitBtn">
+                    <span id="btnText">🚀 Analyze Digital Presence</span>
+                    <span id="btnLoading" style="display: none;"><span class="loading-spinner"></span> Analyzing...</span>
+                </button>
+
+                <!-- Example -->
+                <div class="example-box">
+                    <strong>💡 Example:</strong>
+                    Company Name: <code>Corelytics</code><br>
+                    Website URL: <code>https://corelytics.com</code><br>
+                    <em>Social accounts will be found automatically! ✨</em><br>
+                    <small>(Or you can provide them manually for accuracy)</small>
+                </div>
+            </form>
+
+            <!-- Features -->
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-label">Social Analytics</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔍</div>
+                    <div class="feature-label">SEO Insights</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⭐</div>
+                    <div class="feature-label">Review Monitoring</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🏆</div>
+                    <div class="feature-label">Competitor Comparison</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💡</div>
+                    <div class="feature-label">AI Recommendations</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Client Instructions Modal -->
+    <div id="clientInstructionsModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; overflow-y: auto;">
+        <div style="max-width: 700px; margin: 40px auto; background: white; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+            <div style="padding: 24px; border-bottom: 1px solid #e5e7eb;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h2 style="margin: 0; font-size: 24px;">📋 Client Setup Instructions</h2>
+                    <button id="closeModal" style="background: none; border: none; font-size: 28px; cursor: pointer; color: #666;">&times;</button>
+                </div>
+            </div>
+            <div style="padding: 24px;">
+                <div style="background: #f0f9ff; border-left: 4px solid #0ea5e9; padding: 16px; margin-bottom: 24px; border-radius: 6px;">
+                    <strong>📤 Send these instructions to your client</strong>
+                    <p style="margin: 8px 0 0 0; font-size: 14px;">Copy and paste this guide, or click the "Copy Instructions" button below.</p>
+                </div>
+
+                <div id="instructionsContent" style="background: #f9fafb; padding: 20px; border-radius: 8px; border: 1px solid #e5e7eb; font-size: 14px; line-height: 1.6;">
+                    <h3 style="margin-top: 0;">How to Grant Analytics Access</h3>
+                    <p><strong>This takes 2 minutes and enables real traffic data in your analysis.</strong></p>
+                    
+                    <h4>Step 1: Add Service Account to Google Analytics</h4>
+                    <ol style="padding-left: 20px;">
+                        <li>Go to <a href="https://analytics.google.com/" target="_blank">Google Analytics</a></li>
+                        <li>Click <strong>"Admin"</strong> (gear icon at bottom-left)</li>
+                        <li>In the middle column labeled <strong>"Property"</strong>, click <strong>"Property access management"</strong></li>
+                        <li>Click the blue <strong>"+"</strong> button (top-right)</li>
+                        <li>Select <strong>"Add users"</strong></li>
+                        <li>In the email field, paste this email:
+                            <div style="background: white; padding: 12px; margin: 8px 0; border-radius: 6px; border: 2px solid #0ea5e9; font-family: monospace; font-size: 13px; word-break: break-all;">
+                                <span id="serviceAccountEmail">digital-presence-reader@elegant-moment-475722-d4.iam.gserviceaccount.com</span>
+                                <button type="button" id="copyEmailBtn" style="margin-left: 8px; background: #0ea5e9; color: white; border: none; padding: 4px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">Copy</button>
+                            </div>
+                        </li>
+                        <li><strong>Uncheck</strong> "Notify new users by email"</li>
+                        <li>Make sure <strong>"Viewer"</strong> role is selected</li>
+                        <li>Click <strong>"Add"</strong></li>
+                    </ol>
+
+                    <h4>Step 2: Get Your Property ID</h4>
+                    <ol style="padding-left: 20px;">
+                        <li>Still in Google Analytics Admin</li>
+                        <li>In the <strong>"Property"</strong> column, click <strong>"Property Settings"</strong></li>
+                        <li>At the top, you'll see <strong>"PROPERTY ID"</strong></li>
+                        <li>It looks like: <code>properties/123456789</code></li>
+                        <li><strong>Copy this ID</strong> and send it back to us</li>
+                    </ol>
+
+                    <div style="background: #fff7ed; border-left: 3px solid #f59e0b; padding: 12px; margin-top: 16px; border-radius: 6px;">
+                        <strong>⚠️ Important:</strong> The Property ID format must be <code>properties/123456789</code> (not just the numbers)
+                    </div>
+
+                    <div style="background: #f0fdf4; border-left: 3px solid #10b981; padding: 12px; margin-top: 16px; border-radius: 6px;">
+                        <strong>✅ That's it!</strong> Once you send us the Property ID, we'll be able to pull real traffic data for your analysis.
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 12px; margin-top: 24px;">
+                    <button id="copyInstructionsBtn" style="flex: 1; background: #0ea5e9; color: white; border: none; padding: 12px; border-radius: 6px; cursor: pointer; font-size: 15px; font-weight: 600;">
+                        📋 Copy All Instructions
+                    </button>
+                    <button id="printInstructionsBtn" style="flex: 1; background: #6b7280; color: white; border: none; padding: 12px; border-radius: 6px; cursor: pointer; font-size: 15px; font-weight: 600;">
+                        🖨️ Print Instructions
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('analyzeForm');
+        const alertBox = document.getElementById('alertBox');
+        const submitBtn = document.getElementById('submitBtn');
+        const btnText = document.getElementById('btnText');
+        const btnLoading = document.getElementById('btnLoading');
+
+        function showAlert(message, type = 'info') {
+            alertBox.className = `alert alert-${type} show`;
+            alertBox.textContent = message;
+            
+            if (type === 'success') {
+                setTimeout(() => {
+                    alertBox.classList.remove('show');
+                }, 5000);
+            }
+        }
+
+        // Real Data Checkbox Toggle
+        const useRealDataCheckbox = document.getElementById('useRealData');
+        const gaPropertySection = document.getElementById('gaPropertySection');
+        
+        useRealDataCheckbox.addEventListener('change', function() {
+            gaPropertySection.style.display = this.checked ? 'block' : 'none';
+        });
+
+        // Client Instructions Modal
+        const modal = document.getElementById('clientInstructionsModal');
+        const showInstructionsBtn = document.getElementById('showClientInstructions');
+        const closeModalBtn = document.getElementById('closeModal');
+        const copyEmailBtn = document.getElementById('copyEmailBtn');
+        const copyInstructionsBtn = document.getElementById('copyInstructionsBtn');
+        const printInstructionsBtn = document.getElementById('printInstructionsBtn');
+
+        showInstructionsBtn.addEventListener('click', () => {
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Copy Service Account Email
+        copyEmailBtn.addEventListener('click', () => {
+            const email = document.getElementById('serviceAccountEmail').textContent;
+            navigator.clipboard.writeText(email).then(() => {
+                const originalText = copyEmailBtn.textContent;
+                copyEmailBtn.textContent = '✓ Copied!';
+                copyEmailBtn.style.background = '#10b981';
+                setTimeout(() => {
+                    copyEmailBtn.textContent = originalText;
+                    copyEmailBtn.style.background = '#0ea5e9';
+                }, 2000);
+            });
+        });
+
+        // Copy All Instructions
+        copyInstructionsBtn.addEventListener('click', () => {
+            const instructionsText = `
+How to Grant Analytics Access for Digital Presence Analysis
+===========================================================
+
+This takes 2 minutes and enables real traffic data in your analysis.
+
+Step 1: Add Service Account to Google Analytics
+-----------------------------------------------
+1. Go to https://analytics.google.com/
+2. Click "Admin" (gear icon at bottom-left)
+3. In the middle column labeled "Property", click "Property access management"
+4. Click the blue "+" button (top-right)
+5. Select "Add users"
+6. In the email field, paste this email:
+   
+   digital-presence-reader@elegant-moment-475722-d4.iam.gserviceaccount.com
+
+7. Uncheck "Notify new users by email"
+8. Make sure "Viewer" role is selected
+9. Click "Add"
+
+Step 2: Get Your Property ID
+----------------------------
+1. Still in Google Analytics Admin
+2. In the "Property" column, click "Property Settings"
+3. At the top, you'll see "PROPERTY ID"
+4. It looks like: properties/123456789
+5. Copy this ID and send it back to us
+
+⚠️ Important: The Property ID format must be properties/123456789 (not just the numbers)
+
+✅ That's it! Once you send us the Property ID, we'll be able to pull real traffic data for your analysis.
+            `.trim();
+            
+            navigator.clipboard.writeText(instructionsText).then(() => {
+                const originalText = copyInstructionsBtn.textContent;
+                copyInstructionsBtn.textContent = '✓ Instructions Copied!';
+                copyInstructionsBtn.style.background = '#10b981';
+                setTimeout(() => {
+                    copyInstructionsBtn.textContent = originalText;
+                    copyInstructionsBtn.style.background = '#0ea5e9';
+                }, 2000);
+            });
+        });
+
+        // Print Instructions
+        printInstructionsBtn.addEventListener('click', () => {
+            const printWindow = window.open('', '_blank');
+            const instructionsHTML = document.getElementById('instructionsContent').innerHTML;
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>Client Setup Instructions - Digital Presence Analysis</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; padding: 40px; max-width: 800px; margin: 0 auto; line-height: 1.6; }
+                        h3 { color: #0ea5e9; }
+                        h4 { color: #333; margin-top: 24px; }
+                        code { background: #f3f4f6; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
+                        div { margin: 16px 0; padding: 12px; border-radius: 6px; }
+                        ol { padding-left: 24px; }
+                        li { margin: 8px 0; }
+                        button { display: none; }
+                    </style>
+                </head>
+                <body>
+                    <h2>Client Setup Instructions - Digital Presence Analysis</h2>
+                    ${instructionsHTML}
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.print();
+        });
+
+        submitBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            
+            // Disable button and show loading
+            submitBtn.disabled = true;
+            btnText.style.display = 'none';
+            btnLoading.style.display = 'flex';
+            
+            // Get form data
+            const formData = new FormData(form);
+            const data = {
+                companyName: formData.get('companyName'),
+                websiteUrl: formData.get('websiteUrl'),
+                socialMedia: {
+                    facebook: formData.get('facebookUrl'),
+                    linkedin: formData.get('linkedinUrl'),
+                    twitter: formData.get('twitterUrl'),
+                    instagram: formData.get('instagramUrl'),
+                    tiktok: formData.get('tiktokUrl'),
+                    snapchat: formData.get('snapchatUrl'),
+                    reddit: formData.get('redditUrl'),
+                    yelp: formData.get('yelpUrl'),
+                    bluesky: formData.get('blueskyUrl')
+                },
+                competitors: [],
+                options: {
+                    analyzeSocial: formData.get('analyzeSocial') === 'on',
+                    analyzeSEO: formData.get('analyzeSEO') === 'on',
+                    analyzeReviews: formData.get('analyzeReviews') === 'on',
+                    analyzeContent: formData.get('analyzeContent') === 'on',
+                    analyzeCompetitors: formData.get('analyzeCompetitors') === 'on'
+                }
+            };
+
+            // Collect competitor data from individual fields
+            for (let i = 1; i <= 5; i++) {
+                const compName = formData.get(`comp${i}Name`);
+                const compUrl = formData.get(`comp${i}Url`);
+                
+                // Only add if at least one field is filled
+                if (compName || compUrl) {
+                    // Create a competitor entry with both name and URL
+                    const competitor = {
+                        name: compName ? compName.trim() : '',
+                        url: compUrl ? compUrl.trim() : ''
+                    };
+                    data.competitors.push(competitor);
+                }
+            }
+
+            // Add Google Analytics Property ID if provided
+            if (formData.get('useRealData') === 'on') {
+                const propertyId = formData.get('gaPropertyId');
+                if (propertyId && propertyId.trim()) {
+                    data.gaPropertyId = propertyId.trim();
+                }
+            }
+
+            try {
+                showAlert('🔍 Searching for social accounts and analyzing digital presence... This may take 30-60 seconds.', 'info');
+                
+                // Send to backend API
+                const response = await fetch('/api/analyze', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    showAlert('✅ Analysis complete! Redirecting to results...', 'success');
+                    console.log('Analysis ID:', result.analysisId);
+                    
+                    // Redirect to results page immediately
+                    window.location.href = `/analysis-results?id=${result.analysisId}`;
+                } else {
+                    throw new Error(result.message || 'Analysis failed');
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                showAlert(`❌ Error: ${error.message}. Please try again or contact support.`, 'error');
+                
+                // Re-enable button
+                submitBtn.disabled = false;
+                btnText.style.display = 'flex';
+                btnLoading.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
+

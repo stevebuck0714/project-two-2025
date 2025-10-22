@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Results</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 40px; max-width: 1200px; margin: 0 auto; }
+        h1 { color: #333; }
+        pre { background: #f5f5f5; padding: 20px; border-radius: 5px; overflow-x: auto; }
+        .btn { display: inline-block; padding: 12px 24px; background: #667eea; color: white; text-decoration: none; border-radius: 8px; margin: 10px 0; }
+        .analysis-link { display: block; padding: 15px; margin: 10px 0; background: #e7f3ff; border-left: 4px solid #667eea; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>📊 Saved Analysis Results</h1>
+    <p>Click on any analysis below to view full results:</p>
+    
+    <div id="analyses"></div>
+    
+    <h2>Raw Data Test:</h2>
+    <pre id="rawData">Loading...</pre>
+    
+    <a href="/analyze" class="btn">← Back to Analyzer</a>
+
+    <script>
+        // Test 1: Load all analyses
+        fetch('/api/analyses')
+            .then(r => r.json())
+            .then(analyses => {
+                const container = document.getElementById('analyses');
+                analyses.forEach(a => {
+                    const div = document.createElement('div');
+                    div.className = 'analysis-link';
+                    div.innerHTML = `
+                        <strong>${a.companyName}</strong><br>
+                        <small>${new Date(a.analyzedAt).toLocaleString()}</small><br>
+                        <a href="/analysis-results?id=${a.id}">View Results</a> | 
+                        <a href="#" onclick="loadRaw('${a.id}'); return false;">View Raw Data</a>
+                    `;
+                    container.appendChild(div);
+                });
+            })
+            .catch(err => {
+                document.getElementById('analyses').innerHTML = 'Error: ' + err.message;
+            });
+
+        // Test 2: Load raw data
+        function loadRaw(id) {
+            fetch('/api/analysis/' + id)
+                .then(r => r.json())
+                .then(data => {
+                    document.getElementById('rawData').textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(err => {
+                    document.getElementById('rawData').textContent = 'Error: ' + err.message;
+                });
+        }
+
+        // Auto-load first analysis
+        setTimeout(() => {
+            const firstLink = document.querySelector('[onclick]');
+            if (firstLink) {
+                firstLink.click();
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
+
+
