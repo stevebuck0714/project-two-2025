@@ -191,7 +191,7 @@
                         <span class="badge">6 Month Growth</span>
                     </div>
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px;">
-                        ${analysisData.competitors.slice(1).map((competitor, index) => {
+                        ${analysisData.competitors.slice(1, 6).map((competitor, index) => {
                             const avgGrowth = competitor.socialMetrics ?
                                 Object.values(competitor.socialMetrics).reduce((sum, m) => sum + (m.growth || 0), 0) /
                                 Object.values(competitor.socialMetrics).length : 0;
@@ -214,7 +214,7 @@
                                     <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid #eee;">
                                         <div style="font-size: 12px; color: #666; margin-bottom: 8px;">Active Platforms:</div>
                                         <div style="display: flex; flex-wrap: wrap; gap: 4px;">
-                                            ${competitor.socialMetrics ? Object.keys(competitor.socialMetrics).slice(0, 3).map(platform =>
+                                            ${competitor.socialMetrics ? Object.keys(competitor.socialMetrics).slice(0, 5).map(platform =>
                                                 `<span style="font-size: 10px; padding: 2px 6px; background: #f0f4ff; border-radius: 4px; color: #333;">${platform}</span>`
                                             ).join('') : 'No data'}
                                         </div>

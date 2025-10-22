@@ -502,32 +502,6 @@
                     </div>
                 </div>
 
-                <!-- Competitor & Footprint -->
-                <div class="grid-2">
-                    ${data.competitors.length > 0 ? `
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="card-title">Competitor Benchmarking</h2>
-                            <span class="badge">Score vs peers</span>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="competitorChart"></canvas>
-                        </div>
-                    </div>
-                    ` : ''}
-                    ${data.digitalFootprint && Object.keys(data.digitalFootprint).length > 0 ? `
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="card-title">Digital Footprint</h2>
-                            <span class="badge">Interconnected presence</span>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="footprintChart"></canvas>
-                        </div>
-                    </div>
-                    ` : ''}
-                </div>
-
                 <!-- Competitor Social Media Comparison -->
                 ${data.competitors.length > 1 ? `
                 <div class="card">
@@ -572,6 +546,32 @@
                     </div>
                 </div>
                 ` : ''}
+
+                <!-- Competitor & Footprint -->
+                <div class="grid-2">
+                    ${data.competitors.length > 0 ? `
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Competitor Benchmarking</h2>
+                            <span class="badge">Score vs peers</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="competitorChart"></canvas>
+                        </div>
+                    </div>
+                    ` : ''}
+                    ${data.digitalFootprint && Object.keys(data.digitalFootprint).length > 0 ? `
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Digital Footprint</h2>
+                            <span class="badge">Interconnected presence</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="footprintChart"></canvas>
+                        </div>
+                    </div>
+                    ` : ''}
+                </div>
 
                 <!-- Organic Traffic Analysis -->
                 ${data.organicTraffic && data.organicTraffic.monthlyVisitors ? `
@@ -881,14 +881,6 @@
                                     ${data.socialMetrics.length > 0 ? '<li>Social Media Profiles</li>' : ''}
                                     ${data.reputation.length > 0 ? '<li>Online Reviews</li>' : ''}
                                     ${data.seoKeywords.length > 0 ? '<li>SEO Rankings</li>' : ''}
-                                </ul>
-                            </div>
-                            <div class="next-actions">
-                                <h3>🚀 Next Steps</h3>
-                                <ul style="list-style: disc; padding-left: 20px; margin-top: 12px;">
-                                    <li style="font-size: 14px; color: #718096; margin-bottom: 8px;">Download this report</li>
-                                    <li style="font-size: 14px; color: #718096; margin-bottom: 8px;"><a href="/analyze">Analyze another company</a></li>
-                                    <li style="font-size: 14px; color: #718096; margin-bottom: 8px;">Schedule monthly tracking</li>
                                 </ul>
                             </div>
                         </div>

@@ -35,7 +35,7 @@
                     div.innerHTML = `
                         <strong>${a.companyName}</strong><br>
                         <small>${new Date(a.analyzedAt).toLocaleString()}</small><br>
-                        <a href="/analysis-results?id=${a.id}">View Results</a> | 
+                        <a href="/analytics">View Results</a> | 
                         <a href="#" onclick="loadRaw('${a.id}'); return false;">View Raw Data</a>
                     `;
                     container.appendChild(div);

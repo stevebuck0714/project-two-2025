@@ -857,7 +857,7 @@ Step 2: Get Your Property ID
                     console.log('Analysis ID:', result.analysisId);
                     
                     // Redirect to results page immediately
-                    window.location.href = `/analysis-results?id=${result.analysisId}`;
+                    window.location.href = `/analytics`;
                 } else {
                     throw new Error(result.message || 'Analysis failed');
                 }

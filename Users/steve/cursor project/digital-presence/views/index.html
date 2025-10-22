@@ -276,7 +276,7 @@
                 
                 if (result.success) {
                     // Redirect to results page
-                    window.location.href = `/analysis-results?id=${result.analysisId}`;
+                    window.location.href = `/analytics`;
                 } else {
                     alert('Analysis failed: ' + result.message);
                     submitBtn.innerHTML = originalText;
