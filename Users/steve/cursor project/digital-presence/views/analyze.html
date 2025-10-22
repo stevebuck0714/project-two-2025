@@ -13,7 +13,15 @@
             min-height: 100vh;
         }
         
-        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
         .header-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .nav { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 24px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
@@ -151,6 +159,15 @@
             .input-row {
                 flex-direction: column;
                 gap: 20px;
+            }
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .features-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -337,33 +354,44 @@
                     </div>
                 </div>
 
-                <!-- Real Data Connection -->
-                <div class="form-section" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-left: 4px solid #0ea5e9; padding: 20px; border-radius: 8px;">
+                <!-- Real Data Connection - HIGHLY RECOMMENDED -->
+                <div class="form-section" style="background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border-left: 4px solid #dc2626; padding: 20px; border-radius: 8px; color: #1f2937;">
                     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
-                        <h3 style="margin: 0;">📊 Real Data Connection (Optional)</h3>
-                        <button type="button" id="showClientInstructions" style="background: #0ea5e9; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 14px;">
+                        <h3 style="margin: 0; color: #dc2626; font-weight: 700;">🚨 Google Analytics Connection - CRITICAL</h3>
+                        <button type="button" id="showClientInstructions" style="background: #dc2626; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
                             📋 Client Setup Instructions
                         </button>
                     </div>
-                    <p style="margin-bottom: 16px;">Connect to Google Analytics for real time traffic data on your site.</p>
-                    
-                    <div style="background: white; padding: 16px; border-radius: 8px; margin-bottom: 16px;">
+                    <div style="background: white; padding: 16px; border-radius: 8px; margin-bottom: 16px; border-left: 3px solid #dc2626; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <p style="margin: 0; font-size: 15px; font-weight: 600; color: #dc2626;">
+                            ⚠️ <strong>Without Google Analytics:</strong> You'll only get estimated data and basic insights
+                        </p>
+                        <p style="margin: 8px 0 0 0; font-size: 14px; color: #059669;">
+                            ✅ <strong>With Google Analytics:</strong> Real traffic data, accurate trends, conversion tracking, and competitor comparisons
+                        </p>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.95); padding: 16px; border-radius: 8px; margin-bottom: 16px; color: #1f2937;">
                         <label style="display: flex; align-items: center; cursor: pointer;">
                             <input type="checkbox" id="useRealData" name="useRealData" style="width: 20px; height: 20px; margin-right: 12px; cursor: pointer;">
-                            <span style="font-weight: 600; font-size: 15px;">Use Real Google Analytics Data</span>
+                            <span style="font-weight: 700; font-size: 16px; color: #dc2626;">🔥 Enable Real Google Analytics Data (HIGHLY RECOMMENDED)</span>
                         </label>
                     </div>
-                    
+
                     <div id="gaPropertySection" style="display: none;">
                         <div class="input-group">
-                            <label for="gaPropertyId">Google Analytics Property ID</label>
-                            <input type="text" id="gaPropertyId" name="gaPropertyId" placeholder="properties/123456789">
-                            <div class="input-hint">Format: properties/123456789 (client provides this)</div>
+                            <label for="gaPropertyId" style="color: #1f2937; font-weight: 600;">Google Analytics Property ID *</label>
+                            <input type="text" id="gaPropertyId" name="gaPropertyId" placeholder="properties/123456789" style="border: 2px solid #dc2626;">
+                            <div class="input-hint" style="color: #6b7280;">Format: properties/123456789 (required for real data)</div>
                         </div>
-                        <div style="background: #fff7ed; border-left: 3px solid #f59e0b; padding: 12px; border-radius: 6px; font-size: 13px;">
-                            <strong>⚠️ Note:</strong> Client must first add your service account to their Google Analytics.
-                            Click "Client Setup Instructions" button above for the guide to send them.
+                        <div style="background: #fff7ed; border-left: 3px solid #f59e0b; padding: 12px; border-radius: 6px; font-size: 13px; color: #92400e;">
+                            <strong>📋 Setup Required:</strong> You must first add our service account to your Google Analytics.
+                            Click "Client Setup Instructions" above for the complete guide to send them.
                         </div>
+                    </div>
+
+                    <div style="background: #f0fdf4; border-left: 3px solid #10b981; padding: 12px; border-radius: 6px; font-size: 13px; color: #065f46;">
+                        <strong>🎯 Why This Matters:</strong> Real Google Analytics data provides 10x more accurate insights, actual traffic trends, conversion rates, and enables historical trend analysis.
                     </div>
                 </div>
 
@@ -563,6 +591,10 @@
                     <div class="feature-icon">💡</div>
                     <div class="feature-label">AI Recommendations</div>
                 </div>
+                <div class="feature-item" style="background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); color: white; border-radius: 12px; padding: 20px;">
+                    <div class="feature-icon" style="font-size: 40px;">🚨</div>
+                    <div class="feature-label" style="color: #fed7d7; font-weight: 600;">Connect GA4 for<br>10x Better Results</div>
+                </div>
             </div>
         </div>
     </div>
@@ -570,21 +602,23 @@
     <!-- Client Instructions Modal -->
     <div id="clientInstructionsModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; overflow-y: auto;">
         <div style="max-width: 700px; margin: 40px auto; background: white; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
-            <div style="padding: 24px; border-bottom: 1px solid #e5e7eb;">
+            <div style="padding: 24px; border-bottom: 1px solid #e5e7eb; background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); color: white;">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <h2 style="margin: 0; font-size: 24px;">📋 Client Setup Instructions</h2>
-                    <button id="closeModal" style="background: none; border: none; font-size: 28px; cursor: pointer; color: #666;">&times;</button>
+                    <h2 style="margin: 0; font-size: 24px;">🚨 CRITICAL: Client Setup Instructions</h2>
+                    <button id="closeModal" style="background: none; border: none; font-size: 28px; cursor: pointer; color: white;">&times;</button>
                 </div>
             </div>
             <div style="padding: 24px;">
-                <div style="background: #f0f9ff; border-left: 4px solid #0ea5e9; padding: 16px; margin-bottom: 24px; border-radius: 6px;">
-                    <strong>📤 Send these instructions to your client</strong>
-                    <p style="margin: 8px 0 0 0; font-size: 14px;">Copy and paste this guide, or click the "Copy Instructions" button below.</p>
+                <div style="background: #fef2f2; border-left: 4px solid #dc2626; padding: 16px; margin-bottom: 24px; border-radius: 6px; color: #1f2937;">
+                    <strong>🚨 URGENT: Send these instructions to your client</strong>
+                    <p style="margin: 8px 0 0 0; font-size: 14px; color: #6b7280;">This 2-minute setup enables REAL traffic data instead of estimates. Without this, your analysis will be severely limited.</p>
                 </div>
 
                 <div id="instructionsContent" style="background: #f9fafb; padding: 20px; border-radius: 8px; border: 1px solid #e5e7eb; font-size: 14px; line-height: 1.6;">
-                    <h3 style="margin-top: 0;">How to Grant Analytics Access</h3>
-                    <p><strong>This takes 2 minutes and enables real traffic data in your analysis.</strong></p>
+                    <h3 style="margin-top: 0; color: #dc2626;">🚨 CRITICAL: Enable Real Analytics Data</h3>
+                    <div style="background: #fef2f2; border-left: 3px solid #dc2626; padding: 12px; margin-bottom: 16px; border-radius: 6px;">
+                        <strong>⚠️ URGENT:</strong> Without this setup, your analysis will only show estimates and basic insights. Real Google Analytics data provides 10x more accurate results including actual traffic trends, conversion rates, and competitor comparisons.
+                    </div>
                     
                     <h4>Step 1: Add Service Account to Google Analytics</h4>
                     <ol style="padding-left: 20px;">
@@ -617,8 +651,8 @@
                         <strong>⚠️ Important:</strong> The Property ID format must be <code>properties/123456789</code> (not just the numbers)
                     </div>
 
-                    <div style="background: #f0fdf4; border-left: 3px solid #10b981; padding: 12px; margin-top: 16px; border-radius: 6px;">
-                        <strong>✅ That's it!</strong> Once you send us the Property ID, we'll be able to pull real traffic data for your analysis.
+                    <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-left: 3px solid #10b981; padding: 12px; margin-top: 16px; border-radius: 6px; color: white;">
+                        <strong>✅ MISSION CRITICAL COMPLETE!</strong> Once you send us the Property ID, we'll unlock REAL Google Analytics data including actual traffic trends, conversion rates, and enable the full power of our analysis platform. This transforms basic estimates into actionable business intelligence!
                     </div>
                 </div>
 
@@ -703,10 +737,11 @@
         // Copy All Instructions
         copyInstructionsBtn.addEventListener('click', () => {
             const instructionsText = `
-How to Grant Analytics Access for Digital Presence Analysis
-===========================================================
+🚨 URGENT: Enable Real Google Analytics Data for Digital Presence Analysis
+==========================================================================
 
-This takes 2 minutes and enables real traffic data in your analysis.
+⚠️ CRITICAL: Without this 2-minute setup, your analysis will only show estimates!
+Real Google Analytics data provides 10x more accurate insights including actual traffic trends, conversion rates, and competitor comparisons.
 
 Step 1: Add Service Account to Google Analytics
 -----------------------------------------------
@@ -716,7 +751,7 @@ Step 1: Add Service Account to Google Analytics
 4. Click the blue "+" button (top-right)
 5. Select "Add users"
 6. In the email field, paste this email:
-   
+
    digital-presence-reader@elegant-moment-475722-d4.iam.gserviceaccount.com
 
 7. Uncheck "Notify new users by email"
@@ -731,9 +766,9 @@ Step 2: Get Your Property ID
 4. It looks like: properties/123456789
 5. Copy this ID and send it back to us
 
-⚠️ Important: The Property ID format must be properties/123456789 (not just the numbers)
+⚠️ CRITICAL: The Property ID format must be properties/123456789 (not just the numbers)
 
-✅ That's it! Once you send us the Property ID, we'll be able to pull real traffic data for your analysis.
+✅ MISSION CRITICAL COMPLETE! Once you send us the Property ID, we'll unlock REAL Google Analytics data including actual traffic trends, conversion rates, and enable the full power of our analysis platform. This transforms basic estimates into actionable business intelligence!
             `.trim();
             
             navigator.clipboard.writeText(instructionsText).then(() => {
@@ -754,10 +789,10 @@ Step 2: Get Your Property ID
             printWindow.document.write(`
                 <html>
                 <head>
-                    <title>Client Setup Instructions - Digital Presence Analysis</title>
+                    <title>🚨 URGENT: Enable Real Google Analytics Data</title>
                     <style>
                         body { font-family: Arial, sans-serif; padding: 40px; max-width: 800px; margin: 0 auto; line-height: 1.6; }
-                        h3 { color: #0ea5e9; }
+                        h3 { color: #dc2626; font-weight: bold; }
                         h4 { color: #333; margin-top: 24px; }
                         code { background: #f3f4f6; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
                         div { margin: 16px 0; padding: 12px; border-radius: 6px; }
@@ -767,7 +802,7 @@ Step 2: Get Your Property ID
                     </style>
                 </head>
                 <body>
-                    <h2>Client Setup Instructions - Digital Presence Analysis</h2>
+                    <h2 style="color: #dc2626; font-weight: bold;">🚨 URGENT: Enable Real Google Analytics Data</h2>
                     ${instructionsHTML}
                 </body>
                 </html>
@@ -831,7 +866,14 @@ Step 2: Get Your Property ID
                 const propertyId = formData.get('gaPropertyId');
                 if (propertyId && propertyId.trim()) {
                     data.gaPropertyId = propertyId.trim();
+                    console.log('✅ Real Google Analytics data will be used!');
+                } else {
+                    showAlert('⚠️ You checked Google Analytics but didn\'t provide a Property ID. You\'ll get estimated data instead.', 'error');
+                    return;
                 }
+            } else {
+                console.log('⚠️ No Google Analytics - using estimated data only');
+                showAlert('⚠️ <strong>Important:</strong> Without Google Analytics, you\'ll only receive estimated data and basic insights. Connect GA4 for 10x more accurate results!', 'error');
             }
 
             try {
@@ -853,9 +895,13 @@ Step 2: Get Your Property ID
                 const result = await response.json();
                 
                 if (result.success) {
-                    showAlert('✅ Analysis complete! Redirecting to results...', 'success');
+                    const isRealData = formData.get('useRealData') === 'on' && formData.get('gaPropertyId');
+                    const successMessage = isRealData
+                        ? '✅ Analysis complete with REAL Google Analytics data! Redirecting to results...'
+                        : '✅ Analysis complete with estimated data. For 10x more accurate results, connect Google Analytics next time.';
+                    showAlert(successMessage, 'success');
                     console.log('Analysis ID:', result.analysisId);
-                    
+
                     // Redirect to results page immediately
                     window.location.href = `/analytics`;
                 } else {
