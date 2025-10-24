@@ -347,3 +347,9 @@ Need help or want to add features?
 **Ready to analyze companies?** Visit http://localhost:3001/analyze and get started! 🚀
 
 
+
+
+
+
+
+

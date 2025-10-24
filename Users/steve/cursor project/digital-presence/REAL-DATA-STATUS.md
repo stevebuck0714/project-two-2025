@@ -187,3 +187,9 @@ npm run dev
 The tool is now **production-ready** for basic competitive analysis. Users get real follower counts and ratings, which are the most important metrics for understanding digital presence.
 
 
+
+
+
+
+
+

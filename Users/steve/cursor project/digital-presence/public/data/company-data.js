@@ -126,3 +126,9 @@ const companyData = {
 companyData.totalFollowers = companyData.socialMetrics.reduce((sum, platform) => sum + platform.followers, 0);
 
 
+
+
+
+
+
+

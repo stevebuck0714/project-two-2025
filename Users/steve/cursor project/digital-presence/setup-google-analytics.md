@@ -218,3 +218,9 @@ If you get stuck at any step, check the server console logs - they'll show speci
 **Ready for the next step? Set up Google Search Console to get real SEO data too!**
 
 
+
+
+
+
+
+
