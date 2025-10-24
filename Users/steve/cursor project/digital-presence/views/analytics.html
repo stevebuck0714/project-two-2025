@@ -508,6 +508,29 @@
         .comparison-table .best-rating { background: #f0fff4; }
         .comparison-table .worst-rating { background: #fef5e7; }
 
+        .back-to-dashboard {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+        }
+
+        .back-to-dashboard:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+        }
+
         @media (max-width: 768px) {
             .grid-2 {
                 grid-template-columns: 1fr;
@@ -555,6 +578,7 @@
 
     <main class="main-content">
         <div class="container">
+            <a href="javascript:window.history.back()" class="back-to-dashboard">← Return to Dashboard</a>
             <!-- Page Header -->
             <div class="page-header">
                 <div class="page-title-section">
@@ -1353,6 +1377,8 @@
     </script>
 </body>
 </html>
+
+
 
 
 
