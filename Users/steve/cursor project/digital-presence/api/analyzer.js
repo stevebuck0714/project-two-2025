@@ -256,17 +256,8 @@ async function analyzeSocialMedia(companyData) {
                         isRealData: true
                     });
                 } else {
-                    // Fall back to estimated data
-                    console.log(`⚠️  Using ESTIMATED data for ${platform.name}`);
-                    const estimated = await estimateSocialMetrics(platform.url);
-                    
-                    metrics.push({
-                        platform: platform.name,
-                        followers: estimated.followers,
-                        engagementRate: estimated.engagement,
-                        monthlyGrowth: estimated.growth,
-                        isRealData: false
-                    });
+                    // SKIP platforms without real data - don't generate fake numbers
+                    console.log(`⏭️  Skipping ${platform.name} - no real data available`);
                 }
             } catch (error) {
                 console.log(`Could not analyze ${platform.name}: ${error.message}`);
