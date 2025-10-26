@@ -1187,6 +1187,9 @@
                 companyNameElement.textContent = `${data.companyName} - Analytics Dashboard`;
             }
             
+            // Always hide sections with fake/hardcoded data first
+            hideCompetitorSections();
+            
             // Update social metrics in the page
             updateSocialMetrics(data);
             
@@ -1195,11 +1198,6 @@
             
             // Update charts with real data
             updateChartsWithRealData(data);
-            
-            // Hide competitors section if no competitors
-            if (!data.competitors || data.competitors.length === 0) {
-                hideCompetitorSections();
-            }
         }
 
         function updateSocialMetrics(data) {
@@ -1217,14 +1215,40 @@
         }
 
         function hideCompetitorSections() {
-            // Hide all competitor-related sections
+            // Hide all competitor-related sections and fake hardcoded data
             const competitorCards = document.querySelectorAll('.card');
             competitorCards.forEach(card => {
                 const title = card.querySelector('.card-title');
-                if (title && (title.textContent.includes('Competitor') || title.textContent.includes('Social Followers'))) {
+                if (title && (
+                    title.textContent.includes('Competitor') || 
+                    title.textContent.includes('Social Followers') ||
+                    title.textContent.includes('SEO Rankings') ||
+                    title.textContent.includes('Reputation Monitoring') ||
+                    title.textContent.includes('Actionable Insights')
+                )) {
                     card.style.display = 'none';
                 }
             });
+            
+            // Hide hardcoded social stats sections with fake data
+            document.querySelectorAll('.social-card').forEach(card => {
+                // Hide all hardcoded social stats - we'll show real ones instead
+                card.style.display = 'none';
+            });
+            
+            // Add banner explaining data is loading
+            const container = document.querySelector('.container');
+            if (container && analysisData) {
+                const banner = document.createElement('div');
+                banner.style.cssText = 'background: #dbeafe; border-left: 4px solid #3b82f6; padding: 16px; margin: 20px 0; border-radius: 8px;';
+                banner.innerHTML = `
+                    <strong>📊 Showing Real Data for ${analysisData.companyName}</strong>
+                    <p style="margin: 8px 0 0 0; font-size: 14px; color: #1e40af;">
+                        Charts and metrics are generated from your actual analysis data. Sections with no real data are hidden.
+                    </p>
+                `;
+                container.insertBefore(banner, container.firstChild);
+            }
         }
 
         let growthChart, competitorChart, footprintChart, engagementChart, sentimentChart, trafficSourceChart;
