@@ -611,7 +611,7 @@
                 <div class="stat-card">
                     <div class="stat-label">Total Followers</div>
                     <div class="stat-value">
-                        <span>55,500</span>
+                        <span id="total-followers">-</span>
                         <svg class="stat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                         </svg>
@@ -620,7 +620,7 @@
                 <div class="stat-card">
                     <div class="stat-label">Avg Engagement</div>
                     <div class="stat-value">
-                        <span>4.2%</span>
+                        <span id="avg-engagement">-</span>
                         <svg class="stat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                         </svg>
@@ -629,7 +629,7 @@
                 <div class="stat-card">
                     <div class="stat-label">Monthly Growth</div>
                     <div class="stat-value">
-                        <span>+12.0%</span>
+                        <span id="monthly-growth">-</span>
                         <svg class="stat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
                         </svg>
@@ -638,7 +638,7 @@
                 <div class="stat-card">
                     <div class="stat-label">Digital Presence Score</div>
                     <div class="stat-value">
-                        <span>75</span>
+                        <span class="score-value" id="digital-presence-score">-</span>
                         <svg class="stat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                         </svg>
@@ -653,71 +653,8 @@
                     <span class="badge">Performance by platform</span>
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 24px;">
-                    <div class="social-metrics">
-                        <div class="social-card">
-                            <div class="social-info">
-                                <div class="social-platform">Facebook</div>
-                                <div class="social-followers">20,000 <span>Followers</span></div>
-                            </div>
-                            <div class="social-stats">
-                                <div class="metric-badge">
-                                    <div class="metric-value">4.2%</div>
-                                    <div class="metric-label">Engagement</div>
-                                </div>
-                                <div class="metric-badge">
-                                    <div class="metric-value">+12%</div>
-                                    <div class="metric-label">Growth</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="social-card">
-                            <div class="social-info">
-                                <div class="social-platform">𝕏 (Twitter)</div>
-                                <div class="social-followers">8,500 <span>Followers</span></div>
-                            </div>
-                            <div class="social-stats">
-                                <div class="metric-badge">
-                                    <div class="metric-value">3.8%</div>
-                                    <div class="metric-label">Engagement</div>
-                                </div>
-                                <div class="metric-badge">
-                                    <div class="metric-value">+9%</div>
-                                    <div class="metric-label">Growth</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="social-card">
-                            <div class="social-info">
-                                <div class="social-platform">LinkedIn</div>
-                                <div class="social-followers">12,000 <span>Followers</span></div>
-                            </div>
-                            <div class="social-stats">
-                                <div class="metric-badge">
-                                    <div class="metric-value">4.5%</div>
-                                    <div class="metric-label">Engagement</div>
-                                </div>
-                                <div class="metric-badge">
-                                    <div class="metric-value">+11%</div>
-                                    <div class="metric-label">Growth</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="social-card">
-                            <div class="social-info">
-                                <div class="social-platform">Instagram</div>
-                                <div class="social-followers">15,000 <span>Followers</span></div>
-                            </div>
-                            <div class="social-stats">
-                                <div class="metric-badge">
-                                    <div class="metric-value">5.1%</div>
-                                    <div class="metric-label">Engagement</div>
-                                </div>
-                                <div class="metric-badge">
-                                    <div class="metric-value">+13%</div>
-                                    <div class="metric-label">Growth</div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="social-metrics" id="social-metrics-container">
+                        <!-- Social metrics will be populated here by JavaScript with real data -->
                     </div>
                     <div class="chart-container">
                         <canvas id="growthChart"></canvas>
@@ -1199,6 +1136,9 @@
                 pageTitle.textContent = `${data.companyName} - Digital Presence Analysis`;
             }
             
+            // Update KPI stats
+            updateKPIStats(data);
+            
             // Update digital presence score
             updateDigitalPresenceScore(data);
             
@@ -1213,11 +1153,77 @@
                 hideCompetitorSections();
             }
         }
+        
+        function updateKPIStats(data) {
+            // Calculate total followers
+            let totalFollowers = 0;
+            let totalEngagement = 0;
+            let totalGrowth = 0;
+            let count = 0;
+            
+            if (data.socialMetrics && data.socialMetrics.length > 0) {
+                data.socialMetrics.forEach(metric => {
+                    totalFollowers += metric.followers || 0;
+                    totalEngagement += metric.engagement || 0;
+                    totalGrowth += metric.growth || 0;
+                    count++;
+                });
+                
+                const avgEngagement = count > 0 ? (totalEngagement / count).toFixed(1) : 0;
+                const avgGrowth = count > 0 ? (totalGrowth / count).toFixed(1) : 0;
+                
+                document.getElementById('total-followers').textContent = totalFollowers.toLocaleString();
+                document.getElementById('avg-engagement').textContent = avgEngagement + '%';
+                document.getElementById('monthly-growth').textContent = '+' + avgGrowth + '%';
+            }
+            
+            // Update digital presence score
+            if (data.digitalPresenceScore) {
+                document.getElementById('digital-presence-score').textContent = data.digitalPresenceScore;
+            }
+        }
 
         function updateSocialMetrics(data) {
-            // Update social media metrics if we have real data
+            const container = document.getElementById('social-metrics-container');
+            if (!container) return;
+            
+            // Clear existing content
+            container.innerHTML = '';
+            
+            // If we have real social data, populate it
             if (data.socialMetrics && data.socialMetrics.length > 0) {
-                console.log('Updating with real social metrics:', data.socialMetrics);
+                console.log('Populating with real social metrics:', data.socialMetrics);
+                
+                data.socialMetrics.forEach(metric => {
+                    const socialCard = document.createElement('div');
+                    socialCard.className = 'social-card';
+                    socialCard.innerHTML = `
+                        <div class="social-info">
+                            <div class="social-platform">${metric.platform}</div>
+                            <div class="social-followers">${metric.followers.toLocaleString()} <span>Followers</span></div>
+                        </div>
+                        <div class="social-stats">
+                            <div class="metric-badge">
+                                <div class="metric-value">${metric.engagement}%</div>
+                                <div class="metric-label">Engagement</div>
+                            </div>
+                            <div class="metric-badge">
+                                <div class="metric-value">+${metric.growth}%</div>
+                                <div class="metric-label">Growth</div>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(socialCard);
+                });
+            } else {
+                // Show empty state
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #94a3b8;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">📱</div>
+                        <div style="font-size: 16px; font-weight: 600; margin-bottom: 8px;">No Social Media Data</div>
+                        <div style="font-size: 14px;">Add social media URLs in your analysis to see metrics here.</div>
+                    </div>
+                `;
             }
         }
 
@@ -1231,7 +1237,7 @@
         function hideCompetitorSections() {
             console.log('Hiding fake data sections...');
             
-            // Hide ALL cards - we'll show them selectively if they have real data
+            // Hide specific cards with fake/competitor data
             const allCards = document.querySelectorAll('.card');
             allCards.forEach(card => {
                 const title = card.querySelector('.card-title');
@@ -1239,23 +1245,29 @@
                     const titleText = title.textContent.trim();
                     console.log('Found card:', titleText);
                     
-                    // Hide everything except the growth charts we're updating
-                    if (titleText.includes('Social Media Growth') || 
-                        titleText.includes('Digital Presence Score') ||
-                        titleText.includes('Benchmarking')) {
-                        // Keep these visible - we'll update with real data
+                    // Keep Social Media Analytics visible - we're updating it with real data
+                    if (titleText.includes('Social Media Analytics')) {
                         console.log('Keeping visible:', titleText);
-                    } else {
-                        // Hide everything else with fake data
+                    }
+                    // Hide competitor-related cards
+                    else if (titleText.includes('Competitor')) {
                         card.style.display = 'none';
-                        console.log('Hiding:', titleText);
+                        console.log('Hiding competitor card:', titleText);
+                    }
+                    // Hide other cards with hardcoded fake data
+                    else if (titleText.includes('Reputation') || 
+                             titleText.includes('Sentiment') ||
+                             titleText.includes('Engagement Metrics') ||
+                             titleText.includes('Traffic Sources') ||
+                             titleText.includes('Digital Footprint')) {
+                        card.style.display = 'none';
+                        console.log('Hiding fake data card:', titleText);
                     }
                 }
             });
             
-            // Also hide the grid-2 sections that might have fake data
+            // Hide grid-2 sections that only contain hidden cards
             document.querySelectorAll('.grid-2').forEach(grid => {
-                // Check if it contains cards we're hiding
                 const cards = grid.querySelectorAll('.card');
                 let hasVisibleCard = false;
                 cards.forEach(card => {
@@ -1267,21 +1279,6 @@
                     grid.style.display = 'none';
                 }
             });
-            
-            // Add banner explaining what's shown
-            const main = document.querySelector('main');
-            if (main && analysisData) {
-                const banner = document.createElement('div');
-                banner.style.cssText = 'background: #dbeafe; border-left: 4px solid #3b82f6; padding: 16px; margin: 20px; border-radius: 8px;';
-                banner.innerHTML = `
-                    <strong>📊 Analytics for ${analysisData.companyName}</strong>
-                    <p style="margin: 8px 0 0 0; font-size: 14px; color: #1e40af;">
-                        Showing real data from your analysis. Sections with mock/demo data are hidden. 
-                        <a href="/your-metrics" style="color: #3b82f6; text-decoration: underline;">View detailed metrics →</a>
-                    </p>
-                `;
-                main.insertBefore(banner, main.firstChild);
-            }
         }
 
         let growthChart, competitorChart, footprintChart, engagementChart, sentimentChart, trafficSourceChart;
