@@ -1155,26 +1155,36 @@
         }
         
         function updateKPIStats(data) {
-            // Calculate total followers
+            // Calculate total followers - ONLY from real data
             let totalFollowers = 0;
             let totalEngagement = 0;
             let totalGrowth = 0;
             let count = 0;
             
             if (data.socialMetrics && data.socialMetrics.length > 0) {
-                data.socialMetrics.forEach(metric => {
+                // Filter to only real data
+                const realMetrics = data.socialMetrics.filter(m => m.isRealData === true);
+                
+                realMetrics.forEach(metric => {
                     totalFollowers += metric.followers || 0;
-                    totalEngagement += metric.engagement || 0;
-                    totalGrowth += metric.growth || 0;
+                    totalEngagement += (metric.engagement || metric.engagementRate) || 0;
+                    totalGrowth += (metric.growth || metric.monthlyGrowth) || 0;
                     count++;
                 });
                 
-                const avgEngagement = count > 0 ? (totalEngagement / count).toFixed(1) : 0;
-                const avgGrowth = count > 0 ? (totalGrowth / count).toFixed(1) : 0;
-                
-                document.getElementById('total-followers').textContent = totalFollowers.toLocaleString();
-                document.getElementById('avg-engagement').textContent = avgEngagement + '%';
-                document.getElementById('monthly-growth').textContent = '+' + avgGrowth + '%';
+                if (count > 0) {
+                    const avgEngagement = (totalEngagement / count).toFixed(1);
+                    const avgGrowth = (totalGrowth / count).toFixed(1);
+                    
+                    document.getElementById('total-followers').textContent = totalFollowers.toLocaleString();
+                    document.getElementById('avg-engagement').textContent = avgEngagement + '%';
+                    document.getElementById('monthly-growth').textContent = (avgGrowth >= 0 ? '+' : '') + avgGrowth + '%';
+                } else {
+                    // No real data - show empty state
+                    document.getElementById('total-followers').textContent = '0';
+                    document.getElementById('avg-engagement').textContent = '0%';
+                    document.getElementById('monthly-growth').textContent = '0%';
+                }
             }
             
             // Update digital presence score
@@ -1190,31 +1200,47 @@
             // Clear existing content
             container.innerHTML = '';
             
-            // If we have real social data, populate it
+            // Filter to ONLY show real social data (isRealData === true)
             if (data.socialMetrics && data.socialMetrics.length > 0) {
-                console.log('Populating with real social metrics:', data.socialMetrics);
+                const realMetrics = data.socialMetrics.filter(m => m.isRealData === true);
                 
-                data.socialMetrics.forEach(metric => {
-                    const socialCard = document.createElement('div');
-                    socialCard.className = 'social-card';
-                    socialCard.innerHTML = `
-                        <div class="social-info">
-                            <div class="social-platform">${metric.platform}</div>
-                            <div class="social-followers">${metric.followers.toLocaleString()} <span>Followers</span></div>
-                        </div>
-                        <div class="social-stats">
-                            <div class="metric-badge">
-                                <div class="metric-value">${metric.engagement}%</div>
-                                <div class="metric-label">Engagement</div>
+                if (realMetrics.length > 0) {
+                    console.log('Populating with REAL social metrics:', realMetrics);
+                    
+                    realMetrics.forEach(metric => {
+                        const engagement = metric.engagement || metric.engagementRate || 0;
+                        const growth = metric.growth || metric.monthlyGrowth || 0;
+                        
+                        const socialCard = document.createElement('div');
+                        socialCard.className = 'social-card';
+                        socialCard.innerHTML = `
+                            <div class="social-info">
+                                <div class="social-platform">${metric.platform}</div>
+                                <div class="social-followers">${metric.followers.toLocaleString()} <span>Followers</span></div>
                             </div>
-                            <div class="metric-badge">
-                                <div class="metric-value">+${metric.growth}%</div>
-                                <div class="metric-label">Growth</div>
+                            <div class="social-stats">
+                                <div class="metric-badge">
+                                    <div class="metric-value">${engagement.toFixed(1)}%</div>
+                                    <div class="metric-label">Engagement</div>
+                                </div>
+                                <div class="metric-badge">
+                                    <div class="metric-value">${growth >= 0 ? '+' : ''}${growth.toFixed(1)}%</div>
+                                    <div class="metric-label">Growth</div>
+                                </div>
                             </div>
+                        `;
+                        container.appendChild(socialCard);
+                    });
+                } else {
+                    // No real data - show empty state
+                    container.innerHTML = `
+                        <div style="text-align: center; padding: 40px; color: #94a3b8;">
+                            <div style="font-size: 48px; margin-bottom: 16px;">📱</div>
+                            <div style="font-size: 16px; font-weight: 600; margin-bottom: 8px;">No Real Social Media Data Yet</div>
+                            <div style="font-size: 14px;">Connect real social media accounts to see actual metrics here.</div>
                         </div>
                     `;
-                    container.appendChild(socialCard);
-                });
+                }
             } else {
                 // Show empty state
                 container.innerHTML = `
@@ -1284,14 +1310,23 @@
         let growthChart, competitorChart, footprintChart, engagementChart, sentimentChart, trafficSourceChart;
 
         function updateChartsWithRealData(data) {
-            // Update growth chart with real social media data
+            // Update growth chart with ONLY real social media data
             if (data.socialMetrics && data.socialMetrics.length > 0 && growthChart) {
-                const labels = data.socialMetrics.map(s => s.platform);
-                const growthData = data.socialMetrics.map(s => s.growth || 0);
+                const realMetrics = data.socialMetrics.filter(m => m.isRealData === true);
                 
-                growthChart.data.labels = labels;
-                growthChart.data.datasets[0].data = growthData;
-                growthChart.update();
+                if (realMetrics.length > 0) {
+                    const labels = realMetrics.map(s => s.platform);
+                    const growthData = realMetrics.map(s => (s.growth || s.monthlyGrowth) || 0);
+                    
+                    growthChart.data.labels = labels;
+                    growthChart.data.datasets[0].data = growthData;
+                    growthChart.update();
+                } else {
+                    // No real data - clear chart
+                    growthChart.data.labels = [];
+                    growthChart.data.datasets[0].data = [];
+                    growthChart.update();
+                }
             }
             
             // Update competitor chart if we have competitors
