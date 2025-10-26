@@ -1215,39 +1215,58 @@
         }
 
         function hideCompetitorSections() {
-            // Hide all competitor-related sections and fake hardcoded data
-            const competitorCards = document.querySelectorAll('.card');
-            competitorCards.forEach(card => {
+            console.log('Hiding fake data sections...');
+            
+            // Hide ALL cards - we'll show them selectively if they have real data
+            const allCards = document.querySelectorAll('.card');
+            allCards.forEach(card => {
                 const title = card.querySelector('.card-title');
-                if (title && (
-                    title.textContent.includes('Competitor') || 
-                    title.textContent.includes('Social Followers') ||
-                    title.textContent.includes('SEO Rankings') ||
-                    title.textContent.includes('Reputation Monitoring') ||
-                    title.textContent.includes('Actionable Insights')
-                )) {
-                    card.style.display = 'none';
+                if (title) {
+                    const titleText = title.textContent.trim();
+                    console.log('Found card:', titleText);
+                    
+                    // Hide everything except the growth charts we're updating
+                    if (titleText.includes('Social Media Growth') || 
+                        titleText.includes('Digital Presence Score') ||
+                        titleText.includes('Benchmarking')) {
+                        // Keep these visible - we'll update with real data
+                        console.log('Keeping visible:', titleText);
+                    } else {
+                        // Hide everything else with fake data
+                        card.style.display = 'none';
+                        console.log('Hiding:', titleText);
+                    }
                 }
             });
             
-            // Hide hardcoded social stats sections with fake data
-            document.querySelectorAll('.social-card').forEach(card => {
-                // Hide all hardcoded social stats - we'll show real ones instead
-                card.style.display = 'none';
+            // Also hide the grid-2 sections that might have fake data
+            document.querySelectorAll('.grid-2').forEach(grid => {
+                // Check if it contains cards we're hiding
+                const cards = grid.querySelectorAll('.card');
+                let hasVisibleCard = false;
+                cards.forEach(card => {
+                    if (card.style.display !== 'none') {
+                        hasVisibleCard = true;
+                    }
+                });
+                if (!hasVisibleCard) {
+                    grid.style.display = 'none';
+                }
             });
             
-            // Add banner explaining data is loading
-            const container = document.querySelector('.container');
-            if (container && analysisData) {
+            // Add banner explaining what's shown
+            const main = document.querySelector('main');
+            if (main && analysisData) {
                 const banner = document.createElement('div');
-                banner.style.cssText = 'background: #dbeafe; border-left: 4px solid #3b82f6; padding: 16px; margin: 20px 0; border-radius: 8px;';
+                banner.style.cssText = 'background: #dbeafe; border-left: 4px solid #3b82f6; padding: 16px; margin: 20px; border-radius: 8px;';
                 banner.innerHTML = `
-                    <strong>📊 Showing Real Data for ${analysisData.companyName}</strong>
+                    <strong>📊 Analytics for ${analysisData.companyName}</strong>
                     <p style="margin: 8px 0 0 0; font-size: 14px; color: #1e40af;">
-                        Charts and metrics are generated from your actual analysis data. Sections with no real data are hidden.
+                        Showing real data from your analysis. Sections with mock/demo data are hidden. 
+                        <a href="/your-metrics" style="color: #3b82f6; text-decoration: underline;">View detailed metrics →</a>
                     </p>
                 `;
-                container.insertBefore(banner, container.firstChild);
+                main.insertBefore(banner, main.firstChild);
             }
         }
 
