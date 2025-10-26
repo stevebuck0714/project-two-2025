@@ -1138,15 +1138,128 @@
     </footer>
 
     <script>
+        // Load real analysis data
+        let analysisData = null;
+
+        // Load most recent analysis on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadMostRecentAnalysis();
+        });
+
+        async function loadMostRecentAnalysis() {
+            try {
+                const response = await fetch('/api/analyses');
+                if (!response.ok) throw new Error('Failed to load analyses');
+                
+                const analyses = await response.json();
+                
+                if (analyses.length === 0) {
+                    console.log('No analyses found, showing demo data');
+                    return; // Keep demo data
+                }
+                
+                const analysisId = analyses[0].id;
+                await loadAnalysisData(analysisId);
+            } catch (error) {
+                console.error('Failed to load analysis:', error);
+            }
+        }
+
+        async function loadAnalysisData(id) {
+            try {
+                const response = await fetch(`/api/analysis/${id}`);
+                if (!response.ok) throw new Error('Failed to load analysis');
+                
+                analysisData = await response.json();
+                console.log('Loaded analysis data:', analysisData);
+                
+                // Update page with real data
+                updatePageWithRealData(analysisData);
+            } catch (error) {
+                console.error('Error loading analysis data:', error);
+            }
+        }
+
+        function updatePageWithRealData(data) {
+            // Update company name
+            const companyNameElement = document.querySelector('.header h1');
+            if (companyNameElement) {
+                companyNameElement.textContent = `${data.companyName} - Analytics Dashboard`;
+            }
+            
+            // Update social metrics in the page
+            updateSocialMetrics(data);
+            
+            // Update digital presence score
+            updateDigitalPresenceScore(data);
+            
+            // Update charts with real data
+            updateChartsWithRealData(data);
+            
+            // Hide competitors section if no competitors
+            if (!data.competitors || data.competitors.length === 0) {
+                hideCompetitorSections();
+            }
+        }
+
+        function updateSocialMetrics(data) {
+            // Update social media metrics if we have real data
+            if (data.socialMetrics && data.socialMetrics.length > 0) {
+                console.log('Updating with real social metrics:', data.socialMetrics);
+            }
+        }
+
+        function updateDigitalPresenceScore(data) {
+            const scoreElement = document.querySelector('.score-value');
+            if (scoreElement && data.digitalPresenceScore) {
+                scoreElement.textContent = data.digitalPresenceScore;
+            }
+        }
+
+        function hideCompetitorSections() {
+            // Hide all competitor-related sections
+            const competitorCards = document.querySelectorAll('.card');
+            competitorCards.forEach(card => {
+                const title = card.querySelector('.card-title');
+                if (title && (title.textContent.includes('Competitor') || title.textContent.includes('Social Followers'))) {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        let growthChart, competitorChart, footprintChart, engagementChart, sentimentChart, trafficSourceChart;
+
+        function updateChartsWithRealData(data) {
+            // Update growth chart with real social media data
+            if (data.socialMetrics && data.socialMetrics.length > 0 && growthChart) {
+                const labels = data.socialMetrics.map(s => s.platform);
+                const growthData = data.socialMetrics.map(s => s.growth || 0);
+                
+                growthChart.data.labels = labels;
+                growthChart.data.datasets[0].data = growthData;
+                growthChart.update();
+            }
+            
+            // Update competitor chart if we have competitors
+            if (data.competitors && data.competitors.length > 0 && competitorChart) {
+                const labels = ['You', ...data.competitors.map(c => c.name)];
+                const scores = [data.digitalPresenceScore, ...data.competitors.map(c => c.score || 50)];
+                
+                competitorChart.data.labels = labels;
+                competitorChart.data.datasets[0].data = scores;
+                competitorChart.update();
+            }
+        }
+
         // Growth Chart
         const growthCtx = document.getElementById('growthChart').getContext('2d');
-        new Chart(growthCtx, {
+        growthChart = new Chart(growthCtx, {
             type: 'bar',
             data: {
                 labels: ['Facebook', '𝕏', 'LinkedIn', 'Instagram'],
                 datasets: [{
                     label: 'Monthly Growth %',
-                    data: [12, 9, 11, 13],
+                    data: [0, 0, 0, 0],
                     backgroundColor: 'rgba(102, 126, 234, 0.8)',
                     borderRadius: 8
                 }]
@@ -1170,13 +1283,13 @@
 
         // Competitor Chart
         const competitorCtx = document.getElementById('competitorChart').getContext('2d');
-        const competitorChart = new Chart(competitorCtx, {
+        competitorChart = new Chart(competitorCtx, {
             type: 'bar',
             data: {
-                labels: ['You', 'Comp A', 'Comp B', 'Comp C'],
+                labels: ['You'],
                 datasets: [{
                     label: 'Digital Presence Score',
-                    data: [75, 92, 58, 48],
+                    data: [75],
                     backgroundColor: ['rgba(102, 126, 234, 0.8)', 'rgba(118, 75, 162, 0.6)', 'rgba(118, 75, 162, 0.4)', 'rgba(118, 75, 162, 0.3)'],
                     borderRadius: 8
                 }]
