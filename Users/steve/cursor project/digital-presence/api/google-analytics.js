@@ -139,13 +139,15 @@ async function getOrganicTrafficData(propertyId, credentials) {
             ? Math.round(((currentVisitors - previousVisitors) / previousVisitors) * 100)
             : 0;
         
-        // Parse landing pages
-        const topPages = (landingPagesResponse.data.rows || []).map(row => ({
-            page: row.dimensionValues[1].value || 'Untitled',
-            url: row.dimensionValues[0].value,
-            visits: parseInt(row.metricValues[0].value || 0),
-            bounceRate: Math.round(parseFloat(row.metricValues[1].value || 0) * 100)
-        }));
+        // Parse landing pages (only if there's actual traffic)
+        const topPages = currentVisitors > 0 
+            ? (landingPagesResponse.data.rows || []).map(row => ({
+                page: row.dimensionValues[1].value || 'Untitled',
+                url: row.dimensionValues[0].value,
+                visits: parseInt(row.metricValues[0].value || 0),
+                bounceRate: Math.round(parseFloat(row.metricValues[1].value || 0) * 100)
+            }))
+            : []; // Empty array when no traffic
         
         // Format session duration
         const minutes = Math.floor(avgSessionSeconds / 60);
@@ -169,6 +171,8 @@ async function getOrganicTrafficData(propertyId, credentials) {
 module.exports = {
     getOrganicTrafficData
 };
+
+
 
 
 

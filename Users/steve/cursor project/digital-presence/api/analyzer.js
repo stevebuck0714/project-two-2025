@@ -127,14 +127,24 @@ async function analyzeCompany(companyData) {
         let organicTrafficData = null;
         
         // Check if property ID was provided for this specific analysis
-        const hasPerAnalysisGA = companyData.gaPropertyId && companyData.gaPropertyId.trim();
+        let hasPerAnalysisGA = companyData.gaPropertyId && companyData.gaPropertyId.trim();
         
         if (hasPerAnalysisGA) {
             try {
-                console.log(`📊 Fetching REAL data from Google Analytics (Property: ${companyData.gaPropertyId})...`);
+                // Normalize Property ID case (common user error: "Properties/" instead of "properties/")
+                let propertyId = companyData.gaPropertyId.trim();
+                if (propertyId.startsWith('Properties/')) {
+                    propertyId = 'properties/' + propertyId.substring('Properties/'.length);
+                    console.log('✅ Auto-corrected Property ID case from "Properties/" to "properties/"');
+                } else if (propertyId.startsWith('PROPERTIES/')) {
+                    propertyId = 'properties/' + propertyId.substring('PROPERTIES/'.length);
+                    console.log('✅ Auto-corrected Property ID case from "PROPERTIES/" to "properties/"');
+                }
+                
+                console.log(`📊 Fetching REAL data from Google Analytics (Property: ${propertyId})...`);
                 const gaCreds = getApiCredentials('googleAnalytics');
                 if (gaCreds && gaCreds.credentials) {
-                    organicTrafficData = await getOrganicTrafficData(companyData.gaPropertyId, gaCreds.credentials);
+                    organicTrafficData = await getOrganicTrafficData(propertyId, gaCreds.credentials);
                     console.log('✅ Real Google Analytics data loaded successfully');
                 } else {
                     console.error('⚠️  Service account credentials not configured. Please set up config/api-credentials.json');
@@ -165,14 +175,14 @@ async function analyzeCompany(companyData) {
             // More realistic growth range: -5% to +15% (avg 5%)
             const trafficGrowth = Math.floor(Math.random() * 21) - 5;
             
-            // Estimate top landing pages
-            const topPages = [
+            // Estimate top landing pages (only if there's traffic)
+            const topPages = estimatedMonthlyVisitors > 0 ? [
                 { page: 'Homepage', url: '/', visits: Math.floor(estimatedMonthlyVisitors * 0.35), bounceRate: 45 + Math.floor(Math.random() * 20) },
                 { page: 'About Us', url: '/about', visits: Math.floor(estimatedMonthlyVisitors * 0.15), bounceRate: 40 + Math.floor(Math.random() * 20) },
                 { page: 'Services', url: '/services', visits: Math.floor(estimatedMonthlyVisitors * 0.20), bounceRate: 35 + Math.floor(Math.random() * 20) },
                 { page: 'Blog', url: '/blog', visits: Math.floor(estimatedMonthlyVisitors * 0.18), bounceRate: 50 + Math.floor(Math.random() * 15) },
                 { page: 'Contact', url: '/contact', visits: Math.floor(estimatedMonthlyVisitors * 0.12), bounceRate: 30 + Math.floor(Math.random() * 20) }
-            ];
+            ] : []; // Empty array when no traffic
             
             // Estimate session duration
             const avgSessionMinutes = Math.floor(Math.random() * 3) + 2;
