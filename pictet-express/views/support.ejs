@@ -1,11 +1,32 @@
 <%- include('partials/header') %>
 <%- include('partials/secondary-nav') %>
 
+<style>
+/* Remove rounded corners and darker borders */
+.contact-card,
+.faq-item {
+    border-radius: 0 !important;
+    border-color: #999 !important;
+}
+
+/* Remove border and shadow from support-section */
+.support-section {
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+/* Darker outline for main container */
+.main-container {
+    border: 3px solid #333 !important;
+    padding: 2rem;
+}
+</style>
+
 <div class="main-container">
     <h1>Support</h1>
     
-    <div class="support-container">
-        <div class="support-section">
+    <div class="support-section">
             <h2>How Can We Help You?</h2>
             <div class="contact-options">
                 <div class="contact-card">
@@ -42,7 +63,6 @@
                 </div>
             </div>
         </div>
-    </div>
 </div>
 
 <%- include('partials/footer') %> 

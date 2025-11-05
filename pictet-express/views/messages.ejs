@@ -1,6 +1,15 @@
 <%- include('partials/header') %>
 <%- include('partials/secondary-nav') %>
 
+<style>
+/* Remove rounded corners and darker borders */
+.messages-section,
+.message-item {
+    border-radius: 0 !important;
+    border-color: #999 !important;
+}
+</style>
+
 <div class="main-container">
     <h1>Messages</h1>
     
@@ -11,71 +20,137 @@
         </div>
         
         <div class="messages-section" id="inbox-section">
-            <div class="message-filters">
-                <button class="btn btn-outline-primary active">All Messages</button>
-                <button class="btn btn-outline-primary">Unread</button>
-                <button class="btn btn-outline-primary">Important</button>
-            </div>
             <div class="message-list">
-                <div class="message-item unread">
-                    <div class="message-header">
-                        <h3>Portfolio Update Available</h3>
-                        <span class="date">Today, 10:30</span>
+                <% if (typeof user !== 'undefined' && user && user.type === 'banker') { %>
+                    <!-- Messages for Banker/Advisor -->
+                    <div class="message-item unread">
+                        <div class="message-header">
+                            <h3>From: John Smith - Portfolio Review Request</h3>
+                            <span class="date">Today, 10:30</span>
+                        </div>
+                        <p class="preview">Hi <%= user.name %>, I would like to schedule a meeting to review my portfolio performance and discuss rebalancing opportunities...</p>
                     </div>
-                    <p class="preview">Your Q2 2024 portfolio review is now available for viewing...</p>
-                </div>
-                <div class="message-item important">
-                    <div class="message-header">
-                        <h3>Investment Opportunity Alert</h3>
-                        <span class="date">Yesterday, 15:45</span>
+                    <div class="message-item important">
+                        <div class="message-header">
+                            <h3>From: Investment Team - New Fund Available</h3>
+                            <span class="date">Yesterday, 15:45</span>
+                        </div>
+                        <p class="preview">New sustainable energy fund launching next week. Please review materials and discuss with your clients...</p>
                     </div>
-                    <p class="preview">New sustainable energy fund launching next week...</p>
-                </div>
-                <div class="message-item">
-                    <div class="message-header">
-                        <h3>Market Update</h3>
-                        <span class="date">2 days ago</span>
+                    <div class="message-item unread">
+                        <div class="message-header">
+                            <h3>From: Marie Dubois - Market Volatility Concerns</h3>
+                            <span class="date">Yesterday, 09:20</span>
+                        </div>
+                        <p class="preview">Given the recent market volatility, I'd appreciate your insights on our current positioning...</p>
                     </div>
-                    <p class="preview">Weekly market insights from our chief investment officer...</p>
-                </div>
+                    <div class="message-item">
+                        <div class="message-header">
+                            <h3>From: Investment Team - Quarterly Market Update</h3>
+                            <span class="date">2 days ago</span>
+                        </div>
+                        <p class="preview">Q2 2024 market analysis and recommendations for client portfolios...</p>
+                    </div>
+                <% } else { %>
+                    <!-- Messages for Client -->
+                    <div class="message-item unread">
+                        <div class="message-header">
+                            <h3>Portfolio Update Available</h3>
+                            <span class="date">Today, 10:30</span>
+                        </div>
+                        <p class="preview">Your Q2 2024 portfolio review is now available for viewing...</p>
+                    </div>
+                    <div class="message-item important">
+                        <div class="message-header">
+                            <h3>Investment Opportunity Alert</h3>
+                            <span class="date">Yesterday, 15:45</span>
+                        </div>
+                        <p class="preview">New sustainable energy fund launching next week...</p>
+                    </div>
+                    <div class="message-item">
+                        <div class="message-header">
+                            <h3>Market Update</h3>
+                            <span class="date">2 days ago</span>
+                        </div>
+                        <p class="preview">Weekly market insights from our chief investment officer...</p>
+                    </div>
+                <% } %>
             </div>
         </div>
         
         <div class="messages-section" id="sent-section" style="display: none;">
             <div class="message-list">
-                <div class="message-item sent">
-                    <div class="message-header">
-                        <h3>To: Alexander Dubois - Investment Opportunity Inquiry</h3>
-                        <span class="date">Today, 14:23</span>
+                <% if (typeof user !== 'undefined' && user && user.type === 'banker') { %>
+                    <!-- Sent Messages for Banker/Advisor -->
+                    <div class="message-item sent">
+                        <div class="message-header">
+                            <h3>To: John Smith - Portfolio Review Response</h3>
+                            <span class="date">Today, 14:23</span>
+                        </div>
+                        <p class="preview">Hi John, Thank you for your inquiry. I've reviewed your portfolio and have some recommendations. Let's schedule a call for next week...</p>
+                        <div class="message-details">
+                            <span class="recipient">Sent to: john.smith@email.com</span>
+                            <span class="status">✓ Delivered</span>
+                        </div>
                     </div>
-                    <p class="preview">Hi Alexander, I'm interested in the BULLETIN BOARD - SECONDARY MARKET OPPORTUNITIES fund and would like to discuss it with you. Please review the attached fund summary and let me know your thoughts. The fund focuses on Secondary Buyout strategies across Various sectors...</p>
-                    <div class="message-details">
-                        <span class="recipient">Sent to: alexander.dubois@lombardodier.com</span>
-                        <span class="status">✓ Delivered</span>
+                    <div class="message-item sent">
+                        <div class="message-header">
+                            <h3>To: Marie Dubois - Market Update</h3>
+                            <span class="date">2 days ago</span>
+                        </div>
+                        <p class="preview">Hello Marie, Regarding the recent market volatility, here are my thoughts on your portfolio positioning...</p>
+                        <div class="message-details">
+                            <span class="recipient">Sent to: marie.dubois@email.com</span>
+                            <span class="status">✓ Read</span>
+                        </div>
                     </div>
-                </div>
-                <div class="message-item sent">
-                    <div class="message-header">
-                        <h3>To: Alexander Dubois - Portfolio Review Request</h3>
-                        <span class="date">2 days ago</span>
+                    <div class="message-item sent">
+                        <div class="message-header">
+                            <h3>To: Investment Team - Client Feedback</h3>
+                            <span class="date">1 week ago</span>
+                        </div>
+                        <p class="preview">Team, Here's a summary of recent client feedback regarding the new sustainable energy fund offerings...</p>
+                        <div class="message-details">
+                            <span class="recipient">Sent to: investment.team@lombardodier.com</span>
+                            <span class="status">✓ Read</span>
+                        </div>
                     </div>
-                    <p class="preview">Hello Alexander, I would like to schedule a review of my current portfolio performance and discuss potential rebalancing opportunities...</p>
-                    <div class="message-details">
-                        <span class="recipient">Sent to: alexander.dubois@lombardodier.com</span>
-                        <span class="status">✓ Read</span>
+                <% } else { %>
+                    <!-- Sent Messages for Client -->
+                    <div class="message-item sent">
+                        <div class="message-header">
+                            <h3>To: <%= (typeof user !== 'undefined' && user && user.banker) ? user.banker : 'My Advisor' %> - Investment Opportunity Inquiry</h3>
+                            <span class="date">Today, 14:23</span>
+                        </div>
+                        <p class="preview">Hi, I'm interested in the BULLETIN BOARD - SECONDARY MARKET OPPORTUNITIES fund and would like to discuss it with you. Please review the attached fund summary and let me know your thoughts...</p>
+                        <div class="message-details">
+                            <span class="recipient">Sent to advisor</span>
+                            <span class="status">✓ Delivered</span>
+                        </div>
                     </div>
-                </div>
-                <div class="message-item sent">
-                    <div class="message-header">
-                        <h3>To: Alexander Dubois - Market Outlook Discussion</h3>
-                        <span class="date">1 week ago</span>
+                    <div class="message-item sent">
+                        <div class="message-header">
+                            <h3>To: <%= (typeof user !== 'undefined' && user && user.banker) ? user.banker : 'My Advisor' %> - Portfolio Review Request</h3>
+                            <span class="date">2 days ago</span>
+                        </div>
+                        <p class="preview">Hello, I would like to schedule a review of my current portfolio performance and discuss potential rebalancing opportunities...</p>
+                        <div class="message-details">
+                            <span class="recipient">Sent to advisor</span>
+                            <span class="status">✓ Read</span>
+                        </div>
                     </div>
-                    <p class="preview">Hi Alexander, Given the recent market volatility, I'd appreciate your insights on our current positioning and any recommended adjustments...</p>
-                    <div class="message-details">
-                        <span class="recipient">Sent to: alexander.dubois@lombardodier.com</span>
-                        <span class="status">✓ Read</span>
+                    <div class="message-item sent">
+                        <div class="message-header">
+                            <h3>To: <%= (typeof user !== 'undefined' && user && user.banker) ? user.banker : 'My Advisor' %> - Market Outlook Discussion</h3>
+                            <span class="date">1 week ago</span>
+                        </div>
+                        <p class="preview">Hi, Given the recent market volatility, I'd appreciate your insights on our current positioning and any recommended adjustments...</p>
+                        <div class="message-details">
+                            <span class="recipient">Sent to advisor</span>
+                            <span class="status">✓ Read</span>
+                        </div>
                     </div>
-                </div>
+                <% } %>
             </div>
         </div>
     </div>
@@ -85,15 +160,15 @@
 .message-tabs {
     display: flex;
     border-bottom: 2px solid #e0e6ed;
-    margin-bottom: 2rem;
+    margin-bottom: 0.75rem;
     gap: 0;
 }
 
 .message-tab {
-    padding: 0.75rem 1.5rem;
+    padding: 0.5rem 1.25rem;
     border: none;
     background: transparent;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 500;
     color: #666;
     cursor: pointer;
@@ -121,8 +196,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 0.5rem;
-    font-size: 0.85rem;
+    margin-top: 0.35rem;
+    font-size: 0.8rem;
     color: #666;
 }
 
@@ -136,7 +211,7 @@
 }
 
 .messages-section {
-    min-height: 400px;
+    min-height: auto;
 }
 </style>
 

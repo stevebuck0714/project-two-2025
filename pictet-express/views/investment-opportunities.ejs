@@ -1,6 +1,17 @@
 <%- include('partials/header') %>
 <%- include('partials/secondary-nav') %>
 
+<style>
+/* Remove rounded corners and darker borders */
+.fund-card,
+.fund-details-container,
+.metric-group,
+.metric-item {
+    border-radius: 0 !important;
+    border-color: #999 !important;
+}
+</style>
+
 <div class="main-container">
     <% if (typeof successMessage !== 'undefined' && successMessage) { %>
         <div class="<%= typeof isError !== 'undefined' && isError ? 'error-message' : 'success-message' %>">
@@ -262,7 +273,7 @@
             <div class="transactions-content">
                 <div class="transactions-header" style="display: flex; justify-content: space-between; align-items: center;">
                     <h2>Your Recent Transactions</h2>
-                    <a href="/contact-advisor" class="btn btn-primary" style="background: #e31e24; color: white; padding: 0.5rem 1rem; text-decoration: none; border-radius: 4px; font-weight: 500;">Contact My Banker</a>
+                    <a href="/contact-advisor" class="btn btn-primary" style="background: #1a5f7a; padding: 0.5rem 1.5rem; border-radius: 4px;">Contact My Advisor</a>
                 </div>
 
                 <div class="transactions-tabs">

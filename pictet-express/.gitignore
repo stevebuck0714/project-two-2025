@@ -1,0 +1,9 @@
+node_modules/
+.env
+.DS_Store
+
+# User data files
+data/posted-investments.json
+data/sessions.json
+data/client-mandates.json
+data/resolved-alerts.json

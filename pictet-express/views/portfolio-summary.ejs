@@ -681,8 +681,9 @@
             </div>
         </div>
 
-        <div style="width:100%; display:flex; justify-content:flex-end; margin-top: 24px;">
-            <button id="build-portfolio-btn" style="background: #e31e24; color: #fff; border: none; border-radius: 6px; padding: 0.85rem 2.2rem; font-size: 1.1rem; font-weight: bold; box-shadow: 0 2px 8px rgba(0,0,0,0.10); cursor: pointer;">Build Portfolio</button>
+        <div style="width:100%; display:flex; justify-content:space-between; align-items:center; margin-top: 24px;">
+            <div id="mandate-save-status" style="font-size: 0.95rem; font-weight: 600;"></div>
+            <button id="save-mandates-btn" style="background: #003f5c; color: #fff; border: none; border-radius: 6px; padding: 0.85rem 2.2rem; font-size: 1.1rem; font-weight: bold; box-shadow: 0 2px 8px rgba(0,0,0,0.10); cursor: pointer;">Save Selections</button>
         </div>
     </div>
 
@@ -766,8 +767,9 @@
 .metric-item {
     background: white;
     padding: 1rem;
-    border-radius: 8px;
+    border-radius: 0 !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #999 !important;
 }
 
 .metric-label {
@@ -792,9 +794,10 @@
 .chart-section {
     background: white;
     padding: 1rem;
-    border-radius: 8px;
+    border-radius: 0 !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     min-height: 350px;
+    border: 1px solid #999 !important;
 }
 
 .chart-section h2 {
@@ -816,10 +819,11 @@
 
 .portfolio-section {
     background: white;
-    border-radius: 8px;
+    border-radius: 0 !important;
     padding: 1rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 0.5rem !important;
+    border: 1px solid #999 !important;
 }
 
 .portfolio-section h2 {
@@ -1161,9 +1165,10 @@ th {
 
 .strategy-column {
     background: white;
-    border-radius: 8px;
+    border-radius: 0 !important;
     padding: 1rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #999 !important;
 }
 
 .strategy-category-container {
@@ -1191,8 +1196,8 @@ th {
 .strategy-option {
     padding: 0.75rem;
     margin-bottom: 0.5rem;
-    border: 1px solid #e0e0e0;
-    border-radius: 6px;
+    border: 1px solid #999 !important;
+    border-radius: 0 !important;
     transition: all 0.3s ease;
 }
 
@@ -1331,8 +1336,9 @@ input[type="checkbox"].strategy-checkbox {
 .pe-investments-container {
     background: white;
     padding: 2rem;
-    border-radius: 8px;
+    border-radius: 0 !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #999 !important;
 }
 
 .pe-investments-container h3 {
@@ -1344,10 +1350,11 @@ input[type="checkbox"].strategy-checkbox {
 .mandate-summary {
     background: #f8f9fa;
     padding: 1rem;
-    border-radius: 6px;
+    border-radius: 0 !important;
     margin-bottom: 1.5rem;
     font-size: 0.9rem;
     border-left: 4px solid #e31e24;
+    border: 1px solid #999 !important;
 }
 
 .opportunity-filters {
@@ -1359,9 +1366,9 @@ input[type="checkbox"].strategy-checkbox {
 
 .filter-btn {
     padding: 0.5rem 1rem;
-    border: 1px solid #e0e0e0;
+    border: 1px solid #999 !important;
     background: white;
-    border-radius: 4px;
+    border-radius: 0 !important;
     cursor: pointer;
     font-size: 0.875rem;
     transition: all 0.3s ease;
@@ -1382,8 +1389,8 @@ input[type="checkbox"].strategy-checkbox {
 
 .opportunity-item {
     background: #fafafa;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
+    border: 1px solid #999 !important;
+    border-radius: 0 !important;
     padding: 1.5rem;
     margin-bottom: 1.5rem;
 }
@@ -1975,52 +1982,153 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initial count
     updateSelectedCount();
     
-    // Build Portfolio button functionality
-    const buildPortfolioBtn = document.getElementById('build-portfolio-btn');
-    if (buildPortfolioBtn) {
-        buildPortfolioBtn.addEventListener('click', function() {
-            const selectedStrategies = [];
-            const checkedBoxes = document.querySelectorAll('.strategy-checkbox:checked');
+    // Save Client Mandates Functionality
+    const saveMandatesBtn = document.getElementById('save-mandates-btn');
+    const mandateSaveStatus = document.getElementById('mandate-save-status');
+    
+    if (saveMandatesBtn) {
+        saveMandatesBtn.addEventListener('click', function() {
+            // Collect all selections
+            const mandateData = {
+                strategies: [],
+                esgScores: {},
+                riskProfile: null,
+                scenarioAnalysis: {}
+            };
             
-            checkedBoxes.forEach(checkbox => {
-                const strategyOption = checkbox.closest('.strategy-option');
-                const strategyName = strategyOption.querySelector('.strategy-name').textContent;
-                const strategyData = checkbox.getAttribute('data-strategy') || strategyName.toLowerCase().replace(/\s+/g, '-');
-                selectedStrategies.push({
-                    name: strategyName,
-                    data: strategyData
-                });
+            // Collect selected strategies
+            document.querySelectorAll('.strategy-checkbox:checked').forEach(checkbox => {
+                mandateData.strategies.push(checkbox.id);
             });
             
-            console.log('Selected strategies:', selectedStrategies);
-            
-            // Get ESG scores
-            const esgScores = {};
-            document.querySelectorAll('.score-input select').forEach(select => {
+            // Collect ESG scores
+            document.querySelectorAll('#temporary-content .score-input select').forEach(select => {
                 if (select.value) {
                     const label = select.closest('.strategy-option').querySelector('.strategy-name').textContent;
-                    esgScores[label] = select.value;
+                    mandateData.esgScores[label] = select.value;
                 }
             });
             
-            console.log('ESG Scores:', esgScores);
-            
-            // Get Risk Profile
-            const riskProfile = document.querySelector('input[name="risk-profile"]:checked');
-            if (riskProfile) {
-                console.log('Risk Profile:', riskProfile.value);
+            // Collect Risk Profile
+            const selectedRiskProfile = document.querySelector('input[name="risk-profile"]:checked');
+            if (selectedRiskProfile) {
+                mandateData.riskProfile = selectedRiskProfile.value;
             }
             
-            // Get Scenario Values
-            const baseCase = document.getElementById('base-case-input')?.value;
-            const downCase = document.getElementById('down-case-input')?.value;
-            const upCase = document.getElementById('up-case-input')?.value;
+            // Collect Scenario Analysis
+            const baseCaseInput = document.getElementById('base-case-input');
+            const downCaseInput = document.getElementById('down-case-input');
+            const upCaseInput = document.getElementById('up-case-input');
             
-            console.log('Scenario Analysis:', { baseCase, downCase, upCase });
+            if (baseCaseInput) mandateData.scenarioAnalysis.baseCase = baseCaseInput.value;
+            if (downCaseInput) mandateData.scenarioAnalysis.downCase = downCaseInput.value;
+            if (upCaseInput) mandateData.scenarioAnalysis.upCase = upCaseInput.value;
             
-            alert(`Portfolio building initiated with ${selectedStrategies.length} selected strategies!`);
+            // Save to backend
+            fetch('/api/save-client-mandates', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(mandateData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    mandateSaveStatus.textContent = '✓ Selections saved successfully!';
+                    mandateSaveStatus.style.color = '#28a745';
+                    setTimeout(() => {
+                        mandateSaveStatus.textContent = '';
+                    }, 3000);
+                } else {
+                    mandateSaveStatus.textContent = '✗ Error saving selections';
+                    mandateSaveStatus.style.color = '#dc3545';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                mandateSaveStatus.textContent = '✗ Error saving selections';
+                mandateSaveStatus.style.color = '#dc3545';
+            });
         });
     }
+    
+    function loadClientMandates() {
+        fetch('/api/get-client-mandates')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success && data.mandates) {
+                    const mandates = data.mandates;
+                    
+                    // Clear all selections first
+                    document.querySelectorAll('.strategy-checkbox').forEach(cb => cb.checked = false);
+                    document.querySelectorAll('#temporary-content .score-input select').forEach(s => s.value = '');
+                    document.querySelectorAll('input[name="risk-profile"]').forEach(r => r.checked = false);
+                    
+                    // Load strategies
+                    if (mandates.strategies) {
+                        mandates.strategies.forEach(strategyId => {
+                            const checkbox = document.getElementById(strategyId);
+                            if (checkbox) checkbox.checked = true;
+                        });
+                        updateSelectedCount();
+                    }
+                    
+                    // Load ESG scores
+                    if (mandates.esgScores) {
+                        document.querySelectorAll('#temporary-content .score-input select').forEach(select => {
+                            const label = select.closest('.strategy-option').querySelector('.strategy-name').textContent;
+                            if (mandates.esgScores[label]) {
+                                select.value = mandates.esgScores[label];
+                            }
+                        });
+                    }
+                    
+                    // Load Risk Profile
+                    if (mandates.riskProfile) {
+                        const riskRadio = document.getElementById(mandates.riskProfile);
+                        if (riskRadio) riskRadio.checked = true;
+                    }
+                    
+                    // Load Scenario Analysis
+                    if (mandates.scenarioAnalysis) {
+                        const baseCaseInput = document.getElementById('base-case-input');
+                        const downCaseInput = document.getElementById('down-case-input');
+                        const upCaseInput = document.getElementById('up-case-input');
+                        
+                        if (baseCaseInput && mandates.scenarioAnalysis.baseCase) {
+                            baseCaseInput.value = mandates.scenarioAnalysis.baseCase;
+                        }
+                        if (downCaseInput && mandates.scenarioAnalysis.downCase) {
+                            downCaseInput.value = mandates.scenarioAnalysis.downCase;
+                        }
+                        if (upCaseInput && mandates.scenarioAnalysis.upCase) {
+                            upCaseInput.value = mandates.scenarioAnalysis.upCase;
+                        }
+                    }
+                    
+                    mandateSaveStatus.textContent = '✓ Selections loaded successfully!';
+                    mandateSaveStatus.style.color = '#28a745';
+                    setTimeout(() => {
+                        mandateSaveStatus.textContent = '';
+                    }, 3000);
+                } else {
+                    mandateSaveStatus.textContent = 'No saved selections found';
+                    mandateSaveStatus.style.color = '#6c757d';
+                    setTimeout(() => {
+                        mandateSaveStatus.textContent = '';
+                    }, 3000);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                mandateSaveStatus.textContent = '✗ Error loading selections';
+                mandateSaveStatus.style.color = '#dc3545';
+            });
+    }
+    
+    // Auto-load saved mandates on page load
+    loadClientMandates();
 });
 </script>
 

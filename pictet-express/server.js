@@ -19,6 +19,12 @@ const viewsPath = path.join(__dirname, 'views');
 console.log('Views directory path:', viewsPath); // Debug log
 app.set('views', viewsPath);
 
+// Disable view caching for development
+app.set('view cache', false);
+
+// Disable ETag for development
+app.set('etag', false);
+
 // Serve static files from public directory
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -1158,6 +1164,191 @@ app.get('/api/portfolios', (req, res) => {
     console.error('Error reading portfolio data:', error);
     res.status(500).json({ error: 'Failed to read portfolio data' });
   }
+});
+
+// Client Mandates Storage
+const clientMandatesFile = path.join(__dirname, 'data', 'client-mandates.json');
+
+function loadClientMandates() {
+    try {
+        if (fs.existsSync(clientMandatesFile)) {
+            const data = fs.readFileSync(clientMandatesFile, 'utf8');
+            return JSON.parse(data);
+        }
+    } catch (error) {
+        console.error('Error loading client mandates:', error);
+    }
+    return {};
+}
+
+function saveClientMandates(mandates) {
+    try {
+        // Ensure data directory exists
+        const dataDir = path.join(__dirname, 'data');
+        if (!fs.existsSync(dataDir)) {
+            fs.mkdirSync(dataDir, { recursive: true });
+        }
+        fs.writeFileSync(clientMandatesFile, JSON.stringify(mandates, null, 2));
+        return true;
+    } catch (error) {
+        console.error('Error saving client mandates:', error);
+        return false;
+    }
+}
+
+// Resolved Alerts Storage
+const resolvedAlertsFile = path.join(__dirname, 'data', 'resolved-alerts.json');
+
+function loadResolvedAlerts() {
+    try {
+        if (fs.existsSync(resolvedAlertsFile)) {
+            const data = fs.readFileSync(resolvedAlertsFile, 'utf8');
+            return JSON.parse(data);
+        }
+    } catch (error) {
+        console.error('Error loading resolved alerts:', error);
+    }
+    return {};
+}
+
+function saveResolvedAlerts(alerts) {
+    try {
+        // Ensure data directory exists
+        const dataDir = path.join(__dirname, 'data');
+        if (!fs.existsSync(dataDir)) {
+            fs.mkdirSync(dataDir, { recursive: true });
+        }
+        fs.writeFileSync(resolvedAlertsFile, JSON.stringify(alerts, null, 2));
+        return true;
+    } catch (error) {
+        console.error('Error saving resolved alerts:', error);
+        return false;
+    }
+}
+
+// API endpoint to save client mandates
+app.post('/api/save-client-mandates', requireAuth, (req, res) => {
+    try {
+        console.log('=== SAVE CLIENT MANDATES REQUEST ===');
+        console.log('User:', req.user);
+        
+        const userId = req.user.username;
+        const mandateData = req.body;
+        
+        console.log('UserId:', userId);
+        console.log('Mandate data received:', JSON.stringify(mandateData, null, 2));
+        
+        // Load existing mandates
+        const allMandates = loadClientMandates();
+        console.log('Existing mandates loaded:', Object.keys(allMandates));
+        
+        // Save mandates for this user
+        allMandates[userId] = {
+            ...mandateData,
+            lastUpdated: new Date().toISOString()
+        };
+        
+        console.log('About to save mandates for user:', userId);
+        
+        // Save to file
+        const success = saveClientMandates(allMandates);
+        
+        console.log('Save result:', success);
+        
+        if (success) {
+            console.log('✓ Client mandates saved successfully');
+            res.json({ success: true, message: 'Client mandates saved successfully' });
+        } else {
+            console.log('✗ Failed to save client mandates');
+            res.status(500).json({ success: false, message: 'Failed to save client mandates' });
+        }
+    } catch (error) {
+        console.error('✗ Error saving client mandates:', error);
+        console.error('Error stack:', error.stack);
+        res.status(500).json({ success: false, message: 'Error saving client mandates: ' + error.message });
+    }
+});
+
+// API endpoint to get client mandates
+app.get('/api/get-client-mandates', requireAuth, (req, res) => {
+    try {
+        const userId = req.user.username;
+        const allMandates = loadClientMandates();
+        
+        console.log('Loading mandates for user:', userId);
+        console.log('Available mandates:', Object.keys(allMandates));
+        
+        if (allMandates[userId]) {
+            res.json({ 
+                success: true, 
+                mandates: allMandates[userId]
+            });
+        } else {
+            res.json({ 
+                success: false, 
+                message: 'No saved client mandates found'
+            });
+        }
+    } catch (error) {
+        console.error('Error loading client mandates:', error);
+        res.status(500).json({ success: false, message: 'Error loading client mandates' });
+    }
+});
+
+// API endpoint to save resolved alerts
+app.post('/api/save-resolved-alert', requireAuth, (req, res) => {
+    try {
+        const userId = req.user.username;
+        const { alertId, resolved } = req.body;
+        
+        console.log('Saving resolved alert for user:', userId, 'Alert ID:', alertId, 'Resolved:', resolved);
+        
+        // Load existing resolved alerts
+        const allAlerts = loadResolvedAlerts();
+        
+        // Initialize user's alerts if not exists
+        if (!allAlerts[userId]) {
+            allAlerts[userId] = {};
+        }
+        
+        // Save or remove the alert resolution
+        if (resolved) {
+            allAlerts[userId][alertId] = true;
+        } else {
+            delete allAlerts[userId][alertId];
+        }
+        
+        // Save to file
+        const success = saveResolvedAlerts(allAlerts);
+        
+        if (success) {
+            res.json({ success: true, message: 'Alert resolution saved' });
+        } else {
+            res.status(500).json({ success: false, message: 'Failed to save alert resolution' });
+        }
+    } catch (error) {
+        console.error('Error saving resolved alert:', error);
+        res.status(500).json({ success: false, message: 'Error saving alert: ' + error.message });
+    }
+});
+
+// API endpoint to get resolved alerts
+app.get('/api/get-resolved-alerts', requireAuth, (req, res) => {
+    try {
+        const userId = req.user.username;
+        const allAlerts = loadResolvedAlerts();
+        
+        console.log('Loading resolved alerts for user:', userId);
+        
+        const userAlerts = allAlerts[userId] || {};
+        res.json({ 
+            success: true, 
+            resolvedAlerts: userAlerts
+        });
+    } catch (error) {
+        console.error('Error loading resolved alerts:', error);
+        res.status(500).json({ success: false, message: 'Error loading alerts' });
+    }
 });
 
 // Risk/Return Profile page

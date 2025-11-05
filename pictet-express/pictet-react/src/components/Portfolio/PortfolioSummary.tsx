@@ -81,7 +81,7 @@ const PortfolioSummary: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/portfolios');
+        const response = await fetch('http://localhost:4001/api/portfolios');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

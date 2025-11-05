@@ -1,6 +1,105 @@
 <%- include('partials/header') %>
 <%- include('partials/secondary-nav') %>
 
+<style>
+/* Alert Card Compact Layout - Single Line Header */
+.alert-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.client-name {
+    font-weight: 600;
+    color: #212529;
+    flex: 0 1 auto;
+}
+
+.alert-time {
+    font-size: 0.85rem;
+    color: #000;
+    font-weight: 600;
+    white-space: nowrap;
+    margin-right: auto;
+    margin-left: 0.5rem;
+}
+
+.alert-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #495057;
+    user-select: none;
+    white-space: nowrap;
+    margin-left: auto;
+}
+
+.alert-checkbox input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    border: 2px solid #000;
+    border-radius: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: white;
+    position: relative;
+    flex-shrink: 0;
+    display: inline-block;
+}
+
+.alert-checkbox input[type="checkbox"]:checked {
+    background-color: white !important;
+    border-color: #000 !important;
+}
+
+.alert-checkbox input[type="checkbox"]:checked::after {
+    content: '✓' !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    color: black !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+    line-height: 1 !important;
+    display: block !important;
+}
+
+.alert-checkbox span {
+    font-weight: 500;
+}
+
+/* Completed state styling */
+.alert-card.completed {
+    opacity: 0.6;
+    background: #f8f9fa;
+}
+
+.alert-card.completed .alert-content {
+    text-decoration: line-through;
+}
+
+.alert-card.completed .client-name {
+    color: #28a745;
+}
+
+/* Make alert content more compact */
+.alert-content p {
+    margin: 0.25rem 0 0 0;
+    line-height: 1.4;
+}
+
+.alert-content strong {
+    display: block;
+    margin-bottom: 0.25rem;
+}
+</style>
+
 <div class="stability-message">
     <h2>Client Alerts & Communications</h2>
 </div>
@@ -14,39 +113,48 @@
                 Portfolio Alerts
             </h3>
             <div class="alert-cards">
-                <div class="alert-card high-priority">
+                <div class="alert-card high-priority" data-alert-id="alert-john-smith-risk">
                     <div class="alert-header">
                         <span class="client-name">John Smith - London, UK</span>
-                        <span class="alert-level high">HIGH</span>
+                        <span class="alert-time">2 hours ago</span>
+                        <label class="alert-checkbox">
+                            <span>Mark Resolved</span>
+                            <input type="checkbox">
+                        </label>
                     </div>
                     <div class="alert-content">
                         <strong>Portfolio Risk Exposure</strong>
                         <p>Portfolio concentration in tech sector exceeds 40% threshold. Recommend diversification review.</p>
-                        <span class="alert-time">2 hours ago</span>
                     </div>
                 </div>
 
-                <div class="alert-card medium-priority">
+                <div class="alert-card medium-priority" data-alert-id="alert-marie-dubois-volatility">
                     <div class="alert-header">
                         <span class="client-name">Marie Dubois - Paris, France</span>
-                        <span class="alert-level medium">MEDIUM</span>
+                        <span class="alert-time">5 hours ago</span>
+                        <label class="alert-checkbox">
+                            <span>Mark Resolved</span>
+                            <input type="checkbox">
+                        </label>
                     </div>
                     <div class="alert-content">
                         <strong>Market Volatility Impact</strong>
                         <p>Portfolio value down 3.2% due to European market volatility. Client may require reassurance call.</p>
-                        <span class="alert-time">5 hours ago</span>
                     </div>
                 </div>
 
-                <div class="alert-card low-priority">
+                <div class="alert-card low-priority" data-alert-id="alert-hans-weber-rebalancing">
                     <div class="alert-header">
                         <span class="client-name">Hans Weber - Munich, Germany</span>
-                        <span class="alert-level low">LOW</span>
+                        <span class="alert-time">1 day ago</span>
+                        <label class="alert-checkbox">
+                            <span>Mark Resolved</span>
+                            <input type="checkbox">
+                        </label>
                     </div>
                     <div class="alert-content">
                         <strong>Rebalancing Opportunity</strong>
                         <p>Portfolio drift detected. Automatic rebalancing available or manual review recommended.</p>
-                        <span class="alert-time">1 day ago</span>
                     </div>
                 </div>
             </div>
@@ -443,6 +551,28 @@
 <script>
 // Add interactive functionality
 document.addEventListener('DOMContentLoaded', function() {
+    // Load resolved alerts from server
+    loadResolvedAlerts();
+    
+    // Add change handlers for checkboxes
+    document.querySelectorAll('.alert-checkbox input[type="checkbox"]').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const alertCard = this.closest('.alert-card');
+            const alertId = alertCard.getAttribute('data-alert-id');
+            const isResolved = this.checked;
+            
+            // Toggle completed state
+            if (isResolved) {
+                alertCard.classList.add('completed');
+            } else {
+                alertCard.classList.remove('completed');
+            }
+            
+            // Save to server
+            saveResolvedAlert(alertId, isResolved);
+        });
+    });
+    
     // Add click handlers for action buttons
     document.querySelectorAll('.btn-small').forEach(button => {
         button.addEventListener('click', function() {
@@ -469,6 +599,57 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Checking for new alerts and communications...');
     }, 30000); // Check every 30 seconds
 });
+
+// Load resolved alerts from server
+async function loadResolvedAlerts() {
+    try {
+        const response = await fetch('/api/get-resolved-alerts');
+        const data = await response.json();
+        
+        if (data.success) {
+            const resolvedAlerts = data.resolvedAlerts;
+            
+            // Apply resolved state to alert cards
+            Object.keys(resolvedAlerts).forEach(alertId => {
+                const alertCard = document.querySelector(`[data-alert-id="${alertId}"]`);
+                if (alertCard) {
+                    const checkbox = alertCard.querySelector('input[type="checkbox"]');
+                    if (checkbox) {
+                        checkbox.checked = true;
+                        alertCard.classList.add('completed');
+                    }
+                }
+            });
+            
+            console.log('Loaded resolved alerts:', Object.keys(resolvedAlerts));
+        }
+    } catch (error) {
+        console.error('Error loading resolved alerts:', error);
+    }
+}
+
+// Save resolved alert to server
+async function saveResolvedAlert(alertId, resolved) {
+    try {
+        const response = await fetch('/api/save-resolved-alert', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ alertId, resolved })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            console.log('Saved alert resolution:', alertId, resolved);
+        } else {
+            console.error('Failed to save alert resolution:', data.message);
+        }
+    } catch (error) {
+        console.error('Error saving alert resolution:', error);
+    }
+}
 </script>
 
 <%- include('partials/footer') %>
