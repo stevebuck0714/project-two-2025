@@ -1,6 +1,10 @@
 <%- include('partials/header') %>
 <%- include('partials/secondary-nav') %>
 
+<div class="stability-message">
+    <h2 id="portfolio-page-title">Portfolio Summary</h2>
+</div>
+
 <!-- Add Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -1947,13 +1951,19 @@ function showPortfolioTab(tabName) {
         content.classList.remove('active');
     });
     
-    // Show the selected tab content
-    if (tabName === 'summary') {
-        document.getElementById('portfolio-summary-content').classList.add('active');
-    } else if (tabName === 'temporary') {
-        document.getElementById('temporary-content').classList.add('active');
-    } else if (tabName === 'pe-investments') {
-        document.getElementById('pe-investments-content').classList.add('active');
+    // Update page title
+    const titleElement = document.getElementById('portfolio-page-title');
+    if (titleElement) {
+        if (tabName === 'summary') {
+            titleElement.textContent = 'Portfolio Summary';
+            document.getElementById('portfolio-summary-content').classList.add('active');
+        } else if (tabName === 'temporary') {
+            titleElement.textContent = 'Client Mandates';
+            document.getElementById('temporary-content').classList.add('active');
+        } else if (tabName === 'pe-investments') {
+            titleElement.textContent = 'Available PE Investments';
+            document.getElementById('pe-investments-content').classList.add('active');
+        }
     }
 }
 

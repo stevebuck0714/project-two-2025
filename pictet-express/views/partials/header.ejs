@@ -18,17 +18,17 @@
             </a>
             <nav class="main-nav">
                 <% if (typeof user !== 'undefined' && user && user.type === 'banker') { %>
-                    <a href="/client-alerts" class="nav-link <%= (typeof path !== 'undefined' && path.includes('/client-alerts')) ? 'active' : '' %>">Client Alerts</a>
+                    <a href="/client-alerts?tab=alerts" class="nav-link <%= (typeof path !== 'undefined' && path.includes('/client-alerts')) ? 'active' : '' %>">Client Alerts</a>
                 <% } %>
                 <a href="/briefing" class="nav-link <%= (typeof path !== 'undefined' && path.includes('/briefing')) ? 'active' : '' %>">Briefing</a>
                 <a href="/portfolio-summary?tab=summary" class="nav-link <%= (typeof path !== 'undefined' && (path.includes('/portfolio-summary') || path.includes('/investment-details'))) ? 'active' : '' %>">Portfolio</a>
                 <a href="/portfolio-builder" class="nav-link <%= (typeof path !== 'undefined' && path.includes('/portfolio-builder')) ? 'active' : '' %>">Portfolio Builder</a>
                 <a href="/bulletin-board?tab=listings" class="nav-link <%= (typeof path !== 'undefined' && (path.includes('/bulletin-board') || path.includes('/fund-details') || path.includes('/create-bid') || path.includes('/contact-advisor') || path.includes('/transactions'))) ? 'active' : '' %>">Bulletin Board</a>
                 <a href="/messages" class="nav-link <%= (typeof path !== 'undefined' && path.includes('/messages')) ? 'active' : '' %>">Messages</a>
-                <a href="/support" class="nav-link <%= (typeof path !== 'undefined' && path.includes('/support')) ? 'active' : '' %>">Support</a>
             </nav>
             <nav class="nav-menu">
-                <a href="/logout" class="login-link">LOGOUT</a>
+                <a href="/support" class="nav-link <%= (typeof path !== 'undefined' && path.includes('/support')) ? 'active' : '' %>">Support</a>
+                <a href="/logout" class="login-link">LOG OUT</a>
             </nav>
         </div>
     </header>
@@ -47,6 +47,12 @@
             <a href="/bulletin-board?tab=listings" class="sub-nav-link" id="listings-link">Your Listings</a>
             <a href="/bulletin-board?tab=secondary" class="sub-nav-link" id="secondary-link">Available Investments</a>
             <a href="/bulletin-board?tab=transactions" class="sub-nav-link" id="transactions-link">Transactions</a>
+        </nav>
+        
+        <!-- Client Alerts Sub-Nav -->
+        <nav class="sub-nav" id="client-alerts-subnav" style="display: none;">
+            <a href="/client-alerts?tab=alerts" class="sub-nav-link" id="alerts-link">Client Alerts</a>
+            <a href="/client-alerts?tab=communications" class="sub-nav-link" id="communications-link">Client Communications</a>
         </nav>
     </div>
     
@@ -94,6 +100,21 @@
                 document.getElementById('transactions-link').classList.add('active');
             } else {
                 document.getElementById('listings-link').classList.add('active');
+            }
+        }
+        else if (path.includes('/client-alerts')) {
+            document.getElementById('client-alerts-subnav').style.display = 'flex';
+            subNavContainer.style.display = 'block';
+            
+            // Set active state for client alerts sub-nav links
+            document.querySelectorAll('#client-alerts-subnav .sub-nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            if (tab === 'communications') {
+                document.getElementById('communications-link').classList.add('active');
+            } else {
+                document.getElementById('alerts-link').classList.add('active');
             }
         }
         else {

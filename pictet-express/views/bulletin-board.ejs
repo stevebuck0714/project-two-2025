@@ -1,6 +1,10 @@
 <%- include('partials/header') %>
 <%- include('partials/secondary-nav') %>
 
+<div class="stability-message">
+    <h2 id="bulletin-page-title">Your Listings</h2>
+</div>
+
 <div class="main-container">
     <% if (typeof successMessage !== 'undefined' && successMessage) { %>
         <div class="<%= typeof isError !== 'undefined' && isError ? 'error-message' : 'success-message' %>">
@@ -634,6 +638,18 @@ function showMarket(market) {
     
     // Show selected market section
     document.getElementById(market + '-market').classList.add('active');
+    
+    // Update page title
+    const titleElement = document.getElementById('bulletin-page-title');
+    if (titleElement) {
+        if (market === 'primary') {
+            titleElement.textContent = 'Your Listings';
+        } else if (market === 'secondary') {
+            titleElement.textContent = 'Available Investments';
+        } else if (market === 'transactions') {
+            titleElement.textContent = 'Transactions';
+        }
+    }
     
     // Add active class to clicked tab (if called from button click)
     if (typeof event !== 'undefined' && event.target) {

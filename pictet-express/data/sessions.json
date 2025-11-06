@@ -13,18 +13,18 @@
     "banker": "Maximilian Dubois - Portfolio Manager",
     "createdAt": "2025-10-01T00:37:40.060Z"
   },
-  "17623808243600.g5zvuo769oa": {
-    "username": "alexandra.steinberg",
-    "type": "banker",
-    "name": "Alexandra Steinberg - Senior Private Banker",
-    "banker": null,
-    "createdAt": "2025-11-05T22:13:44.360Z"
-  },
   "17623818736010.3qmi91phntj": {
     "username": "alexandra.steinberg",
     "type": "banker",
     "name": "Alexandra Steinberg - Senior Private Banker",
     "banker": null,
     "createdAt": "2025-11-05T22:31:13.601Z"
+  },
+  "17624009167110.gmx1yg8k6rw": {
+    "username": "alexandra.steinberg",
+    "type": "banker",
+    "name": "Alexandra Steinberg - Senior Private Banker",
+    "banker": null,
+    "createdAt": "2025-11-06T03:48:36.711Z"
   }
 }

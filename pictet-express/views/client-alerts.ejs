@@ -1,6 +1,10 @@
 <%- include('partials/header') %>
 <%- include('partials/secondary-nav') %>
 
+<div class="stability-message">
+    <h2>Client Portfolio Alerts</h2>
+</div>
+
 <style>
 /* Alert Card Compact Layout - Single Line Header */
 .alert-header {
@@ -98,20 +102,50 @@
     display: block;
     margin-bottom: 0.25rem;
 }
+
+/* Tab content styles */
+.alerts-tab-content {
+    display: block;
+}
+
+/* Communication card header layout - same as alert-header */
+.comm-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.comm-time {
+    font-size: 0.85rem;
+    color: #000;
+    font-weight: 600;
+    white-space: nowrap;
+    margin-right: auto;
+    margin-left: 0.5rem;
+}
+
+/* Completed state for comm cards */
+.comm-card.completed {
+    opacity: 0.6;
+    background: #f8f9fa;
+}
+
+.comm-card.completed .comm-content {
+    text-decoration: line-through;
+}
+
+.comm-card.completed .client-name {
+    color: #28a745;
+}
 </style>
 
-<div class="stability-message">
-    <h2>Client Alerts & Communications</h2>
-</div>
-
 <div class="main-container">
-    <div class="alerts-dashboard">
+    <!-- Client Alerts Tab Content -->
+    <div id="alerts-tab-content" class="alerts-tab-content">
         <!-- Portfolio Alerts Section -->
         <div class="alerts-section">
-            <h3 class="section-title">
-                <span class="alert-icon">⚠️</span>
-                Portfolio Alerts
-            </h3>
             <div class="alert-cards">
                 <div class="alert-card high-priority" data-alert-id="alert-john-smith-risk">
                     <div class="alert-header">
@@ -159,22 +193,22 @@
                 </div>
             </div>
         </div>
-
-        <!-- Communications Section -->
-        <div class="communications-section">
-            <h3 class="section-title">
-                <span class="comm-icon">💬</span>
-                Recent Client Communications
-            </h3>
-            
+        </div>
+        
+        <!-- Client Communications Tab Content -->
+        <div id="communications-tab-content" class="alerts-tab-content" style="display: none;">
             <!-- Portfolio Builder Messages -->
             <div class="comm-category">
                 <h4 class="category-title">Portfolio Builder Inquiries</h4>
                 <div class="comm-cards">
-                    <div class="comm-card">
+                    <div class="comm-card" data-alert-id="comm-sofia-rossi-esg">
                         <div class="comm-header">
                             <span class="client-name">Sofia Rossi - Milan, Italy</span>
                             <span class="comm-time">Yesterday, 2:30 PM</span>
+                            <label class="alert-checkbox">
+                                <span>Mark Resolved</span>
+                                <input type="checkbox">
+                            </label>
                         </div>
                         <div class="comm-content">
                             <strong>ESG Investment Options</strong>
@@ -186,10 +220,14 @@
                         </div>
                     </div>
 
-                    <div class="comm-card">
+                    <div class="comm-card" data-alert-id="comm-carlos-garcia-risk">
                         <div class="comm-header">
                             <span class="client-name">Carlos Garcia - Madrid, Spain</span>
                             <span class="comm-time">2 days ago, 4:15 PM</span>
+                            <label class="alert-checkbox">
+                                <span>Mark Resolved</span>
+                                <input type="checkbox">
+                            </label>
                         </div>
                         <div class="comm-content">
                             <strong>Risk Tolerance Review</strong>
@@ -207,10 +245,14 @@
             <div class="comm-category">
                 <h4 class="category-title">Bulletin Board Updates</h4>
                 <div class="comm-cards">
-                    <div class="comm-card">
+                    <div class="comm-card" data-alert-id="comm-anna-kowalski-sell">
                         <div class="comm-header">
                             <span class="client-name">Anna Kowalski - Warsaw, Poland</span>
                             <span class="comm-time">3 days ago, 10:20 AM</span>
+                            <label class="alert-checkbox">
+                                <span>Mark Resolved</span>
+                                <input type="checkbox">
+                            </label>
                         </div>
                         <div class="comm-content">
                             <strong>Private Equity Position - Looking to Sell</strong>
@@ -222,10 +264,14 @@
                         </div>
                     </div>
 
-                    <div class="comm-card">
+                    <div class="comm-card" data-alert-id="comm-erik-andersson-interest">
                         <div class="comm-header">
                             <span class="client-name">Erik Andersson - Stockholm, Sweden</span>
                             <span class="comm-time">1 week ago, 3:45 PM</span>
+                            <label class="alert-checkbox">
+                                <span>Mark Resolved</span>
+                                <input type="checkbox">
+                            </label>
                         </div>
                         <div class="comm-content">
                             <strong>Available PE Investment Interest</strong>
@@ -237,10 +283,14 @@
                         </div>
                     </div>
 
-                    <div class="comm-card">
+                    <div class="comm-card" data-alert-id="comm-marco-silva-inquiry">
                         <div class="comm-header">
                             <span class="client-name">Marco Silva - Lisbon, Portugal</span>
                             <span class="comm-time">5 days ago, 2:15 PM</span>
+                            <label class="alert-checkbox">
+                                <span>Mark Resolved</span>
+                                <input type="checkbox">
+                            </label>
                         </div>
                         <div class="comm-content">
                             <strong>Secondary Market Inquiry</strong>
@@ -280,16 +330,9 @@
                 </div>
             </div>
         </div>
-    </div>
 </div>
 
 <style>
-.alerts-dashboard {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
 .section-title {
     font-size: 1.5rem;
     font-weight: 600;
@@ -300,12 +343,12 @@
     gap: 10px;
 }
 
-.alerts-section, .communications-section, .summary-section {
-    background: white;
-    border-radius: 12px;
-    padding: 25px;
+.alerts-section, .summary-section {
+    background: transparent;
+    border-radius: 0;
+    padding: 0;
     margin-bottom: 30px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: none;
 }
 
 /* Alert Cards */
@@ -557,15 +600,16 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add change handlers for checkboxes
     document.querySelectorAll('.alert-checkbox input[type="checkbox"]').forEach(checkbox => {
         checkbox.addEventListener('change', function() {
-            const alertCard = this.closest('.alert-card');
-            const alertId = alertCard.getAttribute('data-alert-id');
+            // Find the card (works for both alert-card and comm-card)
+            const card = this.closest('.alert-card') || this.closest('.comm-card');
+            const alertId = card.getAttribute('data-alert-id');
             const isResolved = this.checked;
             
             // Toggle completed state
             if (isResolved) {
-                alertCard.classList.add('completed');
+                card.classList.add('completed');
             } else {
-                alertCard.classList.remove('completed');
+                card.classList.remove('completed');
             }
             
             // Save to server
@@ -575,20 +619,25 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Add click handlers for action buttons
     document.querySelectorAll('.btn-small').forEach(button => {
+        // Store original text on first load
+        if (!button.dataset.originalText) {
+            button.dataset.originalText = button.textContent.trim();
+        }
+        
         button.addEventListener('click', function() {
-            const action = this.textContent.trim();
+            const originalText = this.dataset.originalText;
             const clientName = this.closest('.comm-card').querySelector('.client-name').textContent;
             
             // Simple feedback for demo purposes
             this.style.background = '#2ecc71';
-            this.textContent = '✓ ' + action;
+            this.textContent = '✓ ' + originalText;
             
             setTimeout(() => {
                 this.style.background = '';
-                this.textContent = action;
+                this.textContent = originalText;
             }, 2000);
             
-            console.log(`${action} initiated for ${clientName}`);
+            console.log(`${originalText} initiated for ${clientName}`);
         });
     });
     
@@ -650,6 +699,33 @@ async function saveResolvedAlert(alertId, resolved) {
         console.error('Error saving alert resolution:', error);
     }
 }
+
+// Tab switching for Client Alerts page
+function showAlertsTab(tabName) {
+    // Hide all tab contents
+    document.querySelectorAll('.alerts-tab-content').forEach(content => {
+        content.style.display = 'none';
+    });
+    
+    // Update page title
+    const titleElement = document.querySelector('.stability-message h2');
+    if (titleElement) {
+        if (tabName === 'communications') {
+            titleElement.textContent = 'Client Communications';
+            document.getElementById('communications-tab-content').style.display = 'block';
+        } else {
+            titleElement.textContent = 'Client Portfolio Alerts';
+            document.getElementById('alerts-tab-content').style.display = 'block';
+        }
+    }
+}
+
+// Initialize tab from URL parameter on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const params = new URLSearchParams(window.location.search);
+    const tab = params.get('tab') || 'alerts';
+    showAlertsTab(tab);
+});
 </script>
 
 <%- include('partials/footer') %>
