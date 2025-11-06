@@ -22,7 +22,6 @@
                 <% } %>
                 <a href="/briefing" class="nav-link <%= (typeof path !== 'undefined' && path.includes('/briefing')) ? 'active' : '' %>">Briefing</a>
                 <a href="/portfolio-summary?tab=summary" class="nav-link <%= (typeof path !== 'undefined' && (path.includes('/portfolio-summary') || path.includes('/investment-details'))) ? 'active' : '' %>">Portfolio</a>
-                <a href="/portfolio-builder" class="nav-link <%= (typeof path !== 'undefined' && path.includes('/portfolio-builder')) ? 'active' : '' %>">Portfolio Builder</a>
                 <a href="/bulletin-board?tab=listings" class="nav-link <%= (typeof path !== 'undefined' && (path.includes('/bulletin-board') || path.includes('/fund-details') || path.includes('/create-bid') || path.includes('/contact-advisor') || path.includes('/transactions'))) ? 'active' : '' %>">Bulletin Board</a>
                 <a href="/messages" class="nav-link <%= (typeof path !== 'undefined' && path.includes('/messages')) ? 'active' : '' %>">Messages</a>
             </nav>
@@ -39,13 +38,13 @@
         <nav class="sub-nav" id="portfolio-subnav" style="display: none;">
             <a href="/portfolio-summary?tab=summary" class="sub-nav-link" id="portfolio-summary-link">Portfolio Summary</a>
             <a href="/portfolio-summary?tab=temporary" class="sub-nav-link" id="client-mandates-link">Client Mandates</a>
-            <a href="/portfolio-summary?tab=pe-investments" class="sub-nav-link" id="pe-investments-link">Available PE Investments</a>
         </nav>
         
         <!-- Bulletin Board Sub-Nav -->
         <nav class="sub-nav" id="bulletin-subnav" style="display: none;">
+            <a href="/bulletin-board?tab=secondary" class="sub-nav-link" id="secondary-link">Secondary Market Opportunities</a>
+            <a href="/bulletin-board?tab=pe-investments" class="sub-nav-link" id="pe-investments-link">Available PE Investments</a>
             <a href="/bulletin-board?tab=listings" class="sub-nav-link" id="listings-link">Your Listings</a>
-            <a href="/bulletin-board?tab=secondary" class="sub-nav-link" id="secondary-link">Available Investments</a>
             <a href="/bulletin-board?tab=transactions" class="sub-nav-link" id="transactions-link">Transactions</a>
         </nav>
         
@@ -79,8 +78,6 @@
             
             if (tab === 'temporary') {
                 document.getElementById('client-mandates-link').classList.add('active');
-            } else if (tab === 'pe-investments') {
-                document.getElementById('pe-investments-link').classList.add('active');
             } else {
                 document.getElementById('portfolio-summary-link').classList.add('active');
             }
@@ -96,6 +93,8 @@
             
             if (tab === 'secondary') {
                 document.getElementById('secondary-link').classList.add('active');
+            } else if (tab === 'pe-investments') {
+                document.getElementById('pe-investments-link').classList.add('active');
             } else if (tab === 'transactions') {
                 document.getElementById('transactions-link').classList.add('active');
             } else {

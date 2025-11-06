@@ -17,7 +17,6 @@
     <div class="portfolio-tabs" style="display: none;">
         <button class="portfolio-tab active" onclick="showPortfolioTab('summary')">Portfolio Summary</button>
         <button class="portfolio-tab" onclick="showPortfolioTab('temporary')">Client Mandates</button>
-        <button class="portfolio-tab" onclick="showPortfolioTab('pe-investments')">Available PE Investments</button>
     </div>
 
     <!-- Portfolio Summary Tab Content -->
@@ -191,6 +190,13 @@
                                             <a href="/investment-details/<%= value.toLowerCase().replace(/\s+/g, '-') %>" class="fund-link">
                                                 <%= value %>
                                             </a>
+                                            <% 
+                                            const isListed = typeof postedInvestments !== 'undefined' && postedInvestments.some(posted => 
+                                                posted.fundName.toLowerCase().trim() === value.toLowerCase().trim()
+                                            );
+                                            if (isListed) { %>
+                                                <span class="listed-for-sale-badge">Listed for Sale</span>
+                                            <% } %>
                                         <% } else if (typeof value === 'number') { %>
                                             <%= value.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' }).replace('EUR', '€') %>
                                         <% } else { %>
@@ -208,6 +214,13 @@
                                             <a href="/investment-details/<%= value.toLowerCase().replace(/\s+/g, '-') %>" class="fund-link">
                                                 <%= value %>
                                             </a>
+                                            <% 
+                                            const isListed = typeof postedInvestments !== 'undefined' && postedInvestments.some(posted => 
+                                                posted.fundName.toLowerCase().trim() === value.toLowerCase().trim()
+                                            );
+                                            if (isListed) { %>
+                                                <span class="listed-for-sale-badge">Listed for Sale</span>
+                                            <% } %>
                                         <% } else if (typeof value === 'number') { %>
                                             <%= value.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' }).replace('EUR', '€') %>
                                         <% } else { %>
@@ -691,66 +704,6 @@
         </div>
     </div>
 
-    <!-- Available PE Investments Tab Content -->
-    <div id="pe-investments-content" class="portfolio-tab-content">
-        <div class="pe-investments-container">
-            <h3>Private Equity Opportunities (Matched to Your Mandate)</h3>
-            <div class="mandate-summary">
-                <strong>Mandate summary:</strong> €2.5M commitment target • Strategies: Buyout/Growth/Secondaries/PC • Regions: Europe, North America • Sectors: Healthcare, Technology, Industrial • Ticket size: €250K–€500K • Co-invests: Yes
-            </div>
-            <div class="opportunity-filters">
-                <button class="filter-btn active">Primary</button>
-                <button class="filter-btn">Co-Invest</button>
-                <button class="filter-btn">Secondary</button>
-                <button class="filter-btn">Private Credit</button>
-                <button class="filter-btn">Real Assets</button>
-            </div>
-            <div class="opportunities">
-                <h4>Recommended for You</h4>
-                <div class="opportunity-item">
-                    <div class="opportunity-header">
-                        <h5>Nordic Healthcare Growth Fund V — Growth, Europe</h5>
-                    </div>
-                    <p>Targets healthcare services and medtech across Nordics with proven digitization thesis and 3 successful exits in telehealth.</p>
-                    <div class="opportunity-fit">
-                        <strong>Why it fits:</strong>
-                        <ul>
-                            <li>Healthcare sector alignment with mandate</li>
-                            <li>Fills 2024 vintage gap in growth allocation</li>
-                            <li>Geographic diversification into Nordics</li>
-                        </ul>
-                    </div>
-                    <div class="opportunity-terms">
-                        <strong>Key terms:</strong> €400M target size, 2%/20% fees, 3% GP commitment
-                    </div>
-                    <div class="sponsor-track">
-                        <strong>Sponsor track:</strong> DPI 1.8x / TVPI 2.4x / IRR 19.5%, recent exits include MedCore (3.2x) and HealthTech Solutions (2.8x)
-                    </div>
-                    <div class="opportunity-actions">
-                        <button class="btn-primary">Request Diligence Pack</button>
-                        <button class="btn-secondary">Soft-Circle €350K</button>
-                        <button class="btn-outline">Speak to Banker</button>
-                    </div>
-                </div>
-                <div class="opportunity-item">
-                    <div class="opportunity-header">
-                        <h5>European Software Secondary Portfolio — Secondary</h5>
-                    </div>
-                    <p>Portfolio rebalance opportunity from large pension fund seeking liquidity, featuring high-quality B2B software assets.</p>
-                    <div class="opportunity-fit">
-                        <strong>Deal angle:</strong> adds Software/Tech exposure without vintage drift, accelerated DPI path, fee-efficient exposure to mature assets.
-                    </div>
-                    <div class="opportunity-scenario">
-                        <strong>Scenario:</strong> adds Technology exposure without vintage drift, targets 2.5x MOIC over 3-4 years.
-                    </div>
-                    <div class="opportunity-actions">
-                        <button class="btn-primary">View Model</button>
-                        <button class="btn-secondary">Hold/Pass</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <style>
@@ -913,6 +866,20 @@ th {
 .fund-link:hover {
     color: #002b3f;
     text-decoration: underline;
+}
+
+.listed-for-sale-badge {
+    display: inline-block;
+    margin-left: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    background: #ffc107;
+    color: #000;
+    font-weight: 600;
+    font-size: 0.75rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    vertical-align: middle;
 }
 
 /* Marketable Securities specific styles */
@@ -1336,153 +1303,6 @@ input[type="checkbox"].strategy-checkbox {
     margin-top: 0.5rem;
 }
 
-/* Available PE Investments Styles */
-.pe-investments-container {
-    background: white;
-    padding: 2rem;
-    border-radius: 0 !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border: 1px solid #999 !important;
-}
-
-.pe-investments-container h3 {
-    margin: 0 0 1rem 0;
-    color: #333;
-    font-size: 1.5rem;
-}
-
-.mandate-summary {
-    background: #f8f9fa;
-    padding: 1rem;
-    border-radius: 0 !important;
-    margin-bottom: 1.5rem;
-    font-size: 0.9rem;
-    border-left: 4px solid #e31e24;
-    border: 1px solid #999 !important;
-}
-
-.opportunity-filters {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-}
-
-.filter-btn {
-    padding: 0.5rem 1rem;
-    border: 1px solid #999 !important;
-    background: white;
-    border-radius: 0 !important;
-    cursor: pointer;
-    font-size: 0.875rem;
-    transition: all 0.3s ease;
-}
-
-.filter-btn.active,
-.filter-btn:hover {
-    background: #e31e24;
-    color: white;
-    border-color: #e31e24;
-}
-
-.opportunities h4 {
-    margin: 0 0 1rem 0;
-    color: #333;
-    font-size: 1.2rem;
-}
-
-.opportunity-item {
-    background: #fafafa;
-    border: 1px solid #999 !important;
-    border-radius: 0 !important;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-}
-
-.opportunity-header h5 {
-    margin: 0 0 0.75rem 0;
-    color: #e31e24;
-    font-size: 1.1rem;
-    font-weight: 600;
-}
-
-.opportunity-item p {
-    margin: 0 0 1rem 0;
-    color: #666;
-    line-height: 1.5;
-}
-
-.opportunity-fit,
-.opportunity-terms,
-.opportunity-scenario,
-.sponsor-track {
-    margin: 1rem 0;
-    padding: 0.75rem;
-    background: white;
-    border-radius: 4px;
-    border-left: 3px solid #e31e24;
-}
-
-.opportunity-fit ul {
-    margin: 0.5rem 0 0 0;
-    padding-left: 1.5rem;
-}
-
-.opportunity-fit li {
-    margin-bottom: 0.25rem;
-    color: #666;
-}
-
-.opportunity-actions {
-    display: flex;
-    gap: 0.75rem;
-    margin-top: 1rem;
-    flex-wrap: wrap;
-}
-
-.btn-primary,
-.btn-secondary,
-.btn-outline {
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    font-size: 0.875rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    border: 1px solid;
-}
-
-.btn-primary {
-    background: #e31e24;
-    color: white;
-    border-color: #e31e24;
-}
-
-.btn-primary:hover {
-    background: #c4161b;
-}
-
-.btn-secondary {
-    background: #6c757d;
-    color: white;
-    border-color: #6c757d;
-}
-
-.btn-secondary:hover {
-    background: #545b62;
-}
-
-.btn-outline {
-    background: transparent;
-    color: #e31e24;
-    border-color: #e31e24;
-}
-
-.btn-outline:hover {
-    background: #e31e24;
-    color: white;
-}
 </style>
 
 <script>
@@ -1960,9 +1780,6 @@ function showPortfolioTab(tabName) {
         } else if (tabName === 'temporary') {
             titleElement.textContent = 'Client Mandates';
             document.getElementById('temporary-content').classList.add('active');
-        } else if (tabName === 'pe-investments') {
-            titleElement.textContent = 'Available PE Investments';
-            document.getElementById('pe-investments-content').classList.add('active');
         }
     }
 }

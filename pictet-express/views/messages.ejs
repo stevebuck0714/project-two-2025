@@ -28,54 +28,54 @@
                     <!-- Messages for Banker/Advisor -->
                     <div class="message-item unread">
                         <div class="message-header">
-                            <h3>From: John Smith - Portfolio Review Request</h3>
+                            <h3>From: John Smith - Secondary Position Inquiry</h3>
                             <span class="date">Today, 10:30</span>
                         </div>
-                        <p class="preview">Hi <%= user.name %>, I would like to schedule a meeting to review my portfolio performance and discuss rebalancing opportunities...</p>
+                        <p class="preview">Hi <%= user.name %>, I'm interested in acquiring a secondary position in LOMBARD ODIER SPV 2. Can you provide details on the current NAV, DPI, and remaining commitment obligations?...</p>
                     </div>
                     <div class="message-item important">
                         <div class="message-header">
-                            <h3>From: Investment Team - New Fund Available</h3>
+                            <h3>From: Marie Dubois - List PE Investment for Sale</h3>
                             <span class="date">Yesterday, 15:45</span>
                         </div>
-                        <p class="preview">New sustainable energy fund launching next week. Please review materials and discuss with your clients...</p>
+                        <p class="preview">I would like to list my Lombard Odier Real Estate Fund position for sale on the bulletin board. Could you help me with the pricing and listing process?...</p>
                     </div>
                     <div class="message-item unread">
                         <div class="message-header">
-                            <h3>From: Marie Dubois - Market Volatility Concerns</h3>
+                            <h3>From: Hans Weber - Nordic Healthcare Growth Fund V Interest</h3>
                             <span class="date">Yesterday, 09:20</span>
                         </div>
-                        <p class="preview">Given the recent market volatility, I'd appreciate your insights on our current positioning...</p>
+                        <p class="preview">I noticed the Nordic Healthcare Growth Fund V in the Available PE Investments section. Given my mandate focus on healthcare, I'd like to discuss a €350K commitment...</p>
                     </div>
                     <div class="message-item">
                         <div class="message-header">
-                            <h3>From: Investment Team - Quarterly Market Update</h3>
+                            <h3>From: Sofia Rossi - Co-Investment Opportunity Questions</h3>
                             <span class="date">2 days ago</span>
                         </div>
-                        <p class="preview">Q2 2024 market analysis and recommendations for client portfolios...</p>
+                        <p class="preview">Can we discuss the co-investment opportunity in the European Software Secondary Portfolio? I need more details on the underlying companies and fee structure...</p>
                     </div>
                 <% } else { %>
                     <!-- Messages for Client -->
                     <div class="message-item unread">
                         <div class="message-header">
-                            <h3>Portfolio Update Available</h3>
+                            <h3>From: <%= (typeof user !== 'undefined' && user && user.banker) ? user.banker : 'Your Advisor' %> - Secondary Market Match Found</h3>
                             <span class="date">Today, 10:30</span>
                         </div>
-                        <p class="preview">Your Q2 2024 portfolio review is now available for viewing...</p>
+                        <p class="preview">Good news! A secondary position matching your investment criteria has become available: LOMBARD ODIER SPV 3 (Infrastructure). Current DPI 0.92x, €900K remaining commitment...</p>
                     </div>
                     <div class="message-item important">
                         <div class="message-header">
-                            <h3>Investment Opportunity Alert</h3>
+                            <h3>From: <%= (typeof user !== 'undefined' && user && user.banker) ? user.banker : 'Your Advisor' %> - New PE Investment Opportunity</h3>
                             <span class="date">Yesterday, 15:45</span>
                         </div>
-                        <p class="preview">New sustainable energy fund launching next week...</p>
+                        <p class="preview">Nordic Healthcare Growth Fund V is now available for commitment. This aligns perfectly with your healthcare sector mandate. €400M target size, 2%/20% fees, GP track record shows 19.5% IRR...</p>
                     </div>
                     <div class="message-item">
                         <div class="message-header">
-                            <h3>Market Update</h3>
+                            <h3>From: <%= (typeof user !== 'undefined' && user && user.banker) ? user.banker : 'Your Advisor' %> - Listing Confirmation</h3>
                             <span class="date">2 days ago</span>
                         </div>
-                        <p class="preview">Weekly market insights from our chief investment officer...</p>
+                        <p class="preview">Your Lombard Odier Infrastructure Fund II position has been successfully listed on the bulletin board. We've already received two inquiries from interested buyers...</p>
                     </div>
                 <% } %>
             </div>
@@ -87,10 +87,10 @@
                     <!-- Sent Messages for Banker/Advisor -->
                     <div class="message-item sent">
                         <div class="message-header">
-                            <h3>To: John Smith - Portfolio Review Response</h3>
+                            <h3>To: John Smith - Secondary Position Details</h3>
                             <span class="date">Today, 14:23</span>
                         </div>
-                        <p class="preview">Hi John, Thank you for your inquiry. I've reviewed your portfolio and have some recommendations. Let's schedule a call for next week...</p>
+                        <p class="preview">Hi John, Regarding LOMBARD ODIER SPV 2: Current NAV is €6.2M, DPI of 0.85x, total called €3.8M with €700K remaining commitment. The fund has performed well with strong exits expected in 2025. Let's discuss pricing...</p>
                         <div class="message-details">
                             <span class="recipient">Sent to: john.smith@email.com</span>
                             <span class="status">✓ Delivered</span>
@@ -98,10 +98,10 @@
                     </div>
                     <div class="message-item sent">
                         <div class="message-header">
-                            <h3>To: Marie Dubois - Market Update</h3>
+                            <h3>To: Marie Dubois - Listing Your PE Position</h3>
                             <span class="date">2 days ago</span>
                         </div>
-                        <p class="preview">Hello Marie, Regarding the recent market volatility, here are my thoughts on your portfolio positioning...</p>
+                        <p class="preview">Hello Marie, I've prepared the documentation to list your Real Estate Fund position on the bulletin board. Based on current NAV and market conditions, I recommend pricing at 95% of NAV. Attached is the term sheet for your review...</p>
                         <div class="message-details">
                             <span class="recipient">Sent to: marie.dubois@email.com</span>
                             <span class="status">✓ Read</span>
@@ -109,12 +109,12 @@
                     </div>
                     <div class="message-item sent">
                         <div class="message-header">
-                            <h3>To: Investment Team - Client Feedback</h3>
+                            <h3>To: Hans Weber - Nordic Healthcare Growth Fund V Diligence Pack</h3>
                             <span class="date">1 week ago</span>
                         </div>
-                        <p class="preview">Team, Here's a summary of recent client feedback regarding the new sustainable energy fund offerings...</p>
+                        <p class="preview">Hans, Attached is the complete diligence pack for Nordic Healthcare Growth Fund V. Key highlights: proven digitization thesis, 3 successful telehealth exits, strong LP base. The €350K commitment fits perfectly within your mandate. Let's schedule a call...</p>
                         <div class="message-details">
-                            <span class="recipient">Sent to: investment.team@lombardodier.com</span>
+                            <span class="recipient">Sent to: hans.weber@email.com</span>
                             <span class="status">✓ Read</span>
                         </div>
                     </div>
@@ -122,10 +122,10 @@
                     <!-- Sent Messages for Client -->
                     <div class="message-item sent">
                         <div class="message-header">
-                            <h3>To: <%= (typeof user !== 'undefined' && user && user.banker) ? user.banker : 'My Advisor' %> - Investment Opportunity Inquiry</h3>
+                            <h3>To: <%= (typeof user !== 'undefined' && user && user.banker) ? user.banker : 'My Advisor' %> - LOMBARD ODIER SPV 1 Secondary Interest</h3>
                             <span class="date">Today, 14:23</span>
                         </div>
-                        <p class="preview">Hi, I'm interested in the BULLETIN BOARD - SECONDARY MARKET OPPORTUNITIES fund and would like to discuss it with you. Please review the attached fund summary and let me know your thoughts...</p>
+                        <p class="preview">Hi, I'm interested in acquiring the LOMBARD ODIER SPV 1 secondary position listed on the bulletin board. Can you provide more details on the underlying portfolio companies, vintage diversification, and expected J-curve trajectory?...</p>
                         <div class="message-details">
                             <span class="recipient">Sent to advisor</span>
                             <span class="status">✓ Delivered</span>
@@ -133,10 +133,10 @@
                     </div>
                     <div class="message-item sent">
                         <div class="message-header">
-                            <h3>To: <%= (typeof user !== 'undefined' && user && user.banker) ? user.banker : 'My Advisor' %> - Portfolio Review Request</h3>
+                            <h3>To: <%= (typeof user !== 'undefined' && user && user.banker) ? user.banker : 'My Advisor' %> - List PE Investment for Sale</h3>
                             <span class="date">2 days ago</span>
                         </div>
-                        <p class="preview">Hello, I would like to schedule a review of my current portfolio performance and discuss potential rebalancing opportunities...</p>
+                        <p class="preview">Hello, I'd like to list my Lombard Odier Infrastructure Fund position on the bulletin board to create liquidity for a new healthcare opportunity. What's the process and timeline for listing? Can you help with pricing guidance?...</p>
                         <div class="message-details">
                             <span class="recipient">Sent to advisor</span>
                             <span class="status">✓ Read</span>
@@ -144,10 +144,10 @@
                     </div>
                     <div class="message-item sent">
                         <div class="message-header">
-                            <h3>To: <%= (typeof user !== 'undefined' && user && user.banker) ? user.banker : 'My Advisor' %> - Market Outlook Discussion</h3>
+                            <h3>To: <%= (typeof user !== 'undefined' && user && user.banker) ? user.banker : 'My Advisor' %> - European Software Secondary Portfolio Questions</h3>
                             <span class="date">1 week ago</span>
                         </div>
-                        <p class="preview">Hi, Given the recent market volatility, I'd appreciate your insights on our current positioning and any recommended adjustments...</p>
+                        <p class="preview">Hi, I'm considering the European Software Secondary Portfolio from the Available PE Investments. Can we discuss the underlying assets, expected hold period, and how this fits with my existing tech exposure? I'm thinking €300K commitment...</p>
                         <div class="message-details">
                             <span class="recipient">Sent to advisor</span>
                             <span class="status">✓ Read</span>

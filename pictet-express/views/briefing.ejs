@@ -206,99 +206,6 @@
             </div>
         </div>
 
-    <!-- Section 2: News & Insights -->
-    <div class="briefing-section">
-        <h3>News & Insights (Personalized)</h3>
-        <div class="news-filters">
-            <button class="filter-btn active">All</button>
-            <button class="filter-btn">Macro</button>
-            <button class="filter-btn">Rates</button>
-            <button class="filter-btn">Credit</button>
-            <button class="filter-btn">PE/VC</button>
-            <button class="filter-btn">Energy</button>
-            <button class="filter-btn">Healthcare</button>
-            <button class="filter-btn">Europe</button>
-            <button class="filter-btn">Asia</button>
-        </div>
-        <div class="news-toggle">
-            <label class="toggle-switch">
-                <input type="checkbox" checked>
-                <span class="toggle-slider"></span>
-                Only show items relevant to my investment policy
-            </label>
-        </div>
-        <div class="news-stories">
-            <h4>Top 3 Stories for You</h4>
-            <div class="story-item">
-                <div class="story-header">
-                    <h5>Fed Signals Pause in Rate Hikes Amid Banking Sector Concerns</h5>
-                    <div class="story-badges">
-                        <span class="badge external">External</span>
-                        <span class="read-time">3 min</span>
-                    </div>
-                </div>
-                <p>Recent banking sector volatility and slowing credit growth suggest the Federal Reserve may pause rate increases. This shift could improve private equity exit conditions and reduce debt financing costs for portfolio companies.</p>
-                <p class="story-impact"><strong>Why it matters to you:</strong> affects PE Growth/Buyout allocations, reduces refinancing pressure on portfolio companies, improves exit multiples outlook.</p>
-            </div>
-            <div class="story-item">
-                <div class="story-header">
-                    <h5>Healthcare IT M&A Activity Surges in Q4</h5>
-                    <div class="story-badges">
-                        <span class="badge bank">From Your Bank</span>
-                    </div>
-                </div>
-                <p>Strategic acquirers are actively pursuing healthcare technology assets, driving valuation multiples higher. Our analysis shows 15x+ EV/Revenue for quality SaaS platforms.</p>
-                <p class="story-impact"><strong>Our view:</strong> Tactical overweight Healthcare theme given strong exit demand and secular tailwinds.</p>
-            </div>
-            <div class="story-item">
-                <div class="story-header">
-                    <h5>EU Carried Interest Tax Changes Delayed to 2025</h5>
-                    <div class="story-badges">
-                        <span class="badge regulatory">Regulatory</span>
-                    </div>
-                </div>
-                <p>Proposed changes to carried interest taxation in key EU jurisdictions pushed back one year, providing clarity for fund formation and LP commitments.</p>
-                <p class="story-impact"><strong>Action:</strong> review affected vehicles by March 31st; banker can assist with impact assessment.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Section 2.5: Portfolio Company News -->
-    <div class="briefing-section">
-        <h3>Portfolio Company News</h3>
-        <div class="portfolio-news-header">
-            <p>Recent news and developments for companies in your marketable securities portfolio</p>
-        </div>
-        <div class="portfolio-news-grid">
-            <% portfolioCompanyNews.forEach(news => { %>
-                <div class="portfolio-news-item">
-                    <div class="news-item-header">
-                        <div class="company-info">
-                            <span class="company-symbol"><%= news.symbol %></span>
-                            <span class="company-name"><%= news.company %></span>
-                        </div>
-                        <div class="news-meta">
-                            <span class="news-time"><%= news.timeAgo %></span>
-                            <span class="news-impact <%= news.impact.toLowerCase() %>"><%= news.impact %></span>
-                        </div>
-                    </div>
-                    <h4 class="news-headline"><%= news.headline %></h4>
-                    <p class="news-summary"><%= news.summary %></p>
-                    <div class="news-relevance">
-                        <strong>Portfolio Impact:</strong> <%= news.relevance %>
-                    </div>
-                    <div class="news-source">
-                        <span>Source: <%= news.source %></span>
-                    </div>
-                </div>
-            <% }); %>
-        </div>
-        <div class="portfolio-news-actions">
-            <button class="btn-secondary">View All Portfolio News</button>
-            <button class="btn-outline">Set News Alerts</button>
-        </div>
-    </div>
-
     <!-- Section 3: Macro Snapshot -->
     <div class="briefing-section">
         <h3>Macro Snapshot</h3>
@@ -442,20 +349,6 @@
             <a href="#" class="doc-link">K-1 / Tax package</a>
         </div>
         <button class="btn-primary">Secure message your banker</button>
-    </div>
-
-    <!-- Section 8: Themes -->
-    <div class="briefing-section">
-        <h3>Themes You Follow</h3>
-        <div class="theme-chips">
-            <span class="theme-chip active">Chips & Compute</span>
-            <span class="theme-chip active">Energy Transition</span>
-            <span class="theme-chip active">HealthTech</span>
-            <span class="theme-chip">Software Roll-ups</span>
-            <span class="theme-chip">Europe Lower-Mid Market</span>
-            <span class="theme-chip add">+ Add / Edit themes</span>
-        </div>
-        <p class="theme-description">Add or edit themes to tune your news and opportunity feed.</p>
     </div>
 
     <!-- Section 9: Education -->

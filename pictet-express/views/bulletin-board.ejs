@@ -16,12 +16,16 @@
     
     <div class="opportunities-container">
         <div class="market-tabs" style="display: none;">
+            <button class="market-tab <%= activeTab === 'secondary' ? 'active' : '' %>" onclick="showMarket('secondary')">Secondary Market Opportunities</button>
+            <button class="market-tab <%= activeTab === 'pe-investments' ? 'active' : '' %>" onclick="showMarket('pe-investments')">Available PE Investments</button>
             <button class="market-tab <%= activeTab === 'listings' ? 'active' : (activeTab === 'primary' ? 'active' : '') %>" onclick="showMarket('primary')">Your Listings</button>
-            <button class="market-tab <%= activeTab === 'secondary' ? 'active' : '' %>" onclick="showMarket('secondary')">Available Investments</button>
             <button class="market-tab <%= activeTab === 'transactions' ? 'active' : '' %>" onclick="showMarket('transactions')">Transactions</button>
         </div>
 
         <section id="primary-market" class="market-section active">
+            <div class="add-listing-header">
+                <a href="/portfolio-summary" class="btn btn-add-listing">+ Add a New Listing</a>
+            </div>
             <div class="funds-container">
                 <!-- Dynamic Posted Investments -->
                 <% if (typeof postedInvestments !== 'undefined' && postedInvestments.length > 0) { %>
@@ -76,7 +80,7 @@
                             </div>
 
                             <div class="fund-action">
-                                <a href="/fund-details?market=secondary&fund=<%= investment.type.toLowerCase().replace(/\s+/g, '') %>&source=posted&name=<%= encodeURIComponent(investment.fundName) %>" class="btn btn-primary">View Details</a>
+                                <a href="/fund-details?market=secondary&fund=<%= investment.type.toLowerCase().replace(/\s+/g, '') %>&source=posted&name=<%= encodeURIComponent(investment.fundName) %>&tab=listings" class="btn btn-primary">View Details</a>
                                 <button onclick="removeInvestment('<%= encodeURIComponent(investment.fundName) %>')" class="btn btn-danger remove-btn">Remove</button>
                             </div>
                         </div>
@@ -87,7 +91,7 @@
                 <% if (typeof postedInvestments === 'undefined' || postedInvestments.length === 0) { %>
                     <div class="empty-listings">
                         <h3>No investments posted for sale</h3>
-                        <p>Visit your <a href="/portfolio-summary">Portfolio Summary</a> and click "Post for Sale" on any investment to list it here.</p>
+                        <p>Click "+ Add a New Listing" above to select a PE investment from your portfolio to list for sale.</p>
                     </div>
                 <% } %>
             </div>
@@ -146,7 +150,7 @@
                     </div>
 
                     <div class="fund-action">
-                        <a href="/fund-details?market=secondary&fund=buyout&fundId=spv1" class="btn btn-primary">View Investment</a>
+                        <a href="/fund-details?market=secondary&fund=buyout&fundId=spv1&tab=secondary" class="btn btn-primary">View Investment</a>
                     </div>
                 </div>
 
@@ -201,7 +205,7 @@
                     </div>
 
                     <div class="fund-action">
-                        <a href="/fund-details?market=secondary&fund=venture&fundId=spv2" class="btn btn-primary">View Investment</a>
+                        <a href="/fund-details?market=secondary&fund=venture&fundId=spv2&tab=secondary" class="btn btn-primary">View Investment</a>
                     </div>
                 </div>
 
@@ -256,7 +260,108 @@
                     </div>
 
                     <div class="fund-action">
-                        <a href="/fund-details?market=secondary&fund=infrastructure&fundId=spv3" class="btn btn-primary">View Investment</a>
+                        <a href="/fund-details?market=secondary&fund=infrastructure&fundId=spv3&tab=secondary" class="btn btn-primary">View Investment</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Available Funds Container -->
+            <div class="investment-capacity-container">
+                <div class="capacity-header">
+                    <h3>Available Funds</h3>
+                </div>
+                <div class="available-funds-display">
+                    <div class="funds-amount">
+                        <div class="funds-value">€ 12.500.000</div>
+                        <div class="funds-label">Available for Investment</div>
+                    </div>
+                    <div class="capacity-status">
+                        <div class="status-badge status-approved">
+                            <span class="status-icon">✓</span>
+                            <span class="status-message">Investment Approved</span>
+                        </div>
+                        <div class="status-note">Sufficient funds available for full position purchase</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pe-investments-market" class="market-section">
+            <div class="pe-investments-container">
+                <h3>Available LOMBARD ODIER Investments</h3>
+                <div class="mandate-summary">
+                    <strong>Mandate summary:</strong> €2.5M commitment target • Strategies: Buyout/Growth/Secondaries/PC • Regions: Europe, North America • Sectors: Healthcare, Technology, Industrial • Ticket size: €250K–€500K • Co-invests: Yes
+                </div>
+                <div class="opportunity-filters">
+                    <button class="filter-btn active">Primary</button>
+                    <button class="filter-btn">Co-Invest</button>
+                    <button class="filter-btn">Secondary</button>
+                    <button class="filter-btn">Private Credit</button>
+                    <button class="filter-btn">Real Assets</button>
+                </div>
+                <div class="opportunities">
+                    <h4>Recommended for You</h4>
+                    <div class="opportunity-item">
+                        <div class="opportunity-header">
+                            <h5>Nordic Healthcare Growth Fund V — Growth, Europe</h5>
+                        </div>
+                        <p>Targets healthcare services and medtech across Nordics with proven digitization thesis and 3 successful exits in telehealth.</p>
+                        <div class="opportunity-fit">
+                            <strong>Why it fits:</strong>
+                            <ul>
+                                <li>Healthcare sector alignment with mandate</li>
+                                <li>Fills 2024 vintage gap in growth allocation</li>
+                                <li>Geographic diversification into Nordics</li>
+                            </ul>
+                        </div>
+                        <div class="opportunity-terms">
+                            <strong>Key terms:</strong> €400M target size, 2%/20% fees, 3% GP commitment
+                        </div>
+                        <div class="sponsor-track">
+                            <strong>Sponsor track:</strong> DPI 1.8x / TVPI 2.4x / IRR 19.5%, recent exits include MedCore (3.2x) and HealthTech Solutions (2.8x)
+                        </div>
+                        <div class="opportunity-actions">
+                            <button class="btn-primary">Contact My Advisor</button>
+                            <button class="btn-secondary">Not Interested</button>
+                            <button class="btn-outline">View Fund Information Package</button>
+                        </div>
+                    </div>
+                    <div class="opportunity-item">
+                        <div class="opportunity-header">
+                            <h5>European Software Secondary Portfolio — Secondary</h5>
+                        </div>
+                        <p>Portfolio rebalance opportunity from large pension fund seeking liquidity, featuring high-quality B2B software assets.</p>
+                        <div class="opportunity-fit">
+                            <strong>Deal angle:</strong> adds Software/Tech exposure without vintage drift, accelerated DPI path, fee-efficient exposure to mature assets.
+                        </div>
+                        <div class="opportunity-scenario">
+                            <strong>Scenario:</strong> adds Technology exposure without vintage drift, targets 2.5x MOIC over 3-4 years.
+                        </div>
+                        <div class="opportunity-actions">
+                            <button class="btn-primary">Contact My Advisor</button>
+                            <button class="btn-secondary">Not Interested</button>
+                            <button class="btn-outline">View Fund Information Package</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Available Funds Container -->
+            <div class="investment-capacity-container">
+                <div class="capacity-header">
+                    <h3>Available Funds</h3>
+                </div>
+                <div class="available-funds-display">
+                    <div class="funds-amount">
+                        <div class="funds-value">€ 12.500.000</div>
+                        <div class="funds-label">Available for Investment</div>
+                    </div>
+                    <div class="capacity-status">
+                        <div class="status-badge status-approved">
+                            <span class="status-icon">✓</span>
+                            <span class="status-message">Investment Approved</span>
+                        </div>
+                        <div class="status-note">Sufficient funds available for full position purchase</div>
                     </div>
                 </div>
             </div>
@@ -645,7 +750,9 @@ function showMarket(market) {
         if (market === 'primary') {
             titleElement.textContent = 'Your Listings';
         } else if (market === 'secondary') {
-            titleElement.textContent = 'Available Investments';
+            titleElement.textContent = 'Secondary Market Opportunities';
+        } else if (market === 'pe-investments') {
+            titleElement.textContent = 'Available PE Investments';
         } else if (market === 'transactions') {
             titleElement.textContent = 'Transactions';
         }
@@ -667,6 +774,8 @@ document.addEventListener('DOMContentLoaded', function() {
             showMarket('primary');
         } else if (tab === 'secondary') {
             showMarket('secondary');
+        } else if (tab === 'pe-investments') {
+            showMarket('pe-investments');
         } else if (tab === 'transactions') {
             showMarket('transactions');
         }
@@ -748,7 +857,35 @@ function removeInvestment(fundName) {
     border-color: #bd2130;
 }
 
-/* Fix Available Investments Table Layout */
+/* Add Listing Header */
+.add-listing-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1.5rem;
+    padding: 0 1rem;
+}
+
+.btn-add-listing {
+    background-color: #28a745;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    border: 2px solid #28a745;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.btn-add-listing:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+}
+
+/* Fix Secondary Market Opportunities Table Layout */
 .fund-details, .fund-metrics {
     table-layout: fixed;
     width: 100%;
@@ -892,6 +1029,261 @@ function removeInvestment(fundName) {
 .negative-percent {
     color: #e31e24;
     font-weight: bold;
+}
+
+/* Available PE Investments Styles */
+.pe-investments-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 0 !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #999 !important;
+}
+
+.pe-investments-container h3 {
+    margin: 0 0 1rem 0;
+    color: #333;
+    font-size: 1.5rem;
+}
+
+.mandate-summary {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 0 !important;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    border-left: 4px solid #e31e24;
+    border: 1px solid #999 !important;
+}
+
+.opportunity-filters {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid #999 !important;
+    background: white;
+    border-radius: 0 !important;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+    background: #e31e24;
+    color: white;
+    border-color: #e31e24;
+}
+
+.opportunities h4 {
+    margin: 0 0 1rem 0;
+    color: #333;
+    font-size: 1.2rem;
+}
+
+.opportunity-item {
+    background: #fafafa;
+    border: 1px solid #999 !important;
+    border-radius: 0 !important;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.opportunity-header h5 {
+    margin: 0 0 0.75rem 0;
+    color: #e31e24;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.opportunity-item p {
+    margin: 0 0 1rem 0;
+    color: #666;
+    line-height: 1.5;
+}
+
+.opportunity-fit,
+.opportunity-terms,
+.opportunity-scenario,
+.sponsor-track {
+    margin: 1rem 0;
+    padding: 0.75rem;
+    background: white;
+    border-radius: 4px;
+    border-left: 3px solid #e31e24;
+}
+
+.opportunity-fit ul {
+    margin: 0.5rem 0 0 0;
+    padding-left: 1.5rem;
+}
+
+.opportunity-fit li {
+    margin-bottom: 0.25rem;
+    color: #666;
+}
+
+.opportunity-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-outline {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    border: 1px solid;
+}
+
+.btn-primary {
+    background: #1a5f7a;
+    color: white;
+    border-color: #1a5f7a;
+}
+
+.btn-primary:hover {
+    background: #164d61;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background: #545b62;
+}
+
+.btn-outline {
+    background: transparent;
+    color: #e31e24;
+    border-color: #e31e24;
+}
+
+.btn-outline:hover {
+    background: #e31e24;
+    color: white;
+}
+
+/* Available Funds Container */
+.investment-capacity-container {
+    background: linear-gradient(135deg, #f8fafc 0%, #e8f5e8 100%);
+    border: 1px solid #d4e6d4;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.capacity-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #4caf50;
+}
+
+.capacity-header h3 {
+    color: #2e7d32;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.available-funds-display {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+.funds-amount {
+    text-align: left;
+}
+
+.funds-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2e7d32;
+    margin-bottom: 0.5rem;
+}
+
+.funds-label {
+    font-size: 1rem;
+    color: #666;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.capacity-status {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid #4caf50;
+    flex-shrink: 0;
+}
+
+.status-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.status-approved {
+    color: #2e7d32;
+}
+
+.status-icon {
+    background: #4caf50;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.status-message {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.status-note {
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .available-funds-display {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+    }
+
+    .funds-amount {
+        text-align: center;
+    }
 }
 </style>
 

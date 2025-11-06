@@ -10,7 +10,12 @@
         <div class="back-navigation">
             <a href="/portfolio-summary" class="back-link">← Back to Portfolio Summary</a>
         </div>
-        <h1>Investment Summary: <%= fundName %></h1>
+        <div class="header-title-row">
+            <h1>Investment Summary: <%= fundName %></h1>
+            <% if (typeof isAlreadyListed !== 'undefined' && isAlreadyListed) { %>
+                <span class="listed-badge">Listed for Sale</span>
+            <% } %>
+        </div>
     </div>
 
     <!-- Key Metrics Cards -->
@@ -159,7 +164,11 @@
         <a href="/fund-details?market=primary&fund=<%= investment.Type.toLowerCase().replace(' ', '') %>" class="action-btn primary">View Fund Details</a>
         <a href="/contact-advisor?fund=<%= fundName.toLowerCase().replace(/\s+/g, '-') %>" class="action-btn secondary">Contact Advisor</a>
         <a href="/transactions" class="action-btn">View Transactions</a>
-        <a href="/post-for-sale/<%= fundName.toLowerCase().replace(/\s+/g, '-') %>" class="action-btn post-sale">Post for Sale</a>
+        <% if (typeof isAlreadyListed !== 'undefined' && isAlreadyListed) { %>
+            <a href="/bulletin-board?tab=listings" class="action-btn already-listed">Already Listed - View on Bulletin Board</a>
+        <% } else { %>
+            <a href="/post-for-sale/<%= fundName.toLowerCase().replace(/\s+/g, '-') %>" class="action-btn post-sale">Post for Sale</a>
+        <% } %>
     </div>
 </div>
 
@@ -450,6 +459,35 @@
 
 .action-btn.post-sale:hover {
     background: #047857;
+}
+
+.action-btn.already-listed {
+    background: #6c757d;
+    color: white;
+    cursor: default;
+}
+
+.action-btn.already-listed:hover {
+    background: #5a6268;
+}
+
+.header-title-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.listed-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: #ffc107;
+    color: #000;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 @media (max-width: 768px) {

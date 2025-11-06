@@ -60,117 +60,6 @@
     color: #721c24;
 }
 
-/* Investment Capacity Container Styles */
-.investment-capacity-container {
-    background: linear-gradient(135deg, #f8fafc 0%, #e8f5e8 100%);
-    border: 1px solid #d4e6d4;
-    border-radius: 12px;
-    padding: 1.5rem;
-    margin-top: 2rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-.capacity-header {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 2px solid #4caf50;
-}
-
-.capacity-header h3 {
-    color: #2e7d32;
-    font-size: 1.4rem;
-    font-weight: 600;
-    margin: 0;
-}
-
-.available-funds-display {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 2rem;
-}
-
-.funds-amount {
-    text-align: left;
-}
-
-.funds-value {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #2e7d32;
-    margin-bottom: 0.5rem;
-}
-
-.funds-label {
-    font-size: 1rem;
-    color: #666;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.capacity-status {
-    background: white;
-    padding: 1rem;
-    border-radius: 8px;
-    text-align: center;
-    border: 1px solid #4caf50;
-    flex-shrink: 0;
-}
-
-.status-badge {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
-}
-
-.status-approved {
-    color: #2e7d32;
-}
-
-.status-icon {
-    background: #4caf50;
-    color: white;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
-    font-weight: bold;
-}
-
-.status-message {
-    font-size: 1.1rem;
-    font-weight: 600;
-}
-
-.status-note {
-    font-size: 0.9rem;
-    color: #666;
-    font-style: italic;
-}
-
-@media (max-width: 768px) {
-    .available-funds-display {
-        flex-direction: column;
-        text-align: center;
-        gap: 1.5rem;
-    }
-    
-    .funds-amount {
-        text-align: center;
-    }
-    
-    .funds-value {
-        font-size: 2rem;
-    }
-}
-
 /* Fix Fund Summary Grid Column Widths */
 .fund-metrics-grid {
     display: grid;
@@ -204,7 +93,7 @@
         <% } else if (typeof isPostedInvestment !== 'undefined' && isPostedInvestment) { %>
             Bulletin Board - Your Listings - Fund Details
         <% } else { %>
-            Bulletin Board - Available Investments - Fund Details
+            Bulletin Board - Secondary Market Opportunities - Fund Details
         <% } %>
     </h1>
     
@@ -381,25 +270,6 @@
                 </div>
             </div>
 
-            <!-- Available Funds Container -->
-            <div class="investment-capacity-container">
-                <div class="capacity-header">
-                    <h3>Available Funds</h3>
-                </div>
-                <div class="available-funds-display">
-                    <div class="funds-amount">
-                        <div class="funds-value">€ 12.500.000</div>
-                        <div class="funds-label">Available for Investment</div>
-                    </div>
-                    <div class="capacity-status">
-                        <div class="status-badge status-approved">
-                            <span class="status-icon">✓</span>
-                            <span class="status-message">Investment Approved</span>
-                        </div>
-                        <div class="status-note">Sufficient funds available for full position purchase</div>
-                    </div>
-                </div>
-            </div>
         </section>
 
         <section id="fund-positions" class="fund-section">

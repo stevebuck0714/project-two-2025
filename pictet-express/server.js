@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
+const crypto = require('crypto');
 const XLSX = require('xlsx');
 const { parse: csvParse } = require('csv-parse');
 const app = express();
@@ -167,59 +168,60 @@ const users = {
     'sophie.laurent': { password: 'venturis0801', type: 'client', name: 'Sophie Laurent - Brussels, Belgium', banker: 'Catherine Whitmore - Wealth Advisor' }
 };
 
-// Session middleware (persistent file storage)
-const SESSIONS_FILE = path.join(__dirname, 'data', 'sessions.json');
-let sessions = {};
+// Session middleware (cookie-based for serverless compatibility)
+// Secret key for signing session cookies (in production, use environment variable)
+const SESSION_SECRET = process.env.SESSION_SECRET || 'your-secret-key-change-in-production';
 
-// Load sessions from file on startup
-function loadSessions() {
-    try {
-        if (fs.existsSync(SESSIONS_FILE)) {
-            const data = fs.readFileSync(SESSIONS_FILE, 'utf8');
-            sessions = JSON.parse(data);
-            console.log('Loaded', Object.keys(sessions).length, 'sessions from file');
-        } else {
-            console.log('No sessions file found, starting with empty sessions');
-        }
-    } catch (error) {
-        console.error('Error loading sessions:', error);
-        sessions = {};
-    }
+// Helper function to create signed session cookie
+function createSessionCookie(userData) {
+    const sessionData = JSON.stringify(userData);
+    const signature = crypto
+        .createHmac('sha256', SESSION_SECRET)
+        .update(sessionData)
+        .digest('hex');
+    
+    return Buffer.from(JSON.stringify({
+        data: sessionData,
+        signature: signature
+    })).toString('base64');
 }
 
-// Save sessions to file
-function saveSessions() {
+// Helper function to verify and parse session cookie
+function parseSessionCookie(cookie) {
     try {
-        // Ensure data directory exists
-        const dataDir = path.join(__dirname, 'data');
-        if (!fs.existsSync(dataDir)) {
-            fs.mkdirSync(dataDir, { recursive: true });
-        }
+        const decoded = JSON.parse(Buffer.from(cookie, 'base64').toString('utf8'));
+        const expectedSignature = crypto
+            .createHmac('sha256', SESSION_SECRET)
+            .update(decoded.data)
+            .digest('hex');
         
-        fs.writeFileSync(SESSIONS_FILE, JSON.stringify(sessions, null, 2));
-        console.log('Saved', Object.keys(sessions).length, 'sessions to file');
+        if (decoded.signature === expectedSignature) {
+            return JSON.parse(decoded.data);
+        }
     } catch (error) {
-        console.error('Error saving sessions:', error);
+        console.error('Error parsing session cookie:', error);
     }
+    return null;
 }
-
-// Load sessions on server startup
-loadSessions();
 
 // Middleware to check authentication
 function requireAuth(req, res, next) {
-    const sessionId = req.headers.cookie?.match(/sessionId=([^;]+)/)?.[1];
+    const sessionCookie = req.headers.cookie?.match(/sessionData=([^;]+)/)?.[1];
     
-    console.log('Auth check for:', req.path, 'Session ID:', sessionId ? sessionId.substring(0, 10) + '...' : 'none');
+    console.log('Auth check for:', req.path, 'Session cookie:', sessionCookie ? 'present' : 'none');
     
-    if (sessionId && sessions[sessionId]) {
-        req.user = sessions[sessionId];
-        console.log('Auth successful for user:', sessions[sessionId].username);
-        next();
-    } else {
-        console.log('Auth failed - redirecting to login. Available sessions:', Object.keys(sessions).length);
-        res.redirect('/login');
+    if (sessionCookie) {
+        const userData = parseSessionCookie(decodeURIComponent(sessionCookie));
+        if (userData) {
+            req.user = userData;
+            console.log('Auth successful for user:', userData.username);
+            next();
+            return;
+        }
     }
+    
+    console.log('Auth failed - redirecting to login');
+    res.redirect('/login');
 }
 
 // Login page route
@@ -233,9 +235,8 @@ app.post('/login', (req, res) => {
     const user = users[username];
     
     if (user && user.password === password) {
-        // Create session
-        const sessionId = Date.now().toString() + Math.random().toString(36);
-        sessions[sessionId] = {
+        // Create session data
+        const userData = {
             username: username,
             type: user.type,
             name: user.name,
@@ -243,13 +244,13 @@ app.post('/login', (req, res) => {
             createdAt: new Date().toISOString()
         };
         
-        // Save sessions to file
-        saveSessions();
+        // Create signed session cookie
+        const sessionCookie = createSessionCookie(userData);
         
         // Set cookie with better settings
-        res.setHeader('Set-Cookie', `sessionId=${sessionId}; HttpOnly; Path=/; Max-Age=86400; SameSite=Lax`);
+        res.setHeader('Set-Cookie', `sessionData=${encodeURIComponent(sessionCookie)}; HttpOnly; Path=/; Max-Age=86400; SameSite=Lax`);
         
-        console.log('User logged in:', username, 'Session ID:', sessionId);
+        console.log('User logged in:', username);
         
         // Redirect based on user type
         if (user.type === 'banker') {
@@ -264,14 +265,9 @@ app.post('/login', (req, res) => {
 
 // Logout route
 app.get('/logout', (req, res) => {
-    const sessionId = req.headers.cookie?.match(/sessionId=([^;]+)/)?.[1];
-    if (sessionId) {
-        console.log('User logged out, Session ID:', sessionId);
-        delete sessions[sessionId];
-        saveSessions(); // Save sessions after logout
-    }
+    console.log('User logged out');
     // Clear cookie
-    res.setHeader('Set-Cookie', 'sessionId=; HttpOnly; Path=/; Max-Age=0');
+    res.setHeader('Set-Cookie', 'sessionData=; HttpOnly; Path=/; Max-Age=0');
     res.redirect('/login');
 });
 
@@ -286,9 +282,10 @@ app.use((req, res, next) => {
     res.locals.path = req.path;
     
     // Make user session available to all views
-    const sessionId = req.headers.cookie?.match(/sessionId=([^;]+)/)?.[1];
-    if (sessionId && sessions[sessionId]) {
-        res.locals.user = sessions[sessionId];
+    const sessionCookie = req.headers.cookie?.match(/sessionData=([^;]+)/)?.[1];
+    if (sessionCookie) {
+        const userData = parseSessionCookie(decodeURIComponent(sessionCookie));
+        res.locals.user = userData || null;
     } else {
         res.locals.user = null;
     }
@@ -452,27 +449,29 @@ function processPortfolioData(portfolios) {
 
 // Root route - redirect to login if not authenticated
 app.get('/', (req, res) => {
-    const sessionId = req.headers.cookie?.match(/sessionId=([^;]+)/)?.[1];
-    if (sessionId && sessions[sessionId]) {
-        // User is logged in, show the banker home page
-        res.render('index', { user: sessions[sessionId] });
-    } else {
-        // User not logged in, redirect to login
-        res.redirect('/login');
+    const sessionCookie = req.headers.cookie?.match(/sessionData=([^;]+)/)?.[1];
+    if (sessionCookie) {
+        const userData = parseSessionCookie(decodeURIComponent(sessionCookie));
+        if (userData) {
+            // User is logged in, show the banker home page
+            res.render('index', { user: userData });
+            return;
+        }
     }
+    // User not logged in, redirect to login
+    res.redirect('/login');
 });
 
 // Client Alerts route - only for Private Bankers
 app.get('/client-alerts', requireAuth, (req, res) => {
-    const sessionId = req.headers.cookie?.match(/sessionId=([^;]+)/)?.[1];
-    const session = sessions[sessionId];
+    // req.user is set by requireAuth middleware
     
     // Only allow bankers to access this page
-    if (session.type !== 'banker') {
+    if (req.user.type !== 'banker') {
         return res.status(403).send('Access denied. This page is only available to Private Bankers.');
     }
     
-    res.render('client-alerts', { user: session });
+    res.render('client-alerts', { user: req.user });
 });
 
 app.get('/briefing', requireAuth, (req, res) => {
@@ -621,6 +620,7 @@ app.get('/portfolio-summary', requireAuth, (req, res) => {
             processedData,
             portfolio1,
             portfolio2,
+            postedInvestments, // Pass posted investments to check which are listed
             formatNumber // Pass formatNumber explicitly
         });
     } catch (error) {
@@ -631,10 +631,6 @@ app.get('/portfolio-summary', requireAuth, (req, res) => {
 
 app.get('/liquidity-summary', requireAuth, (req, res) => {
     res.render('liquidity-summary');
-});
-
-app.get('/portfolio-builder', requireAuth, (req, res) => {
-    res.render('portfolio-builder');
 });
 
 // Redirect old investment-opportunities route to bulletin-board
@@ -1140,11 +1136,18 @@ app.get('/investment-details/:fundName', requireAuth, (req, res) => {
             nextCapitalCall: new Date(Date.now() + Math.random() * 180 * 24 * 60 * 60 * 1000).toLocaleDateString('en-GB')
         };
         
+        // Check if this investment is already listed for sale
+        const fundNameToCheck = investment['Fund Name'].toLowerCase().trim();
+        const isAlreadyListed = postedInvestments.some(posted => 
+            posted.fundName.toLowerCase().trim() === fundNameToCheck
+        );
+        
         res.render('investment-details', {
             investment,
             kpis,
             portfolioNumber,
-            fundName: investment['Fund Name']
+            fundName: investment['Fund Name'],
+            isAlreadyListed: isAlreadyListed
         });
         
     } catch (error) {
