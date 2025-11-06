@@ -1525,29 +1525,29 @@ div[class*="-item"],
     font-size: 2rem;
 }
 
-.lombard-odier-header {
+.ubs-asset-management-header {
     display: flex;
     align-items: center;
     gap: 4px;
 }
 
-.lombard-odier-header img {
+.ubs-asset-management-header img {
     height: 9px;
     width: auto;
 }
 
-.lombard-odier-header .lombard-odier-text {
+.ubs-asset-management-header .ubs-asset-management-text {
     font-family: "Times New Roman", Times, serif;
     display: inline-block;
 }
 
 /* For smaller headers */
-.lombard-odier-header.small img {
+.ubs-asset-management-header.small img {
     height: 6px;
 }
 
 /* For larger headers */
-.lombard-odier-header.large img {
+.ubs-asset-management-header.large img {
     height: 12px;
 }
 
