@@ -637,7 +637,13 @@ app.get('/portfolio-builder', requireAuth, (req, res) => {
     res.render('portfolio-builder');
 });
 
+// Redirect old investment-opportunities route to bulletin-board
 app.get('/investment-opportunities', requireAuth, (req, res) => {
+    const tab = req.query.tab || 'listings';
+    res.redirect(`/bulletin-board?tab=${tab}`);
+});
+
+app.get('/bulletin-board', requireAuth, (req, res) => {
     const tab = req.query.tab || 'primary';
     const postedFund = req.query.posted || null;
     const message = req.query.message || null;
@@ -652,7 +658,7 @@ app.get('/investment-opportunities', requireAuth, (req, res) => {
         displayMessage = message;
     }
     
-    res.render('investment-opportunities', {
+    res.render('bulletin-board', {
         postedInvestments: postedInvestments,
         activeTab: tab,
         successMessage: displayMessage,
@@ -662,7 +668,7 @@ app.get('/investment-opportunities', requireAuth, (req, res) => {
 
 // Redirect old transactions route to bulletin board with transactions tab
 app.get('/transactions', requireAuth, (req, res) => {
-    res.redirect('/investment-opportunities?tab=transactions');
+    res.redirect('/bulletin-board?tab=transactions');
 });
 
 app.get('/messages', requireAuth, (req, res) => {
@@ -977,7 +983,7 @@ app.get('/post-for-sale/:fundName', (req, res) => {
         
         if (alreadyPosted) {
             console.log('Investment already posted for sale:', investment['Fund Name']);
-            return res.redirect('/investment-opportunities?tab=listings&message=' + encodeURIComponent(`${investment['Fund Name']} is already posted for sale!`));
+            return res.redirect('/bulletin-board?tab=listings&message=' + encodeURIComponent(`${investment['Fund Name']} is already posted for sale!`));
         }
         
         // Add to posted investments
@@ -999,8 +1005,8 @@ app.get('/post-for-sale/:fundName', (req, res) => {
         
         console.log('Investment posted for sale:', postedInvestment);
         
-        // Redirect to investment opportunities page with success message
-        res.redirect('/investment-opportunities?tab=listings&posted=' + encodeURIComponent(investment['Fund Name']));
+        // Redirect to bulletin board page with success message
+        res.redirect('/bulletin-board?tab=listings&posted=' + encodeURIComponent(investment['Fund Name']));
         
     } catch (error) {
         console.error('Error posting investment for sale:', error);

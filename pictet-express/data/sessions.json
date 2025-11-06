@@ -6,11 +6,25 @@
     "banker": null,
     "createdAt": "2025-09-29T00:49:23.207Z"
   },
-  "17592788411530.u37l4df22na": {
+  "17592790600600.tsyyhx4j37o": {
+    "username": "marco.silva",
+    "type": "client",
+    "name": "Marco Silva - Lisbon, Portugal",
+    "banker": "Maximilian Dubois - Portfolio Manager",
+    "createdAt": "2025-10-01T00:37:40.060Z"
+  },
+  "17623808243600.g5zvuo769oa": {
     "username": "alexandra.steinberg",
     "type": "banker",
     "name": "Alexandra Steinberg - Senior Private Banker",
     "banker": null,
-    "createdAt": "2025-10-01T00:34:01.153Z"
+    "createdAt": "2025-11-05T22:13:44.360Z"
+  },
+  "17623818736010.3qmi91phntj": {
+    "username": "alexandra.steinberg",
+    "type": "banker",
+    "name": "Alexandra Steinberg - Senior Private Banker",
+    "banker": null,
+    "createdAt": "2025-11-05T22:31:13.601Z"
   }
 }

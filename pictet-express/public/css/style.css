@@ -14,9 +14,14 @@ body {
 
 .main-container {
     max-width: 1400px !important;
-    margin: 0 auto !important;
+    margin-top: 3rem !important;
+    margin-bottom: 0 !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
     padding: 0 2rem !important;
     width: 100% !important;
+    border: 2px solid #dee2e6 !important;
+    border-radius: 4px !important;
 }
 
 .main-content,
@@ -139,7 +144,7 @@ div[class*="-item"],
 .header {
     background: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 1rem 0 0.5rem 0;
+    padding: 0;
 }
 
 .header-content {
@@ -173,7 +178,7 @@ div[class*="-item"],
     color: #333;
     font-weight: 500;
     font-size: 1.1rem;
-    padding: 0.5rem 0;
+    padding: 0.1rem 0;
     border-bottom: 2px solid transparent;
     transition: border-color 0.3s ease;
 }
@@ -189,7 +194,7 @@ div[class*="-item"],
 }
 
 .logo .logo-image {
-    height: 90px;
+    height: 60px;
     width: auto;
     object-fit: contain;
 }
@@ -205,6 +210,42 @@ div[class*="-item"],
     align-items: center;
     gap: 2rem;
     flex-shrink: 0;
+}
+
+/* Sub-Navigation Styles */
+.sub-nav-container {
+    background: white;
+    padding: 0;
+}
+
+.sub-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 0 0 0.25rem 0;
+}
+
+.sub-nav-link {
+    text-decoration: none;
+    color: #666;
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.sub-nav-link:hover {
+    color: #007bff;
+    border-bottom-color: #007bff;
+}
+
+.sub-nav-link.active {
+    color: #007bff;
+    border-bottom-color: transparent;
+    font-weight: 600;
 }
 
 .banker-name {

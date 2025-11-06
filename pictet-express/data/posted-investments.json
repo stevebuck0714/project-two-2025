@@ -20,5 +20,16 @@
     "calledPercent": "90.00%",
     "postedDate": "9/28/2025",
     "portfolioNumber": 2
+  },
+  {
+    "fundName": "UBS SPV 5",
+    "type": "Infrastructure",
+    "totalCommitment": "€ 1.000.000",
+    "calledCapital": "€ 900.000",
+    "currentValue": "€ 950.000",
+    "remaining": "€ 100.000",
+    "calledPercent": "90.00%",
+    "postedDate": "11/5/2025",
+    "portfolioNumber": 2
   }
 ]

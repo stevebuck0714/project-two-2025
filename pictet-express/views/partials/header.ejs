@@ -21,9 +21,9 @@
                     <a href="/client-alerts" class="nav-link <%= (typeof path !== 'undefined' && path.includes('/client-alerts')) ? 'active' : '' %>">Client Alerts</a>
                 <% } %>
                 <a href="/briefing" class="nav-link <%= (typeof path !== 'undefined' && path.includes('/briefing')) ? 'active' : '' %>">Briefing</a>
-                <a href="/portfolio-summary" class="nav-link <%= (typeof path !== 'undefined' && (path.includes('/portfolio-summary') || path.includes('/investment-details'))) ? 'active' : '' %>">Portfolio</a>
+                <a href="/portfolio-summary?tab=summary" class="nav-link <%= (typeof path !== 'undefined' && (path.includes('/portfolio-summary') || path.includes('/investment-details'))) ? 'active' : '' %>">Portfolio</a>
                 <a href="/portfolio-builder" class="nav-link <%= (typeof path !== 'undefined' && path.includes('/portfolio-builder')) ? 'active' : '' %>">Portfolio Builder</a>
-                <a href="/investment-opportunities" class="nav-link <%= (typeof path !== 'undefined' && (path.includes('/investment-opportunities') || path.includes('/fund-details') || path.includes('/create-bid') || path.includes('/contact-advisor') || path.includes('/transactions'))) ? 'active' : '' %>">Bulletin Board</a>
+                <a href="/bulletin-board?tab=listings" class="nav-link <%= (typeof path !== 'undefined' && (path.includes('/bulletin-board') || path.includes('/fund-details') || path.includes('/create-bid') || path.includes('/contact-advisor') || path.includes('/transactions'))) ? 'active' : '' %>">Bulletin Board</a>
                 <a href="/messages" class="nav-link <%= (typeof path !== 'undefined' && path.includes('/messages')) ? 'active' : '' %>">Messages</a>
                 <a href="/support" class="nav-link <%= (typeof path !== 'undefined' && path.includes('/support')) ? 'active' : '' %>">Support</a>
             </nav>
@@ -32,6 +32,76 @@
             </nav>
         </div>
     </header>
+    
+    <!-- Sub-Navigation Bar -->
+    <div class="sub-nav-container" id="subNavContainer">
+        <!-- Portfolio Sub-Nav -->
+        <nav class="sub-nav" id="portfolio-subnav" style="display: none;">
+            <a href="/portfolio-summary?tab=summary" class="sub-nav-link" id="portfolio-summary-link">Portfolio Summary</a>
+            <a href="/portfolio-summary?tab=temporary" class="sub-nav-link" id="client-mandates-link">Client Mandates</a>
+            <a href="/portfolio-summary?tab=pe-investments" class="sub-nav-link" id="pe-investments-link">Available PE Investments</a>
+        </nav>
+        
+        <!-- Bulletin Board Sub-Nav -->
+        <nav class="sub-nav" id="bulletin-subnav" style="display: none;">
+            <a href="/bulletin-board?tab=listings" class="sub-nav-link" id="listings-link">Your Listings</a>
+            <a href="/bulletin-board?tab=secondary" class="sub-nav-link" id="secondary-link">Available Investments</a>
+            <a href="/bulletin-board?tab=transactions" class="sub-nav-link" id="transactions-link">Transactions</a>
+        </nav>
+    </div>
+    
+    <script>
+    // Show appropriate sub-navigation based on current page
+    document.addEventListener('DOMContentLoaded', function() {
+        const path = window.location.pathname;
+        const params = new URLSearchParams(window.location.search);
+        const tab = params.get('tab');
+        const subNavContainer = document.getElementById('subNavContainer');
+        
+        // Hide all sub-navs first
+        document.querySelectorAll('.sub-nav').forEach(nav => nav.style.display = 'none');
+        
+        // Show appropriate sub-nav based on path
+        if (path.includes('/portfolio-summary') || path.includes('/client-mandates') || path.includes('/investment-details')) {
+            document.getElementById('portfolio-subnav').style.display = 'flex';
+            subNavContainer.style.display = 'block';
+            
+            // Set active state for portfolio sub-nav links
+            document.querySelectorAll('#portfolio-subnav .sub-nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            if (tab === 'temporary') {
+                document.getElementById('client-mandates-link').classList.add('active');
+            } else if (tab === 'pe-investments') {
+                document.getElementById('pe-investments-link').classList.add('active');
+            } else {
+                document.getElementById('portfolio-summary-link').classList.add('active');
+            }
+        }
+        else if (path.includes('/bulletin-board') || path.includes('/fund-details') || path.includes('/create-bid')) {
+            document.getElementById('bulletin-subnav').style.display = 'flex';
+            subNavContainer.style.display = 'block';
+            
+            // Set active state for bulletin board sub-nav links
+            document.querySelectorAll('#bulletin-subnav .sub-nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            if (tab === 'secondary') {
+                document.getElementById('secondary-link').classList.add('active');
+            } else if (tab === 'transactions') {
+                document.getElementById('transactions-link').classList.add('active');
+            } else {
+                document.getElementById('listings-link').classList.add('active');
+            }
+        }
+        else {
+            subNavContainer.style.display = 'none';
+        }
+    });
+    </script>
+    
     <main>
 </body>
 </html> 

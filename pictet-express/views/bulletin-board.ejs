@@ -1,17 +1,6 @@
 <%- include('partials/header') %>
 <%- include('partials/secondary-nav') %>
 
-<style>
-/* Remove rounded corners and darker borders */
-.fund-card,
-.fund-details-container,
-.metric-group,
-.metric-item {
-    border-radius: 0 !important;
-    border-color: #999 !important;
-}
-</style>
-
 <div class="main-container">
     <% if (typeof successMessage !== 'undefined' && successMessage) { %>
         <div class="<%= typeof isError !== 'undefined' && isError ? 'error-message' : 'success-message' %>">
@@ -22,7 +11,7 @@
     <% } %>
     
     <div class="opportunities-container">
-        <div class="market-tabs">
+        <div class="market-tabs" style="display: none;">
             <button class="market-tab <%= activeTab === 'listings' ? 'active' : (activeTab === 'primary' ? 'active' : '') %>" onclick="showMarket('primary')">Your Listings</button>
             <button class="market-tab <%= activeTab === 'secondary' ? 'active' : '' %>" onclick="showMarket('secondary')">Available Investments</button>
             <button class="market-tab <%= activeTab === 'transactions' ? 'active' : '' %>" onclick="showMarket('transactions')">Transactions</button>
@@ -273,7 +262,7 @@
             <div class="transactions-content">
                 <div class="transactions-header" style="display: flex; justify-content: space-between; align-items: center;">
                     <h2>Your Recent Transactions</h2>
-                    <a href="/contact-advisor" class="btn btn-primary" style="background: #1a5f7a; padding: 0.5rem 1.5rem; border-radius: 4px;">Contact My Advisor</a>
+                    <a href="/contact-advisor" style="display: inline-block; padding: 0.5rem 1.5rem; border-radius: 4px; text-decoration: none; font-weight: 500; background-color: #1a5f7a; color: white;">Contact My Advisor</a>
                 </div>
 
                 <div class="transactions-tabs">
@@ -646,9 +635,27 @@ function showMarket(market) {
     // Show selected market section
     document.getElementById(market + '-market').classList.add('active');
     
-    // Add active class to clicked tab
-    event.target.classList.add('active');
+    // Add active class to clicked tab (if called from button click)
+    if (typeof event !== 'undefined' && event.target) {
+        event.target.classList.add('active');
+    }
 }
+
+// Initialize tab from URL parameter on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const params = new URLSearchParams(window.location.search);
+    const tab = params.get('tab');
+    
+    if (tab) {
+        if (tab === 'listings' || tab === 'primary') {
+            showMarket('primary');
+        } else if (tab === 'secondary') {
+            showMarket('secondary');
+        } else if (tab === 'transactions') {
+            showMarket('transactions');
+        }
+    }
+});
 
 function showTransactionTab(tabId, event) {
     // Hide all transaction tab contents

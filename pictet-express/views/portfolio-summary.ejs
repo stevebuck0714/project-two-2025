@@ -9,8 +9,8 @@
         <div class="portfolio-date" id="portfolio-date"></div>
     </div>
 
-    <!-- Portfolio Summary Tabs -->
-    <div class="portfolio-tabs">
+    <!-- Portfolio Summary Tabs - Moved to sub-header navigation -->
+    <div class="portfolio-tabs" style="display: none;">
         <button class="portfolio-tab active" onclick="showPortfolioTab('summary')">Portfolio Summary</button>
         <button class="portfolio-tab" onclick="showPortfolioTab('temporary')">Client Mandates</button>
         <button class="portfolio-tab" onclick="showPortfolioTab('pe-investments')">Available PE Investments</button>
@@ -1942,17 +1942,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Portfolio Tab Switching Function
 function showPortfolioTab(tabName) {
-    // Remove active class from all tabs and content
-    document.querySelectorAll('.portfolio-tab').forEach(tab => {
-        tab.classList.remove('active');
-    });
+    // Remove active class from all content
     document.querySelectorAll('.portfolio-tab-content').forEach(content => {
         content.classList.remove('active');
     });
     
-    // Add active class to clicked tab and corresponding content
-    event.target.classList.add('active');
-    
+    // Show the selected tab content
     if (tabName === 'summary') {
         document.getElementById('portfolio-summary-content').classList.add('active');
     } else if (tabName === 'temporary') {
@@ -1961,6 +1956,13 @@ function showPortfolioTab(tabName) {
         document.getElementById('pe-investments-content').classList.add('active');
     }
 }
+
+// Initialize tab from URL parameter on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const params = new URLSearchParams(window.location.search);
+    const tab = params.get('tab') || 'summary';
+    showPortfolioTab(tab);
+});
 
 // Strategy Selection Counter Functionality
 document.addEventListener('DOMContentLoaded', function() {

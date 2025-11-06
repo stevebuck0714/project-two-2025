@@ -22,29 +22,38 @@
 .client-banker-line {
     background-color: #f8f9fa;
     border-bottom: 1px solid #dee2e6;
-    padding: 0.5rem 2rem;
+    padding: 0;
+    width: 100%;
+    min-width: 100vw;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 .banker-info {
-    display: flex;
-    align-items: center;
-    max-width: 1400px;
-    margin: 0 auto;
-    width: 100%;
-    padding: 0;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+    width: 100% !important;
+    padding: 0.5rem 2rem !important;
+    box-sizing: border-box !important;
 }
 
 .client-info {
-    display: inline-block;
-    white-space: nowrap;
+    display: flex !important;
+    align-items: center !important;
+    white-space: nowrap !important;
+    flex: 0 0 auto !important;
+    margin-right: auto !important;
 }
 
 .banker-details {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-left: auto;
-    text-align: right;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    flex: 0 0 auto !important;
+    margin-left: auto !important;
 }
 
 .client-full, .banker-label {
@@ -74,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Priority 1: If user is logged in as a client, show their name
         if (serverUser && serverUser.type === 'client') {
             clientFullElement.textContent = 'Client: ' + serverUser.name;
-            clientInfoDiv.style.display = 'block';
+            clientInfoDiv.style.display = 'flex';
         }
         // Priority 2: If user is a banker and has selected a client, show selected client
         else if (serverUser && serverUser.type === 'banker') {
@@ -87,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Extract just the name part before the hyphen
                     const clientName = selectedClient.split(' - ')[0].trim();
                     clientFullElement.textContent = 'Client: ' + clientName;
-                    clientInfoDiv.style.display = 'block';
+                    clientInfoDiv.style.display = 'flex';
                 } else {
                     clientInfoDiv.style.display = 'none';
                 }
@@ -98,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const clientName = localStorage.getItem('clientName');
             if (clientName) {
                 clientFullElement.textContent = 'Client: ' + clientName;
-                clientInfoDiv.style.display = 'block';
+                clientInfoDiv.style.display = 'flex';
             } else {
                 clientInfoDiv.style.display = 'none';
             }
