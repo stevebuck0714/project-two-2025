@@ -654,8 +654,48 @@ app.get('/bulletin-board', requireAuth, (req, res) => {
         displayMessage = message;
     }
     
+    // Sample offers data - in production this would come from a database
+    const sampleOffers = [
+        {
+            id: 'offer-001',
+            listingName: 'LOMBARD ODIER European Growth Fund II',
+            buyerName: 'Institutional Investor Group',
+            offerAmount: '€5,800,000',
+            pricePercentage: '95%',
+            offerDate: '2025-01-15',
+            status: 'pending',
+            comments: 'Interested in acquiring the full position. Can close within 30 days.'
+        },
+        {
+            id: 'offer-002',
+            listingName: 'LOMBARD ODIER European Growth Fund II',
+            buyerName: 'Private Equity Secondary Fund',
+            offerAmount: '€5,500,000',
+            pricePercentage: '90%',
+            offerDate: '2025-01-12',
+            status: 'pending',
+            comments: 'Seeking 10% discount due to market conditions. Flexible on timing.'
+        },
+        {
+            id: 'offer-003',
+            listingName: 'LOMBARD ODIER Tech Ventures Fund',
+            buyerName: 'Family Office Investment',
+            offerAmount: '€4,200,000',
+            pricePercentage: '92%',
+            offerDate: '2025-01-18',
+            status: 'pending',
+            comments: 'Strong interest in the technology portfolio. Would like to discuss terms.'
+        }
+    ];
+    
+    // Filter offers to only show those for investments that are actually listed
+    const validOffers = sampleOffers.filter(offer => 
+        postedInvestments.some(inv => inv.fundName === offer.listingName)
+    );
+    
     res.render('bulletin-board', {
         postedInvestments: postedInvestments,
+        offers: validOffers,
         activeTab: tab,
         successMessage: displayMessage,
         isError: !!message && !postedFund // Flag to show error styling

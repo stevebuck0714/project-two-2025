@@ -23,10 +23,23 @@
         </div>
 
         <section id="primary-market" class="market-section active">
-            <div class="add-listing-header">
-                <a href="/portfolio-summary" class="btn btn-add-listing">+ Add a New Listing</a>
+            <!-- Listings Sub-Tabs with Add Listing Button -->
+            <div class="listings-header-row">
+                <div class="listings-tabs">
+                    <button class="listings-tab active" onclick="showListingsTab('your-listings')">Your Listings</button>
+                <button class="listings-tab" onclick="showListingsTab('offers-received')">
+                    Offers Received
+                    <span class="offer-count-badge">6</span>
+                </button>
+                </div>
+                <div class="add-listing-header">
+                    <a href="/portfolio-summary" class="btn btn-add-listing">+ Add a New Listing</a>
+                </div>
             </div>
-            <div class="funds-container">
+
+            <!-- Your Listings Tab -->
+            <div id="your-listings-tab" class="listings-tab-content active">
+                <div class="funds-container">
                 <!-- Dynamic Posted Investments -->
                 <% if (typeof postedInvestments !== 'undefined' && postedInvestments.length > 0) { %>
                     <% postedInvestments.forEach(investment => { %>
@@ -35,7 +48,23 @@
                                 <div class="fund-logo">
                                     <img src="/images/lombard-odier.jpg" alt="LOMBARD ODIER Logo" class="logo-image">
                                 </div>
-                                <div class="fund-title"><%= investment.fundName %></div>
+                                <div class="fund-title">
+                                    <%= investment.fundName %>
+                                    <% 
+                                        // Hard-coded offer counts for listed funds
+                                        let offerCount = 0;
+                                        if (investment.fundName === 'UBS SPV 2') {
+                                            offerCount = 2;
+                                        } else if (investment.fundName === 'UBS SPV 4') {
+                                            offerCount = 2;
+                                        } else if (investment.fundName === 'UBS SPV 5') {
+                                            offerCount = 2;
+                                        }
+                                        if (offerCount > 0) { 
+                                    %>
+                                        <span class="listing-offer-badge"><%= offerCount %> Offer<%= offerCount > 1 ? 's' : '' %></span>
+                                    <% } %>
+                                </div>
                                 <div class="posted-date">Posted Date: <%= investment.postedDate %></div>
                             </div>
                             
@@ -94,6 +123,99 @@
                         <p>Click "+ Add a New Listing" above to select a PE investment from your portfolio to list for sale.</p>
                     </div>
                 <% } %>
+                </div>
+            </div>
+
+            <!-- Offers Received Tab -->
+            <div id="offers-received-tab" class="listings-tab-content">
+                <div class="transaction-list">
+                    <div class="transaction-row transaction-header" style="display: flex; gap: 2rem; align-items: center; font-weight: bold; border-bottom: 1px solid #ccc; margin-bottom: 0.5rem; cursor: pointer;">
+                        <span style="white-space: nowrap; flex-basis: 350px;">Fund Name</span>
+                        <span style="flex-basis: 120px; text-align: right;">Date Received</span>
+                        <span style="flex-basis: 150px; text-align: right;">Amount</span>
+                        <span style="flex-basis: 160px; text-align: right;">Premium/(Discount)</span>
+                        <span style="flex-basis: 80px; text-align: right;">Vintage</span>
+                        <span style="flex-basis: 100px; text-align: right;">Status</span>
+                    </div>
+
+                    <!-- Fund 1 Header -->
+                    <div class="transaction-row" style="display: flex; gap: 2rem; align-items: center; justify-content: space-between; font-weight: bold; background: #e5e5e5; border-radius: 4px; margin-top: 1.5rem; padding: 0.5rem 1rem;">
+                        <span style="white-space: nowrap;">UBS SPV 2</span>
+                        <div style="display: flex; gap: 0.75rem;">
+                            <a href="/fund-details?market=secondary&fund=privateequity&source=posted&name=UBS%20SPV%202&tab=listings" class="action-button" style="background: #e31e24; color: #fff; font-weight: bold; text-decoration: none; display: inline-block; padding: 0.5rem 1rem; border-radius: 4px;">View Details</a>
+                            <a href="/contact-advisor" class="action-button" style="background: #1a5f7a; color: #fff; font-weight: bold; text-decoration: none; display: inline-block; padding: 0.5rem 1rem; border-radius: 4px;">Contact My Advisor</a>
+                        </div>
+                    </div>
+                    <!-- Fund 1 Offers -->
+                    <div class="transaction-row offer-row" style="display: flex; gap: 2rem; align-items: center; background: #fff;">
+                        <span style="white-space: nowrap; flex-basis: 350px; font-weight: bold;">UBS SPV 2</span>
+                        <span style="flex-basis: 120px; text-align: right;">08/01/2025</span>
+                        <span style="flex-basis: 150px; text-align: right;">€760,000</span>
+                        <span style="flex-basis: 160px; text-align: right; color: #e31e24;">-5.00%</span>
+                        <span style="flex-basis: 80px; text-align: right;">2020</span>
+                        <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-pending">In Review</span></span>
+                    </div>
+                    <div class="transaction-row offer-row" style="display: flex; gap: 2rem; align-items: center; background: #fff;">
+                        <span style="white-space: nowrap; flex-basis: 350px; font-weight: bold;">UBS SPV 2</span>
+                        <span style="flex-basis: 120px; text-align: right;">15/01/2025</span>
+                        <span style="flex-basis: 150px; text-align: right;">€720,000</span>
+                        <span style="flex-basis: 160px; text-align: right; color: #e31e24;">-10.00%</span>
+                        <span style="flex-basis: 80px; text-align: right;">2020</span>
+                        <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-closed">Rejected</span></span>
+                    </div>
+
+                    <!-- Fund 2 Header -->
+                    <div class="transaction-row" style="display: flex; gap: 2rem; align-items: center; justify-content: space-between; font-weight: bold; background: #e5e5e5; border-radius: 4px; margin-top: 1.5rem; padding: 0.5rem 1rem;">
+                        <span style="white-space: nowrap;">UBS SPV 4</span>
+                        <div style="display: flex; gap: 0.75rem;">
+                            <a href="/fund-details?market=secondary&fund=realestate&source=posted&name=UBS%20SPV%204&tab=listings" class="action-button" style="background: #e31e24; color: #fff; font-weight: bold; text-decoration: none; display: inline-block; padding: 0.5rem 1rem; border-radius: 4px;">View Details</a>
+                            <a href="/contact-advisor" class="action-button" style="background: #1a5f7a; color: #fff; font-weight: bold; text-decoration: none; display: inline-block; padding: 0.5rem 1rem; border-radius: 4px;">Contact My Advisor</a>
+                        </div>
+                    </div>
+                    <!-- Fund 2 Offers -->
+                    <div class="transaction-row offer-row" style="display: flex; gap: 2rem; align-items: center; background: #fff;">
+                        <span style="white-space: nowrap; flex-basis: 350px; font-weight: bold;">UBS SPV 4</span>
+                        <span style="flex-basis: 120px; text-align: right;">03/01/2025</span>
+                        <span style="flex-basis: 150px; text-align: right;">€1,140,000</span>
+                        <span style="flex-basis: 160px; text-align: right; color: #e31e24;">-5.00%</span>
+                        <span style="flex-basis: 80px; text-align: right;">2019</span>
+                        <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-active">Accepted</span></span>
+                    </div>
+                    <div class="transaction-row offer-row" style="display: flex; gap: 2rem; align-items: center; background: #fff;">
+                        <span style="white-space: nowrap; flex-basis: 350px; font-weight: bold;">UBS SPV 4</span>
+                        <span style="flex-basis: 120px; text-align: right;">10/01/2025</span>
+                        <span style="flex-basis: 150px; text-align: right;">€1,080,000</span>
+                        <span style="flex-basis: 160px; text-align: right; color: #e31e24;">-10.00%</span>
+                        <span style="flex-basis: 80px; text-align: right;">2019</span>
+                        <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-pending">In Review</span></span>
+                    </div>
+
+                    <!-- Fund 3 Header -->
+                    <div class="transaction-row" style="display: flex; gap: 2rem; align-items: center; justify-content: space-between; font-weight: bold; background: #e5e5e5; border-radius: 4px; margin-top: 1.5rem; padding: 0.5rem 1rem;">
+                        <span style="white-space: nowrap;">UBS SPV 5</span>
+                        <div style="display: flex; gap: 0.75rem;">
+                            <a href="/fund-details?market=secondary&fund=infrastructure&source=posted&name=UBS%20SPV%205&tab=listings" class="action-button" style="background: #e31e24; color: #fff; font-weight: bold; text-decoration: none; display: inline-block; padding: 0.5rem 1rem; border-radius: 4px;">View Details</a>
+                            <a href="/contact-advisor" class="action-button" style="background: #1a5f7a; color: #fff; font-weight: bold; text-decoration: none; display: inline-block; padding: 0.5rem 1rem; border-radius: 4px;">Contact My Advisor</a>
+                        </div>
+                    </div>
+                    <!-- Fund 3 Offers -->
+                    <div class="transaction-row offer-row" style="display: flex; gap: 2rem; align-items: center; background: #fff;">
+                        <span style="white-space: nowrap; flex-basis: 350px; font-weight: bold;">UBS SPV 5</span>
+                        <span style="flex-basis: 120px; text-align: right;">05/01/2025</span>
+                        <span style="flex-basis: 150px; text-align: right;">€902,500</span>
+                        <span style="flex-basis: 160px; text-align: right; color: #e31e24;">-5.00%</span>
+                        <span style="flex-basis: 80px; text-align: right;">2021</span>
+                        <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-pending">In Review</span></span>
+                    </div>
+                    <div class="transaction-row offer-row" style="display: flex; gap: 2rem; align-items: center; background: #fff;">
+                        <span style="white-space: nowrap; flex-basis: 350px; font-weight: bold;">UBS SPV 5</span>
+                        <span style="flex-basis: 120px; text-align: right;">12/01/2025</span>
+                        <span style="flex-basis: 150px; text-align: right;">€950,000</span>
+                        <span style="flex-basis: 160px; text-align: right; color: #4caf50;">0.00%</span>
+                        <span style="flex-basis: 80px; text-align: right;">2021</span>
+                        <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-pending">In Review</span></span>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -370,13 +492,13 @@
         <section id="transactions-market" class="market-section">
             <div class="transactions-content">
                 <div class="transactions-header" style="display: flex; justify-content: space-between; align-items: center;">
-                    <h2>Your Recent Transactions</h2>
+                    <h2>Your Transactions</h2>
                     <a href="/contact-advisor" style="display: inline-block; padding: 0.5rem 1.5rem; border-radius: 4px; text-decoration: none; font-weight: 500; background-color: #1a5f7a; color: white;">Contact My Advisor</a>
                 </div>
 
                 <div class="transactions-tabs">
                     <div class="transaction-tab active" onclick="showTransactionTab('bids', event)">Bids Placed</div>
-                    <div class="transaction-tab" onclick="showTransactionTab('offers', event)">Offers Received</div>
+                    <div class="transaction-tab" onclick="showTransactionTab('offers', event)">Bid Status</div>
                 </div>
 
                 <div class="transactions-container">
@@ -400,7 +522,7 @@
                                     <span style="flex-basis: 150px; text-align: right;">€2,500,000</span>
                                     <span style="flex-basis: 120px; text-align: right;">8.00%</span>
                                     <span style="flex-basis: 100px; text-align: right;">2019</span>
-                                    <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-active">Active</span></span>
+                                    <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-pending">Pending</span></span>
                                     <span style="flex-basis: 120px; text-align: right;"><button class="action-button">View Detail</button></span>
                                 </div>
                             </div>
@@ -419,94 +541,92 @@
                         </div>
                     </div>
 
-                    <!-- Offers Section -->
+                    <!-- Bid Status Section -->
                     <div id="offers" class="transaction-tab-content">
                         <div class="transaction-list">
                             <div class="transaction-row transaction-header" style="display: flex; gap: 2rem; align-items: center; font-weight: bold; border-bottom: 1px solid #ccc; margin-bottom: 0.5rem; cursor: pointer;">
                                 <span style="white-space: nowrap; flex-basis: 350px;">Fund Name</span>
-                                <span style="flex-basis: 120px; text-align: right;">Date Received</span>
-                                <span style="flex-basis: 150px; text-align: right;">Amount</span>
-                                <span style="flex-basis: 120px; text-align: right;">Premium/(Discount)</span>
+                                <span style="flex-basis: 120px; text-align: right;">Bid Date</span>
+                                <span style="flex-basis: 150px; text-align: right;">Bid Amount</span>
+                                <span style="flex-basis: 120px; text-align: right;">Discount</span>
                                 <span style="flex-basis: 100px; text-align: right;">Vintage</span>
                                 <span style="flex-basis: 100px; text-align: right;">Status</span>
                                 <span style="flex-basis: 120px; text-align: right;"></span>
                             </div>
 
-                            <!-- Fund 1 Header -->
-                            <div class="transaction-row" style="display: flex; align-items: center; font-weight: bold; background: #e5e5e5; border-radius: 4px; margin-top: 1.5rem;">
-                                <span style="flex-basis: 220px; white-space: nowrap;">LOMBARD ODIER IMPACT FUND</span>
-                                <span style="flex: 1 1 auto;"></span>
+                            <!-- Current Bids (Pending) -->
+                            <div class="transaction-card">
+                                <div class="transaction-row" style="display: flex; gap: 2rem; align-items: center;">
+                                    <span style="white-space: nowrap; flex-basis: 350px; font-weight: bold;">LOMBARD ODIER PE FUND III</span>
+                                    <span style="flex-basis: 120px; text-align: right;">12/05/2025</span>
+                                    <span style="flex-basis: 150px; text-align: right;">€2,500,000</span>
+                                    <span style="flex-basis: 120px; text-align: right;">8.00%</span>
+                                    <span style="flex-basis: 100px; text-align: right;">2019</span>
+                                    <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-pending">Pending</span></span>
+                                    <span style="flex-basis: 120px; text-align: right;"><button class="action-button">View Detail</button></span>
+                                </div>
                             </div>
-                            <!-- Fund 1 Offers -->
-                            <div class="transaction-row offer-row" style="display: flex; gap: 2rem; align-items: center; background: #fff;">
-                                <span style="white-space: nowrap; flex-basis: 350px; font-weight: bold;">LOMBARD ODIER IMPACT FUND</span>
-                                <span style="flex-basis: 120px; text-align: right;">08/05/2025</span>
-                                <span style="flex-basis: 150px; text-align: right;">€2,732,000</span>
-                                <span style="flex-basis: 120px; text-align: right; color: #e31e24;">-5.00%</span>
-                                <span style="flex-basis: 100px; text-align: right;">2016</span>
-                                <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-active">Active</span></span>
-                                <span style="flex-basis: 120px; text-align: right;"><button class="action-button" style="background: #e31e24; color: #fff; font-weight: bold;">View Detail</button></span>
-                            </div>
-                            <div class="transaction-row offer-row" style="display: flex; gap: 2rem; align-items: center; background: #fff;">
-                                <span style="white-space: nowrap; flex-basis: 350px; font-weight: bold;">LOMBARD ODIER IMPACT FUND</span>
-                                <span style="flex-basis: 120px; text-align: right;">15/05/2025</span>
-                                <span style="flex-basis: 150px; text-align: right;">€2,028,000</span>
-                                <span style="flex-basis: 120px; text-align: right; color: #e31e24;">-12.00%</span>
-                                <span style="flex-basis: 100px; text-align: right;">2016</span>
-                                <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-closed">Closed</span></span>
-                                <span style="flex-basis: 120px; text-align: right;"><button class="action-button" style="background: #e31e24; color: #fff; font-weight: bold;">View Detail</button></span>
-                            </div>
-                            <div class="transaction-row offer-row" style="display: flex; gap: 2rem; align-items: center; background: #fff;">
-                                <span style="white-space: nowrap; flex-basis: 350px; font-weight: bold;">LOMBARD ODIER IMPACT FUND</span>
-                                <span style="flex-basis: 120px; text-align: right;">22/05/2025</span>
-                                <span style="flex-basis: 150px; text-align: right;">€1,900,000</span>
-                                <span style="flex-basis: 120px; text-align: right; color: #e31e24;">-20.00%</span>
-                                <span style="flex-basis: 100px; text-align: right;">2016</span>
-                                <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-pending">Pending</span></span>
-                                <span style="flex-basis: 120px; text-align: right;"><button class="action-button" style="background: #e31e24; color: #fff; font-weight: bold;">View Detail</button></span>
-                            </div>
-                            <div class="transaction-row offer-row" style="display: flex; gap: 2rem; align-items: center; background: #fff;">
-                                <span style="white-space: nowrap; flex-basis: 350px; font-weight: bold;">LOMBARD ODIER IMPACT FUND</span>
-                                <span style="flex-basis: 120px; text-align: right;">29/05/2025</span>
-                                <span style="flex-basis: 150px; text-align: right;">€625,000</span>
-                                <span style="flex-basis: 120px; text-align: right; color: #e31e24;">-18.00%</span>
-                                <span style="flex-basis: 100px; text-align: right;">2016</span>
-                                <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-active">Active</span></span>
-                                <span style="flex-basis: 120px; text-align: right;"><button class="action-button" style="background: #e31e24; color: #fff; font-weight: bold;">View Detail</button></span>
+                            
+                            <div class="transaction-card">
+                                <div class="transaction-row" style="display: flex; gap: 2rem; align-items: center;">
+                                    <span style="white-space: nowrap; flex-basis: 350px; font-weight: bold;">LOMBARD ODIER DIRECT PE</span>
+                                    <span style="flex-basis: 120px; text-align: right;">18/05/2025</span>
+                                    <span style="flex-basis: 150px; text-align: right;">€1,800,000</span>
+                                    <span style="flex-basis: 120px; text-align: right;">5.00%</span>
+                                    <span style="flex-basis: 100px; text-align: right;">2020</span>
+                                    <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-pending">Pending</span></span>
+                                    <span style="flex-basis: 120px; text-align: right;"><button class="action-button">View Detail</button></span>
+                                </div>
                             </div>
 
-                            <!-- Fund 2 Header -->
-                            <div class="transaction-row" style="display: flex; align-items: center; font-weight: bold; background: #e5e5e5; border-radius: 4px; margin-top: 1.5rem;">
-                                <span style="flex-basis: 220px; white-space: nowrap;">LOMBARD ODIER GROWTH FUND II</span>
-                                <span style="flex: 1 1 auto;"></span>
+                            <!-- Historical Bids (Accepted) -->
+                            <div class="transaction-card">
+                                <div class="transaction-row" style="display: flex; gap: 2rem; align-items: center;">
+                                    <span style="white-space: nowrap; flex-basis: 350px; font-weight: bold;">LOMBARD ODIER GROWTH EQUITY FUND</span>
+                                    <span style="flex-basis: 120px; text-align: right;">28/04/2025</span>
+                                    <span style="flex-basis: 150px; text-align: right;">€3,200,000</span>
+                                    <span style="flex-basis: 120px; text-align: right;">6.50%</span>
+                                    <span style="flex-basis: 100px; text-align: right;">2018</span>
+                                    <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-active">Accepted</span></span>
+                                    <span style="flex-basis: 120px; text-align: right;"><button class="action-button">View Detail</button></span>
+                                </div>
                             </div>
-                            <!-- Fund 2 Offers -->
-                            <div class="transaction-row offer-row" style="display: flex; gap: 2rem; align-items: center; background: #fff;">
-                                <span style="white-space: nowrap; flex-basis: 350px; font-weight: bold;">LOMBARD ODIER GROWTH FUND II</span>
-                                <span style="flex-basis: 120px; text-align: right;">03/06/2025</span>
-                                <span style="flex-basis: 150px; text-align: right;">€1,950,000</span>
-                                <span style="flex-basis: 120px; text-align: right; color: #4caf50;">+2.50%</span>
-                                <span style="flex-basis: 100px; text-align: right;">2018</span>
-                                <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-pending">Pending</span></span>
-                                <span style="flex-basis: 120px; text-align: right;"><button class="action-button" style="background: #e31e24; color: #fff; font-weight: bold;">View Detail</button></span>
+
+                            <div class="transaction-card">
+                                <div class="transaction-row" style="display: flex; gap: 2rem; align-items: center;">
+                                    <span style="white-space: nowrap; flex-basis: 350px; font-weight: bold;">LOMBARD ODIER INFRASTRUCTURE FUND II</span>
+                                    <span style="flex-basis: 120px; text-align: right;">10/04/2025</span>
+                                    <span style="flex-basis: 150px; text-align: right;">€2,750,000</span>
+                                    <span style="flex-basis: 120px; text-align: right;">7.00%</span>
+                                    <span style="flex-basis: 100px; text-align: right;">2019</span>
+                                    <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-active">Accepted</span></span>
+                                    <span style="flex-basis: 120px; text-align: right;"><button class="action-button">View Detail</button></span>
+                                </div>
                             </div>
-                            <div class="transaction-row offer-row" style="display: flex; gap: 2rem; align-items: center; background: #fff;">
-                                <span style="white-space: nowrap; flex-basis: 350px; font-weight: bold;">LOMBARD ODIER GROWTH FUND II</span>
-                                <span style="flex-basis: 120px; text-align: right;">10/06/2025</span>
-                                <span style="flex-basis: 150px; text-align: right;">€3,400,000</span>
-                                <span style="flex-basis: 120px; text-align: right; color: #e31e24;">-3.75%</span>
-                                <span style="flex-basis: 100px; text-align: right;">2018</span>
-                                <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-closed">Closed</span></span>
-                                <span style="flex-basis: 120px; text-align: right;"><button class="action-button" style="background: #e31e24; color: #fff; font-weight: bold;">View Detail</button></span>
+
+                            <!-- Historical Bids (Rejected) -->
+                            <div class="transaction-card">
+                                <div class="transaction-row" style="display: flex; gap: 2rem; align-items: center;">
+                                    <span style="white-space: nowrap; flex-basis: 350px; font-weight: bold;">LOMBARD ODIER VENTURE CAPITAL FUND</span>
+                                    <span style="flex-basis: 120px; text-align: right;">22/03/2025</span>
+                                    <span style="flex-basis: 150px; text-align: right;">€1,500,000</span>
+                                    <span style="flex-basis: 120px; text-align: right;">12.00%</span>
+                                    <span style="flex-basis: 100px; text-align: right;">2020</span>
+                                    <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-closed">Rejected</span></span>
+                                    <span style="flex-basis: 120px; text-align: right;"><button class="action-button">View Detail</button></span>
+                                </div>
                             </div>
-                            <div class="transaction-row offer-row" style="display: flex; gap: 2rem; align-items: center; background: #fff;">
-                                <span style="white-space: nowrap; flex-basis: 350px; font-weight: bold;">LOMBARD ODIER GROWTH FUND II</span>
-                                <span style="flex-basis: 120px; text-align: right;">17/06/2025</span>
-                                <span style="flex-basis: 150px; text-align: right;">€2,100,000</span>
-                                <span style="flex-basis: 120px; text-align: right; color: #e31e24;">-7.00%</span>
-                                <span style="flex-basis: 100px; text-align: right;">2018</span>
-                                <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-active">Active</span></span>
-                                <span style="flex-basis: 120px; text-align: right;"><button class="action-button" style="background: #e31e24; color: #fff; font-weight: bold;">View Detail</button></span>
+
+                            <div class="transaction-card">
+                                <div class="transaction-row" style="display: flex; gap: 2rem; align-items: center;">
+                                    <span style="white-space: nowrap; flex-basis: 350px; font-weight: bold;">LOMBARD ODIER REAL ESTATE FUND III</span>
+                                    <span style="flex-basis: 120px; text-align: right;">05/03/2025</span>
+                                    <span style="flex-basis: 150px; text-align: right;">€2,200,000</span>
+                                    <span style="flex-basis: 120px; text-align: right;">10.00%</span>
+                                    <span style="flex-basis: 100px; text-align: right;">2017</span>
+                                    <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-closed">Rejected</span></span>
+                                    <span style="flex-basis: 120px; text-align: right;"><button class="action-button">View Detail</button></span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -627,6 +747,7 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    padding: 0 1rem;
 }
 
 .fund-card {
@@ -764,6 +885,28 @@ function showMarket(market) {
     }
 }
 
+// Function to handle listings sub-tab switching
+function showListingsTab(tabName) {
+    // Hide all tab contents
+    document.querySelectorAll('.listings-tab-content').forEach(content => {
+        content.classList.remove('active');
+    });
+    
+    // Remove active class from all tab buttons
+    document.querySelectorAll('.listings-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    // Show selected tab content
+    if (tabName === 'your-listings') {
+        document.getElementById('your-listings-tab').classList.add('active');
+        document.querySelectorAll('.listings-tab')[0].classList.add('active');
+    } else if (tabName === 'offers-received') {
+        document.getElementById('offers-received-tab').classList.add('active');
+        document.querySelectorAll('.listings-tab')[1].classList.add('active');
+    }
+}
+
 // Initialize tab from URL parameter on page load
 document.addEventListener('DOMContentLoaded', function() {
     const params = new URLSearchParams(window.location.search);
@@ -858,11 +1001,77 @@ function removeInvestment(fundName) {
 }
 
 /* Add Listing Header */
+/* Listings Sub-Tabs */
+.listings-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.listings-tabs {
+    display: flex;
+    gap: 1rem;
+}
+
+.listings-tab {
+    background: none;
+    border: none;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #6b7280;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.listings-tab:hover {
+    color: #1a5f7a;
+}
+
+.listings-tab.active {
+    color: #1a5f7a;
+    border-bottom-color: #1a5f7a;
+}
+
+.offer-count-badge {
+    display: inline-block;
+    background-color: #e31e24;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.125rem 0.5rem;
+    border-radius: 12px;
+    margin-left: 0.5rem;
+}
+
+.listing-offer-badge {
+    display: inline-block;
+    background-color: #28a745;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    margin-left: 0.75rem;
+}
+
+.listings-tab-content {
+    display: none;
+}
+
+.listings-tab-content.active {
+    display: block;
+}
+
 .add-listing-header {
     display: flex;
-    justify-content: flex-end;
-    margin-bottom: 1.5rem;
-    padding: 0 1rem;
+    align-items: center;
 }
 
 .btn-add-listing {
@@ -883,6 +1092,171 @@ function removeInvestment(fundName) {
     border-color: #1e7e34;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+}
+
+/* Offers Received Styles */
+.offers-container {
+    padding: 0 1rem;
+}
+
+.listing-offers-group {
+    margin-bottom: 3rem;
+}
+
+.listing-name-header {
+    font-size: 1.25rem;
+    color: #1a5f7a;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.offers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.offer-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.offer-card:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.offer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.offer-buyer {
+    font-size: 1.1rem;
+    color: #1f2937;
+}
+
+.offer-date {
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.offer-details {
+    margin-bottom: 1.5rem;
+}
+
+.offer-amount-row {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+
+.offer-amount {
+    font-size: 1.1rem;
+    color: #1f2937;
+}
+
+.offer-percentage {
+    font-size: 1rem;
+    color: #059669;
+}
+
+.offer-comments {
+    color: #4b5563;
+    line-height: 1.6;
+}
+
+.offer-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.btn-accept {
+    background-color: #059669;
+    color: white;
+    padding: 0.625rem 1.25rem;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-accept:hover {
+    background-color: #047857;
+}
+
+.btn-negotiate {
+    background-color: #f59e0b;
+    color: white;
+    padding: 0.625rem 1.25rem;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-negotiate:hover {
+    background-color: #d97706;
+}
+
+.btn-decline {
+    background-color: #ef4444;
+    color: white;
+    padding: 0.625rem 1.25rem;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-decline:hover {
+    background-color: #dc2626;
+}
+
+.btn-contact {
+    background-color: #1a5f7a;
+    color: white;
+    padding: 0.625rem 1.25rem;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-contact:hover {
+    background-color: #164d61;
+}
+
+.empty-offers {
+    text-align: center;
+    padding: 3rem;
+    color: #6b7280;
+}
+
+.empty-offers h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #4b5563;
+}
+
+.empty-offers p {
+    font-size: 1rem;
+    line-height: 1.6;
 }
 
 /* Fix Secondary Market Opportunities Table Layout */
