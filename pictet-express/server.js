@@ -1181,7 +1181,7 @@ app.get('/contact-advisor', requireAuth, (req, res) => {
 });
 
 // Post for sale route
-app.get('/post-for-sale/:fundName', async (req, res) => {
+app.get('/post-for-sale/:fundName', requireAuth, async (req, res) => {
     try {
         const fundName = req.params.fundName;
         
