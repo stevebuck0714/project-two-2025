@@ -1,0 +1,592 @@
+<%- include('partials/header') %>
+<%- include('partials/secondary-nav') %>
+
+<div class="stability-message">
+    <h2 id="page-title">My Listings</h2>
+</div>
+
+<div class="main-container">
+    <% if (typeof successMessage !== 'undefined' && successMessage) { %>
+        <div class="<%= typeof isError !== 'undefined' && isError ? 'error-message' : 'success-message' %>">
+            <div class="<%= typeof isError !== 'undefined' && isError ? 'error-content' : 'success-content' %>">
+                <strong><%= typeof isError !== 'undefined' && isError ? 'Error!' : 'Success!' %></strong> <%= successMessage %>
+            </div>
+        </div>
+    <% } %>
+    
+    <div class="transactions-container-wrapper">
+        <!-- My Listings Section -->
+        <section id="listings-section" class="section-content active">
+            <div class="funds-container">
+                <!-- Dynamic Posted Investments -->
+                <% if (typeof postedInvestments !== 'undefined' && postedInvestments.length > 0) { %>
+                    <% postedInvestments.forEach(investment => { %>
+                        <div class="fund-card posted-investment">
+                            <div class="fund-header">
+                                <div class="fund-logo">
+                                    <img src="/images/lombard-odier.jpg" alt="LOMBARD ODIER Logo" class="logo-image">
+                                </div>
+                                <div class="fund-title"><%= investment.fundName %></div>
+                                <div class="posted-date">Posted Date: <%= investment.postedDate %></div>
+                            </div>
+                            
+                            <div class="table-container">
+                                <table class="fund-details">
+                                    <tr>
+                                        <th>Strategy</th>
+                                        <th>Sector</th>
+                                        <th>Geography</th>
+                                        <th>Closed Fund Size</th>
+                                        <th>Vintage</th>
+                                        <th>Est. End Date</th>
+                                    </tr>
+                                    <tr>
+                                        <td><%= investment.type %></td>
+                                        <td>Technology</td>
+                                        <td>Europe/North America</td>
+                                        <td>€500M</td>
+                                        <td>2016</td>
+                                        <td>2026</td>
+                                    </tr>
+                                </table>
+
+                                <table class="fund-metrics">
+                                    <tr>
+                                        <th>Current NAV</th>
+                                        <th>Total Called</th>
+                                        <th>Total Distributions</th>
+                                        <th>Commitment</th>
+                                        <th>Current DPI</th>
+                                        <th>Exposure</th>
+                                    </tr>
+                                    <tr>
+                                        <td><%= investment.currentValue %></td>
+                                        <td><%= investment.calledCapital %></td>
+                                        <td>€1,800,000</td>
+                                        <td><%= investment.totalCommitment %></td>
+                                        <td>0.85x</td>
+                                        <td>€6,200,000</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="fund-action">
+                                <a href="/fund-details?market=secondary&fund=<%= investment.type.toLowerCase().replace(/\s+/g, '') %>&source=posted&name=<%= encodeURIComponent(investment.fundName) %>" class="btn btn-primary">View Details</a>
+                                <button onclick="removeInvestment('<%= encodeURIComponent(investment.fundName) %>')" class="btn btn-danger remove-btn">Remove</button>
+                            </div>
+                        </div>
+                    <% }); %>
+                <% } %>
+                
+                <!-- Show message when no investments are posted -->
+                <% if (typeof postedInvestments === 'undefined' || postedInvestments.length === 0) { %>
+                    <div class="empty-listings">
+                        <h3>No investments posted for sale</h3>
+                        <p>Visit your <a href="/portfolio-summary">Portfolio Summary</a> and click "Post for Sale" on any investment to list it here.</p>
+                    </div>
+                <% } %>
+            </div>
+        </section>
+
+        <!-- Transactions Section -->
+        <section id="transactions-section" class="section-content">
+            <div class="transactions-content">
+                <div class="transactions-header">
+                    <h2>Your Recent Transactions</h2>
+                </div>
+
+                <div class="transactions-tabs">
+                    <div class="transaction-tab active" onclick="showTransactionTab('bids', event)">Bids Placed</div>
+                    <div class="transaction-tab" onclick="showTransactionTab('offers', event)">Offers Received</div>
+                </div>
+
+                <div class="transactions-container">
+                    <!-- Bids Section -->
+                    <div id="bids" class="transaction-tab-content active">
+                        <div class="transaction-list">
+                            <div class="transaction-row transaction-header" style="display: flex; gap: 2rem; align-items: center; font-weight: bold; border-bottom: 1px solid #ccc; margin-bottom: 0.5rem; cursor: pointer;">
+                                <span style="white-space: nowrap; flex-basis: 350px;">Fund Name</span>
+                                <span style="flex-basis: 120px; text-align: right;">Bid Date</span>
+                                <span style="flex-basis: 150px; text-align: right;">Bid Amount</span>
+                                <span style="flex-basis: 120px; text-align: right;">Discount</span>
+                                <span style="flex-basis: 100px; text-align: right;">Vintage</span>
+                                <span style="flex-basis: 100px; text-align: right;">Status</span>
+                                <span style="flex-basis: 120px; text-align: right;"></span>
+                            </div>
+                            <!-- Sample Bid Items -->
+                            <div class="transaction-card">
+                                <div class="transaction-row" style="display: flex; gap: 2rem; align-items: center;">
+                                    <span style="white-space: nowrap; flex-basis: 350px; font-weight: bold;">LOMBARD ODIER PE FUND III</span>
+                                    <span style="flex-basis: 120px; text-align: right;">12/05/2025</span>
+                                    <span style="flex-basis: 150px; text-align: right;">€2,500,000</span>
+                                    <span style="flex-basis: 120px; text-align: right;">8.00%</span>
+                                    <span style="flex-basis: 100px; text-align: right;">2019</span>
+                                    <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-active">Active</span></span>
+                                    <span style="flex-basis: 120px; text-align: right;"><a href="/contact-advisor?type=specific&fundName=LOMBARD%20ODIER%20PE%20FUND%20III&context=bid-transaction" class="btn-specific-small">Contact Advisor</a></span>
+                                </div>
+                            </div>
+
+                            <div class="transaction-card">
+                                <div class="transaction-row" style="display: flex; gap: 2rem; align-items: center;">
+                                    <span style="white-space: nowrap; flex-basis: 350px; font-weight: bold;">LOMBARD ODIER DIRECT PE</span>
+                                    <span style="flex-basis: 120px; text-align: right;">18/05/2025</span>
+                                    <span style="flex-basis: 150px; text-align: right;">€1,800,000</span>
+                                    <span style="flex-basis: 120px; text-align: right;">5.00%</span>
+                                    <span style="flex-basis: 100px; text-align: right;">2020</span>
+                                    <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-pending">Pending</span></span>
+                                    <span style="flex-basis: 120px; text-align: right;"><a href="/contact-advisor?type=specific&fundName=LOMBARD%20ODIER%20DIRECT%20PE&context=bid-transaction" class="btn-specific-small">Contact Advisor</a></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Offers Section -->
+                    <div id="offers" class="transaction-tab-content">
+                        <div class="transaction-list">
+                            <div class="transaction-row transaction-header" style="display: flex; gap: 2rem; align-items: center; font-weight: bold; border-bottom: 1px solid #ccc; margin-bottom: 0.5rem; cursor: pointer;">
+                                <span style="white-space: nowrap; flex-basis: 350px;">Fund Name</span>
+                                <span style="flex-basis: 120px; text-align: right;">Date Received</span>
+                                <span style="flex-basis: 150px; text-align: right;">Amount</span>
+                                <span style="flex-basis: 120px; text-align: right;">Premium/(Discount)</span>
+                                <span style="flex-basis: 100px; text-align: right;">Vintage</span>
+                                <span style="flex-basis: 100px; text-align: right;">Status</span>
+                                <span style="flex-basis: 120px; text-align: right;"></span>
+                            </div>
+
+                            <!-- Dynamic offers based on posted investments -->
+                            <% if (typeof offers !== 'undefined' && offers.length > 0) { %>
+                                <% offers.forEach(offer => { %>
+                                    <div class="transaction-row" style="display: flex; align-items: center; font-weight: bold; background: #e5e5e5; border-radius: 4px; margin-top: 1.5rem;">
+                                        <span style="flex-basis: 220px; white-space: nowrap;"><%= offer.listingName %></span>
+                                        <span style="flex: 1 1 auto;"></span>
+                                    </div>
+                                    <div class="transaction-row offer-row" style="display: flex; gap: 2rem; align-items: center; background: #fff;">
+                                        <span style="white-space: nowrap; flex-basis: 350px; font-weight: bold;"><%= offer.listingName %></span>
+                                        <span style="flex-basis: 120px; text-align: right;"><%= offer.offerDate %></span>
+                                        <span style="flex-basis: 150px; text-align: right;"><%= offer.offerAmount %></span>
+                                        <span style="flex-basis: 120px; text-align: right; <%= offer.pricePercentage.includes('-') ? 'color: #e31e24;' : 'color: #059669;' %>"><%= offer.pricePercentage %></span>
+                                        <span style="flex-basis: 100px; text-align: right;">2016</span>
+                                        <span style="flex-basis: 100px; text-align: right;"><span class="status-badge status-<%= offer.status %>"><%= offer.status %></span></span>
+                                        <span style="flex-basis: 120px; text-align: right;"><a href="/contact-advisor?type=specific&fundName=<%= encodeURIComponent(offer.listingName) %>&context=offer-received" class="btn-specific-small">Contact Advisor</a></span>
+                                    </div>
+                                <% }); %>
+                            <% } else { %>
+                                <div class="empty-listings">
+                                    <h3>No offers received</h3>
+                                    <p>When potential buyers make offers on your listings, they will appear here.</p>
+                                </div>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<style>
+.success-message {
+    background: #d1fae5;
+    border: 1px solid #a7f3d0;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    color: #065f46;
+}
+
+.success-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.error-message {
+    background: #fee2e2;
+    border: 1px solid #fca5a5;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    color: #991b1b;
+}
+
+.error-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.posted-investment {
+    border-left: 4px solid #059669;
+    background: #f0fdf4;
+}
+
+.posted-investment .fund-title {
+    color: #065f46;
+    font-weight: 600;
+}
+
+.empty-listings {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: #666;
+    background: #f9fafb;
+    border-radius: 8px;
+    border: 2px dashed #d1d5db;
+}
+
+.empty-listings h3 {
+    margin: 0 0 1rem 0;
+    color: #374151;
+}
+
+.empty-listings p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.empty-listings a {
+    color: #e31e24;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.empty-listings a:hover {
+    text-decoration: underline;
+}
+
+.transactions-container-wrapper {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.section-content {
+    display: none;
+}
+
+.section-content.active {
+    display: block;
+}
+
+.funds-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.fund-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem 1rem 0.5rem 1rem !important;
+}
+
+.fund-header {
+    display: flex;
+    align-items: center;
+    gap: 0 !important;
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    padding: 0 !important;
+}
+
+.fund-logo {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.logo-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.fund-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1.2;
+}
+
+.posted-date {
+    margin-left: auto;
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.table-container {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.fund-details,
+.fund-metrics {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    table-layout: fixed;
+}
+
+.fund-details th,
+.fund-metrics th {
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 10px 8px;
+    font-weight: bold !important;
+    color: #333;
+    line-height: 1.2;
+    margin: 0;
+    font-size: 0.85rem;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.fund-details td,
+.fund-metrics td {
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    font-size: 0.85rem;
+}
+
+/* Create unified 6-column layout for both tables */
+.fund-details th:nth-child(1), .fund-details td:nth-child(1),
+.fund-metrics th:nth-child(1), .fund-metrics td:nth-child(1) { width: 16.66%; }
+
+.fund-details th:nth-child(2), .fund-details td:nth-child(2),
+.fund-metrics th:nth-child(2), .fund-metrics td:nth-child(2) { width: 16.66%; }
+
+.fund-details th:nth-child(3), .fund-details td:nth-child(3),
+.fund-metrics th:nth-child(3), .fund-metrics td:nth-child(3) { width: 16.66%; }
+
+.fund-details th:nth-child(4), .fund-details td:nth-child(4),
+.fund-metrics th:nth-child(4), .fund-metrics td:nth-child(4) { width: 16.66%; }
+
+.fund-details th:nth-child(5), .fund-details td:nth-child(5),
+.fund-metrics th:nth-child(5), .fund-metrics td:nth-child(5) { width: 16.66%; }
+
+.fund-details th:nth-child(6), .fund-details td:nth-child(6),
+.fund-metrics th:nth-child(6), .fund-metrics td:nth-child(6) { width: 16.66%; }
+
+.fund-action {
+    margin-top: 1rem;
+    text-align: right;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #e31e24;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #c41920;
+}
+
+.remove-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.remove-btn:hover {
+    background-color: #c82333;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+.btn-generic {
+    background-color: #1a5f7a;
+    color: white;
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.btn-generic:hover {
+    background-color: #154c5d;
+}
+
+/* Transactions Section Styles */
+.transactions-content {
+    padding: 0.25rem 1rem 0.5rem 1rem;
+}
+
+.transactions-header {
+    margin-bottom: 0.5rem;
+}
+
+.transactions-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.transaction-tab {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    font-weight: 500;
+    color: #666;
+    transition: all 0.3s ease;
+}
+
+.transaction-tab.active {
+    color: #e31e24;
+    border-bottom-color: #e31e24;
+}
+
+.transaction-tab-content {
+    display: none;
+}
+
+.transaction-tab-content.active {
+    display: block;
+}
+
+.transaction-list {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.transaction-card {
+    background: white;
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.transaction-card:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 2px 12px;
+    border-radius: 12px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 0.95em;
+    text-align: center;
+}
+
+.status-active { background: #4caf50; }
+.status-closed { background: #e31e24; }
+.status-pending { background: #ff9800; }
+
+.btn-specific-small {
+    padding: 0.375rem 0.75rem;
+    border-radius: 4px;
+    background: #059669;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-block;
+    white-space: nowrap;
+    transition: background 0.3s ease;
+}
+
+.btn-specific-small:hover {
+    background: #047857;
+}
+</style>
+
+<script>
+// Handle tab switching based on URL parameter
+document.addEventListener('DOMContentLoaded', function() {
+    const params = new URLSearchParams(window.location.search);
+    const tab = params.get('tab');
+    const titleElement = document.getElementById('page-title');
+    
+    if (tab === 'transactions') {
+        document.getElementById('listings-section').classList.remove('active');
+        document.getElementById('transactions-section').classList.add('active');
+        if (titleElement) {
+            titleElement.textContent = 'Transactions';
+        }
+    } else {
+        document.getElementById('listings-section').classList.add('active');
+        document.getElementById('transactions-section').classList.remove('active');
+        if (titleElement) {
+            titleElement.textContent = 'My Listings';
+        }
+    }
+});
+
+function showTransactionTab(tabId, event) {
+    // Hide all transaction tab contents
+    document.querySelectorAll('.transaction-tab-content').forEach(content => {
+        content.classList.remove('active');
+    });
+    // Deactivate all transaction tabs
+    document.querySelectorAll('.transaction-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    // Show selected transaction tab content
+    document.getElementById(tabId).classList.add('active');
+    // Activate selected transaction tab
+    if (event && event.target) {
+        event.target.classList.add('active');
+    }
+}
+
+function removeInvestment(fundName) {
+    if (confirm('Are you sure you want to remove this investment from your listings?')) {
+        // Send request to remove the investment
+        fetch('/remove-investment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ fundName: decodeURIComponent(fundName) })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Reload the page to show updated listings
+                window.location.reload();
+            } else {
+                alert('Error removing investment: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error removing investment');
+        });
+    }
+}
+</script>
+
+<%- include('partials/footer') %>
+

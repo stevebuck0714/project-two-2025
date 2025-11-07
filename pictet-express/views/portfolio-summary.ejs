@@ -655,7 +655,10 @@
 
         <div style="width:100%; display:flex; justify-content:space-between; align-items:center; margin-top: 24px;">
             <div id="mandate-save-status" style="font-size: 0.95rem; font-weight: 600;"></div>
-            <button id="save-mandates-btn" style="background: #003f5c; color: #fff; border: none; border-radius: 6px; padding: 0.85rem 2.2rem; font-size: 1.1rem; font-weight: bold; box-shadow: 0 2px 8px rgba(0,0,0,0.10); cursor: pointer;">Save Selections</button>
+            <div style="display: flex; gap: 1rem;">
+                <a href="/contact-advisor?type=generic" class="btn-generic-mandates" style="background: #1a5f7a; color: #fff; border: none; border-radius: 6px; padding: 0.85rem 2.2rem; font-size: 1.1rem; font-weight: bold; box-shadow: 0 2px 8px rgba(0,0,0,0.10); cursor: pointer; text-decoration: none; display: inline-block;">Contact My Advisor</a>
+                <button id="save-mandates-btn" style="background: #003f5c; color: #fff; border: none; border-radius: 6px; padding: 0.85rem 2.2rem; font-size: 1.1rem; font-weight: bold; box-shadow: 0 2px 8px rgba(0,0,0,0.10); cursor: pointer;">Save Selections</button>
+            </div>
         </div>
     </div>
 
@@ -1256,6 +1259,13 @@ input[type="checkbox"].strategy-checkbox {
 
 .mt-2 {
     margin-top: 0.5rem;
+}
+
+/* Contact My Advisor Button on Client Mandates */
+.btn-generic-mandates:hover {
+    background: #154c5d !important;
+    transform: translateY(-1px);
+    transition: all 0.2s;
 }
 
 </style>

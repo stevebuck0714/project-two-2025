@@ -660,14 +660,18 @@ app.get('/liquidity-summary', requireAuth, (req, res) => {
     res.render('liquidity-summary');
 });
 
-// Redirect old investment-opportunities route to bulletin-board
+// Investment Opportunities page - shows Secondary Market and PE Investments
 app.get('/investment-opportunities', requireAuth, (req, res) => {
-    const tab = req.query.tab || 'listings';
-    res.redirect(`/bulletin-board?tab=${tab}`);
+    const tab = req.query.tab || 'secondary';
+    res.render('investment-opportunities', {
+        user: req.user,
+        tab: tab
+    });
 });
 
-app.get('/bulletin-board', requireAuth, async (req, res) => {
-    const tab = req.query.tab || 'primary';
+// My Transactions page (old route) - handles My Listings and Transactions
+app.get('/my-transactions-old', requireAuth, async (req, res) => {
+    const tab = req.query.tab || 'listings';
     const postedFund = req.query.posted || null;
     const message = req.query.message || null;
     
@@ -720,21 +724,22 @@ app.get('/bulletin-board', requireAuth, async (req, res) => {
         postedInvestments.some(inv => inv.fundName === offer.listingName)
     );
     
-    res.render('bulletin-board', {
+    res.render('my-transactions', {
         postedInvestments: postedInvestments,
         offers: validOffers,
-        activeTab: tab,
+        tab: tab,
         successMessage: displayMessage,
-        isError: !!message && !postedFund // Flag to show error styling
+        isError: !!message && !postedFund, // Flag to show error styling
+        user: req.user
     });
 });
 
-// Redirect old transactions route to bulletin board with transactions tab
+// Redirect old transactions route to my-transactions with transactions tab
 app.get('/transactions', requireAuth, (req, res) => {
     res.redirect('/my-transactions?tab=transactions');
 });
 
-// My Transactions page - handles Your Listings and Transactions
+// My Transactions page - handles My Listings and Transactions
 app.get('/my-transactions', requireAuth, async (req, res) => {
     const tab = req.query.tab || 'listings';
     const postedFund = req.query.posted || null;
@@ -767,11 +772,11 @@ app.get('/my-transactions', requireAuth, async (req, res) => {
     // Reload posted investments from database
     await loadPostedInvestments();
     
-    res.render('bulletin-board', {
+    res.render('my-transactions', {
         user: req.user,
         tab: tab,
-        activeTab: tab,
-        displayMessage: displayMessage,
+        successMessage: displayMessage,
+        isError: !!message && !postedFund,
         postedInvestments: postedInvestments,
         offers: sampleOffers
     });
@@ -779,6 +784,28 @@ app.get('/my-transactions', requireAuth, async (req, res) => {
 
 app.get('/messages', requireAuth, (req, res) => {
     res.render('messages');
+});
+
+// API endpoint to get messages
+app.get('/api/get-messages', requireAuth, async (req, res) => {
+    try {
+        const userId = req.user.username;
+        const allMessages = await db.loadMessages();
+        
+        // Filter messages for the current user
+        const userMessages = allMessages.filter(msg => msg.userId === userId);
+        
+        res.json({
+            success: true,
+            messages: userMessages
+        });
+    } catch (error) {
+        console.error('Error loading messages:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error loading messages: ' + error.message
+        });
+    }
 });
 
 app.get('/support', requireAuth, (req, res) => {
@@ -790,7 +817,7 @@ app.get('/fund-details', requireAuth, async (req, res) => {
         // Get URL parameters to determine which fund to show
         const market = req.query.market || 'primary'; // primary or secondary
         const fund = req.query.fund || 'buyout'; // buyout, venture, hedge
-        const source = req.query.source || null; // 'posted' if from Your Listings
+        const source = req.query.source || null; // 'posted' if from My Listings
         const fundName = req.query.name || null; // name of posted investment
         const fundId = req.query.fundId || null; // specific fund ID for available investments
         
@@ -853,21 +880,21 @@ app.get('/fund-details', requireAuth, async (req, res) => {
             },
             secondary: {
                 buyout: {
-                    title: 'BULLETIN BOARD - SECONDARY MARKET OPPORTUNITIES',
+                    title: 'SECONDARY MARKET OPPORTUNITIES',
                     strategy: 'Secondary Buyout',
                     sector: 'Various',
                     size: 'Mixed',
                     vintage: 'Various'
                 },
                 venture: {
-                    title: 'BULLETIN BOARD - SECONDARY MARKET OPPORTUNITIES',
+                    title: 'SECONDARY MARKET OPPORTUNITIES',
                     strategy: 'Secondary Venture Capital',
                     sector: 'Various',
                     size: 'Mixed',
                     vintage: 'Various'
                 },
                 infrastructure: {
-                    title: 'BULLETIN BOARD - SECONDARY MARKET OPPORTUNITIES',
+                    title: 'SECONDARY MARKET OPPORTUNITIES',
                     strategy: 'Secondary Infrastructure',
                     sector: 'Various',
                     size: 'Mixed',
@@ -965,12 +992,21 @@ app.get('/fund-details', requireAuth, async (req, res) => {
                 });
             }
         });
+        // Generate listingId for available investments
+        const listingIdMap = {
+            'spv1': 'LST-SPV1',
+            'spv2': 'LST-SPV2',
+            'spv3': 'LST-SPV3'
+        };
+        
         res.render('fund-details', {
             capitalCalledData,
             distributionsData,
             fundInfo: currentFund,
             market: market,
             fundType: fund,
+            fundId: fundId,
+            listingId: fundId ? listingIdMap[fundId] : null,
             isAvailableInvestment: !!(fundId && availableInvestments[fundId]),
             availableInvestmentData: fundId && availableInvestments[fundId] ? availableInvestments[fundId] : null
         });
@@ -991,74 +1027,157 @@ app.get('/create-bid', requireAuth, (req, res) => {
 });
 
 app.get('/contact-advisor', requireAuth, (req, res) => {
-    // Check if coming from my-transactions
-    const fromMyTransactions = req.query.from === 'my-transactions';
-    const fundName = req.query.fundName || 'Fund Inquiry';
-    
-    if (fromMyTransactions) {
-        // Simple contact form for transaction inquiries
-        res.render('contact-advisor', {
-            fromMyTransactions: true,
-            subject: decodeURIComponent(fundName),
-            fundInfo: null,
-            market: null,
-            fundType: null,
-            path: req.path + '?from=my-transactions',
-            user: req.user
-        });
-        return;
-    }
-    
-    // Get URL parameters to pass fund information (for Investment Opportunities)
+    // Three email types: generic, express-interest, specific
+    const emailType = req.query.type || 'generic';
+    const fundName = req.query.fundName || '';
+    const listingId = req.query.listingId || '';
+    const context = req.query.context || '';
+    const action = req.query.action || '';
     const market = req.query.market || 'secondary';
     const fund = req.query.fund || 'buyout';
     
-    // Define fund-specific data (same as fund-details)
-    const fundData = {
-        primary: {
-            buyout: {
-                title: 'LOMBARD ODIER SPV BUYOUT FUND 2025',
-                strategy: 'Buyout',
-                sector: 'Telecommunications',
-                size: '>€1Bil',
-                vintage: '2016'
-            },
-            venture: {
-                title: 'LOMBARD ODIER SPV VENTURE FUND 2025',
-                strategy: 'Venture Capital',
-                sector: 'Multi-Balanced',
-                size: '>€1Bil',
-                vintage: '2016'
-            },
-            hedge: {
-                title: 'LOMBARD ODIER SPV HEDGE FUND 2025',
-                strategy: 'Growth',
-                sector: 'Utility',
-                size: '>€1Bil',
-                vintage: '2016'
-            }
-        },
-        secondary: {
-            buyout: {
-                title: 'BULLETIN BOARD - SECONDARY MARKET OPPORTUNITIES',
-                strategy: 'Secondary Buyout',
-                sector: 'Various',
-                size: 'Mixed',
-                vintage: 'Various'
-            }
-        }
-    };
+    // Build context data based on parameters
+    let contextData = {};
     
-    const currentFund = fundData[market]?.[fund] || fundData.secondary.buyout;
+    // For backwards compatibility with old links
+    if (req.query.from === 'my-transactions' && !req.query.type) {
+        return res.render('contact-advisor', {
+            emailType: 'generic',
+            subject: '',
+            messageBody: '',
+            contextData: null,
+            path: req.path + '?type=generic&from=my-transactions',
+            user: req.user
+        });
+    }
     
-    res.render('contact-advisor', {
-        fromMyTransactions: false,
-        fundInfo: currentFund,
-        market: market,
-        fundType: fund,
-        path: req.path,
-        user: req.user
-    });
+    // Handle different email types
+    switch(emailType) {
+        case 'generic':
+            // Level 1: Generic emails - blank subject and body
+            res.render('contact-advisor', {
+                emailType: 'generic',
+                subject: '',
+                messageBody: '',
+                contextData: null,
+                path: req.path + '?type=generic',
+                user: req.user
+            });
+            break;
+            
+        case 'express-interest':
+            // Level 2: Express Interest - prefilled subject and partial body
+            let expressSubject = '';
+            let expressBody = '';
+            
+            if (fundName) {
+                const decodedFundName = decodeURIComponent(fundName);
+                contextData.fundName = decodedFundName;
+                
+                if (listingId) {
+                    contextData.listingId = listingId;
+                    expressSubject = `Interest in ${decodedFundName} - Listing #${listingId}`;
+                    expressBody = `Dear Advisor,\n\nI am interested in learning more about the following investment opportunity:\n\n`;
+                    expressBody += `Investment: ${decodedFundName}\n`;
+                    expressBody += `Listing ID: ${listingId}\n\n`;
+                    expressBody += `I would like to discuss:\n`;
+                    expressBody += `• Investment details and performance metrics\n`;
+                    expressBody += `• Pricing and terms\n`;
+                    expressBody += `• Next steps for proceeding\n\n`;
+                    expressBody += `Please let me know when you're available to discuss this opportunity.\n\n`;
+                } else if (context === 'post-for-sale') {
+                    expressSubject = `Question about posting ${decodedFundName} for sale`;
+                    expressBody = `Dear Advisor,\n\nI am considering posting my position in ${decodedFundName} for sale on the secondary market.\n\n`;
+                    expressBody += `Before proceeding, I would like to discuss:\n`;
+                    expressBody += `• Current market conditions for this investment\n`;
+                    expressBody += `• Appropriate pricing strategy\n`;
+                    expressBody += `• Tax implications and timing considerations\n`;
+                    expressBody += `• Any restrictions or approval requirements\n\n`;
+                    expressBody += `Could we schedule a time to review this?\n\n`;
+                } else {
+                    expressSubject = `Question about ${decodedFundName}`;
+                    expressBody = `Dear Advisor,\n\nI would like to discuss ${decodedFundName}.\n\n`;
+                    expressBody += `Specifically, I'm interested in:\n\n`;
+                }
+            } else {
+                expressSubject = `Investment Inquiry`;
+                expressBody = `Dear Advisor,\n\nI would like to discuss an investment opportunity.\n\n`;
+            }
+            
+            contextData.market = market;
+            contextData.fund = fund;
+            contextData.context = context;
+            
+            res.render('contact-advisor', {
+                emailType: 'express-interest',
+                subject: expressSubject,
+                messageBody: expressBody,
+                contextData: contextData,
+                path: req.path,
+                user: req.user
+            });
+            break;
+            
+        case 'specific':
+            // Level 3: Specific Response - context-specific but open subject/body for user to fill
+            let specificSubject = '';
+            let specificBody = '';
+            
+            if (action === 'capital-call-confirm') {
+                specificSubject = `Capital Call Confirmation - ${decodeURIComponent(fundName)}`;
+                specificBody = `Dear Advisor,\n\nI acknowledge receipt of the capital call notice for ${decodeURIComponent(fundName)}.\n\n`;
+                specificBody += `Please confirm:\n`;
+                specificBody += `• Amount due: [Amount from notice]\n`;
+                specificBody += `• Due date: [Date from notice]\n`;
+                specificBody += `• Wire instructions\n\n`;
+                specificBody += `I am prepared to fulfill this capital call and request confirmation of receipt once the transfer is complete.\n\n`;
+            } else if (action === 'distribution-details') {
+                specificSubject = `Distribution Details Request - ${decodeURIComponent(fundName)}`;
+                specificBody = `Dear Advisor,\n\nI would like to request details about the recent distribution from ${decodeURIComponent(fundName)}.\n\n`;
+                specificBody += `Please provide:\n`;
+                specificBody += `• Distribution amount and breakdown\n`;
+                specificBody += `• Return of capital vs. gains classification\n`;
+                specificBody += `• Tax documentation timeline\n`;
+                specificBody += `• Wire transfer details and expected date\n\n`;
+            } else if (action === 'document-request') {
+                specificSubject = `Data Room Document Access Request - ${decodeURIComponent(fundName)}`;
+                specificBody = `Dear Advisor,\n\nI would like to request access to additional documents in the data room for ${decodeURIComponent(fundName)}.\n\n`;
+                specificBody += `Please provide access to:\n`;
+                specificBody += `[Specify document names or categories]\n\n`;
+            } else if (context === 'bid-transaction' || context === 'offer-received') {
+                // Transaction-related inquiry - open subject and body but with fund context
+                specificSubject = `Question about ${decodeURIComponent(fundName)} Transaction`;
+                specificBody = `Dear Advisor,\n\nI have a question regarding my ${context === 'bid-transaction' ? 'bid' : 'offer received'} for ${decodeURIComponent(fundName)}.\n\n`;
+            } else {
+                // Generic specific inquiry with fund context
+                specificSubject = `Inquiry about ${decodeURIComponent(fundName)}`;
+                specificBody = `Dear Advisor,\n\nI would like to discuss ${decodeURIComponent(fundName)}.\n\n`;
+            }
+            
+            contextData.action = action;
+            contextData.fundName = decodeURIComponent(fundName);
+            contextData.context = context;
+            
+            res.render('contact-advisor', {
+                emailType: 'specific',
+                subject: specificSubject,
+                messageBody: specificBody,
+                contextData: contextData,
+                path: req.path,
+                user: req.user
+            });
+            break;
+            
+        default:
+            res.render('contact-advisor', {
+                emailType: 'generic',
+                subject: '',
+                messageBody: '',
+                contextData: null,
+                path: req.path,
+                user: req.user
+            });
+    }
 });
 
 // Post for sale route
@@ -1471,38 +1590,68 @@ app.post('/api/save-resolved-alert', requireAuth, (req, res) => {
 // API endpoint to send contact advisor message
 app.post('/api/contact-advisor', requireAuth, async (req, res) => {
     try {
-        const { fundName, message } = req.body;
+        const { emailType, subject, message, clientName, clientEmail, advisorName, advisorEmail } = req.body;
         const user = req.user;
         
-        console.log('Contact advisor request from:', user.name, 'for fund:', fundName);
+        console.log('Contact advisor request from:', user.name, 'Email type:', emailType);
         
-        // Create a message for the user
-        const newMessage = {
-            id: `msg-${Date.now()}`,
+        // Determine message type based on email type
+        let responseMessage = '';
+        
+        if (emailType === 'generic') {
+            responseMessage = 'Thank you for contacting us. Your message has been received and we will respond within 1-2 business days.';
+        } else if (emailType === 'express-interest') {
+            responseMessage = 'Thank you for expressing interest. Our team will review this investment opportunity with you and respond within 1-2 business days with detailed information.';
+        } else if (emailType === 'specific') {
+            responseMessage = 'Your request has been received. We will process this and respond shortly with the requested information.';
+        }
+        
+        const timestamp = Date.now();
+        
+        // Create the SENT message (what the client sent to the advisor)
+        const sentMessage = {
+            id: `msg-${timestamp}-sent`,
             userId: user.username,
-            subject: `Inquiry about ${fundName}`,
-            from: 'UBS PE Advisory Team',
+            subject: subject || 'Advisor Inquiry',
+            from: user.name,
+            to: advisorName || 'UBS PE Advisory Team',
+            date: new Date().toISOString(),
+            preview: message.substring(0, 100) + (message.length > 100 ? '...' : ''),
+            fullMessage: `Dear ${advisorName || 'UBS PE Advisory Team'},\n\n${message}\n\nBest regards,\n\n${user.name}`,
+            type: 'sent',
+            emailType: emailType,
+            unread: false
+        };
+        
+        // Create the INBOX message (advisor's response back to the client)
+        const inboxMessage = {
+            id: `msg-${timestamp + 1}`,
+            userId: user.username,
+            subject: `Re: ${subject || 'Advisor Inquiry'}`,
+            from: advisorName || 'UBS PE Advisory Team',
             to: user.name,
             date: new Date().toISOString(),
-            preview: 'Thank you for your inquiry. Our team will review your request and respond within 1-2 business days.',
-            fullMessage: `Dear ${user.name},\n\nThank you for your interest in ${fundName}.\n\nYour message:\n"${message}"\n\nOur Private Equity advisory team has received your inquiry and will conduct a thorough review of this investment opportunity. We will respond to you within 1-2 business days with detailed information and next steps.\n\nIn the meantime, if you have any urgent questions, please don't hesitate to contact your Private Banker directly.\n\nBest regards,\nUBS PE Advisory Team`,
-            type: 'inquiry',
+            preview: responseMessage,
+            fullMessage: `Dear ${user.name},\n\n${responseMessage}\n\nYour message:\n"${message}"\n\nOur Private Equity advisory team is reviewing your inquiry and will provide a comprehensive response shortly.\n\nIn the meantime, if you have any urgent questions, please don't hesitate to contact your Private Banker directly.\n\nBest regards,\n${advisorName || 'UBS PE Advisory Team'}`,
+            type: 'inbox',
+            emailType: emailType,
             unread: true
         };
         
-        // Save message to database
-        const success = await db.saveMessage(newMessage);
+        // Save both messages to database
+        const sentSuccess = await db.saveMessage(sentMessage);
+        const inboxSuccess = await db.saveMessage(inboxMessage);
         
-        if (success) {
-            console.log('Message saved successfully');
-            res.json({ success: true, message: 'Your inquiry has been sent successfully. You will receive a response within 1-2 business days.' });
+        if (sentSuccess && inboxSuccess) {
+            console.log('Messages saved successfully');
+            res.json({ success: true, message: 'Your message has been sent successfully. You will receive a response within 1-2 business days.' });
         } else {
-            console.error('Failed to save message');
-            res.status(500).json({ success: false, message: 'Failed to send inquiry. Please try again.' });
+            console.error('Failed to save messages');
+            res.status(500).json({ success: false, message: 'Failed to send message. Please try again.' });
         }
     } catch (error) {
         console.error('Error sending contact advisor message:', error);
-        res.status(500).json({ success: false, message: 'Error sending inquiry: ' + error.message });
+        res.status(500).json({ success: false, message: 'Error sending message: ' + error.message });
     }
 });
 

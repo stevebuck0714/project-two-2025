@@ -22,8 +22,8 @@
                 <% } %>
                 <a href="/briefing" class="nav-link <%= (typeof path !== 'undefined' && path.includes('/briefing')) ? 'active' : '' %>">PE Briefing</a>
                 <a href="/portfolio-summary?tab=summary" class="nav-link <%= (typeof path !== 'undefined' && (path.includes('/portfolio-summary') || path.includes('/investment-details'))) ? 'active' : '' %>">PE Portfolio</a>
-                <a href="/bulletin-board?tab=secondary" class="nav-link <%= (typeof path !== 'undefined' && (path.includes('/bulletin-board') || path.includes('/fund-details') || path.includes('/create-bid') || (path.includes('/contact-advisor') && !path.includes('from=my-transactions')))) ? 'active' : '' %>">Investment Opportunities</a>
-                <a href="/my-transactions?tab=listings" class="nav-link <%= (typeof path !== 'undefined' && (path.includes('/my-transactions') || path.includes('/transactions') || (path.includes('/contact-advisor') && path.includes('from=my-transactions')))) ? 'active' : '' %>">My Transactions</a>
+                <a href="/investment-opportunities?tab=secondary" class="nav-link" id="investment-opportunities-nav">Investment Opportunities</a>
+                <a href="/my-transactions?tab=listings" class="nav-link" id="my-transactions-nav">My Transactions</a>
                 <a href="/messages" class="nav-link <%= (typeof path !== 'undefined' && path.includes('/messages')) ? 'active' : '' %>">Messages</a>
             </nav>
             <nav class="nav-menu">
@@ -54,15 +54,15 @@
             <a href="/portfolio-summary?tab=temporary" class="sub-nav-link" id="client-mandates-link">Client Mandates</a>
         </nav>
         
-        <!-- Bulletin Board Sub-Nav -->
-        <nav class="sub-nav" id="bulletin-subnav" style="display: none;">
-            <a href="/bulletin-board?tab=secondary" class="sub-nav-link" id="secondary-link">Secondary Market Opportunities</a>
-            <a href="/bulletin-board?tab=pe-investments" class="sub-nav-link" id="pe-investments-link">Available UBS PE Investments</a>
+        <!-- Investment Opportunities Sub-Nav -->
+        <nav class="sub-nav" id="investment-opportunities-subnav" style="display: none;">
+            <a href="/investment-opportunities?tab=secondary" class="sub-nav-link" id="secondary-link">Secondary Market Opportunities</a>
+            <a href="/investment-opportunities?tab=pe-investments" class="sub-nav-link" id="pe-investments-link">Available UBS PE Investments</a>
         </nav>
         
         <!-- My Transactions Sub-Nav -->
         <nav class="sub-nav" id="my-transactions-subnav" style="display: none;">
-            <a href="/my-transactions?tab=listings" class="sub-nav-link" id="my-listings-link">Your Listings</a>
+            <a href="/my-transactions?tab=listings" class="sub-nav-link" id="my-listings-link">My Listings</a>
             <a href="/my-transactions?tab=transactions" class="sub-nav-link" id="my-transactions-link">Transactions</a>
         </nav>
         
@@ -100,22 +100,34 @@
                 document.getElementById('portfolio-summary-link').classList.add('active');
             }
         }
-        else if (path.includes('/bulletin-board') || path.includes('/fund-details') || path.includes('/create-bid') || (path.includes('/contact-advisor') && !window.location.search.includes('from=my-transactions'))) {
-            document.getElementById('bulletin-subnav').style.display = 'flex';
+        else if (path.includes('/fund-details') && params.get('source') === 'posted') {
+            // Fund details for posted investments - show My Transactions nav
+            document.getElementById('my-transactions-subnav').style.display = 'flex';
             subNavContainer.style.display = 'block';
             
-            // Set active state for bulletin board sub-nav links
-            document.querySelectorAll('#bulletin-subnav .sub-nav-link').forEach(link => {
+            // Set active state for my transactions sub-nav links
+            document.querySelectorAll('#my-transactions-subnav .sub-nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            document.getElementById('my-listings-link').classList.add('active');
+        }
+        else if (path.includes('/investment-opportunities') || path.includes('/fund-details') || path.includes('/create-bid')) {
+            document.getElementById('investment-opportunities-subnav').style.display = 'flex';
+            subNavContainer.style.display = 'block';
+            
+            // Set active state for investment opportunities sub-nav links
+            document.querySelectorAll('#investment-opportunities-subnav .sub-nav-link').forEach(link => {
                 link.classList.remove('active');
             });
             
             if (tab === 'pe-investments') {
-                document.querySelectorAll('#bulletin-subnav #pe-investments-link')[0].classList.add('active');
+                document.querySelectorAll('#investment-opportunities-subnav #pe-investments-link')[0].classList.add('active');
             } else {
                 document.getElementById('secondary-link').classList.add('active');
             }
         }
-        else if (path.includes('/my-transactions') || path.includes('/transactions') || (path.includes('/contact-advisor') && window.location.search.includes('from=my-transactions'))) {
+        else if (path.includes('/my-transactions') || path.includes('/transactions')) {
             document.getElementById('my-transactions-subnav').style.display = 'flex';
             subNavContainer.style.display = 'block';
             
@@ -147,6 +159,19 @@
         }
         else {
             subNavContainer.style.display = 'none';
+        }
+        
+        // Set main nav active states dynamically based on context
+        const investmentOpportunitiesNav = document.getElementById('investment-opportunities-nav');
+        const myTransactionsNav = document.getElementById('my-transactions-nav');
+        
+        // Check if we're viewing a posted investment in fund-details
+        if (path.includes('/fund-details') && params.get('source') === 'posted') {
+            myTransactionsNav.classList.add('active');
+        } else if (path.includes('/investment-opportunities') || path.includes('/fund-details') || path.includes('/create-bid')) {
+            investmentOpportunitiesNav.classList.add('active');
+        } else if (path.includes('/my-transactions') || path.includes('/transactions')) {
+            myTransactionsNav.classList.add('active');
         }
     });
     </script>

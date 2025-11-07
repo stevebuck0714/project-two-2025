@@ -162,10 +162,10 @@
     <!-- Action Buttons -->
     <div class="action-section">
         <a href="/fund-details?market=primary&fund=<%= investment.Type.toLowerCase().replace(' ', '') %>" class="action-btn primary">View Fund Details</a>
-        <a href="/contact-advisor?fund=<%= fundName.toLowerCase().replace(/\s+/g, '-') %>" class="action-btn secondary">Contact Advisor</a>
+        <a href="/contact-advisor?type=express-interest&fundName=<%= encodeURIComponent(fundName) %>" class="action-btn express-interest-contact">Express Interest</a>
         <a href="/transactions" class="action-btn">View Transactions</a>
         <% if (typeof isAlreadyListed !== 'undefined' && isAlreadyListed) { %>
-            <a href="/bulletin-board?tab=listings" class="action-btn already-listed">Already Listed - View on Bulletin Board</a>
+            <a href="/my-transactions?tab=listings" class="action-btn already-listed">Already Listed - View in My Transactions</a>
         <% } else { %>
             <a href="/post-for-sale/<%= fundName.toLowerCase().replace(/\s+/g, '-') %>" class="action-btn post-sale">Post for Sale</a>
         <% } %>
@@ -432,15 +432,13 @@
     background: #002b3f;
 }
 
-.action-btn.secondary {
-    background: #f0f8ff;
-    color: #003f5c;
-    border: 1px solid #003f5c;
+.action-btn.express-interest-contact {
+    background: #d97706;
+    color: white;
 }
 
-.action-btn.secondary:hover {
-    background: #003f5c;
-    color: white;
+.action-btn.express-interest-contact:hover {
+    background: #b45309;
 }
 
 .action-btn {
