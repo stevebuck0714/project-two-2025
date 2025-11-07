@@ -20,31 +20,68 @@
 
     <!-- Key Metrics Cards -->
     <div class="metrics-grid">
+        <!-- Card 1: Current NAV and Exposure -->
         <div class="metric-card primary">
-            <div class="metric-label">Current Value</div>
-            <div class="metric-value"><%= investment['Current Value'] %></div>
-            <div class="metric-change positive">+<%= kpis.totalReturn %>%</div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                <span style="font-size: 1rem; color: #666;">Current NAV</span>
+                <span style="font-size: 1rem; font-weight: 600;">€1.200.000</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 1rem; color: #666;">Current Exposure</span>
+                <span style="font-size: 1rem; font-weight: 600;">€1.500.000</span>
+            </div>
         </div>
         
+        <!-- Card 2: Commitment Details -->
         <div class="metric-card">
-            <div class="metric-label">Total Commitment</div>
-            <div class="metric-value"><%= investment['Total Commitment'] %></div>
-            <div class="metric-progress">
-                <div class="progress-bar" style="width: <%= kpis.deploymentProgress %>%"></div>
-                <span><%= kpis.deploymentProgress %>% deployed</span>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <span style="font-size: 1rem; color: #666;">Total Commitment</span>
+                <span style="font-size: 1rem; font-weight: 600;">€1.500.000</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <span style="font-size: 1rem; color: #666;">Total Capital Called</span>
+                <span style="font-size: 1rem; font-weight: 600;">€1.200.000</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <span style="font-size: 1rem; color: #666;">Total Distributions</span>
+                <span style="font-size: 1rem; font-weight: 600;">€2.600.000</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; color: #666; padding-top: 0.5rem; border-top: 1px solid #e0e0e0;">
+                <span><strong>90.0% deployed</strong></span>
+                <span><%= new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></span>
             </div>
         </div>
 
+        <!-- Card 3: Performance Metrics -->
         <div class="metric-card">
-            <div class="metric-label">Net IRR</div>
-            <div class="metric-value"><%= kpis.netIRR %>%</div>
-            <div class="metric-benchmark">Industry: <%= kpis.industryBenchmark %>%</div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                <span style="font-size: 1rem; color: #666;">Net IRR</span>
+                <span style="font-size: 1rem; font-weight: 600; color: #059669;">8.44%</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                <span style="font-size: 1rem; color: #666;">DPI</span>
+                <span style="font-size: 1rem; font-weight: 600;">0.75x</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 1rem; color: #666;">TVPI</span>
+                <span style="font-size: 1rem; font-weight: 600;">0.89x</span>
+            </div>
         </div>
 
+        <!-- Card 4: Portfolio Details -->
         <div class="metric-card">
-            <div class="metric-label">TVPI Multiple</div>
-            <div class="metric-value"><%= kpis.tvpi %>x</div>
-            <div class="metric-note">Total Value / Paid-In</div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                <span style="font-size: 1rem; color: #666;">Vintage Year</span>
+                <span style="font-size: 1rem; font-weight: 600;">2019</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                <span style="font-size: 1rem; color: #666;">Portfolio Companies</span>
+                <span style="font-size: 1rem; font-weight: 600;">7</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 1rem; color: #666;">Number of Exits</span>
+                <span style="font-size: 1rem; font-weight: 600;">2</span>
+            </div>
         </div>
     </div>
 
@@ -56,8 +93,8 @@
         </div>
         
         <div class="chart-container">
-            <h2>Capital Deployment</h2>
-            <canvas id="deploymentChart"></canvas>
+            <h2>J-Curve</h2>
+            <canvas id="jCurveChart"></canvas>
         </div>
     </div>
 
@@ -559,24 +596,85 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Deployment Chart
-    const deploymentCtx = document.getElementById('deploymentChart').getContext('2d');
-    new Chart(deploymentCtx, {
-        type: 'doughnut',
+    // J-Curve Chart
+    const jCurveCtx = document.getElementById('jCurveChart').getContext('2d');
+    new Chart(jCurveCtx, {
+        type: 'line',
         data: {
-            labels: ['Called Capital', 'Remaining Commitment'],
+            labels: ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5', 'Year 6', 'Year 7', 'Year 8', 'Year 9', 'Year 10'],
             datasets: [{
-                data: [<%= kpis.deploymentProgress %>, <%= 100 - parseFloat(kpis.deploymentProgress) %>],
-                backgroundColor: ['#003f5c', '#e5e7eb'],
-                borderWidth: 0
+                label: 'Cumulative Cash Flow',
+                data: [-150000, -280000, -180000, -80000, 0, 80000, 160000, 230000, 290000, 350000],
+                borderColor: '#003f5c',
+                backgroundColor: 'rgba(0, 63, 92, 0.1)',
+                tension: 0.4,
+                fill: true,
+                pointRadius: 5,
+                pointHoverRadius: 7,
+                pointBackgroundColor: '#003f5c',
+                borderWidth: 3
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 500000,
+                    title: {
+                        display: true,
+                        text: 'Cumulative Cash Flow ($)',
+                        font: {
+                            size: 12,
+                            weight: 'bold'
+                        }
+                    },
+                    ticks: {
+                        callback: function(value) {
+                            return '$' + (value / 1000).toFixed(0) + 'K';
+                        }
+                    },
+                    grid: {
+                        color: function(context) {
+                            if (context.tick.value === 0) {
+                                return 'rgba(0, 0, 0, 0.3)';
+                            }
+                            return 'rgba(0, 0, 0, 0.05)';
+                        },
+                        lineWidth: function(context) {
+                            if (context.tick.value === 0) {
+                                return 2;
+                            }
+                            return 1;
+                        }
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Fund Life',
+                        font: {
+                            size: 12,
+                            weight: 'bold'
+                        }
+                    },
+                    grid: {
+                        display: false
+                    }
+                }
+            },
             plugins: {
                 legend: {
-                    position: 'bottom'
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const value = context.parsed.y;
+                            return 'Cash Flow: $' + value.toLocaleString();
+                        }
+                    }
                 }
             }
         }
