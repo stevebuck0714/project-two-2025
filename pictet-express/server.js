@@ -1221,6 +1221,9 @@ app.get('/post-for-sale/:fundName', async (req, res) => {
             });
         }
         
+        // Reload posted investments from database to ensure we have latest data
+        await loadPostedInvestments();
+        
         // Check if already posted (case-insensitive comparison)
         const fundNameToCheck = investment['Fund Name'].toLowerCase().trim();
         const alreadyPosted = postedInvestments.find(posted => 
@@ -1243,13 +1246,23 @@ app.get('/post-for-sale/:fundName', async (req, res) => {
             calledPercent: investment['Called %'],
             remainingPercent: investment['Remaining %'],
             postedDate: new Date().toLocaleDateString('en-US'),
-            portfolioNumber: portfolioNumber
+            portfolioNumber: portfolioNumber,
+            sellerId: req.user.username,
+            sellerName: req.user.name
         };
         
         // Save to database
-        await savePostedInvestment(postedInvestment);
+        const saveSuccess = await savePostedInvestment(postedInvestment);
         
-        console.log('Investment posted for sale:', postedInvestment);
+        if (!saveSuccess) {
+            console.error('Failed to save posted investment:', postedInvestment);
+            return res.status(500).render('error', {
+                error: 'Failed to post investment',
+                message: 'Could not save investment to database. Please try again.'
+            });
+        }
+        
+        console.log('Investment posted for sale successfully:', postedInvestment);
         
         // Redirect to My Transactions page with success message
         res.redirect('/my-transactions?tab=listings&posted=' + encodeURIComponent(investment['Fund Name']));
@@ -1482,7 +1495,7 @@ function saveResolvedAlerts(alerts) {
 }
 
 // API endpoint to save client mandates
-app.post('/api/save-client-mandates', requireAuth, (req, res) => {
+app.post('/api/save-client-mandates', requireAuth, async (req, res) => {
     try {
         console.log('=== SAVE CLIENT MANDATES REQUEST ===');
         console.log('User:', req.user);
@@ -1493,20 +1506,8 @@ app.post('/api/save-client-mandates', requireAuth, (req, res) => {
         console.log('UserId:', userId);
         console.log('Mandate data received:', JSON.stringify(mandateData, null, 2));
         
-        // Load existing mandates
-        const allMandates = loadClientMandates();
-        console.log('Existing mandates loaded:', Object.keys(allMandates));
-        
-        // Save mandates for this user
-        allMandates[userId] = {
-            ...mandateData,
-            lastUpdated: new Date().toISOString()
-        };
-        
-        console.log('About to save mandates for user:', userId);
-        
-        // Save to file
-        const success = saveClientMandates(allMandates);
+        // Save mandates to database
+        const success = await db.saveClientMandates(userId, mandateData);
         
         console.log('Save result:', success);
         
@@ -1525,10 +1526,10 @@ app.post('/api/save-client-mandates', requireAuth, (req, res) => {
 });
 
 // API endpoint to get client mandates
-app.get('/api/get-client-mandates', requireAuth, (req, res) => {
+app.get('/api/get-client-mandates', requireAuth, async (req, res) => {
     try {
         const userId = req.user.username;
-        const allMandates = loadClientMandates();
+        const allMandates = await db.loadClientMandates();
         
         console.log('Loading mandates for user:', userId);
         console.log('Available mandates:', Object.keys(allMandates));

@@ -16,7 +16,7 @@
     <!-- Portfolio Summary Tabs - Moved to sub-header navigation -->
     <div class="portfolio-tabs" style="display: none;">
         <button class="portfolio-tab active" onclick="showPortfolioTab('summary')">Portfolio Summary</button>
-        <button class="portfolio-tab" onclick="showPortfolioTab('temporary')">Client Mandates</button>
+        <button class="portfolio-tab" onclick="showPortfolioTab('temporary')">My Mandates</button>
     </div>
 
     <!-- Portfolio Summary Tab Content -->
@@ -192,7 +192,7 @@
     </div>
     </div>
 
-    <!-- Client Mandates Tab Content -->
+    <!-- My Mandates Tab Content -->
     <div id="temporary-content" class="portfolio-tab-content">
         <div class="strategy-columns">
             <!-- Private Equity Strategies Column -->
@@ -1088,20 +1088,20 @@ th {
 .strategy-columns {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1rem;
-    margin-bottom: 1rem;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
 }
 
 .strategy-column {
     background: white;
     border-radius: 0 !important;
-    padding: 1rem;
+    padding: 0.65rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border: 1px solid #999 !important;
 }
 
 .strategy-category-container {
-    padding: 0.5rem;
+    padding: 0.35rem;
 }
 
 .strategy-category-header {
@@ -1123,8 +1123,8 @@ th {
 }
 
 .strategy-option {
-    padding: 0.75rem;
-    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    margin-bottom: 0.35rem;
     border: 1px solid #999 !important;
     border-radius: 0 !important;
     transition: all 0.3s ease;
@@ -1138,7 +1138,7 @@ th {
 .strategy-header {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.35rem;
 }
 
 .strategy-name {
@@ -1163,8 +1163,8 @@ input[type="checkbox"].strategy-checkbox {
 }
 
 .strategy-description {
-    margin: 0.25rem 0;
-    font-size: 0.9rem;
+    margin: 0.15rem 0 0 0;
+    font-size: 0.85rem;
     color: #666;
 }
 
@@ -1261,7 +1261,7 @@ input[type="checkbox"].strategy-checkbox {
     margin-top: 0.5rem;
 }
 
-/* Contact My Advisor Button on Client Mandates */
+/* Contact My Advisor Button on My Mandates */
 .btn-generic-mandates:hover {
     background: #154c5d !important;
     transform: translateY(-1px);
@@ -1748,7 +1748,7 @@ function showPortfolioTab(tabName) {
             titleElement.textContent = 'Portfolio Summary';
             document.getElementById('portfolio-summary-content').classList.add('active');
         } else if (tabName === 'temporary') {
-            titleElement.textContent = 'Client Mandates';
+            titleElement.textContent = 'My Mandates';
             document.getElementById('temporary-content').classList.add('active');
         }
     }
@@ -1781,7 +1781,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initial count
     updateSelectedCount();
     
-    // Save Client Mandates Functionality
+    // Save My Mandates Functionality
     const saveMandatesBtn = document.getElementById('save-mandates-btn');
     const mandateSaveStatus = document.getElementById('mandate-save-status');
     

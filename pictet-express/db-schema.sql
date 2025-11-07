@@ -58,3 +58,4 @@ CREATE INDEX IF NOT EXISTS idx_client_mandates_user_id ON client_mandates(user_i
 CREATE INDEX IF NOT EXISTS idx_resolved_alerts_user_id ON resolved_alerts(user_id);
 
 
+
