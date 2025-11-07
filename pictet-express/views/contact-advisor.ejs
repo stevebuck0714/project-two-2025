@@ -5,48 +5,85 @@
     <div class="contact-advisor-container">
         <div class="advisor-contact-form">
             <div class="form-header">
-                <h2>Share Fund Summary with Your Advisor</h2>
+                <h2><%= fromMyTransactions ? 'Contact My Advisor' : 'Share Fund Summary with Your Advisor' %></h2>
             </div>
 
             <form id="advisorContactForm" class="advisor-form">
+                <% if (!fromMyTransactions && fundInfo) { %>
                 <div class="form-section">
                     <h3>Fund Information</h3>
                     <div class="fund-summary-box">
                         <div class="fund-info-row">
                             <span class="label">Fund Name:</span>
-                            <span class="value"><%= fundInfo ? fundInfo.title : 'Fund Details' %></span>
+                            <span class="value"><%= fundInfo.title %></span>
                         </div>
                         <div class="fund-info-row">
                             <span class="label">Strategy:</span>
-                            <span class="value"><%= fundInfo ? fundInfo.strategy : 'N/A' %></span>
+                            <span class="value"><%= fundInfo.strategy %></span>
                         </div>
                         <div class="fund-info-row">
                             <span class="label">Sector:</span>
-                            <span class="value"><%= fundInfo ? fundInfo.sector : 'N/A' %></span>
+                            <span class="value"><%= fundInfo.sector %></span>
                         </div>
                         <div class="fund-info-row">
                             <span class="label">Fund Size:</span>
-                            <span class="value"><%= fundInfo ? fundInfo.size : 'N/A' %></span>
+                            <span class="value"><%= fundInfo.size %></span>
                         </div>
+                    </div>
+                </div>
+                <% } %>
+
+                <div class="form-section">
+                    <h3>Your Contact Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="client-name">Your Name</label>
+                            <input type="text" id="client-name" name="client-name" value="<%= typeof user !== 'undefined' && user ? user.name : '' %>" readonly style="background-color: #f5f5f5;">
+                        </div>
+                        <div class="form-group">
+                            <label for="client-email">Your Email</label>
+                            <input type="email" id="client-email" name="client-email" value="<%= typeof user !== 'undefined' && user ? user.username + '@email.com' : '' %>" readonly style="background-color: #f5f5f5;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="client-phone">Your Phone</label>
+                        <input type="tel" id="client-phone" name="client-phone" value="+41 22 555 0000" readonly style="background-color: #f5f5f5;">
                     </div>
                 </div>
 
                 <div class="form-section">
                     <h3>Your Advisor Information</h3>
-                    <div class="form-group">
-                        <label for="advisor-name">Advisor Name *</label>
-                        <input type="text" id="advisor-name" name="advisor-name" value="Alexander Dubois" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="advisor-email">Advisor Email *</label>
-                        <input type="email" id="advisor-email" name="advisor-email" value="alexander.dubois@lombardodier.com" required>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="advisor-name">Advisor Name</label>
+                            <input type="text" id="advisor-name" name="advisor-name" value="<%= typeof user !== 'undefined' && user && user.banker ? user.banker : 'Alexandra Steinberg - Senior Private Banker' %>" readonly style="background-color: #f5f5f5;">
+                        </div>
+                        <div class="form-group">
+                            <label for="advisor-email">Advisor Email</label>
+                            <input type="email" id="advisor-email" name="advisor-email" value="alexandra.steinberg@ubs.com" readonly style="background-color: #f5f5f5;">
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="advisor-phone">Advisor Phone</label>
-                        <input type="tel" id="advisor-phone" name="advisor-phone" value="+41 22 709 2111">
+                        <input type="tel" id="advisor-phone" name="advisor-phone" value="+41 44 234 5678" readonly style="background-color: #f5f5f5;">
                     </div>
                 </div>
 
+                <% if (fromMyTransactions) { %>
+                <div class="form-section">
+                    <h3>Subject *</h3>
+                    <div class="form-group">
+                        <input type="text" id="email-subject" name="email-subject" placeholder="Enter email subject..." required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;">
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Message *</h3>
+                    <div class="form-group">
+                        <textarea id="client-message" name="client-message" rows="10" placeholder="Type your message here..." required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; font-family: inherit;"></textarea>
+                    </div>
+                </div>
+                <% } else { %>
                 <div class="form-section">
                     <h3>Your Message</h3>
                     <div class="form-group">
@@ -54,28 +91,11 @@
                         <textarea id="client-message" name="client-message" rows="4" placeholder="I'm interested in this fund opportunity and would like to discuss it with you. Please review the attached fund summary and let me know your thoughts."></textarea>
                     </div>
                 </div>
-
-                <div class="form-section">
-                    <h3>Your Contact Information</h3>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="client-name">Your Name *</label>
-                            <input type="text" id="client-name" name="client-name" value="<%= typeof user !== 'undefined' && user ? user.name : '' %>" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="client-email">Your Email *</label>
-                            <input type="email" id="client-email" name="client-email" value="<%= typeof user !== 'undefined' && user ? user.username + '@email.com' : '' %>" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="client-phone">Your Phone</label>
-                        <input type="tel" id="client-phone" name="client-phone" value="+41 22 555 0000">
-                    </div>
-                </div>
+                <% } %>
 
                 <div class="form-actions">
-                    <button type="button" class="btn btn-secondary" onclick="window.history.back()">Back to Fund Details</button>
-                    <button type="submit" class="btn btn-primary">Send to Advisor</button>
+                    <button type="button" class="btn btn-secondary" onclick="window.history.back()">Back</button>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
                 </div>
             </form>
         </div>
