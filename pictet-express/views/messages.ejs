@@ -23,137 +23,348 @@
         </div>
         
         <div class="messages-section" id="inbox-section">
-            <div class="message-list">
-                <% if (typeof user !== 'undefined' && user && user.type === 'banker') { %>
-                    <!-- Messages for Banker/Advisor -->
-                    <div class="message-item unread">
-                        <div class="message-header">
-                            <h3>From: John Smith - Secondary Position Inquiry</h3>
-                            <span class="date">Today, 10:30</span>
-                        </div>
-                        <p class="preview">Hi <%= user.name %>, I'm interested in acquiring a secondary position in UBS ASSET MANAGEMENT SPV 2. Can you provide details on the current NAV, DPI, and remaining commitment obligations?...</p>
-                    </div>
-                    <div class="message-item important">
-                        <div class="message-header">
-                            <h3>From: Marie Dubois - List PE Investment for Sale</h3>
-                            <span class="date">Yesterday, 15:45</span>
-                        </div>
-                        <p class="preview">I would like to list my UBS Asset Management Real Estate Fund position for sale on the bulletin board. Could you help me with the pricing and listing process?...</p>
-                    </div>
-                    <div class="message-item unread">
-                        <div class="message-header">
-                            <h3>From: Hans Weber - Nordic Healthcare Growth Fund V Interest</h3>
-                            <span class="date">Yesterday, 09:20</span>
-                        </div>
-                        <p class="preview">I noticed the Nordic Healthcare Growth Fund V in the Available PE Investments section. Given my mandate focus on healthcare, I'd like to discuss a €350K commitment...</p>
-                    </div>
-                    <div class="message-item">
-                        <div class="message-header">
-                            <h3>From: Sofia Rossi - Co-Investment Opportunity Questions</h3>
-                            <span class="date">2 days ago</span>
-                        </div>
-                        <p class="preview">Can we discuss the co-investment opportunity in the European Software Secondary Portfolio? I need more details on the underlying companies and fee structure...</p>
-                    </div>
-                <% } else { %>
-                    <!-- Messages for Client -->
-                    <div class="message-item unread">
-                        <div class="message-header">
-                            <h3>From: <%= (typeof user !== 'undefined' && user && user.banker) ? user.banker : 'Your Advisor' %> - Secondary Market Match Found</h3>
-                            <span class="date">Today, 10:30</span>
-                        </div>
-                        <p class="preview">Good news! A secondary position matching your investment criteria has become available: UBS ASSET MANAGEMENT SPV 3 (Infrastructure). Current DPI 0.92x, €900K remaining commitment...</p>
-                    </div>
-                    <div class="message-item important">
-                        <div class="message-header">
-                            <h3>From: <%= (typeof user !== 'undefined' && user && user.banker) ? user.banker : 'Your Advisor' %> - New PE Investment Opportunity</h3>
-                            <span class="date">Yesterday, 15:45</span>
-                        </div>
-                        <p class="preview">Nordic Healthcare Growth Fund V is now available for commitment. This aligns perfectly with your healthcare sector mandate. €400M target size, 2%/20% fees, GP track record shows 19.5% IRR...</p>
-                    </div>
-                    <div class="message-item">
-                        <div class="message-header">
-                            <h3>From: <%= (typeof user !== 'undefined' && user && user.banker) ? user.banker : 'Your Advisor' %> - Listing Confirmation</h3>
-                            <span class="date">2 days ago</span>
-                        </div>
-                        <p class="preview">Your UBS Asset Management Infrastructure Fund II position has been successfully listed on the bulletin board. We've already received two inquiries from interested buyers...</p>
-                    </div>
-                <% } %>
+            <div class="message-list" id="inbox-messages">
+                <div style="text-align: center; padding: 40px; color: #999;">
+                    <p>Loading messages...</p>
+                </div>
             </div>
         </div>
         
+        <script>
+        // Load messages from API
+        document.addEventListener('DOMContentLoaded', function() {
+            loadMessages();
+        });
+        
+        function loadMessages() {
+            fetch('/api/get-messages')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        displayMessages(data.messages);
+                    } else {
+                        document.getElementById('inbox-messages').innerHTML = '<div style="text-align: center; padding: 40px; color: #999;"><p>No messages yet</p></div>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading messages:', error);
+                    document.getElementById('inbox-messages').innerHTML = '<div style="text-align: center; padding: 40px; color: #999;"><p>Error loading messages</p></div>';
+                });
+        }
+        
+        function displayMessages(messages) {
+            // Separate inbox and sent messages
+            const inboxMessages = messages.filter(msg => msg.type === 'inbox');
+            const sentMessages = messages.filter(msg => msg.type === 'sent');
+            
+            // Display inbox messages
+            displayMessageList(inboxMessages, 'inbox-messages', 'inbox');
+            
+            // Display sent messages
+            displayMessageList(sentMessages, 'sent-messages', 'sent');
+        }
+        
+        function displayMessageList(messages, containerId, type) {
+            const container = document.getElementById(containerId);
+            
+            if (messages.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: 40px; color: #999;"><p>No messages yet</p></div>';
+                return;
+            }
+            
+            // Sort messages by date (newest first)
+            messages.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            let html = '';
+            messages.forEach(msg => {
+                const messageDate = new Date(msg.date);
+                const now = new Date();
+                const diffHours = Math.floor((now - messageDate) / (1000 * 60 * 60));
+                const diffDays = Math.floor(diffHours / 24);
+                
+                let dateString;
+                if (diffHours < 1) {
+                    dateString = 'Just now';
+                } else if (diffHours < 24) {
+                    dateString = `Today, ${messageDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`;
+                } else if (diffDays === 1) {
+                    dateString = `Yesterday, ${messageDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`;
+                } else if (diffDays < 7) {
+                    dateString = `${diffDays} days ago`;
+                } else {
+                    dateString = messageDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                }
+                
+                const unreadClass = msg.unread ? 'unread' : '';
+                const sentClass = type === 'sent' ? 'sent' : '';
+                const label = type === 'sent' ? 'To:' : 'From:';
+                const displayName = type === 'sent' ? msg.to : msg.from;
+                
+                html += `
+                    <div class="message-item ${unreadClass} ${sentClass}" onclick="viewMessage('${msg.id}')">
+                        <div class="message-header">
+                            <h3>${label} ${displayName} - ${msg.subject}</h3>
+                            <span class="date">${dateString}</span>
+                        </div>
+                        <p class="preview">${msg.preview}</p>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        function viewMessage(messageId) {
+            // Fetch the full message
+            fetch('/api/get-messages')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const message = data.messages.find(msg => msg.id === messageId);
+                        if (message) {
+                            showMessageModal(message);
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading message:', error);
+                });
+        }
+        
+        function showMessageModal(message) {
+            const messageDate = new Date(message.date);
+            const formattedDate = messageDate.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            const isSent = message.type === 'sent';
+            const fromToLabel = isSent ? 'To:' : 'From:';
+            const fromToValue = isSent ? message.to : message.from;
+            const replyToAddress = isSent ? message.to : message.from;
+            
+            const modalHtml = `
+                <div class="message-modal-overlay" onclick="closeMessageModal()">
+                    <div class="message-modal" onclick="event.stopPropagation()">
+                        <div class="message-modal-header">
+                            <div>
+                                <h2>${message.subject}</h2>
+                                <div class="message-meta">
+                                    <span><strong>${fromToLabel}</strong> ${fromToValue}</span>
+                                    <span><strong>Date:</strong> ${formattedDate}</span>
+                                </div>
+                            </div>
+                            <button class="close-modal-btn" onclick="closeMessageModal()">×</button>
+                        </div>
+                        <div class="message-modal-body">
+                            <pre>${message.fullMessage}</pre>
+                        </div>
+                        <div class="message-modal-footer">
+                            <button class="btn btn-danger" onclick="deleteMessage('${message.id}')">Delete</button>
+                            <button class="btn btn-primary" onclick="replyToMessage('${replyToAddress}', '${message.subject}')">Reply</button>
+                            <button class="btn btn-secondary" onclick="closeMessageModal()">Close</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+        }
+        
+        function closeMessageModal() {
+            const modal = document.querySelector('.message-modal-overlay');
+            if (modal) {
+                modal.remove();
+            }
+        }
+        
+        function deleteMessage(messageId) {
+            if (!confirm('Are you sure you want to delete this message?')) {
+                return;
+            }
+            
+            fetch('/api/delete-message', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ messageId: messageId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    closeMessageModal();
+                    loadMessages(); // Reload the message list
+                    alert('Message deleted successfully');
+                } else {
+                    alert('Failed to delete message');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to delete message');
+            });
+        }
+        
+        function replyToMessage(fromAddress, subject) {
+            // Close the modal
+            closeMessageModal();
+            
+            // For now, just show an alert about replying
+            // In a full implementation, this could open a compose window or redirect to contact form
+            alert('Reply feature: This would open a compose window to reply to ' + fromAddress + ' about "' + subject + '"');
+        }
+        </script>
+        
+        <style>
+        .message-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: 20px;
+        }
+        
+        .message-modal {
+            background: white;
+            border-radius: 8px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .message-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 20px;
+            border-bottom: 1px solid #ddd;
+            gap: 20px;
+        }
+        
+        .message-modal-header h2 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 1.5rem;
+            line-height: 1.3;
+        }
+        
+        .message-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .close-modal-btn {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: #999;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+        
+        .close-modal-btn:hover {
+            background: #f0f0f0;
+            color: #333;
+        }
+        
+        .message-modal-body {
+            padding: 20px;
+            overflow-y: auto;
+            flex: 1;
+        }
+        
+        .message-modal-body pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: inherit;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 0;
+            color: #333;
+        }
+        
+        .message-modal-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #ddd;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        .message-modal-footer .btn {
+            padding: 0.6rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .message-modal-footer .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+        
+        .message-modal-footer .btn-primary:hover {
+            background: #0056b3;
+        }
+        
+        .message-modal-footer .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .message-modal-footer .btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        .message-modal-footer .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .message-modal-footer .btn-danger:hover {
+            background: #c82333;
+        }
+        
+        .message-item {
+            cursor: pointer;
+        }
+        
+        .message-item:hover {
+            background-color: #f8f9fa;
+        }
+        </style>
+        
         <div class="messages-section" id="sent-section" style="display: none;">
-            <div class="message-list">
-                <% if (typeof user !== 'undefined' && user && user.type === 'banker') { %>
-                    <!-- Sent Messages for Banker/Advisor -->
-                    <div class="message-item sent">
-                        <div class="message-header">
-                            <h3>To: John Smith - Secondary Position Details</h3>
-                            <span class="date">Today, 14:23</span>
-                        </div>
-                        <p class="preview">Hi John, Regarding UBS ASSET MANAGEMENT SPV 2: Current NAV is €6.2M, DPI of 0.85x, total called €3.8M with €700K remaining commitment. The fund has performed well with strong exits expected in 2025. Let's discuss pricing...</p>
-                        <div class="message-details">
-                            <span class="recipient">Sent to: john.smith@email.com</span>
-                            <span class="status">✓ Delivered</span>
-                        </div>
-                    </div>
-                    <div class="message-item sent">
-                        <div class="message-header">
-                            <h3>To: Marie Dubois - Listing Your PE Position</h3>
-                            <span class="date">2 days ago</span>
-                        </div>
-                        <p class="preview">Hello Marie, I've prepared the documentation to list your Real Estate Fund position on the bulletin board. Based on current NAV and market conditions, I recommend pricing at 95% of NAV. Attached is the term sheet for your review...</p>
-                        <div class="message-details">
-                            <span class="recipient">Sent to: marie.dubois@email.com</span>
-                            <span class="status">✓ Read</span>
-                        </div>
-                    </div>
-                    <div class="message-item sent">
-                        <div class="message-header">
-                            <h3>To: Hans Weber - Nordic Healthcare Growth Fund V Diligence Pack</h3>
-                            <span class="date">1 week ago</span>
-                        </div>
-                        <p class="preview">Hans, Attached is the complete diligence pack for Nordic Healthcare Growth Fund V. Key highlights: proven digitization thesis, 3 successful telehealth exits, strong LP base. The €350K commitment fits perfectly within your mandate. Let's schedule a call...</p>
-                        <div class="message-details">
-                            <span class="recipient">Sent to: hans.weber@email.com</span>
-                            <span class="status">✓ Read</span>
-                        </div>
-                    </div>
-                <% } else { %>
-                    <!-- Sent Messages for Client -->
-                    <div class="message-item sent">
-                        <div class="message-header">
-                            <h3>To: <%= (typeof user !== 'undefined' && user && user.banker) ? user.banker : 'My Advisor' %> - UBS ASSET MANAGEMENT SPV 1 Secondary Interest</h3>
-                            <span class="date">Today, 14:23</span>
-                        </div>
-                        <p class="preview">Hi, I'm interested in acquiring the UBS ASSET MANAGEMENT SPV 1 secondary position listed on the bulletin board. Can you provide more details on the underlying portfolio companies, vintage diversification, and expected J-curve trajectory?...</p>
-                        <div class="message-details">
-                            <span class="recipient">Sent to advisor</span>
-                            <span class="status">✓ Delivered</span>
-                        </div>
-                    </div>
-                    <div class="message-item sent">
-                        <div class="message-header">
-                            <h3>To: <%= (typeof user !== 'undefined' && user && user.banker) ? user.banker : 'My Advisor' %> - List PE Investment for Sale</h3>
-                            <span class="date">2 days ago</span>
-                        </div>
-                        <p class="preview">Hello, I'd like to list my UBS Asset Management Infrastructure Fund position on the bulletin board to create liquidity for a new healthcare opportunity. What's the process and timeline for listing? Can you help with pricing guidance?...</p>
-                        <div class="message-details">
-                            <span class="recipient">Sent to advisor</span>
-                            <span class="status">✓ Read</span>
-                        </div>
-                    </div>
-                    <div class="message-item sent">
-                        <div class="message-header">
-                            <h3>To: <%= (typeof user !== 'undefined' && user && user.banker) ? user.banker : 'My Advisor' %> - European Software Secondary Portfolio Questions</h3>
-                            <span class="date">1 week ago</span>
-                        </div>
-                        <p class="preview">Hi, I'm considering the European Software Secondary Portfolio from the Available PE Investments. Can we discuss the underlying assets, expected hold period, and how this fits with my existing tech exposure? I'm thinking €300K commitment...</p>
-                        <div class="message-details">
-                            <span class="recipient">Sent to advisor</span>
-                            <span class="status">✓ Read</span>
-                        </div>
-                    </div>
-                <% } %>
+            <div class="message-list" id="sent-messages">
+                <div style="text-align: center; padding: 40px; color: #999;">
+                    <p>Loading sent messages...</p>
+                </div>
             </div>
         </div>
     </div>

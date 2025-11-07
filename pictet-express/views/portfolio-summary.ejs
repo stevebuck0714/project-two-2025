@@ -23,39 +23,28 @@
     <div id="portfolio-summary-content" class="portfolio-tab-content active">
         <!-- Portfolio Overview Cards -->
         <div class="metrics-container">
+        <%
+            // Calculate Private Assets (Private Funds + Hedge Funds + Other Assets)
+            const privateFundsPercent = processedData.metrics.assetAllocation['Private Funds'] || 0;
+            const hedgeFundsPercent = processedData.metrics.assetAllocation['Hedge Funds'] || 0;
+            const otherAssetsPercent = processedData.metrics.assetAllocation['Other Assets'] || 0;
+            const privateAssetsPercent = privateFundsPercent + hedgeFundsPercent + otherAssetsPercent;
+            const privateAssetsValue = (privateAssetsPercent / 100) * processedData.metrics.totalValue;
+            
+            // Calculate Public Portfolio (Total - Private Assets)
+            const publicPortfolioValue = processedData.metrics.totalValue - privateAssetsValue;
+        %>
         <div class="metric-item">
             <div class="metric-label">Total Portfolio Value</div>
             <div class="metric-value"><%= typeof formatNumber === 'function' ? formatNumber(processedData.metrics.totalValue) : processedData.metrics.totalValue.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' }).replace('EUR', '€') %></div>
         </div>
         <div class="metric-item">
-            <div class="metric-label">Total Investments</div>
-            <div class="metric-value"><%= processedData.metrics.totalInvestments %></div>
+            <div class="metric-label">Public Portfolio</div>
+            <div class="metric-value"><%= typeof formatNumber === 'function' ? formatNumber(publicPortfolioValue) : publicPortfolioValue.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' }).replace('EUR', '€') %></div>
         </div>
         <div class="metric-item">
-            <div class="metric-label">Average Investment Size</div>
-            <div class="metric-value"><%= typeof formatNumber === 'function' ? formatNumber(processedData.metrics.averageInvestmentSize) : processedData.metrics.averageInvestmentSize.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' }).replace('EUR', '€') %></div>
-        </div>
-    </div>
-
-    <!-- Asset Allocation Charts -->
-    <div class="charts-container">
-        <div class="chart-section">
-            <h2>Asset Allocation</h2>
-            <div class="chart-wrapper">
-                <canvas id="assetAllocationChart"></canvas>
-            </div>
-        </div>
-        <div class="chart-section">
-            <h2>Geographic Distribution</h2>
-            <div class="chart-wrapper">
-                <canvas id="geographicAllocationChart"></canvas>
-            </div>
-        </div>
-        <div class="chart-section">
-            <h2>Portfolio Performance</h2>
-            <div class="chart-wrapper">
-                <canvas id="portfolioPerformanceChart"></canvas>
-            </div>
+            <div class="metric-label">Private Assets</div>
+            <div class="metric-value"><%= typeof formatNumber === 'function' ? formatNumber(privateAssetsValue) : privateAssetsValue.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' }).replace('EUR', '€') %></div>
         </div>
     </div>
 
@@ -75,15 +64,20 @@
                             <th>Total Gain</th>
                             <th>Target Allocation</th>
                             <th>Deviation %</th>
-                            <th>Deviation $</th>
+                            <th>Target Portfolio $</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <% Object.entries(processedData.metrics.assetTypeBreakdown).forEach(([type, count]) => { %>
+                        <% Object.entries(processedData.metrics.assetTypeBreakdown).forEach(([type, count]) => { 
+                            // Check if there are custom values for this asset type
+                            const hasCustomValues = processedData.metrics.customValues && processedData.metrics.customValues[type];
+                            const costBasis = hasCustomValues ? processedData.metrics.customValues[type].costBasis : (processedData.metrics.assetAllocation[type] * processedData.metrics.totalValue / 100 * 0.85);
+                            const totalValue = hasCustomValues ? processedData.metrics.customValues[type].totalValue : (processedData.metrics.assetAllocation[type] * processedData.metrics.totalValue / 100);
+                        %>
                             <tr data-asset-type="<%= type %>">
                                 <td><%= type %></td>
-                                <td><%= typeof formatNumber === 'function' ? formatNumber(processedData.metrics.assetAllocation[type] * processedData.metrics.totalValue / 100 * 0.85) : (processedData.metrics.assetAllocation[type] * processedData.metrics.totalValue / 100 * 0.85).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' }).replace('EUR', '€') %></td>
-                                <td><%= typeof formatNumber === 'function' ? formatNumber(processedData.metrics.assetAllocation[type] * processedData.metrics.totalValue / 100) : (processedData.metrics.assetAllocation[type] * processedData.metrics.totalValue / 100).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' }).replace('EUR', '€') %></td>
+                                <td><%= typeof formatNumber === 'function' ? formatNumber(costBasis) : costBasis.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' }).replace('EUR', '€') %></td>
+                                <td><%= typeof formatNumber === 'function' ? formatNumber(totalValue) : totalValue.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' }).replace('EUR', '€') %></td>
                                 <td class="current-allocation"><%= processedData.metrics.assetAllocation[type].toFixed(2) %>%</td>
                                 <td class="positive">+€<%= Math.floor(Math.random() * 50000 + 10000).toLocaleString('de-DE') %></td>
                                 <td class="positive">+€<%= Math.floor(processedData.metrics.assetAllocation[type] * processedData.metrics.totalValue / 100 * 0.15).toLocaleString('de-DE') %></td>
@@ -99,8 +93,8 @@
                                 <td class="deviation-cell">
                                     <span class="deviation-value">0.00%</span>
                                 </td>
-                                <td class="deviation-dollar-cell">
-                                    <span class="deviation-dollar-value">€0</span>
+                                <td class="target-portfolio-dollar-cell">
+                                    <span class="target-portfolio-dollar-value">€0</span>
                                 </td>
                             </tr>
                         <% }); %>
@@ -113,7 +107,7 @@
                             <td class="positive"><strong>+€<%= Math.floor(processedData.metrics.totalValue * 0.15).toLocaleString('de-DE') %></strong></td>
                             <td class="target-total-cell"><strong><span id="target-total">100.00%</span></strong></td>
                             <td class="deviation-total-cell"><strong>-</strong></td>
-                            <td class="deviation-dollar-total-cell"><strong>-</strong></td>
+                            <td class="target-portfolio-dollar-total-cell"><strong><span id="target-portfolio-total">€<%= processedData.metrics.totalValue.toLocaleString('de-DE') %></span></strong></td>
                         </tr>
                     </tbody>
                 </table>
@@ -124,45 +118,6 @@
                     <button id="test-calc" class="btn-outline">Test Calculation</button>
                     <span id="save-status" class="save-status"></span>
                 </div>
-            </div>
-        </div>
-
-        <!-- Marketable Securities Section -->
-        <div class="portfolio-section">
-            <h2>Marketable Securities</h2>
-            <div class="table-container">
-                <table class="portfolio-table">
-                    <thead>
-                        <tr>
-                            <th>Security Name</th>
-                            <th>Symbol</th>
-                            <th>Shares</th>
-                            <th>Cost Basis</th>
-                            <th>Current Price</th>
-                            <th>Day Change</th>
-                            <th>% Change</th>
-                            <th>Market Value</th>
-                            <th>Total Return</th>
-                            <th>Return %</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% processedData.marketableSecurities.forEach(security => { %>
-                            <tr>
-                                <td><%= security.name %></td>
-                                <td class="symbol-cell"><%= security.symbol %></td>
-                                <td class="number-cell"><%= security.shares.toLocaleString() %></td>
-                                <td class="currency-cell">$<%= security.basis.toFixed(2) %></td>
-                                <td class="currency-cell">$<%= security.currentPrice.toFixed(2) %></td>
-                                <td class="currency-cell <%= security.dayChange >= 0 ? 'positive' : 'negative' %>"><%= security.dayChange >= 0 ? '+' : '' %>$<%= security.dayChange.toFixed(2) %></td>
-                                <td class="percentage-cell <%= security.dayChangePercent >= 0 ? 'positive' : 'negative' %>"><%= security.dayChangePercent >= 0 ? '+' : '' %><%= security.dayChangePercent.toFixed(2) %>%</td>
-                                <td class="currency-cell">$<%= security.marketValue.toLocaleString() %></td>
-                                <td class="currency-cell <%= security.totalReturn >= 0 ? 'positive' : 'negative' %>">$<%= security.totalReturn.toLocaleString() %></td>
-                                <td class="percentage-cell <%= security.returnPercent >= 0 ? 'positive' : 'negative' %>"><%= security.returnPercent.toFixed(2) %>%</td>
-                            </tr>
-                        <% }); %>
-                    </tbody>
-                </table>
             </div>
         </div>
 
@@ -1583,33 +1538,33 @@ window.calculateDeviations = function() {
         
         const currentAllocationCell = row.querySelector('.current-allocation');
         const deviationCell = row.querySelector('.deviation-value');
-        const deviationDollarCell = row.querySelector('.deviation-dollar-value');
+        const targetPortfolioDollarCell = row.querySelector('.target-portfolio-dollar-value');
         const assetType = row.getAttribute('data-asset-type');
         
-        if (!currentAllocationCell || !deviationCell || !deviationDollarCell) {
+        if (!currentAllocationCell || !deviationCell || !targetPortfolioDollarCell) {
             console.log('Missing cells for row', index);
             return;
         }
         
         const currentAllocation = parseFloat(currentAllocationCell.textContent.replace('%', ''));
         const targetAllocation = parseFloat(input.value) || 0;
-        const deviation = currentAllocation - targetAllocation;
+        const deviation = targetAllocation - currentAllocation;
         
-        // Calculate dollar deviation
-        const deviationDollar = (deviation / 100) * totalPortfolioValue;
+        // Calculate target portfolio dollar amount
+        const targetPortfolioDollar = (targetAllocation / 100) * totalPortfolioValue;
         
-        console.log(`${assetType}: Current=${currentAllocation}%, Target=${targetAllocation}%, Deviation=${deviation.toFixed(2)}%, Deviation$=${deviationDollar.toLocaleString()}`);
+        console.log(`${assetType}: Current=${currentAllocation}%, Target=${targetAllocation}%, Deviation=${deviation.toFixed(2)}%, TargetPortfolio$=${targetPortfolioDollar.toLocaleString()}`);
         
         // Update individual deviation percentage
         deviationCell.textContent = (deviation >= 0 ? '+' : '') + deviation.toFixed(2) + '%';
         
-        // Update individual deviation dollar amount
-        const formattedDeviationDollar = (deviationDollar >= 0 ? '+€' : '-€') + Math.abs(deviationDollar).toLocaleString('de-DE');
-        deviationDollarCell.textContent = formattedDeviationDollar;
+        // Update target portfolio dollar amount
+        const formattedTargetPortfolioDollar = '€' + targetPortfolioDollar.toLocaleString('de-DE');
+        targetPortfolioDollarCell.textContent = formattedTargetPortfolioDollar;
         
         // Set base classes without color coding
         deviationCell.className = 'deviation-value';
-        deviationDollarCell.className = 'deviation-dollar-value';
+        targetPortfolioDollarCell.className = 'target-portfolio-dollar-value';
         
         // Add to totals
         totalTarget += targetAllocation;
@@ -1635,7 +1590,12 @@ window.calculateDeviations = function() {
     
     // Deviation % total is not meaningful, so we skip updating it
     
-    // Deviation $ total is also not meaningful, so we skip updating it
+    // Update Target Portfolio $ total
+    const targetPortfolioTotal = (totalTarget / 100) * totalPortfolioValue;
+    const targetPortfolioTotalElement = document.getElementById('target-portfolio-total');
+    if (targetPortfolioTotalElement) {
+        targetPortfolioTotalElement.textContent = '€' + targetPortfolioTotal.toLocaleString('de-DE');
+    }
     
     console.log('=== CALCULATION COMPLETED ===');
 };

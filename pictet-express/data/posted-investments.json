@@ -1,5 +1,19 @@
 [
   {
+    "fundName": "UBS SPV 1",
+    "type": "Private Equity",
+    "totalCommitment": "€ 500.000",
+    "calledCapital": "€ 475.000",
+    "currentValue": "€ 450.000",
+    "remaining": "€ 25.000",
+    "calledPercent": "95.00%",
+    "postedDate": "11/1/2025",
+    "portfolioNumber": 1,
+    "sellerId": "erik.andersson",
+    "sellerName": "Erik Andersson",
+    "sellerBanker": "Alexandra Steinberg"
+  },
+  {
     "fundName": "UBS SPV 2",
     "type": "Private Equity",
     "totalCommitment": "€ 1.000.000",
@@ -8,7 +22,10 @@
     "remaining": "€ 50.000",
     "calledPercent": "95.00%",
     "postedDate": "9/28/2025",
-    "portfolioNumber": 1
+    "portfolioNumber": 1,
+    "sellerId": "hans.weber",
+    "sellerName": "Hans Weber",
+    "sellerBanker": "Alexandra Steinberg"
   },
   {
     "fundName": "UBS SPV 4",
@@ -19,7 +36,10 @@
     "remaining": "€ 150.000",
     "calledPercent": "90.00%",
     "postedDate": "9/28/2025",
-    "portfolioNumber": 2
+    "portfolioNumber": 2,
+    "sellerId": "marie.dubois",
+    "sellerName": "Marie Dubois",
+    "sellerBanker": "Alexandra Steinberg"
   },
   {
     "fundName": "UBS SPV 5",
@@ -30,6 +50,9 @@
     "remaining": "€ 100.000",
     "calledPercent": "90.00%",
     "postedDate": "11/5/2025",
-    "portfolioNumber": 2
+    "portfolioNumber": 2,
+    "sellerId": "marie.dubois",
+    "sellerName": "Marie Dubois",
+    "sellerBanker": "Alexandra Steinberg"
   }
 ]

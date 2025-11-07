@@ -1,0 +1,139 @@
+<%- include('partials/header') %>
+<%- include('partials/secondary-nav') %>
+
+<div class="stability-message">
+    <h2>Welcome to the Secondary Market Exchange at UBS</h2>
+</div>
+
+<style>
+    .welcome-container {
+        max-width: 1500px !important;
+        margin-top: 1.5rem !important;
+        margin-bottom: 0 !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        padding: 2rem !important;
+        background-color: white !important;
+        border: 1px solid #999 !important;
+        border-radius: 4px !important;
+    }
+
+    .welcome-container h2 {
+        color: #e60000;
+        font-size: 28px;
+        font-weight: 600;
+        margin: 40px 0 20px 0;
+        padding-bottom: 15px;
+        border-bottom: 3px solid #e60000;
+    }
+
+    .welcome-container h2:first-of-type {
+        margin-top: 0;
+    }
+
+    .welcome-container h3 {
+        color: #333;
+        font-size: 22px;
+        font-weight: 600;
+        margin: 30px 0 15px 0;
+    }
+
+    .welcome-container p {
+        color: #555;
+        font-size: 16px;
+        line-height: 1.8;
+        margin-bottom: 20px;
+    }
+
+    .steps-list {
+        background: #f8f9fa;
+        padding: 30px;
+        border-radius: 8px;
+        margin: 20px 0;
+    }
+
+    .steps-list ol {
+        padding-left: 20px;
+        margin: 0;
+    }
+
+    .steps-list li {
+        color: #333;
+        font-size: 16px;
+        line-height: 1.8;
+        margin-bottom: 15px;
+        padding-left: 10px;
+    }
+
+    .benefits-list {
+        background: #f0f8ff;
+        padding: 30px;
+        border-radius: 8px;
+        border-left: 4px solid #e60000;
+        margin: 20px 0;
+    }
+
+    .benefits-list ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .benefits-list li {
+        color: #333;
+        font-size: 16px;
+        line-height: 1.8;
+        margin-bottom: 12px;
+        padding-left: 30px;
+        position: relative;
+    }
+
+    .benefits-list li:before {
+        content: "✓";
+        color: #e60000;
+        font-weight: bold;
+        font-size: 20px;
+        position: absolute;
+        left: 0;
+    }
+</style>
+
+<div class="welcome-container">
+    <h2>Understanding Private Fund Secondary Sales</h2>
+    <p>
+        Private fund investments are typically long-term and illiquid, but UBS offers a structured secondary market framework that can provide liquidity through internal peer-to-peer transactions. This guide explains how you, as an individual investor on the UBS platform, can sell or buy a private fund position from another UBS client.
+    </p>
+
+    <h2>What is a Secondary Market Transaction?</h2>
+    <p>
+        A secondary market transaction allows an investor to sell their interest in a private fund (such as a private equity or venture capital fund) to another investor. This provides liquidity when needed without waiting for the fund to fully liquidate.
+    </p>
+
+    <h2>How It Works</h2>
+    <p>The following steps outline a typical peer-to-peer transaction between UBS clients.</p>
+    
+    <div class="steps-list">
+        <ol>
+            <li>Investor A decides to sell their interest in a private fund.</li>
+            <li>Investor B expresses interest in purchasing the fund interest.</li>
+            <li>Investor A's Private Banker provides recent fund details including Net Asset Value (NAV) and other relevant information and facilitates pricing guidance with Investor A.</li>
+            <li>Investor B contacts their Private Banker to discuss an offer.</li>
+            <li>Investor B's Private Banker coordinates documentation, including Purchase and Sale Agreements and Transfer Agreements.</li>
+            <li>Upon approval by Investor A and Investor B, the transaction is executed and settled within the Firm's custody systems.</li>
+        </ol>
+    </div>
+
+    <h2>Benefits of Internal Secondary Transfers</h2>
+    <div class="benefits-list">
+        <ul>
+            <li>Controlled environment with the Firms' vetted clients.</li>
+            <li>Streamlined compliance and documentation.</li>
+            <li>Access to seasoned fund investments with documented history.</li>
+            <li>Efficient onboarding and fund administration under the Firms' umbrella.</li>
+        </ul>
+    </div>
+
+</div>
+
+<%- include('partials/footer') %>
+

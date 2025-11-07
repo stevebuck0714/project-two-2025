@@ -16,25 +16,19 @@
                 <div class="glance-item portfolio-card">
                     <div class="portfolio-nav-section">
                         <div class="nav-metric">
-                            <span class="nav-label">Portfolio NAV</span>
-                            <span class="nav-value">€<%= portfolioNAV.toLocaleString() %></span>
+                            <span class="nav-label">PE Portfolio NAV</span>
+                            <span class="nav-value">€<%= privateAssetsNAV.toLocaleString('de-DE') %></span>
                         </div>
                     </div>
                     <div class="performance-section">
-                        <div class="performance-header">Portfolio Performance</div>
+                        <div class="performance-header">PE Strategy Distribution</div>
                         <div class="performance-metrics">
+                            <% peStrategies.forEach(strategy => { %>
                             <div class="metric-row">
-                                <span class="period">1 Day</span>
-                                <span class="change positive">+<%= oneDayChange %>%</span>
+                                <span class="period"><%= strategy.name %></span>
+                                <span class="change neutral"><%= strategy.percentage %>%</span>
                             </div>
-                            <div class="metric-row">
-                                <span class="period">Month to Date</span>
-                                <span class="change positive">+<%= mtdChange %>%</span>
-                            </div>
-                            <div class="metric-row">
-                                <span class="period">Year to Date</span>
-                                <span class="change positive">+<%= ytdChange %>%</span>
-                            </div>
+                            <% }); %>
                         </div>
                     </div>
                 </div>
@@ -89,91 +83,169 @@
                 <!-- Row 2 -->
                 <div class="glance-item market-indexes-card">
                     <div class="card-header">
-                        <h4>Global Stock Indexes</h4>
-                        <div class="period-label">Live</div>
+                        <h4>New Secondary Market Listings</h4>
+                        <div class="period-label">Last 2 Weeks</div>
                     </div>
                     <div class="index-list">
                         <div class="index-item">
-                            <span class="index-name">S&P 500</span>
+                            <span class="index-name">European Buyout Fund VII</span>
                             <div>
-                                <span class="index-value">5,751.13</span>
-                                <span class="index-change positive">+0.85%</span>
+                                <span class="index-value">€4.2M</span>
+                                <span class="index-change neutral">3 days ago</span>
                             </div>
                         </div>
                         <div class="index-item">
-                            <span class="index-name">FTSE 100</span>
+                            <span class="index-name">Tech Growth Fund III</span>
                             <div>
-                                <span class="index-value">8,292.66</span>
-                                <span class="index-change negative">-0.23%</span>
+                                <span class="index-value">€2.8M</span>
+                                <span class="index-change neutral">5 days ago</span>
                             </div>
                         </div>
                         <div class="index-item">
-                            <span class="index-name">DAX</span>
+                            <span class="index-name">Infrastructure Partners II</span>
                             <div>
-                                <span class="index-value">19,189.24</span>
-                                <span class="index-change positive">+1.14%</span>
+                                <span class="index-value">€6.5M</span>
+                                <span class="index-change neutral">7 days ago</span>
                             </div>
                         </div>
                         <div class="index-item">
-                            <span class="index-name">Nikkei 225</span>
+                            <span class="index-name">Healthcare Ventures IV</span>
                             <div>
-                                <span class="index-value">38,876.71</span>
-                                <span class="index-change positive">+0.47%</span>
+                                <span class="index-value">€3.1M</span>
+                                <span class="index-change neutral">10 days ago</span>
                             </div>
                         </div>
                         <div class="index-item">
-                            <span class="index-name">MSCI World</span>
+                            <span class="index-name">Real Estate Fund VIII</span>
                             <div>
-                                <span class="index-value">3,624.55</span>
-                                <span class="index-change positive">+0.62%</span>
+                                <span class="index-value">€5.7M</span>
+                                <span class="index-change neutral">12 days ago</span>
                             </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 1rem; text-align: center; border-top: 1px solid #f0f0f0; padding-top: 0.75rem;">
+                        <a href="/bulletin-board?tab=secondary" style="color: #003f5c; text-decoration: none; font-weight: 600; font-size: 0.9rem;">View All Secondary Market Opportunities →</a>
+                    </div>
+                </div>
+
+                <div class="glance-item rebalancing-card">
+                    <div class="card-header">
+                        <h4>Portfolio Rebalancing</h4>
+                        <div class="period-label">Target vs Current</div>
+                    </div>
+                    <div class="rebalancing-list" id="rebalancing-list">
+                        <div class="rebalancing-placeholder">
+                            <p style="text-align: center; color: #999; padding: 20px;">Set target allocations in the Portfolio page to see rebalancing recommendations</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="glance-item crypto-indexes-card">
-                    <div class="card-header">
-                        <h4>Crypto Indexes</h4>
-                        <div class="period-label">Live</div>
-                    </div>
-                    <div class="index-list">
-                        <div class="index-item">
-                            <span class="index-name">Bitcoin</span>
-                            <div>
-                                <span class="index-value">$63,242</span>
-                                <span class="index-change positive">+2.14%</span>
-                            </div>
-                        </div>
-                        <div class="index-item">
-                            <span class="index-name">Ethereum</span>
-                            <div>
-                                <span class="index-value">$2,485</span>
-                                <span class="index-change positive">+1.87%</span>
-                            </div>
-                        </div>
-                        <div class="index-item">
-                            <span class="index-name">Solana</span>
-                            <div>
-                                <span class="index-value">$142.63</span>
-                                <span class="index-change negative">-0.95%</span>
-                            </div>
-                        </div>
-                        <div class="index-item">
-                            <span class="index-name">XRP</span>
-                            <div>
-                                <span class="index-value">$0.5847</span>
-                                <span class="index-change positive">+3.21%</span>
-                            </div>
-                        </div>
-                        <div class="index-item">
-                            <span class="index-name">Crypto Fear & Greed</span>
-                            <div>
-                                <span class="index-value">64</span>
-                                <span class="index-change neutral">Greed</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <script>
+                // Calculate and display portfolio rebalancing needs
+                document.addEventListener('DOMContentLoaded', function() {
+                    const rebalancingList = document.getElementById('rebalancing-list');
+                    
+                    // Portfolio data matching server-side
+                    const totalPortfolioValue = 20000000;
+                    const currentAllocations = {
+                        'Cash': 5.00,
+                        'Marketable Securities': 45.3125,
+                        'Fixed Income': 15.00,
+                        'Private Funds': 16.25,
+                        'Hedge Funds': 6.9375,
+                        'Other Assets': 11.5
+                    };
+                    
+                    // Get saved target allocations from localStorage
+                    const savedTargets = localStorage.getItem('portfolioTargetAllocations');
+                    
+                    if (savedTargets) {
+                        const targetAllocations = JSON.parse(savedTargets);
+                        let hasChanges = false;
+                        let rebalancingHTML = '';
+                        
+                        // Calculate differences for each asset type
+                        Object.keys(currentAllocations).forEach(assetType => {
+                            const current = currentAllocations[assetType];
+                            const target = targetAllocations[assetType];
+                            
+                            if (target !== undefined && Math.abs(target - current) > 0.01) {
+                                hasChanges = true;
+                                const difference = target - current;
+                                const dollarAmount = (difference / 100) * totalPortfolioValue;
+                                const action = difference > 0 ? 'Buy' : 'Sell';
+                                const changeClass = difference > 0 ? 'positive' : 'negative';
+                                
+                                rebalancingHTML += `
+                                    <div class="rebalancing-item">
+                                        <span class="rebalancing-asset">${assetType}</span>
+                                        <div>
+                                            <span class="rebalancing-action ${changeClass}">${action} €${Math.abs(dollarAmount).toLocaleString('de-DE')}</span>
+                                        </div>
+                                    </div>
+                                `;
+                            }
+                        });
+                        
+                        if (hasChanges) {
+                            rebalancingList.innerHTML = rebalancingHTML;
+                        } else {
+                            rebalancingList.innerHTML = '<div class="rebalancing-placeholder"><p style="text-align: center; color: #28a745; padding: 20px;">✓ Portfolio is aligned with targets</p></div>';
+                        }
+                    }
+                });
+                </script>
+
+                <style>
+                .rebalancing-card {
+                    background: white;
+                    padding: 1rem 1.5rem 1.5rem 1.5rem;
+                    border-radius: 8px;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                }
+
+                .rebalancing-list {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.75rem;
+                }
+
+                .rebalancing-item {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 0.35rem 0;
+                    border-bottom: 1px solid #f0f0f0;
+                }
+
+                .rebalancing-item:last-child {
+                    border-bottom: none;
+                }
+
+                .rebalancing-asset {
+                    font-weight: 600;
+                    color: #333;
+                    font-size: 0.95rem;
+                }
+
+                .rebalancing-action {
+                    font-weight: 600;
+                    font-size: 0.9rem;
+                }
+
+                .rebalancing-action.positive {
+                    color: #16a085;
+                }
+
+                .rebalancing-action.negative {
+                    color: #e74c3c;
+                }
+
+                .rebalancing-placeholder p {
+                    margin: 0;
+                    font-size: 0.9rem;
+                }
+                </style>
 
                 <div class="glance-item market-card">
                     <div class="card-header">

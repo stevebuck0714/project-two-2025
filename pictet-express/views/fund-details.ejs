@@ -107,7 +107,7 @@
             </div>
             <div class="fund-action">
                 <% if (market === 'secondary') { %>
-                    <a href="/contact-advisor?market=<%= market %>&fund=<%= fundType %>" class="btn btn-primary">Contact my Advisor</a>
+                    <a href="/contact-advisor?market=<%= market %>&fund=<%= fundType %>&fundName=<%= encodeURIComponent(fundInfo.title) %>" class="btn btn-primary">Contact my Advisor</a>
                 <% } else { %>
                     <a href="/create-bid" class="btn btn-primary">Make a Bid</a>
                 <% } %>

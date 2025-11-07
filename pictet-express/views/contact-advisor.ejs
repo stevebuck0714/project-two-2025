@@ -3,12 +3,9 @@
 
 <div class="main-container">
     <div class="contact-advisor-container">
-        <h1 class="page-title">Contact my Advisor</h1>
-        
         <div class="advisor-contact-form">
             <div class="form-header">
                 <h2>Share Fund Summary with Your Advisor</h2>
-                <p>Send the fund details and your interest to your financial advisor for review and guidance.</p>
             </div>
 
             <form id="advisorContactForm" class="advisor-form">
@@ -63,16 +60,16 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="client-name">Your Name *</label>
-                            <input type="text" id="client-name" name="client-name" required>
+                            <input type="text" id="client-name" name="client-name" value="<%= typeof user !== 'undefined' && user ? user.name : '' %>" required>
                         </div>
                         <div class="form-group">
                             <label for="client-email">Your Email *</label>
-                            <input type="email" id="client-email" name="client-email" required>
+                            <input type="email" id="client-email" name="client-email" value="<%= typeof user !== 'undefined' && user ? user.username + '@email.com' : '' %>" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="client-phone">Your Phone</label>
-                        <input type="tel" id="client-phone" name="client-phone">
+                        <input type="tel" id="client-phone" name="client-phone" value="+41 22 555 0000">
                     </div>
                 </div>
 
@@ -89,67 +86,54 @@
 .contact-advisor-container {
     max-width: 800px;
     margin: 0 auto;
-    padding: 2rem;
-}
-
-.page-title {
-    color: #e60012;
-    font-size: 2.5rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    text-align: center;
+    padding: 1rem;
 }
 
 .advisor-contact-form {
     background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 1.5rem;
 }
 
 .form-header {
     text-align: center;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
     border-bottom: 2px solid #e60012;
 }
 
 .form-header h2 {
     color: #333;
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
-}
-
-.form-header p {
-    color: #666;
-    font-size: 1.1rem;
+    font-size: 1.5rem;
+    margin-bottom: 0;
 }
 
 .form-section {
-    margin-bottom: 2rem;
+    margin-bottom: 1.25rem;
 }
 
 .form-section h3 {
     color: #e60012;
-    font-size: 1.4rem;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.4rem;
     border-bottom: 1px solid #eee;
 }
 
 .fund-summary-box {
     background: #f8fafc;
     border: 1px solid #e0e6ed;
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
 }
 
 .fund-info-row {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 0.5rem;
-    padding: 0.5rem 0;
+    margin-bottom: 0.4rem;
+    padding: 0.3rem 0;
     border-bottom: 1px solid #eee;
 }
 
@@ -175,23 +159,24 @@
 }
 
 .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
 }
 
 .form-group label {
     display: block;
     font-weight: 600;
     color: #333;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
+    font-size: 0.95rem;
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
-    padding: 0.75rem;
+    padding: 0.6rem;
     border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 1rem;
+    border-radius: 4px;
+    font-size: 0.95rem;
     transition: border-color 0.2s;
 }
 
@@ -204,18 +189,18 @@
 
 .form-actions {
     display: flex;
-    gap: 1rem;
+    gap: 0.75rem;
     justify-content: center;
-    margin-top: 2rem;
-    padding-top: 1rem;
+    margin-top: 1.25rem;
+    padding-top: 0.75rem;
     border-top: 1px solid #eee;
 }
 
 .btn {
-    padding: 0.75rem 2rem;
+    padding: 0.6rem 1.5rem;
     border: none;
-    border-radius: 6px;
-    font-size: 1rem;
+    border-radius: 4px;
+    font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
@@ -288,11 +273,35 @@ document.getElementById('advisorContactForm').addEventListener('submit', functio
         return;
     }
     
-    // Simulate sending email
-    alert('Your message has been sent to your advisor successfully! They will receive the fund summary and your message shortly.');
+    // Get fund name from the form
+    const fundName = '<%= fundInfo ? fundInfo.title : "Fund" %>';
+    const listingId = 'LST-' + Math.random().toString(36).substr(2, 9).toUpperCase();
     
-    // Redirect back to fund details
-    window.history.back();
+    // Send message to advisor API to generate confirmation
+    fetch('/api/contact-advisor', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            fundName: fundName,
+            listingId: listingId,
+            clientMessage: data['client-message']
+        })
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.success) {
+            alert('Your message has been sent to your advisor successfully! Check your Messages inbox for their response.');
+            window.location.href = '/messages';
+        } else {
+            alert('Failed to send message. Please try again.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to send message. Please try again.');
+    });
 });
 </script>
 

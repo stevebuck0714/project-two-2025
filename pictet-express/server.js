@@ -474,10 +474,26 @@ app.get('/client-alerts', requireAuth, (req, res) => {
     res.render('client-alerts', { user: req.user });
 });
 
+app.get('/welcome', requireAuth, (req, res) => {
+    res.render('welcome');
+});
+
 app.get('/briefing', requireAuth, (req, res) => {
     // Sample data for the briefing page
+    // Calculate private assets NAV (Private Funds + Hedge Funds + Other Assets)
+    const totalPortfolioValue = 20000000;
+    const privateAssetsPercent = 16.25 + 6.9375 + 11.5; // 34.6875%
+    const privateAssetsNAV = (privateAssetsPercent / 100) * totalPortfolioValue;
+    
     const briefingData = {
         portfolioNAV: 8750000,
+        privateAssetsNAV: privateAssetsNAV,
+        peStrategies: [
+            { name: 'Large-Cap Buyout', value: 1850000, percentage: 26.7 },
+            { name: 'Mid-Market Buyout', value: 2100000, percentage: 30.3 },
+            { name: 'Growth Equity', value: 1750000, percentage: 25.2 },
+            { name: 'Venture Capital', value: 1237500, percentage: 17.8 }
+        ],
         oneDayChange: 0.42,
         mtdChange: 2.15,
         ytdChange: 14.8,
@@ -577,9 +593,15 @@ app.get('/portfolio-summary', requireAuth, (req, res) => {
                     'Cash': 5.00,
                     'Marketable Securities': 45.3125,
                     'Fixed Income': 15.00,
-                    'Private Funds': 27.75,
+                    'Private Funds': 16.25,
                     'Hedge Funds': 6.9375,
-                    'Other Assets': 0.00
+                    'Other Assets': 11.5
+                },
+                customValues: {
+                    'Private Funds': {
+                        costBasis: 2500000,
+                        totalValue: 3250000
+                    }
                 },
                 assetTypeBreakdown: {
                     'Cash': 2,
@@ -924,6 +946,7 @@ app.get('/contact-advisor', requireAuth, (req, res) => {
     // Get URL parameters to pass fund information
     const market = req.query.market || 'secondary';
     const fund = req.query.fund || 'buyout';
+    const fundName = req.query.fundName || null;
     
     // Define fund-specific data (same as fund-details)
     const fundData = {
@@ -961,12 +984,18 @@ app.get('/contact-advisor', requireAuth, (req, res) => {
         }
     };
     
-    const currentFund = fundData[market]?.[fund] || fundData.secondary.buyout;
+    let currentFund = fundData[market]?.[fund] || fundData.secondary.buyout;
+    
+    // Override with passed fund name if provided
+    if (fundName) {
+        currentFund = { ...currentFund, title: fundName };
+    }
     
     res.render('contact-advisor', {
         fundInfo: currentFund,
         market: market,
-        fundType: fund
+        fundType: fund,
+        user: req.user
     });
 });
 
@@ -1397,6 +1426,268 @@ app.get('/api/get-resolved-alerts', requireAuth, (req, res) => {
     } catch (error) {
         console.error('Error loading resolved alerts:', error);
         res.status(500).json({ success: false, message: 'Error loading alerts' });
+    }
+});
+
+// Messages Storage
+const MESSAGES_FILE = path.join(__dirname, 'data', 'messages.json');
+
+function loadMessages() {
+    try {
+        if (fs.existsSync(MESSAGES_FILE)) {
+            const data = fs.readFileSync(MESSAGES_FILE, 'utf8');
+            return JSON.parse(data);
+        }
+    } catch (error) {
+        console.error('Error loading messages:', error);
+    }
+    return [];
+}
+
+function saveMessages(messages) {
+    try {
+        const dataDir = path.join(__dirname, 'data');
+        if (!fs.existsSync(dataDir)) {
+            fs.mkdirSync(dataDir, { recursive: true });
+        }
+        fs.writeFileSync(MESSAGES_FILE, JSON.stringify(messages, null, 2));
+        return true;
+    } catch (error) {
+        console.error('Error saving messages:', error);
+        return false;
+    }
+}
+
+// API endpoint to contact advisor about secondary market listing
+app.post('/api/contact-advisor', requireAuth, (req, res) => {
+    try {
+        const userId = req.user.username;
+        const userName = req.user.name; // e.g. "Erik Andersson - Stockholm, Sweden"
+        const bankerFullName = req.user.banker || 'Your Private Banker'; // e.g. "Alexandra Steinberg - Senior Private Banker"
+        const { fundName, listingId, clientMessage } = req.body;
+        
+        // Extract client's name only (e.g. "Erik Andersson" from "Erik Andersson - Stockholm, Sweden")
+        const clientNameOnly = userName.split(' - ')[0];
+        
+        // Extract client's first name (e.g. "Erik" from "Erik Andersson - Stockholm, Sweden")
+        const clientFirstName = userName.split(' ')[0];
+        
+        // Extract banker's name only (e.g. "Alexandra Steinberg" from "Alexandra Steinberg - Senior Private Banker")
+        const bankerNameOnly = bankerFullName.split(' - ')[0];
+        
+        // Find the listing to get seller information
+        const listing = postedInvestments.find(inv => inv.fundName === fundName);
+        
+        // Load existing messages
+        const messages = loadMessages();
+        
+        // Create the client's sent message
+        const clientMessageText = clientMessage || "I'm interested in this fund opportunity and would like to discuss it with you. Please review the fund details and let me know your thoughts.";
+        const sentMessage = {
+            id: 'MSG-' + Date.now() + '-sent',
+            userId: userId,
+            subject: `Inquiry about Listing #${listingId} — ${fundName}`,
+            from: clientNameOnly,
+            to: bankerNameOnly,
+            date: new Date().toISOString(),
+            preview: clientMessageText.substring(0, 100) + (clientMessageText.length > 100 ? '...' : ''),
+            fullMessage: `Dear ${bankerNameOnly},
+
+${clientMessageText}
+
+Fund Details:
+• Listing #${listingId}
+• Fund: ${fundName}
+
+Best regards,
+
+${clientNameOnly}`,
+            type: 'sent',
+            unread: false
+        };
+        
+        // Generate confirmation message from advisor to buyer
+        const confirmationMessage = {
+            id: 'MSG-' + (Date.now() + 1),
+            userId: userId,
+            subject: `Next steps on Listing #${listingId} — ${fundName}`,
+            from: bankerNameOnly,
+            to: clientNameOnly,
+            date: new Date().toISOString(),
+            preview: `Thank you for your interest in Listing #${listingId}. We will coordinate introductions off‑platform...`,
+            fullMessage: `Dear ${clientFirstName},
+
+Thank you for your interest in Listing #${listingId}.
+
+We will coordinate introductions off‑platform. Before we proceed, please note:
+
+• This notice board is execution‑only; it is not a trading venue.
+• Negotiation and acceptance occur outside the platform (email/phone).
+• Secondary interests are illiquid and may transact at a discount/premium to the last NAV.
+• Transfers may require GP consent, may be subject to ROFR and transfer fees, and can be refused by the GP.
+• Timing of capital calls/distributions can change and may affect settlement.
+
+If you wish, I can introduce you to the seller to discuss terms.
+
+Best regards,
+
+${bankerNameOnly}
+Private Banker
+UBS Wealth Management`,
+            type: 'inbox',
+            unread: true
+        };
+        
+        // Add buyer's messages
+        messages.push(sentMessage);
+        messages.push(confirmationMessage);
+        
+        // If we found the listing, also send notification to the seller and introduction to both parties
+        if (listing && listing.sellerId) {
+            const sellerFirstName = listing.sellerName.split(' ')[0];
+            
+            // Generate notification message to seller
+            const sellerNotificationMessage = {
+                id: 'MSG-' + (Date.now() + 2),
+                userId: listing.sellerId,
+                subject: `Potential buyer inquiry — Listing #${listingId} (${fundName})`,
+                from: bankerNameOnly,
+                to: listing.sellerName,
+                date: new Date().toISOString(),
+                preview: `We have a potential buyer for your Listing #${listingId}. If you remain interested in exploring a transfer...`,
+                fullMessage: `Dear ${sellerFirstName},
+
+We have a potential buyer for your Listing #${listingId}. If you remain interested in exploring a transfer, please confirm and share any updates since the last NAV (e.g., pending calls/distributions, consent status, or constraints).
+
+As a reminder, negotiation and any acceptance occur off‑platform. Transfers typically require GP consent and may be subject to ROFR and fees.
+
+Kind regards,
+
+${bankerNameOnly}
+Private Banker
+UBS Wealth Management`,
+                type: 'inbox',
+                unread: true
+            };
+            
+            messages.push(sellerNotificationMessage);
+            
+            // Calculate listing details for introduction email
+            const commitment = listing.totalCommitment;
+            const calledPercent = listing.calledPercent;
+            const unfunded = listing.remaining;
+            const currentValue = listing.currentValue;
+            const navDate = listing.postedDate || new Date().toLocaleDateString('en-US');
+            const gpFund = listing.type;
+            
+            // Create introduction email content
+            const introEmailBody = `${clientNameOnly} — meet ${listing.sellerName}. Copying relevant details below. Please continue discussions off‑platform.
+
+Key facts (from listing):
+• Commitment: ${commitment} | % Called: ${calledPercent} | Unfunded: ${unfunded}
+• Last NAV (date/amount): ${navDate} / ${currentValue}
+• Transfer constraints: Requires GP consent, may be subject to ROFR and transfer fees
+• Seller indication: Contact seller for pricing (non‑binding)
+
+Important: This is an execution‑only introduction; the notice board is not a trading venue, and no offer/acceptance occurs here. Any transaction remains subject to GP consent and bank operational checks.
+
+Best regards,
+
+${bankerNameOnly}
+Private Banker
+UBS Wealth Management`;
+            
+            // Send introduction email to buyer
+            const buyerIntroMessage = {
+                id: 'MSG-' + (Date.now() + 3),
+                userId: userId,
+                subject: `Introduction re: Listing #${listingId} — ${fundName} / ${gpFund}`,
+                from: bankerNameOnly,
+                to: clientNameOnly,
+                date: new Date().toISOString(),
+                preview: `${clientNameOnly} — meet ${listing.sellerName}. Copying relevant details below...`,
+                fullMessage: introEmailBody,
+                type: 'inbox',
+                unread: true
+            };
+            
+            // Send introduction email to seller
+            const sellerIntroMessage = {
+                id: 'MSG-' + (Date.now() + 4),
+                userId: listing.sellerId,
+                subject: `Introduction re: Listing #${listingId} — ${fundName} / ${gpFund}`,
+                from: bankerNameOnly,
+                to: listing.sellerName,
+                date: new Date().toISOString(),
+                preview: `${clientNameOnly} — meet ${listing.sellerName}. Copying relevant details below...`,
+                fullMessage: introEmailBody,
+                type: 'inbox',
+                unread: true
+            };
+            
+            messages.push(buyerIntroMessage);
+            messages.push(sellerIntroMessage);
+        }
+        
+        // Save messages
+        const success = saveMessages(messages);
+        
+        if (success) {
+            res.json({ success: true, message: 'Message sent to your advisor' });
+        } else {
+            res.status(500).json({ success: false, message: 'Failed to send message' });
+        }
+    } catch (error) {
+        console.error('Error contacting advisor:', error);
+        res.status(500).json({ success: false, message: 'Error sending message' });
+    }
+});
+
+// API endpoint to get user messages
+app.get('/api/get-messages', requireAuth, (req, res) => {
+    try {
+        const userId = req.user.username;
+        const messages = loadMessages();
+        
+        // Filter messages for this user
+        const userMessages = messages.filter(msg => msg.userId === userId);
+        
+        res.json({ 
+            success: true, 
+            messages: userMessages
+        });
+    } catch (error) {
+        console.error('Error loading messages:', error);
+        res.status(500).json({ success: false, message: 'Error loading messages' });
+    }
+});
+
+// API endpoint to delete a message
+app.post('/api/delete-message', requireAuth, (req, res) => {
+    try {
+        const userId = req.user.username;
+        const { messageId } = req.body;
+        
+        // Load messages
+        let messages = loadMessages();
+        
+        // Filter out the message to delete (only if it belongs to the user)
+        const filteredMessages = messages.filter(msg => !(msg.id === messageId && msg.userId === userId));
+        
+        if (filteredMessages.length < messages.length) {
+            // Message was found and deleted
+            const success = saveMessages(filteredMessages);
+            if (success) {
+                res.json({ success: true, message: 'Message deleted' });
+            } else {
+                res.status(500).json({ success: false, message: 'Failed to delete message' });
+            }
+        } else {
+            res.status(404).json({ success: false, message: 'Message not found' });
+        }
+    } catch (error) {
+        console.error('Error deleting message:', error);
+        res.status(500).json({ success: false, message: 'Error deleting message' });
     }
 });
 

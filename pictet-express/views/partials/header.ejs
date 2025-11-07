@@ -20,6 +20,7 @@
                 <% if (typeof user !== 'undefined' && user && user.type === 'banker') { %>
                     <a href="/client-alerts?tab=alerts" class="nav-link <%= (typeof path !== 'undefined' && path.includes('/client-alerts')) ? 'active' : '' %>">Client Alerts</a>
                 <% } %>
+                <a href="/welcome" class="nav-link <%= (typeof path !== 'undefined' && path.includes('/welcome')) ? 'active' : '' %>">Welcome</a>
                 <a href="/briefing" class="nav-link <%= (typeof path !== 'undefined' && path.includes('/briefing')) ? 'active' : '' %>">Briefing</a>
                 <a href="/portfolio-summary?tab=summary" class="nav-link <%= (typeof path !== 'undefined' && (path.includes('/portfolio-summary') || path.includes('/investment-details'))) ? 'active' : '' %>">Portfolio</a>
                 <a href="/bulletin-board?tab=listings" class="nav-link <%= (typeof path !== 'undefined' && (path.includes('/bulletin-board') || path.includes('/fund-details') || path.includes('/create-bid') || path.includes('/contact-advisor') || path.includes('/transactions'))) ? 'active' : '' %>">Bulletin Board</a>

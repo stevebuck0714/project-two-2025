@@ -1,0 +1,62 @@
+[
+  {
+    "id": "MSG-1762490000001-sent",
+    "userId": "marco.silva",
+    "subject": "Inquiry about Listing #LST-ABC123XYZ — UBS SPV 1",
+    "from": "Marco Silva",
+    "to": "Maximilian Dubois",
+    "date": "2025-11-07T04:30:00.000Z",
+    "preview": "I'm very interested in this PE opportunity and would like to discuss acquiring this position...",
+    "fullMessage": "Dear Maximilian Dubois,\n\nI'm very interested in this PE opportunity and would like to discuss acquiring this position. The fund metrics look attractive and it fits well with my portfolio strategy.\n\nFund Details:\n• Listing #LST-ABC123XYZ\n• Fund: UBS SPV 1\n\nBest regards,\n\nMarco Silva",
+    "type": "sent",
+    "unread": false
+  },
+  {
+    "id": "MSG-1762490000002",
+    "userId": "marco.silva",
+    "subject": "Next steps on Listing #LST-ABC123XYZ — UBS SPV 1",
+    "from": "Maximilian Dubois",
+    "to": "Marco Silva",
+    "date": "2025-11-07T04:30:05.000Z",
+    "preview": "Thank you for your interest in Listing #LST-ABC123XYZ. We will coordinate introductions off‑platform...",
+    "fullMessage": "Dear Marco,\n\nThank you for your interest in Listing #LST-ABC123XYZ.\n\nWe will coordinate introductions off‑platform. Before we proceed, please note:\n\n• This notice board is execution‑only; it is not a trading venue.\n• Negotiation and acceptance occur outside the platform (email/phone).\n• Secondary interests are illiquid and may transact at a discount/premium to the last NAV.\n• Transfers may require GP consent, may be subject to ROFR and transfer fees, and can be refused by the GP.\n• Timing of capital calls/distributions can change and may affect settlement.\n\nIf you wish, I can introduce you to the seller to discuss terms.\n\nBest regards,\n\nMaximilian Dubois\nPrivate Banker\nUBS Wealth Management",
+    "type": "inbox",
+    "unread": true
+  },
+  {
+    "id": "MSG-1762490000003",
+    "userId": "erik.andersson",
+    "subject": "Potential buyer inquiry — Listing #LST-ABC123XYZ (UBS SPV 1)",
+    "from": "Alexandra Steinberg",
+    "to": "Erik Andersson",
+    "date": "2025-11-07T04:30:10.000Z",
+    "preview": "We have a potential buyer for your Listing #LST-ABC123XYZ. If you remain interested in exploring a transfer...",
+    "fullMessage": "Dear Erik,\n\nWe have a potential buyer for your Listing #LST-ABC123XYZ. If you remain interested in exploring a transfer, please confirm and share any updates since the last NAV (e.g., pending calls/distributions, consent status, or constraints).\n\nAs a reminder, negotiation and any acceptance occur off‑platform. Transfers typically require GP consent and may be subject to ROFR and fees.\n\nKind regards,\n\nAlexandra Steinberg\nPrivate Banker\nUBS Wealth Management",
+    "type": "inbox",
+    "unread": true
+  },
+  {
+    "id": "MSG-1762490000004",
+    "userId": "marco.silva",
+    "subject": "Introduction re: Listing #LST-ABC123XYZ — UBS SPV 1 / Private Equity",
+    "from": "Maximilian Dubois",
+    "to": "Marco Silva",
+    "date": "2025-11-07T04:30:15.000Z",
+    "preview": "Marco Silva — meet Erik Andersson. Copying relevant details below...",
+    "fullMessage": "Marco Silva — meet Erik Andersson. Copying relevant details below. Please continue discussions off‑platform.\n\nKey facts (from listing):\n• Commitment: € 500.000 | % Called: 95.00% | Unfunded: € 25.000\n• Last NAV (date/amount): 11/1/2025 / € 450.000\n• Transfer constraints: Requires GP consent, may be subject to ROFR and transfer fees\n• Seller indication: Contact seller for pricing (non‑binding)\n\nImportant: This is an execution‑only introduction; the notice board is not a trading venue, and no offer/acceptance occurs here. Any transaction remains subject to GP consent and bank operational checks.\n\nBest regards,\n\nMaximilian Dubois\nPrivate Banker\nUBS Wealth Management",
+    "type": "inbox",
+    "unread": true
+  },
+  {
+    "id": "MSG-1762490000005",
+    "userId": "erik.andersson",
+    "subject": "Introduction re: Listing #LST-ABC123XYZ — UBS SPV 1 / Private Equity",
+    "from": "Alexandra Steinberg",
+    "to": "Erik Andersson",
+    "date": "2025-11-07T04:30:20.000Z",
+    "preview": "Marco Silva — meet Erik Andersson. Copying relevant details below...",
+    "fullMessage": "Marco Silva — meet Erik Andersson. Copying relevant details below. Please continue discussions off‑platform.\n\nKey facts (from listing):\n• Commitment: € 500.000 | % Called: 95.00% | Unfunded: € 25.000\n• Last NAV (date/amount): 11/1/2025 / € 450.000\n• Transfer constraints: Requires GP consent, may be subject to ROFR and transfer fees\n• Seller indication: Contact seller for pricing (non‑binding)\n\nImportant: This is an execution‑only introduction; the notice board is not a trading venue, and no offer/acceptance occurs here. Any transaction remains subject to GP consent and bank operational checks.\n\nBest regards,\n\nAlexandra Steinberg\nPrivate Banker\nUBS Wealth Management",
+    "type": "inbox",
+    "unread": true
+  }
+]
