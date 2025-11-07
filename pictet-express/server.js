@@ -1619,7 +1619,6 @@ app.post('/api/contact-advisor', requireAuth, async (req, res) => {
             preview: message.substring(0, 100) + (message.length > 100 ? '...' : ''),
             fullMessage: `Dear ${advisorName || 'UBS PE Advisory Team'},\n\n${message}\n\nBest regards,\n\n${user.name}`,
             type: 'sent',
-            emailType: emailType,
             unread: false
         };
         
@@ -1634,7 +1633,6 @@ app.post('/api/contact-advisor', requireAuth, async (req, res) => {
             preview: responseMessage,
             fullMessage: `Dear ${user.name},\n\n${responseMessage}\n\nYour message:\n"${message}"\n\nOur Private Equity advisory team is reviewing your inquiry and will provide a comprehensive response shortly.\n\nIn the meantime, if you have any urgent questions, please don't hesitate to contact your Private Banker directly.\n\nBest regards,\n${advisorName || 'UBS PE Advisory Team'}`,
             type: 'inbox',
-            emailType: emailType,
             unread: true
         };
         
