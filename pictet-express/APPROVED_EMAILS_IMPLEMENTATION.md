@@ -208,3 +208,4 @@ const approvedEmailTemplates = [
 - Client experience unchanged
 - Only adds new feature for advisors
 
+

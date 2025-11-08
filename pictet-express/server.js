@@ -195,6 +195,27 @@ function getClientsByAdvisor(advisorName) {
     return clients;
 }
 
+// Helper function to get portfolio file for a user
+function getPortfolioFile(username) {
+    // Check if user-specific portfolio exists
+    const userPortfolioPath = path.join(__dirname, 'data', `portfolio_${username}.csv`);
+    if (fs.existsSync(userPortfolioPath)) {
+        return userPortfolioPath;
+    }
+    
+    // Fallback to old portfolio files for backward compatibility
+    // You can customize this mapping as needed
+    const fallbackMap = {
+        'john.smith': 'portfolio1.csv',
+        'marie.dubois': 'portfolio1.csv',
+        'hans.weber': 'portfolio1.csv',
+        // Add more mappings or default to portfolio1
+    };
+    
+    const fallbackFile = fallbackMap[username] || 'portfolio1.csv';
+    return path.join(__dirname, 'data', fallbackFile);
+}
+
 // Approved Email Templates for Advisors
 const approvedEmailTemplates = [
     {
@@ -818,12 +839,14 @@ app.get('/portfolio', requireAuth, (req, res) => {
 
 app.get('/portfolio-summary', requireAuth, (req, res) => {
     try {
-        // Read portfolio data - force CSV reading
-        console.log('Reading portfolio data from:', __dirname);
-        const portfolio1 = readCSVFile(path.join(__dirname, 'data', 'portfolio1.csv'));
-        const portfolio2 = readCSVFile(path.join(__dirname, 'data', 'portfolio2.csv'));
-        console.log('Portfolio1 data:', portfolio1);
-        console.log('Portfolio2 data:', portfolio2);
+        // Get the logged-in user's portfolio file
+        const userId = req.user.username;
+        const portfolioFile = getPortfolioFile(userId);
+        
+        console.log('Reading portfolio for user:', userId, 'from:', portfolioFile);
+        const portfolio1 = readCSVFile(portfolioFile);
+        const portfolio2 = []; // Empty for now, will be used for additional portfolios if needed
+        console.log('Portfolio data:', portfolio1);
 
         // Sample data for portfolio summary
         const processedData = {
@@ -1497,35 +1520,21 @@ app.get('/contact-advisor', requireAuth, (req, res) => {
 app.get('/post-for-sale/:fundName', requireAuth, async (req, res) => {
     try {
         const fundName = req.params.fundName;
+        const userId = req.user.username;
+        const portfolioFile = getPortfolioFile(userId);
         
-        // Read both portfolio files to find the investment
-        const portfolio1 = readExcelFile(path.join(__dirname, 'data', 'portfolio1.xlsx'));
-        const portfolio2 = readExcelFile(path.join(__dirname, 'data', 'portfolio2.xlsx'));
+        // Read the user's portfolio to find the investment
+        const portfolio = readCSVFile(portfolioFile);
         
-        // Find the investment in either portfolio
+        // Find the investment in the portfolio
         let investment = null;
-        let portfolioNumber = null;
+        let portfolioNumber = 1; // Single portfolio per user now
         
-        const investment1 = portfolio1.find(item => {
+        investment = portfolio.find(item => {
             const itemName = item['Fund Name'] || '';
             const urlName = itemName.toLowerCase().replace(/\s+/g, '-');
             return urlName === fundName.toLowerCase();
         });
-        
-        if (investment1) {
-            investment = investment1;
-            portfolioNumber = 1;
-        } else {
-            const investment2 = portfolio2.find(item => {
-                const itemName = item['Fund Name'] || '';
-                const urlName = itemName.toLowerCase().replace(/\s+/g, '-');
-                return urlName === fundName.toLowerCase();
-            });
-            if (investment2) {
-                investment = investment2;
-                portfolioNumber = 2;
-            }
-        }
         
         if (!investment) {
             return res.status(404).render('error', { 
@@ -1631,39 +1640,22 @@ app.post('/remove-investment', requireAuth, async (req, res) => {
 app.get('/investment-details/:fundName', requireAuth, (req, res) => {
     try {
         const fundName = req.params.fundName;
+        const userId = req.user.username;
+        const portfolioFile = getPortfolioFile(userId);
         
-        // Read both portfolio files
-        const portfolio1 = readExcelFile(path.join(__dirname, 'data', 'portfolio1.xlsx'));
-        const portfolio2 = readExcelFile(path.join(__dirname, 'data', 'portfolio2.xlsx'));
+        // Read the user's portfolio
+        const portfolio = readCSVFile(portfolioFile);
         
-        // Find the investment in either portfolio
+        // Find the investment in the portfolio
         let investment = null;
-        let portfolioNumber = null;
+        let portfolioNumber = 1; // Single portfolio per user now
         
-        // Search in portfolio 1
-        const investment1 = portfolio1.find(item => {
+        investment = portfolio.find(item => {
             const itemName = item['Fund Name'] || '';
             const urlName = itemName.toLowerCase().replace(/\s+/g, '-');
             console.log('Comparing:', urlName, 'with', fundName.toLowerCase());
             return urlName === fundName.toLowerCase();
         });
-        
-        if (investment1) {
-            investment = investment1;
-            portfolioNumber = 1;
-        } else {
-            // Search in portfolio 2
-            const investment2 = portfolio2.find(item => {
-                const itemName = item['Fund Name'] || '';
-                const urlName = itemName.toLowerCase().replace(/\s+/g, '-');
-                console.log('Comparing:', urlName, 'with', fundName.toLowerCase());
-                return urlName === fundName.toLowerCase();
-            });
-            if (investment2) {
-                investment = investment2;
-                portfolioNumber = 2;
-            }
-        }
         
         if (!investment) {
             return res.status(404).render('error', { 
@@ -1732,10 +1724,12 @@ app.get('/investment-details/:fundName', requireAuth, (req, res) => {
 });
 
 // API endpoint to get portfolio data
-app.get('/api/portfolios', (req, res) => {
+app.get('/api/portfolios', requireAuth, (req, res) => {
   try {
-    const portfolio1 = readExcelFile(path.join(__dirname, 'data', 'portfolio1.xlsx'));
-    const portfolio2 = readExcelFile(path.join(__dirname, 'data', 'portfolio2.xlsx'));
+    const userId = req.user.username;
+    const portfolioFile = getPortfolioFile(userId);
+    const portfolio1 = readCSVFile(portfolioFile);
+    const portfolio2 = []; // Keep for backward compatibility
     
     res.json({
       portfolio1,
