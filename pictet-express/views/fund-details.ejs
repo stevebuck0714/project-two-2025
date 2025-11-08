@@ -111,6 +111,13 @@
     background-color: #154c5d;
 }
 
+/* Disabled button styling */
+.btn.disabled, button.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
 .btn-specific {
     background-color: #059669;
     color: white;
@@ -149,18 +156,35 @@
                 <button class="fund-tab" onclick="showFundSection('dataroom')">Data Room</button>
             </div>
             <div class="fund-action">
+                <% const isAdvisor = (typeof user !== 'undefined' && user && user.type === 'banker'); %>
                 <% if (market === 'secondary') { %>
                     <% if (typeof isPostedInvestment !== 'undefined' && isPostedInvestment) { %>
                         <!-- Posted investment - use generic contact for questions about own listing -->
-                        <a href="/contact-advisor?type=generic" class="btn btn-generic">Contact My Advisor</a>
+                        <% if (isAdvisor) { %>
+                            <span class="btn btn-generic disabled" title="View Only - Advisors cannot contact on behalf of clients">Contact My Advisor</span>
+                        <% } else { %>
+                            <a href="/contact-advisor?type=generic" class="btn btn-generic">Contact My Advisor</a>
+                        <% } %>
                     <% } else if (typeof listingId !== 'undefined' && listingId) { %>
                         <!-- Available investment - express interest -->
-                        <a href="/contact-advisor?type=express-interest&fundName=<%= encodeURIComponent(fundInfo.title) %>&listingId=<%= listingId %>&market=<%= market %>&fund=<%= fundType %>" class="btn btn-express-interest">Express Interest in This Investment</a>
+                        <% if (isAdvisor) { %>
+                            <span class="btn btn-express-interest disabled" title="View Only - Advisors cannot express interest on behalf of clients">Express Interest in This Investment</span>
+                        <% } else { %>
+                            <a href="/contact-advisor?type=express-interest&fundName=<%= encodeURIComponent(fundInfo.title) %>&listingId=<%= listingId %>&market=<%= market %>&fund=<%= fundType %>" class="btn btn-express-interest">Express Interest in This Investment</a>
+                        <% } %>
                     <% } else { %>
-                        <a href="/contact-advisor?type=express-interest&fundName=<%= encodeURIComponent(fundInfo.title) %>&market=<%= market %>&fund=<%= fundType %>" class="btn btn-express-interest">Express Interest in This Investment</a>
+                        <% if (isAdvisor) { %>
+                            <span class="btn btn-express-interest disabled" title="View Only - Advisors cannot express interest on behalf of clients">Express Interest in This Investment</span>
+                        <% } else { %>
+                            <a href="/contact-advisor?type=express-interest&fundName=<%= encodeURIComponent(fundInfo.title) %>&market=<%= market %>&fund=<%= fundType %>" class="btn btn-express-interest">Express Interest in This Investment</a>
+                        <% } %>
                     <% } %>
                 <% } else { %>
-                    <a href="/create-bid" class="btn btn-primary">Make a Bid</a>
+                    <% if (isAdvisor) { %>
+                        <span class="btn btn-primary disabled" title="View Only - Advisors cannot make bids on behalf of clients">Make a Bid</span>
+                    <% } else { %>
+                        <a href="/create-bid" class="btn btn-primary">Make a Bid</a>
+                    <% } %>
                 <% } %>
             </div>
         </div>

@@ -106,7 +106,11 @@
 
                 <div class="form-actions">
                     <button type="button" class="btn btn-secondary" onclick="window.history.back()">Back</button>
-                    <button type="submit" class="btn btn-primary btn-email-<%= emailType %>">Send Message</button>
+                    <% if (user && user.type === 'banker') { %>
+                        <button type="button" class="btn btn-primary btn-email-<%= emailType %> disabled" disabled title="View Only - Advisors cannot send messages on behalf of clients">Send Message</button>
+                    <% } else { %>
+                        <button type="submit" class="btn btn-primary btn-email-<%= emailType %>">Send Message</button>
+                    <% } %>
                 </div>
             </form>
         </div>
@@ -326,6 +330,13 @@
     .form-actions {
         flex-direction: column;
     }
+}
+
+/* Disabled button styling */
+.btn.disabled, button.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
 }
 </style>
 

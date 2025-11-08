@@ -1359,6 +1359,14 @@ app.get('/fund-details', requireAuth, async (req, res) => {
 });
 
 app.get('/create-bid', requireAuth, (req, res) => {
+    // Block advisors from creating bids
+    if (req.user.type === 'banker') {
+        return res.status(403).render('error', {
+            error: 'Access Denied',
+            message: 'Advisors cannot create bids. This action is only available to clients.'
+        });
+    }
+    
     res.render('create-bid');
 });
 
@@ -1519,6 +1527,14 @@ app.get('/contact-advisor', requireAuth, (req, res) => {
 // Post for sale route
 app.get('/post-for-sale/:fundName', requireAuth, async (req, res) => {
     try {
+        // Block advisors from posting investments for sale
+        if (req.user.type === 'banker') {
+            return res.status(403).render('error', {
+                error: 'Access Denied',
+                message: 'Advisors cannot post investments for sale. This action is only available to clients.'
+            });
+        }
+        
         const fundName = req.params.fundName;
         const userId = req.user.username;
         const portfolioFile = getPortfolioFile(userId);
@@ -1601,6 +1617,14 @@ app.get('/post-for-sale/:fundName', requireAuth, async (req, res) => {
 // Remove investment from listings route
 app.post('/remove-investment', requireAuth, async (req, res) => {
     try {
+        // Block advisors from removing investments
+        if (req.user.type === 'banker') {
+            return res.status(403).json({
+                success: false,
+                message: 'Access Denied: Advisors cannot remove investments from listings. This action is only available to clients.'
+            });
+        }
+        
         const { fundName } = req.body;
         
         if (!fundName) {

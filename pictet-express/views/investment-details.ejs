@@ -197,19 +197,62 @@
     </div>
 
     <!-- Action Buttons -->
+    <% const isAdvisor = (typeof user !== 'undefined' && user && user.type === 'banker'); %>
+    <% if (isAdvisor) { %>
+        <div class="advisor-view-notice">
+            <em>👁️ View Only Mode - These buttons are disabled for advisors</em>
+        </div>
+    <% } %>
     <div class="action-section">
         <a href="/fund-details?market=primary&fund=<%= investment.Type.toLowerCase().replace(' ', '') %>" class="action-btn primary">View Fund Details</a>
-        <a href="/contact-advisor?type=generic&fundName=<%= encodeURIComponent(fundName) %>" class="action-btn express-interest-contact">Contact My Advisor</a>
-        <a href="/transactions" class="action-btn">View Transactions</a>
-        <% if (typeof isAlreadyListed !== 'undefined' && isAlreadyListed) { %>
-            <a href="/my-transactions?tab=listings" class="action-btn already-listed">Already Listed - View in My Transactions</a>
+        
+        <% if (isAdvisor) { %>
+            <span class="action-btn express-interest-contact disabled" title="View Only - Advisors cannot contact on behalf of clients">Contact My Advisor</span>
         <% } else { %>
-            <a href="/post-for-sale/<%= fundName.toLowerCase().replace(/\s+/g, '-') %>" class="action-btn post-sale">Post for Sale</a>
+            <a href="/contact-advisor?type=generic&fundName=<%= encodeURIComponent(fundName) %>" class="action-btn express-interest-contact">Contact My Advisor</a>
+        <% } %>
+        
+        <a href="/transactions" class="action-btn">View Transactions</a>
+        
+        <% if (typeof isAlreadyListed !== 'undefined' && isAlreadyListed) { %>
+            <% if (isAdvisor) { %>
+                <span class="action-btn already-listed disabled" title="View Only - Advisors cannot modify listings">Already Listed - View in My Transactions</span>
+            <% } else { %>
+                <a href="/my-transactions?tab=listings" class="action-btn already-listed">Already Listed - View in My Transactions</a>
+            <% } %>
+        <% } else { %>
+            <% if (isAdvisor) { %>
+                <span class="action-btn post-sale disabled" title="View Only - Advisors cannot post investments for sale">Post for Sale</span>
+            <% } else { %>
+                <a href="/post-for-sale/<%= fundName.toLowerCase().replace(/\s+/g, '-') %>" class="action-btn post-sale">Post for Sale</a>
+            <% } %>
         <% } %>
     </div>
 </div>
 
 <style>
+.advisor-view-notice {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin-bottom: 15px;
+    color: #856404;
+    text-align: center;
+}
+
+.advisor-view-notice em {
+    font-style: normal;
+    font-weight: 500;
+}
+
+/* Disabled button styling for advisor view-only mode */
+.action-btn.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
 .main-container {
     padding: 1rem;
     max-width: 1200px;

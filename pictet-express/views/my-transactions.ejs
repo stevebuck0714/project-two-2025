@@ -72,7 +72,11 @@
 
                             <div class="fund-action">
                                 <a href="/fund-details?market=secondary&fund=<%= investment.type.toLowerCase().replace(/\s+/g, '') %>&source=posted&name=<%= encodeURIComponent(investment.fundName) %>" class="btn btn-primary">View Details</a>
-                                <button onclick="removeInvestment('<%= encodeURIComponent(investment.fundName) %>')" class="btn btn-danger remove-btn">Remove</button>
+                                <% if (user && user.type === 'banker') { %>
+                                    <button class="btn btn-danger remove-btn disabled" disabled title="View Only - Advisors cannot remove client listings">Remove</button>
+                                <% } else { %>
+                                    <button onclick="removeInvestment('<%= encodeURIComponent(investment.fundName) %>')" class="btn btn-danger remove-btn">Remove</button>
+                                <% } %>
                             </div>
                         </div>
                     <% }); %>
@@ -519,6 +523,13 @@
 
 .btn-specific-small:hover {
     background: #047857;
+}
+
+/* Disabled button styling */
+.btn.disabled, button.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
 }
 </style>
 
