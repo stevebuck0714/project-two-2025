@@ -1,6 +1,11 @@
 <%- include('partials/header') %>
 <%- include('partials/secondary-nav') %>
 
+<% 
+// Create a map of client names for quick lookup
+const clientNames = clients.map(c => c.name);
+%>
+
 <div class="stability-message">
     <h2>Client Portfolio Alerts</h2>
 </div>
@@ -147,6 +152,7 @@
         <!-- Portfolio Alerts Section -->
         <div class="alerts-section">
             <div class="alert-cards">
+                <% if (clientNames.includes('John Smith - London, UK')) { %>
                 <div class="alert-card high-priority" data-alert-id="alert-john-smith-risk">
                     <div class="alert-header">
                         <span class="client-name">John Smith - London, UK</span>
@@ -161,7 +167,9 @@
                         <p>Client's PE allocation is only 8% vs. 15% target in mandate. Nordic Healthcare Growth Fund V matches healthcare sector preference and could close gap with €350K commitment.</p>
                     </div>
                 </div>
+                <% } %>
 
+                <% if (clientNames.includes('Marie Dubois - Paris, France')) { %>
                 <div class="alert-card medium-priority" data-alert-id="alert-marie-dubois-volatility">
                     <div class="alert-header">
                         <span class="client-name">Marie Dubois - Paris, France</span>
@@ -176,7 +184,9 @@
                         <p>UBS ASSET MANAGEMENT SPV 3 (Infrastructure) now available on secondary market. Strong DPI of 0.92x, aligns with client's infrastructure mandate. €900K remaining commitment, priced at 98% of NAV.</p>
                     </div>
                 </div>
+                <% } %>
 
+                <% if (clientNames.includes('Hans Weber - Munich, Germany')) { %>
                 <div class="alert-card low-priority" data-alert-id="alert-hans-weber-rebalancing">
                     <div class="alert-header">
                         <span class="client-name">Hans Weber - Munich, Germany</span>
@@ -191,6 +201,7 @@
                         <p>European Software Secondary Portfolio available in Available PE Investments. Matches client's technology sector and secondary strategy preferences. 3-4 year hold period, 2.5x MOIC target.</p>
                     </div>
                 </div>
+                <% } %>
             </div>
         </div>
         </div>
@@ -201,6 +212,7 @@
             <div class="comm-category">
                 <h4 class="category-title">PE Mandate & Investment Inquiries</h4>
                 <div class="comm-cards">
+                    <% if (clientNames.includes('Sofia Rossi - Milan, Italy')) { %>
                     <div class="comm-card" data-alert-id="comm-sofia-rossi-esg">
                         <div class="comm-header">
                             <span class="client-name">Sofia Rossi - Milan, Italy</span>
@@ -219,7 +231,9 @@
                             </div>
                         </div>
                     </div>
+                    <% } %>
 
+                    <% if (clientNames.includes('Carlos Garcia - Madrid, Spain')) { %>
                     <div class="comm-card" data-alert-id="comm-carlos-garcia-risk">
                         <div class="comm-header">
                             <span class="client-name">Carlos Garcia - Madrid, Spain</span>
@@ -238,6 +252,7 @@
                             </div>
                         </div>
                     </div>
+                    <% } %>
                 </div>
             </div>
 
@@ -245,6 +260,7 @@
             <div class="comm-category">
                 <h4 class="category-title">Investment Opportunities Updates</h4>
                 <div class="comm-cards">
+                    <% if (clientNames.includes('Anna Kowalski - Warsaw, Poland')) { %>
                     <div class="comm-card" data-alert-id="comm-anna-kowalski-sell">
                         <div class="comm-header">
                             <span class="client-name">Anna Kowalski - Warsaw, Poland</span>
@@ -263,7 +279,9 @@
                             </div>
                         </div>
                     </div>
+                    <% } %>
 
+                    <% if (clientNames.includes('Erik Andersson - Stockholm, Sweden')) { %>
                     <div class="comm-card" data-alert-id="comm-erik-andersson-interest">
                         <div class="comm-header">
                             <span class="client-name">Erik Andersson - Stockholm, Sweden</span>
@@ -282,7 +300,9 @@
                             </div>
                         </div>
                     </div>
+                    <% } %>
 
+                    <% if (clientNames.includes('Marco Silva - Lisbon, Portugal')) { %>
                     <div class="comm-card" data-alert-id="comm-marco-silva-inquiry">
                         <div class="comm-header">
                             <span class="client-name">Marco Silva - Lisbon, Portugal</span>
@@ -301,6 +321,7 @@
                             </div>
                         </div>
                     </div>
+                    <% } %>
                 </div>
             </div>
         </div>

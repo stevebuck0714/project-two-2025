@@ -20,6 +20,9 @@
         <div class="message-tabs">
             <button class="message-tab active" onclick="showMessageTab('inbox')">Inbox</button>
             <button class="message-tab" onclick="showMessageTab('sent')">Sent Messages</button>
+            <% if (user && user.type === 'banker') { %>
+            <button class="message-tab" onclick="showMessageTab('approved')">Approved Emails</button>
+            <% } %>
         </div>
         
         <div class="messages-section" id="inbox-section">
@@ -367,6 +370,22 @@
                 </div>
             </div>
         </div>
+        
+        <% if (user && user.type === 'banker') { %>
+        <div class="messages-section" id="approved-section" style="display: none;">
+            <div class="approved-emails-container">
+                <div class="approved-emails-intro">
+                    <h3>Approved Email Templates</h3>
+                    <p>Select a template below to compose and send an approved email. All required fields must be completed before sending.</p>
+                </div>
+                <div class="approved-email-list" id="approved-email-list">
+                    <div style="text-align: center; padding: 40px; color: #999;">
+                        <p>Loading email templates...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } %>
     </div>
 </div>
 
@@ -427,13 +446,248 @@
 .messages-section {
     min-height: auto;
 }
+
+/* Approved Emails Styles */
+.approved-emails-intro {
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.approved-emails-intro h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+}
+
+.approved-emails-intro p {
+    margin: 0;
+    color: #666;
+}
+
+.email-template-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+    padding: 10px 0;
+}
+
+.email-template-card {
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.email-template-card:hover {
+    border-color: #e60012;
+    box-shadow: 0 4px 12px rgba(230, 0, 18, 0.1);
+    transform: translateY(-2px);
+}
+
+.template-number {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #e60012;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.template-title {
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 1.1rem;
+    padding-right: 40px;
+}
+
+.template-recipient {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.template-subject {
+    color: #999;
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+    font-style: italic;
+    line-height: 1.4;
+}
+
+.btn-use-template {
+    background: #e60012;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    width: 100%;
+}
+
+.btn-use-template:hover {
+    background: #c00010;
+}
+
+/* Email Composer Modal Styles */
+.email-composer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 20px;
+}
+
+.email-composer-modal {
+    background: white;
+    border-radius: 8px;
+    max-width: 900px;
+    width: 100%;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+.composer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.composer-header h2 {
+    margin: 0;
+    color: #333;
+    font-size: 1.5rem;
+}
+
+.composer-body {
+    padding: 25px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.template-info {
+    padding: 15px;
+    background: #f8f9fa;
+    border-left: 4px solid #e60012;
+    margin-bottom: 20px;
+    line-height: 1.8;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #e60012;
+}
+
+.preview-box {
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 15px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #333;
+    min-height: 60px;
+}
+
+.preview-body {
+    white-space: pre-wrap;
+    min-height: 200px;
+    font-family: monospace;
+    font-size: 0.85rem;
+}
+
+.composer-footer {
+    padding: 15px 25px;
+    border-top: 2px solid #e0e0e0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.composer-footer .btn {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.composer-footer .btn-primary {
+    background: #e60012;
+    color: white;
+}
+
+.composer-footer .btn-primary:hover {
+    background: #c00010;
+}
+
+.composer-footer .btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.composer-footer .btn-secondary:hover {
+    background: #5a6268;
+}
 </style>
 
 <script>
+let emailTemplatesCache = [];
+
 function showMessageTab(tabName) {
     // Hide all sections
     document.getElementById('inbox-section').style.display = 'none';
     document.getElementById('sent-section').style.display = 'none';
+    const approvedSection = document.getElementById('approved-section');
+    if (approvedSection) {
+        approvedSection.style.display = 'none';
+    }
     
     // Remove active class from all tabs
     document.querySelectorAll('.message-tab').forEach(tab => {
@@ -447,6 +701,218 @@ function showMessageTab(tabName) {
     } else if (tabName === 'sent') {
         document.getElementById('sent-section').style.display = 'block';
         document.querySelector('.message-tab[onclick*="sent"]').classList.add('active');
+    } else if (tabName === 'approved' && approvedSection) {
+        approvedSection.style.display = 'block';
+        document.querySelector('.message-tab[onclick*="approved"]').classList.add('active');
+        // Load email templates when tab is shown
+        if (emailTemplatesCache.length === 0) {
+            loadEmailTemplates();
+        }
+    }
+}
+
+// Load email templates from API
+function loadEmailTemplates() {
+    fetch('/api/get-email-templates')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                emailTemplatesCache = data.templates;
+                displayEmailTemplates(data.templates);
+            } else {
+                document.getElementById('approved-email-list').innerHTML = '<div style="text-align: center; padding: 40px; color: #999;"><p>No email templates available</p></div>';
+            }
+        })
+        .catch(error => {
+            console.error('Error loading email templates:', error);
+            document.getElementById('approved-email-list').innerHTML = '<div style="text-align: center; padding: 40px; color: #999;"><p>Error loading email templates</p></div>';
+        });
+}
+
+// Display email templates as cards
+function displayEmailTemplates(templates) {
+    const container = document.getElementById('approved-email-list');
+    
+    if (templates.length === 0) {
+        container.innerHTML = '<div style="text-align: center; padding: 40px; color: #999;"><p>No email templates available</p></div>';
+        return;
+    }
+    
+    let html = '<div class="email-template-grid">';
+    templates.forEach(template => {
+        html += `
+            <div class="email-template-card" onclick="openEmailComposer('${template.id}')">
+                <div class="template-number">${template.number}</div>
+                <h4 class="template-title">${template.title}</h4>
+                <div class="template-recipient">${template.recipientType}</div>
+                <div class="template-subject">${template.subject}</div>
+                <button class="btn-use-template">Use Template</button>
+            </div>
+        `;
+    });
+    html += '</div>';
+    
+    container.innerHTML = html;
+}
+
+// Open email composer with template
+function openEmailComposer(templateId) {
+    const template = emailTemplatesCache.find(t => t.id === templateId);
+    if (!template) {
+        alert('Template not found');
+        return;
+    }
+    
+    // Create modal HTML
+    let fieldsHTML = '';
+    template.requiredFields.forEach(field => {
+        // Replace underscores with spaces for display
+        const displayName = field.replace(/_/g, ' ');
+        fieldsHTML += `
+            <div class="form-group">
+                <label for="field-${field}">${displayName}:</label>
+                <input type="text" id="field-${field}" name="${field}" class="form-control" placeholder="Enter ${displayName}">
+            </div>
+        `;
+    });
+    
+    const modalHTML = `
+        <div class="email-composer-overlay" onclick="closeEmailComposer()">
+            <div class="email-composer-modal" onclick="event.stopPropagation()">
+                <div class="composer-header">
+                    <h2>Compose: ${template.title}</h2>
+                    <button class="close-modal-btn" onclick="closeEmailComposer()">×</button>
+                </div>
+                <div class="composer-body">
+                    <div class="template-info">
+                        <strong>To:</strong> ${template.recipientType}<br>
+                        <strong>Template #${template.number}</strong>
+                    </div>
+                    <form id="email-composer-form">
+                        <h4>Fill in Required Fields:</h4>
+                        ${fieldsHTML}
+                        <div class="form-group">
+                            <label>Preview Subject:</label>
+                            <div class="preview-box" id="subject-preview">${template.subject}</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Preview Body:</label>
+                            <div class="preview-box preview-body" id="body-preview">${template.body}</div>
+                        </div>
+                    </form>
+                </div>
+                <div class="composer-footer">
+                    <button class="btn btn-secondary" onclick="closeEmailComposer()">Cancel</button>
+                    <button class="btn btn-primary" onclick="sendApprovedEmail('${template.id}')">Send Email</button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    
+    // Add input listeners to update preview
+    template.requiredFields.forEach(field => {
+        const input = document.getElementById(`field-${field}`);
+        if (input) {
+            input.addEventListener('input', () => updateEmailPreview(template));
+        }
+    });
+}
+
+// Update email preview as user types
+function updateEmailPreview(template) {
+    let subject = template.subject;
+    let body = template.body;
+    
+    template.requiredFields.forEach(field => {
+        const input = document.getElementById(`field-${field}`);
+        if (input && input.value) {
+            const regex = new RegExp(`\\{${field}\\}`, 'g');
+            subject = subject.replace(regex, input.value);
+            body = body.replace(regex, input.value);
+        }
+    });
+    
+    document.getElementById('subject-preview').textContent = subject;
+    document.getElementById('body-preview').textContent = body;
+}
+
+// Send approved email
+function sendApprovedEmail(templateId) {
+    const template = emailTemplatesCache.find(t => t.id === templateId);
+    if (!template) return;
+    
+    // Collect field values
+    const fieldValues = {};
+    let allFieldsFilled = true;
+    
+    template.requiredFields.forEach(field => {
+        const input = document.getElementById(`field-${field}`);
+        if (input) {
+            fieldValues[field] = input.value;
+            if (!input.value.trim()) {
+                allFieldsFilled = false;
+            }
+        }
+    });
+    
+    if (!allFieldsFilled) {
+        alert('Please fill in all required fields before sending.');
+        return;
+    }
+    
+    // Replace placeholders in subject and body
+    let subject = template.subject;
+    let body = template.body;
+    
+    template.requiredFields.forEach(field => {
+        const regex = new RegExp(`\\{${field}\\}`, 'g');
+        subject = subject.replace(regex, fieldValues[field]);
+        body = body.replace(regex, fieldValues[field]);
+    });
+    
+    // Extract recipient name (try to get from field values)
+    const recipientName = fieldValues['Buyer_Name'] || fieldValues['Seller_Name'] || 
+                          fieldValues['Client_Name'] || fieldValues['Admin_Name'] || 
+                          template.recipientType;
+    
+    // Send to API
+    fetch('/api/send-approved-email', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            templateId: template.id,
+            recipientName: recipientName,
+            subject: subject,
+            body: body,
+            fieldValues: fieldValues
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Email sent successfully!');
+            closeEmailComposer();
+            // Reload messages to show the sent email
+            loadMessages();
+        } else {
+            alert('Failed to send email: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error sending email:', error);
+        alert('Failed to send email. Please try again.');
+    });
+}
+
+// Close email composer
+function closeEmailComposer() {
+    const modal = document.querySelector('.email-composer-overlay');
+    if (modal) {
+        modal.remove();
     }
 }
 </script>

@@ -13,30 +13,8 @@
                 <div class="client-selection">
                     <select class="client-dropdown" id="client-dropdown">
                         <option value="" disabled>Select a client</option>
-                        <% const clients = [
-                            'John Smith - London, UK',
-                            'Marie Dubois - Paris, France',
-                            'Hans Weber - Munich, Germany',
-                            'Sofia Rossi - Milan, Italy',
-                            'Carlos Garcia - Madrid, Spain',
-                            'Anna Kowalski - Warsaw, Poland',
-                            'Erik Andersson - Stockholm, Sweden',
-                            'Elena Popov - Moscow, Russia',
-                            'Dimitris Papadopoulos - Athens, Greece',
-                            'Jan de Vries - Amsterdam, Netherlands',
-                            'Lars Nielsen - Copenhagen, Denmark',
-                            'Marco Silva - Lisbon, Portugal',
-                            'Andrei Ionescu - Bucharest, Romania',
-                            'Eva Novotna - Prague, Czech Republic',
-                            'Marta Kovac - Budapest, Hungary',
-                            'Liam O\'Brien - Dublin, Ireland',
-                            'Gustav Nilsson - Oslo, Norway',
-                            'Isabella Marino - Rome, Italy',
-                            'Thomas Müller - Vienna, Austria',
-                            'Sophie Laurent - Brussels, Belgium'
-                        ] %>
                         <% clients.forEach(client => { %>
-                            <option value="<%= client %>"><%= client %></option>
+                            <option value="<%= client.name %>"><%= client.name %></option>
                         <% }) %>
                     </select>
                 </div>

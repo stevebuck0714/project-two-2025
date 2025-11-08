@@ -199,7 +199,7 @@
     <!-- Action Buttons -->
     <div class="action-section">
         <a href="/fund-details?market=primary&fund=<%= investment.Type.toLowerCase().replace(' ', '') %>" class="action-btn primary">View Fund Details</a>
-        <a href="/contact-advisor?type=express-interest&fundName=<%= encodeURIComponent(fundName) %>" class="action-btn express-interest-contact">Express Interest</a>
+        <a href="/contact-advisor?type=generic&fundName=<%= encodeURIComponent(fundName) %>" class="action-btn express-interest-contact">Contact My Advisor</a>
         <a href="/transactions" class="action-btn">View Transactions</a>
         <% if (typeof isAlreadyListed !== 'undefined' && isAlreadyListed) { %>
             <a href="/my-transactions?tab=listings" class="action-btn already-listed">Already Listed - View in My Transactions</a>

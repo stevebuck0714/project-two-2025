@@ -59,3 +59,4 @@ CREATE INDEX IF NOT EXISTS idx_resolved_alerts_user_id ON resolved_alerts(user_i
 
 
 
+

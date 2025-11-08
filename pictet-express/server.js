@@ -180,6 +180,229 @@ const users = {
     'sophie.laurent': { password: 'venturis0801', type: 'client', name: 'Sophie Laurent - Brussels, Belgium', banker: 'Catherine Whitmore - Wealth Advisor' }
 };
 
+// Helper function to get clients assigned to a specific advisor
+function getClientsByAdvisor(advisorName) {
+    const clients = [];
+    for (const [username, userData] of Object.entries(users)) {
+        if (userData.type === 'client' && userData.banker === advisorName) {
+            clients.push({
+                username: username,
+                name: userData.name,
+                banker: userData.banker
+            });
+        }
+    }
+    return clients;
+}
+
+// Approved Email Templates for Advisors
+const approvedEmailTemplates = [
+    {
+        id: 'buyer-to-advisor',
+        number: 1,
+        title: 'Buyer → Advisor: Interest in Listing',
+        recipientType: 'Advisor (from Buyer)',
+        subject: 'Interest in Listing #[{ListingID}] — [{SPV}] / [{GP Fund}]',
+        body: `Hello {Advisor_Name},
+
+I'd like to connect regarding Listing #[{ListingID}] for [{SPV}] (underlying: [{GP Fund}, vintage {YYYY}]). Please introduce me to the seller so we can discuss terms off‑platform.
+
+Thank you,
+{Buyer_Name}
+{Booking_Center} | {Client_ID}
+
+— Generated from the internal execution‑only notice board; no offer or acceptance occurs on the platform.`,
+        requiredFields: ['ListingID', 'SPV', 'GP Fund', 'YYYY', 'Advisor_Name', 'Buyer_Name', 'Booking_Center', 'Client_ID']
+    },
+    {
+        id: 'advisor-to-buyer-eligibility',
+        number: 2,
+        title: 'Advisor → Buyer: Eligibility Confirmation',
+        recipientType: 'Buyer',
+        subject: 'Next steps on Listing #[{ListingID}] — [{SPV}] / [{GP Fund}]',
+        body: `Dear {Buyer_Name},
+
+Thank you for your interest in Listing #[{ListingID}]. We will coordinate introductions off‑platform. Before we proceed, please note:
+
+• This notice board is execution‑only; it is not a trading venue.
+• Negotiation and acceptance occur outside the platform (email/phone).
+• Secondary interests are illiquid and may transact at a discount/premium to the last NAV.
+• Transfers may require GP consent, may be subject to ROFR and transfer fees, and can be refused by the GP.
+• Timing of capital calls/distributions can change and may affect settlement.
+
+If you wish, I can introduce you to the seller to discuss terms.
+
+Kind regards,
+{Advisor_Name}
+{Title} | {Desk}
+{Phone} | {Email}`,
+        requiredFields: ['Buyer_Name', 'ListingID', 'SPV', 'GP Fund', 'Advisor_Name', 'Title', 'Desk', 'Phone', 'Email']
+    },
+    {
+        id: 'advisor-to-seller-inquiry',
+        number: 3,
+        title: 'Advisor → Seller: Potential Buyer Inquiry',
+        recipientType: 'Seller',
+        subject: 'Potential buyer inquiry — Listing #[{ListingID}] ({SPV}/{GP Fund})',
+        body: `Dear {Seller_Name},
+
+We have a potential buyer for your Listing #[{ListingID}]. If you remain interested in exploring a transfer, please confirm and share any updates since the last NAV (e.g., pending calls/distributions, consent status, or constraints).
+
+Note: this could be a process of showing the seller the current position information and asking the seller to confirm.
+
+As a reminder, negotiation and any acceptance occur off‑platform. Transfers typically require GP consent and may be subject to ROFR and fees.
+
+Kind regards,
+{Advisor_Name}`,
+        requiredFields: ['Seller_Name', 'ListingID', 'SPV', 'GP Fund', 'Advisor_Name']
+    },
+    {
+        id: 'advisor-introduction',
+        number: 4,
+        title: 'Advisor → Both: Introduction Email',
+        recipientType: 'Buyer & Seller',
+        subject: 'Introduction re: Listing #[{ListingID}] — [{SPV}] / [{GP Fund}]',
+        body: `{Buyer_Name} — meet {Seller_Name}. Copying relevant details below. Please continue discussions off‑platform.
+
+Key facts (from listing):
+• Commitment: {Commitment} | % Called: {Pct_Called}% | Unfunded: {Unfunded}
+• Last NAV (date/amount): {NAV_Date} / {NAV_Amount}
+• Transfer constraints: {Consent_ROFR_Fees}
+• Seller indication: {PricePctNAV}% of last NAV (non‑binding)
+
+Important: This is an execution‑only introduction; the notice board is not a trading venue, and no offer/acceptance occurs here. Any transaction remains subject to GP consent and bank operational checks.
+
+Best regards,
+{Advisor_Name}`,
+        requiredFields: ['Buyer_Name', 'Seller_Name', 'ListingID', 'SPV', 'GP Fund', 'Commitment', 'Pct_Called', 'Unfunded', 'NAV_Date', 'NAV_Amount', 'Consent_ROFR_Fees', 'PricePctNAV', 'Advisor_Name']
+    },
+    {
+        id: 'advisor-to-buyer-eoi',
+        number: 5,
+        title: 'Advisor → Buyer: Non-Binding EOI Template',
+        recipientType: 'Buyer',
+        subject: 'Non‑binding EOI on Listing #[{ListingID}] — [{SPV}] / [{GP Fund}]',
+        body: `Dear {Buyer_Name},
+
+Per your request, below is a non‑binding format you may use to express interest to the seller. Please send directly to {Seller_Email} and copy me.
+
+EOI — Non‑Binding
+Buyer: {Buyer_Entity}
+Asset: {SPV} (underlying: {GP_Fund}, vintage {YYYY})
+Size: up to {Units_or_$} (approx. {Pct_of_Position}% of seller's position)
+Price: {PctNAV}% of last NAV (date {NAV_Date}); subject to customary adjustments
+Conditions: satisfactory DD; GP consent; ROFR clearance; transfer docs; settlement by {Date}
+
+This EOI is not an offer and creates no obligation on either party.
+
+Kind regards,
+{Advisor_Name}`,
+        requiredFields: ['Buyer_Name', 'Seller_Email', 'Buyer_Entity', 'SPV', 'GP_Fund', 'YYYY', 'Units_or_$', 'Pct_of_Position', 'PctNAV', 'NAV_Date', 'Date', 'ListingID', 'Advisor_Name']
+    },
+    {
+        id: 'advisor-to-gp-consent',
+        number: 6,
+        title: 'Advisor → GP/Admin: Consent Request',
+        recipientType: 'Fund Administrator/GP',
+        subject: 'Consent request — Secondary transfer of {SPV} interest ({GP Fund}, {Vintage})',
+        body: `Dear {Admin_Name},
+
+We request consent for a proposed secondary transfer of an SPV interest in {GP_Fund} held by {SPV_Name} on behalf of {Seller_Entity} to {Buyer_Entity}.
+
+Position summary:
+• Seller commitment: {Commitment} | % called: {Pct_Called}% | Unfunded: {Unfunded}
+• Last NAV (date/amount): {NAV_Date} / {NAV_Amount}
+• Proposed transfer size: {Transfer_Size}
+• Proposed economic date: {Econ_Date}
+• Proposed price: {PctNAV}% of last NAV (subject to final docs)
+
+Please confirm consent requirements, applicable ROFR, transfer fees, and the standard documentation package. We will coordinate directly per your instructions.
+
+Kind regards,
+{Advisor_Name}`,
+        requiredFields: ['Admin_Name', 'GP_Fund', 'SPV_Name', 'Seller_Entity', 'Buyer_Entity', 'Commitment', 'Pct_Called', 'Unfunded', 'NAV_Date', 'NAV_Amount', 'Transfer_Size', 'Econ_Date', 'PctNAV', 'SPV', 'Vintage', 'Advisor_Name']
+    },
+    {
+        id: 'advisor-rofr-notice',
+        number: 7,
+        title: 'Advisor → GP/Admin: ROFR Notice',
+        recipientType: 'Fund Administrator/GP',
+        subject: 'ROFR notice — Proposed transfer of {SPV} interest ({GP Fund})',
+        body: `Dear {Admin_Name},
+
+Please treat this as notification for ROFR purposes regarding the proposed transfer described below. Kindly advise the timetable and process you require.
+
+Position summary:
+• Seller commitment: {Commitment} | % called: {Pct_Called}% | Unfunded: {Unfunded}
+• Last NAV (date/amount): {NAV_Date} / {NAV_Amount}
+• Proposed transfer size: {Transfer_Size}
+• Proposed economic date: {Econ_Date}
+• Proposed price: {PctNAV}% of last NAV (subject to final docs)
+
+Regards,
+{Advisor_Name}`,
+        requiredFields: ['Admin_Name', 'SPV', 'GP Fund', 'Commitment', 'Pct_Called', 'Unfunded', 'NAV_Date', 'NAV_Amount', 'Transfer_Size', 'Econ_Date', 'PctNAV', 'Advisor_Name']
+    },
+    {
+        id: 'advisor-to-internal',
+        number: 8,
+        title: 'Advisor → Internal Ops: Transfer Processing',
+        recipientType: 'Internal Operations/Tax',
+        subject: 'Secondary transfer pack — Listing #[{ListingID}] ({SPV}/{GP Fund}) — please process',
+        body: `Team,
+
+Attached: terms summary, executed transfer docs, consent confirmation, and funding/settlement instructions. Please assess stamp duty/taxes, update custody positions, and complete books & records updates (including FATCA/CRS where applicable).
+
+Thanks,
+{Advisor_Name}`,
+        requiredFields: ['ListingID', 'SPV', 'GP Fund', 'Advisor_Name']
+    },
+    {
+        id: 'advisor-closing-confirmation',
+        number: 9,
+        title: 'Advisor → Both: Closing Confirmation',
+        recipientType: 'Buyer & Seller',
+        subject: 'Completed — Listing #[{ListingID}] ({SPV}/{GP Fund})',
+        body: `Dear {Buyer_Name} and {Seller_Name},
+
+We confirm settlement of the transfer described in Listing #[{ListingID}]. Custody records have been updated. Please retain the attached completion pack for your files.
+
+Best regards,
+{Advisor_Name}`,
+        requiredFields: ['Buyer_Name', 'Seller_Name', 'ListingID', 'SPV', 'GP Fund', 'Advisor_Name']
+    },
+    {
+        id: 'advisor-unable-to-proceed',
+        number: 10,
+        title: 'Advisor → Client: Unable to Proceed',
+        recipientType: 'Buyer or Seller',
+        subject: 'Update on Listing #[{ListingID}] — unable to proceed at this time',
+        body: `Dear {Client_Name},
+
+After review, we're unable to proceed due to: {Reason}. We've closed the loop on our side; the listing status is now marked as Closed. Please contact me if you'd like to discuss alternatives.
+
+Kind regards,
+{Advisor_Name}`,
+        requiredFields: ['Client_Name', 'ListingID', 'Reason', 'Advisor_Name']
+    },
+    {
+        id: 'advisor-recommendation',
+        number: 11,
+        title: 'Advisor → Buyer: Advisory Recommendation',
+        recipientType: 'Buyer (Advisory)',
+        subject: 'Recommendation re: Listing #[{ListingID}] — [{SPV}] / [{GP Fund}]',
+        body: `Dear {Buyer_Name},
+
+Following our advisory mandate, we recommend considering the acquisition described in Listing #[{ListingID}], subject to the enclosed rationale and your investment profile. Please review the attached risk summary and (where applicable) KID and costs/charges disclosure.
+
+Note: This email constitutes a personal recommendation; suitability/appropriateness has been assessed per your profile on {Date}. Execution remains subject to GP consent/ROFR and transfer documentation.
+
+Sincerely,
+{Advisor_Name}`,
+        requiredFields: ['Buyer_Name', 'ListingID', 'SPV', 'GP Fund', 'Date', 'Advisor_Name']
+    }
+];
+
 // Session middleware (cookie-based for serverless compatibility)
 // Secret key for signing session cookies (in production, use environment variable)
 const SESSION_SECRET = process.env.SESSION_SECRET || 'your-secret-key-change-in-production';
@@ -467,8 +690,11 @@ app.get('/', (req, res) => {
         if (userData) {
             // If user is a banker/advisor, show client selection page
             if (userData.type === 'banker') {
+                // Get only this advisor's clients
+                const advisorClients = getClientsByAdvisor(userData.name);
                 res.render('index', { 
                     user: userData,
+                    clients: advisorClients,
                     path: req.path
                 });
                 return;
@@ -491,7 +717,13 @@ app.get('/client-alerts', requireAuth, (req, res) => {
         return res.status(403).send('Access denied. This page is only available to Private Bankers.');
     }
     
-    res.render('client-alerts', { user: req.user });
+    // Get only this advisor's clients
+    const advisorClients = getClientsByAdvisor(req.user.name);
+    
+    res.render('client-alerts', { 
+        user: req.user,
+        clients: advisorClients
+    });
 });
 
 app.get('/briefing', requireAuth, (req, res) => {
@@ -804,6 +1036,87 @@ app.get('/api/get-messages', requireAuth, async (req, res) => {
         res.status(500).json({
             success: false,
             message: 'Error loading messages: ' + error.message
+        });
+    }
+});
+
+// API endpoint to get approved email templates (advisors only)
+app.get('/api/get-email-templates', requireAuth, (req, res) => {
+    try {
+        // Only allow advisors/bankers to access templates
+        if (req.user.type !== 'banker') {
+            return res.status(403).json({
+                success: false,
+                message: 'Access denied. Email templates are only available to advisors.'
+            });
+        }
+        
+        res.json({
+            success: true,
+            templates: approvedEmailTemplates
+        });
+    } catch (error) {
+        console.error('Error loading email templates:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error loading email templates: ' + error.message
+        });
+    }
+});
+
+// API endpoint to send approved email (advisors only)
+app.post('/api/send-approved-email', requireAuth, async (req, res) => {
+    try {
+        // Only allow advisors/bankers to send approved emails
+        if (req.user.type !== 'banker') {
+            return res.status(403).json({
+                success: false,
+                message: 'Access denied. Only advisors can send approved emails.'
+            });
+        }
+        
+        const { templateId, recipientName, recipientEmail, subject, body, fieldValues } = req.body;
+        const user = req.user;
+        
+        console.log('Approved email sent by:', user.name, 'Template ID:', templateId);
+        
+        const timestamp = Date.now();
+        
+        // Create the SENT message (what the advisor sent)
+        const sentMessage = {
+            id: `msg-${timestamp}-sent`,
+            userId: user.username,
+            subject: subject,
+            from: user.name,
+            to: recipientName || 'Recipient',
+            date: new Date().toISOString(),
+            preview: body.substring(0, 100) + (body.length > 100 ? '...' : ''),
+            fullMessage: body,
+            type: 'sent',
+            unread: false
+        };
+        
+        // Save message to database
+        const sentSuccess = await db.saveMessage(sentMessage);
+        
+        if (sentSuccess) {
+            console.log('Approved email saved successfully');
+            res.json({ 
+                success: true, 
+                message: 'Approved email has been sent successfully.' 
+            });
+        } else {
+            console.error('Failed to save approved email');
+            res.status(500).json({ 
+                success: false, 
+                message: 'Failed to send approved email. Please try again.' 
+            });
+        }
+    } catch (error) {
+        console.error('Error sending approved email:', error);
+        res.status(500).json({ 
+            success: false, 
+            message: 'Error sending approved email: ' + error.message 
         });
     }
 });

@@ -87,8 +87,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         // Priority 2: If user is a banker and has selected a client, show selected client
         else if (serverUser && serverUser.type === 'banker') {
+            // Clear localStorage if we're on the home page (client selection page)
+            if (currentPath === '/') {
+                // Don't show any client on the home page until one is selected
+                clientInfoDiv.style.display = 'none';
+            }
             // Don't show client name on Client Alerts page
-            if (currentPath === '/client-alerts') {
+            else if (currentPath === '/client-alerts') {
                 clientInfoDiv.style.display = 'none';
             } else {
                 const selectedClient = localStorage.getItem('selectedClient');
