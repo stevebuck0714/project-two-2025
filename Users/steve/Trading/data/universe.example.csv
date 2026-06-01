@@ -1,0 +1,11 @@
+ticker,sector,market_cap,avg_dollar_volume,is_recent_ipo
+ABC,Financials,2200000000,18000000,false
+DEF,Financials,7600000000,25000000,false
+GHI,Financials,12500000000,50000000,false
+JKL,Industrials,4200000000,12000000,false
+MNO,Industrials,900000000,6500000,false
+PQR,Industrials,650000000,3000000,false
+STU,Utilities,3100000000,8500000,false
+VWX,Utilities,5400000000,11000000,false
+YZA,Utilities,800000000,7000000,true
+

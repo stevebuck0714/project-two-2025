@@ -1,0 +1,1126 @@
+ticker,company_name,sector,price,market_cap,avg_dollar_volume,is_recent_ipo
+BGC,"BGC Group, Inc",Financials,10.45,4964847250,34458739.15,False
+AX,"Axos Financial, Inc.",Financials,86.91,4943840586,21864122.52,False
+HLNE,Hamilton Lane Incorporated,Financials,87.13,4838661040,114790464.05999999,False
+MAIN,Main Street Capital Corporation,Financials,51.21,4762007658,18143703.0,False
+CLSK,"CleanSpark, Inc.",Financials,18.29,4693371404,410181837.27,False
+NNI,"Nelnet, Inc.",Financials,130.57,4691905514,13920198.27,False
+FFIN,"First Financial Bankshares, Inc.",Financials,32.68,4682453472,27393258.36,False
+LAZ,Lazard Ltd,Financials,47.33,4659055631,44631196.07,False
+UWMC,UWM Holdings Corporation,Financials,3.06,4638488451,46915867.980000004,False
+MKTX,MarketAxess Holdings Inc.,Financials,130.04,4621556580,90421493.44,False
+ASB,Associated Banc-Corp,Financials,27.81,4614847020,30391407.63,False
+RLI,RLI Corp.,Financials,50.04,4600592532,37382982.48,False
+EBC,"Eastern Bankshares, Inc.",Financials,19.73,4560451390,41260895.21,False
+RDN,Radian Group Inc.,Financials,34.17,4543762447,28134723.75,False
+BRBI,BRBI BR Partners S.A. ADSs,Financials,13.88,4508191632,10548.800000000001,False
+IBOC,International Bancshares Corporation,Financials,72.16,4486995392,28177397.599999998,False
+MIAX,"Miami International Holdings, Inc. ",Financials,47.25,4484359814,36663448.5,False
+FGN,"F&G Annuities & Life, Inc.",Financials,25.01,4467019643,756052.3,False
+TFSL,TFS Financial Corporation,Financials,15.91,4461675363,14682829.88,False
+LMND,"Lemonade, Inc.",Financials,58.0,4455605762,62734366.0,False
+PFSI,"PennyMac Financial Services, Inc.",Financials,83.87,4354941363,59700427.27,False
+TCBI,"Texas Capital Bancshares, Inc.",Financials,99.49,4344821721,43546275.55,False
+CNO,"CNO Financial Group, Inc.",Financials,45.97,4291230683,15245031.1,False
+SFBS,"ServisFirst Bancshares, Inc.",Financials,77.99,4263153566,8610329.969999999,False
+FHI,"Federated Hermes, Inc.",Financials,56.06,4255663607,41899412.18,False
+SLM,SLM Corporation,Financials,22.12,4171455960,54932520.440000005,False
+FULT,Fulton Financial Corporation,Financials,21.69,4145696460,34586093.160000004,False
+MAAS,Maase Inc.,Financials,11.89,4139013228,108234.67,False
+RYAN,"Ryan Specialty Holdings, Inc.",Financials,31.85,4121843066,54074006.35,False
+AB,AllianceBernstein Holding L.P.,Financials,37.14,4105355396,15079619.94,False
+ASBA,Associated Banc-Corp,Financials,24.75,4082166000,390629.25,False
+ENVA,"Enova International, Inc.",Financials,161.51,4019159553,20388214.849999998,False
+SEZL,Sezzle Inc.,Financials,118.15,3973032177,64374854.550000004,False
+PJT,PJT Partners Inc.,Financials,152.9,3948469417,39236586.4,False
+UCB,"United Community Banks, Inc.",Financials,32.95,3943674887,15609008.100000001,False
+CATY,Cathay General Bancorp,Financials,57.66,3865265489,25676055.66,False
+TMH,Toyota Motor Corporation ADRhedged,Financials,52.14,3849131220,13191.42,False
+INDB,Independent Bank Corp.,Financials,79.08,3815594421,24062146.08,False
+MRX,Marex Group plc Ordinary Shares,Financials,52.94,3808020258,40060439.16,False
+RNST,Renasant Corporation,Financials,40.72,3757320726,14109724.32,False
+BBAR,Banco BBVA Argentina S.A.,Financials,18.35,3747742821,11816500.850000001,False
+WSFS,WSFS Financial Corporation,Financials,71.45,3718547087,32205230.1,False
+FBP,First BanCorp.,Financials,23.98,3709330761,22622372.3,False
+BANF,BancFirst Corporation,Financials,110.29,3704242622,19164652.14,False
+FG,"F&G Annuities & Life, Inc.",Financials,27.72,3672483923,21640671.36,False
+BFH,"Bread Financial Holdings, Inc.",Financials,89.07,3599060397,46701894.95999999,False
+BHF,"Brighthouse Financial, Inc.",Financials,62.55,3593233852,38641388.4,False
+CNS,"Cohen & Steers, Inc.",Financials,69.8,3588110880,9213949.0,False
+ETOR,eToro Group Ltd.,Financials,41.98,3532860190,123742640.85999998,False
+HCXY,"Hercules Capital, Inc.",Financials,25.025,3527546673,59434.375,False
+HGTY,"Hagerty, Inc.",Financials,10.22,3509082111,1142125.8800000001,False
+ARX,Accelerant Holdings,Financials,15.95,3480311293,9641089.15,False
+FIBK,"First Interstate BancSystem, Inc.",Financials,35.6,3458287240,46662842.4,False
+GBDC,"Golub Capital BDC, Inc.",Financials,13.16,3428116582,15449497.84,False
+SII,Sprott Inc.,Financials,131.01,3378263163,24512364.029999997,False
+BKU,"BankUnited, Inc.",Financials,46.39,3371704712,19272725.5,False
+CBU,"Community Bank System, Inc.",Financials,63.64,3344595682,12331841.0,False
+WSBC,"WesBanco, Inc.",Financials,34.65,3332656404,15487164.0,False
+ECCC,Eagle Point Credit Company Inc.,Financials,24.8499,3286354570,16251.834600000002,False
+AGO,Assured Guaranty Ltd.,Financials,74.21,3286204325,16051771.419999998,False
+FHB,"First Hawaiian, Inc.",Financials,26.98,3282090020,43378794.74,False
+GNW,"Genworth Financial, Inc.",Financials,8.56,3278559231,15763856.32,False
+MCHB,Mechanics Bank,Financials,14.72,3242619223,8503994.24,False
+UPST,"Upstart Holdings, Inc.",Financials,33.79,3234093917,198875910.76,False
+FFBC,First Financial Bancorp.,Financials,30.76,3227616040,27664898.040000003,False
+CRVL,CorVel Corporation,Financials,61.75,3130181600,14536876.25,False
+SFNC,Simmons First National Corporation,Financials,21.45,3111622800,34482097.65,False
+PRK,Park National Corporation,Financials,171.56,3104564686,15860893.56,False
+ECCU,Eagle Point Credit Company Inc.,Financials,25.39,3051446370,27929.0,False
+FSK,FS KKR Capital Corp.,Financials,10.87,3044322127,30363866.679999996,False
+BOH,Bank of Hawaii Corporation,Financials,76.6,3034969902,15275571.999999998,False
+BANC,"Banc of California, Inc.",Financials,19.22,2963764477,66383592.81999999,False
+HG,"Hamilton Insurance Group, Ltd.",Financials,29.61,2954231213,15670263.42,False
+SBCF,Seacoast Banking Corporation of Florida,Financials,30.31,2947550508,16038081.85,False
+WT,"WisdomTree, Inc.",Financials,19.05,2913526050,83869472.85000001,False
+PFS,"Provident Financial Services, Inc.",Financials,22.19,2891660715,15061040.89,False
+HTGC,"Hercules Capital, Inc.",Financials,15.45,2890982216,19830306.75,False
+DBRG,"DigitalBridge Group, Inc.",Financials,15.64,2852304054,17522821.400000002,False
+PLMR,"Palomar Holdings, Inc.",Financials,107.04,2836977456,45454750.080000006,False
+CVBF,CVB Financial Corp.,Financials,20.36,2763278135,36241899.44,False
+NMIH,"NMI Holdings, Inc.",Financials,35.9,2727391210,26139867.0,False
+INTR,"Inter & Co, Inc.",Financials,6.17,2723949561,102193278.1,False
+ELLA,Ellington Credit Co. 8.5% 30-MAR-2031,Financials,25.57,2721926500,20813.98,False
+FBK,FB Financial Corporation,Financials,52.69,2714773215,16777655.18,False
+APAM,Artisan Partners Asset Management Inc.,Financials,37.44,2657987542,20103894.72,False
+WAFD,"WaFd, Inc.",Financials,35.56,2627475060,22213905.28,False
+AHL-PD,Aspen Insurance Holdings Limited,Financials,20.2,2613745286,772104.6,False
+TOWN,TowneBank,Financials,34.07,2603289109,19977523.69,False
+TRMK,Trustmark Corporation,Financials,44.16,2588023296,16885459.2,False
+AAMI,Acadian Asset Management,Financials,72.31,2576332990,19012395.990000002,False
+CUBI,"Customers Bancorp, Inc.",Financials,75.14,2541617112,30711220.8,False
+WU,The Western Union Company,Financials,8.13,2540097396,45091166.970000006,False
+FRME,First Merchants Corporation,Financials,40.3,2539816462,11951126.2,False
+SPNT,SiriusPoint Ltd.,Financials,21.35,2509521700,10274367.25,False
+OAK-PA,"Oaktree Capital Group, LLC 6.625% PFD UT A",Financials,21.02,2497855366,395218.04,False
+ABXL,"Abacus Global Management, Inc. - 9.875% Fixed Rate Senior Notes due 2028",Financials,25.48,2490743892,46195.24,False
+OAK-PB,"Oaktree Capital Group, LLC",Financials,20.82,2474088902,252650.7,False
+BBT,Beacon Financial Corp.,Financials,29.09,2438209942,9705442.15,False
+FBNC,First Bancorp,Financials,58.83,2434115547,13242515.34,False
+NBTB,NBT Bancorp Inc.,Financials,46.24,2404953128,15030358.24,False
+BUSE,First Busey Corporation,Financials,27.37,2314877964,18414536.0,False
+TBBK,"The Bancorp, Inc.",Financials,55.16,2296555655,18921314.16,False
+BBUC,Brookfield Business Corporation,Financials,32.83,2262567894,4994756.2,False
+NTB,The Bank of N.T. Butterfield & Son Limited,Financials,56.46,2255481018,15339109.26,False
+EFSC,Enterprise Financial Services Corp,Financials,60.61,2217465338,12337226.11,False
+BANR,Banner Corporation,Financials,65.0,2207913500,13597155.0,False
+HTH,Hilltop Holdings Inc.,Financials,37.72,2207759144,7880537.84,False
+NIC,"Nicolet Bankshares, Inc.",Financials,140.27,2205505467,16863820.48,False
+MBIN,Merchants Bancorp,Financials,47.14,2165395133,5078156.5,False
+SYBT,"Stock Yards Bancorp, Inc.",Financials,71.74,2117419587,10260470.02,False
+CLBK,"Columbia Financial, Inc.",Financials,20.13,2094475551,7048720.8,False
+QFIN,"Qfin Holdings, Inc.",Financials,16.08,2093376601,37136422.31999999,False
+BLX,"Banco Latinoamericano de Comercio Exterior, S. A.",Financials,55.84,2078934759,8391746.88,False
+NWBI,"Northwest Bancshares, Inc.",Financials,14.15,2070352312,22599545.150000002,False
+SLDE,"Slide Insurance Holdings, Inc. Common Stock",Financials,18.03,2065503097,23512165.740000002,False
+LC,LendingClub Corporation,Financials,17.85,2059014011,39818405.550000004,False
+SFB,Stifel Financial Corporation 5.20% Senior Notes due 2047,Financials,19.82,2018230960,94779.24,False
+MLCIL,Mount Logan Capital Inc. 8.00% Notes Due 2031,Financials,22.9501,1991537592,43651.0902,False
+GCMG,GCM Grosvenor Inc.,Financials,10.63,1986534400,3008438.8200000003,False
+STC,Stewart Information Services Corporation,Financials,64.98,1977152958,4504413.600000001,False
+HCI,"HCI Group, Inc.",Financials,154.07,1966673969,22531350.869999997,False
+AGM,Federal Agricultural Mortgage Corporation,Financials,177.79,1937541908,25767993.65,False
+FCF,First Commonwealth Financial Corporation,Financials,18.94,1925894960,9937742.24,False
+OFG,OFG Bancorp,Financials,45.56,1925292704,4489391.28,False
+STEL,"Stellar Bancorp, Inc.",Financials,37.34,1901378863,11711093.56,False
+TY,Tri-Continental Corporation,Financials,35.25,1876476821,616628.25,False
+APXT,Apex Treasury Corporation Class A,Financials,10.05,1876043630,1060958.4000000001,False
+AHL-PE,Aspen Insurance Holdings Limited,Financials,20.21,1856116796,407635.7,False
+PAX,Patria Investments Limited,Financials,11.59,1848931456,21269226.24,False
+HMN,Horace Mann Educators Corporation,Financials,45.73,1846632276,6246763.7299999995,False
+PLGO,Pelagos Insurance Capital Limit,Financials,21.58,1845020016,10295062.7,False
+EZPW,"EZCORP, Inc.",Financials,31.24,1829595811,29966282.72,False
+JXN-PA,Jackson Financial Inc.,Financials,25.76,1804430452,574525.28,False
+SKWD,"Skyward Specialty Insurance Group, Inc.",Financials,44.12,1788760028,12782931.719999999,False
+SRCE,1st Source Corporation,Financials,73.82,1776766198,6499555.72,False
+AFGB,"American Financial Group, Inc.",Financials,21.13,1760103644,129569.15999999999,False
+LOB,"Live Oak Bancshares, Inc.",Financials,38.03,1759358730,4523021.99,False
+CHCO,City Holding Company,Financials,124.31,1754159045,15988752.200000001,False
+CASH,"Pathward Financial, Inc.",Financials,82.24,1736089196,12026777.6,False
+WD,"Walker & Dunlop, Inc.",Financials,50.19,1723082928,11437748.91,False
+ECPG,"Encore Capital Group, Inc.",Financials,79.93,1713731172,22798833.55,False
+RZC,7.125% Fixed-Rate Reset Subordinated Debentures due 2052,Financials,25.37,1699706254,1581083.77,False
+TFIN,"Triumph Financial, Inc.",Financials,71.25,1696195526,13163437.5,False
+GENB,"Generate Biomedicines, Inc.",Financials,13.12,1681885390,5824374.72,False
+AFGD,"American Financial Group, Inc.",Financials,19.91,1658479108,207143.64,False
+DCOM,"Dime Community Bancshares, Inc.",Financials,37.42,1650726833,5807060.12,False
+GABC,"German American Bancorp, Inc.",Financials,43.72,1642311896,6926734.4799999995,False
+TSLX,"Sixth Street Specialty Lending, Inc.",Financials,17.23,1637187708,10302333.9,False
+TCBK,TriCo Bancshares,Financials,50.8,1633252055,8911386.799999999,False
+STBA,"S&T Bancorp, Inc.",Financials,45.09,1622198421,9723974.13,False
+PWP,Perella Weinberg Partners,Financials,17.16,1617599618,38411201.4,False
+HOPE,"Hope Bancorp, Inc.",Financials,12.54,1603101060,11728574.219999999,False
+NBHC,National Bank Holdings Corporation,Financials,41.83,1587988902,7296406.899999999,False
+CET,Central Securities Corp.,Financials,53.33,1575862302,1269520.65,False
+BFC,Bank First Corporation,Financials,139.02,1551908064,18280156.860000003,False
+AFGC,"American Financial Group, Inc.",Financials,18.39,1531864932,252439.53,False
+QCRH,"QCR Holdings, Inc.",Financials,92.15,1521377978,6343145.25,False
+CNOB,"ConnectOne Bancorp, Inc.",Financials,30.07,1512175015,12929558.74,False
+LKFN,Lakeland Financial Corporation,Financials,60.63,1510511568,10343599.26,False
+BY,"Byline Bancorp, Inc.",Financials,33.09,1502593737,3056523.3000000003,False
+GAM,"General American Investors Company, Inc.",Financials,63.93,1498512807,1813806.8872239,False
+OBK,"Origin Bancorp, Inc.",Financials,47.66,1472889406,3568018.2399999998,False
+BWIN,"The Baldwin Insurance Group, Inc.",Financials,19.42,1453982877,38458630.04000001,False
+KMPR,Kemper Corporation,Financials,24.67,1452426514,28008936.48,False
+CSWC,Capital Southwest Corporation,Financials,23.22,1442907054,15871496.94,False
+RBCAA,"Republic Bancorp, Inc.",Financials,80.95,1415085979,8155226.800000001,False
+KMPB,Kemper Corporation 5.875% Fixed,Financials,23.85,1404149670,463381.65,False
+AFGE,"American Financial Group, Inc.",Financials,16.6,1382760080,227569.40000000002,False
+FINV,FinVolution Group,Financials,5.25,1322844542,5329453.5,False
+MSDL,Morgan Stanley Direct Lending Fund,Financials,15.44,1308767153,7668615.68,False
+GSHD,"Goosehead Insurance, Inc",Financials,34.39,1305109682,29134176.3,False
+LADR,Ladder Capital Corp,Financials,10.22,1304766960,5882775.08,False
+ATLC,Atlanticus Holdings Corporation,Financials,86.22,1303473701,21770291.34,False
+WABC,Westamerica Bancorporation,Financials,55.49,1303349120,8217625.08,False
+XZO,"Exzeo Group, Inc.",Financials,13.85,1259220256,3264375.75,False
+TRIN,Trinity Capital Inc.,Financials,16.86,1257008023,19580479.02,False
+PEBO,Peoples Bancorp Inc.,Financials,34.78,1249418321,7887547.5200000005,False
+ABTC,American Bitcoin Corp,Financials,1.13,1249403333,14293293.159999998,False
+TMP,Tompkins Financial Corporation,Financials,86.15,1239090367,6310056.75,False
+AMAL,Amalgamated Financial Corp.,Financials,41.48,1238895604,5024596.84,False
+PRA,ProAssurance Corporation,Financials,23.99,1238069347,29658980.939999998,False
+MHNC,"Maiden Holdings North America, Ltd.",Financials,12.45,1234056450,263205.45,False
+CTBI,"Community Trust Bancorp, Inc.",Financials,66.86,1214424982,6104451.72,False
+ASA,ASA Gold and Precious Metals Limited,Financials,64.25,1212545275,6659191.25,False
+PSEC,Prospect Capital Corporation,Financials,2.41,1207428444,9944004.63,False
+GOLD,"Gold.com, Inc.",Financials,42.31,1204734940,15145202.98,False
+SBET,"Sharplink, Inc.",Financials,6.11,1204641490,48959393.34,False
+LIFE,Ethos Technologies Inc.,Financials,18.9,1190831695,7448187.6,False
+FMBH,"First Mid Bancshares, Inc.",Financials,44.05,1172425990,4803079.85,False
+AGBK,AGI Inc,Financials,7.2,1151509306,2535796.8000000003,False
+HTFC,Horizon Technology Finance Corp,Financials,24.82,1149578012,32464.56,False
+HIVE,HIVE Digital Technologies Ltd.,Financials,4.52,1144720600,131986318.75999999,False
+HQH,Abrdn Healthcare Investors,Financials,19.99,1143272078,2130174.38,False
+UFCS,"United Fire Group, Inc.",Financials,44.33,1137337839,4587933.35,False
+PFBC,Preferred Bank,Financials,95.82,1134695457,10188828.059999999,False
+TRINZ,Trinity Capital Inc. 7.875% Notes due 2029,Financials,25.38,1130346649,350954.64,False
+TRINI,Trinity Capital Inc. 7.875% Notes Due 2029,Financials,25.38,1128130290,265195.62,False
+VSECU,VSE Corporation Tangible Equity Units,Financials,48.57,1110245262,3345550.17,False
+UVSP,Univest Financial Corporation,Financials,39.44,1098238431,6321324.88,False
+OSBC,"Old Second Bancorp, Inc.",Financials,21.32,1096538768,7385631.76,False
+CCB,Coastal Financial Corporation,Financials,71.18,1085409584,8810518.040000001,False
+OCFC,OceanFirst Financial Corp.,Financials,18.79,1082305297,14539307.41,False
+UMAC,"Unusual Machines, Inc.",Financials,31.78,1070883700,811159584.48,False
+OCSL,Oaktree Specialty Lending Corporation,Financials,11.96,1053502855,7562702.680000001,False
+IGIC,International General Insurance Holdings Ltd.,Financials,24.41,1045778102,1894069.54,False
+UVE,"Universal Insurance Holdings, Inc.",Financials,37.02,1033269588,4159752.3000000003,False
+SAFT,"Safety Insurance Group, Inc.",Financials,70.17,1030336564,8518287.15,False
+FSCO,FS Credit Opportunities Corp.,Financials,5.05,1021461707,7375747.2,False
+BUR,Burford Capital Limited,Financials,4.63,1014289470,11224634.01,False
+GSBD,"Goldman Sachs BDC, Inc.",Financials,8.96,1008618840,7055955.200000001,False
+NBN,Northeast Bank,Financials,125.74,1003114741,16720150.76,False
+DFIN,"Donnelley Financial Solutions, Inc.",Financials,39.69,991551456,9307662.209999999,False
+FSUN,FirstSun Capital Bancorp,Financials,35.45,986201381,6412905.000000001,False
+CFFN,"Capitol Federal Financial, Inc.",Financials,7.77,985002900,5410779.359999999,False
+KBDC,"Kayne Anderson BDC, Inc.",Financials,14.79,981316530,5335093.17,False
+SBSI,"Southside Bancshares, Inc.",Financials,32.76,974665692,1439769.24,False
+OXLC,Oxford Lane Capital Corp.,Financials,9.98,974048000,11904363.56,False
+MHLA,"Maiden Holdings, Ltd. 6.625 NT 2046",Financials,11.23,972748215,401169.29000000004,False
+OPY,Oppenheimer Holdings Inc.,Financials,91.67,972462861,6714827.5,False
+AIZN,"Assurant, Inc. 5.25% Subordinat",Financials,19.41,964673118,284628.24,False
+EIG,"Employers Holdings, Inc.",Financials,43.5,962493876,5520063.0,False
+VRTS,"Virtus Investment Partners, Inc.",Financials,143.03,955743910,11505047.14,False
+BHRB,Burke & Herbert Financial Services Corp.,Financials,63.6,955384381,7933845.600000001,False
+HBNC,"Horizon Bancorp, Inc.",Financials,18.55,952167122,7938008.75,False
+TRUP,"Trupanion, Inc.",Financials,21.82,951798699,8743994.06,False
+EQBK,"Equity Bancshares, Inc.",Financials,46.1,951540880,1899965.4000000001,False
+ESQ,"Esquire Financial Holdings, Inc.",Financials,109.89,949386963,14234271.48,False
+JCAP,"Jefferson Capital, Inc. Common Stock",Financials,16.99,941559805,5676545.89,False
+ASIC,Ategrity Specialty Holdings LLC,Financials,19.51,937117080,1055393.4500000002,False
+MCB,Metropolitan Bank Holding Corp.,Financials,89.52,936344287,14283363.6,False
+MCBS,"MetroCity Bankshares, Inc.",Financials,32.66,936036972,1953427.2599999998,False
+FCRX,"Crescent Capital BDC, Inc.",Financials,25.1699,931549074,30757.617799999996,False
+BFST,"Business First Bancshares, Inc.",Financials,28.48,930669412,9257082.24,False
+HFWA,Heritage Financial Corporation,Financials,27.25,926427869,8508758.0,False
+TIGR,UP Fintech Holding Ltd. Sponsored ADR Class A,Financials,5.14,917598783,32851631.52,False
+MBWM,Mercantile Bank Corporation,Financials,52.99,915369131,9059700.3,False
+CCNE,CNB Financial Corporation,Financials,30.67,908721829,15952908.49,False
+BBDC,"Barings BDC, Inc.",Financials,8.66,906761615,7350512.74,False
+TRST,TrustCo Bank Corp NY,Financials,51.81,905369958,5623198.350000001,False
+FSBC,Five Star Bancorp,Financials,42.23,902714941,4646186.83,False
+HBT,"HBT Financial, Inc.",Financials,28.63,899895297,2679825.26,False
+CPF,Central Pacific Financial Corp.,Financials,34.36,896838228,4832493.4799999995,False
+HAFC,Hanmi Financial Corporation,Financials,30.12,896563968,5743763.5200000005,False
+MFIC,MidCap Financial Investment Corporation,Financials,10.88,896214193,4753287.04,False
+AMTB,Amerant Bancorp Inc.,Financials,22.72,894141942,5012531.84,False
+RWAYI,Runway Growth Finance Corp. 7.25% Notes due 2031,Financials,24.55,893463567,674683.1,False
+BOW,Bowhead Specialty Holdings Inc.,Financials,26.62,874148492,4599376.98,False
+BCSF,"Bain Capital Specialty Finance, Inc.",Financials,13.31,863399828,4190826.5300000003,False
+ABX,"Abacus Global Management, Inc.",Financials,8.98,861382856,3367796.3400000003,False
+SUPV,Grupo Supervielle S.A.,Financials,9.74,852699793,10353775.84,False
+CAC,Camden National Corporation,Financials,50.03,846242441,6650587.96,False
+ECCV,Eagle Point Credit Company Inc.,Financials,24.03,842438453,54427.950000000004,False
+EGBN,"Eagle Bancorp, Inc.",Financials,27.29,832225361,8965529.12,False
+NBBK,"NB Bancorp, Inc. Common Stock",Financials,20.03,831297999,3391018.91,False
+MPB,"Mid Penn Bancorp, Inc.",Financials,32.65,827510985,3139885.1999999997,False
+THFF,First Financial Corporation,Financials,69.18,822681365,4020326.5200000005,False
+WRLD,World Acceptance Corporation,Financials,165.09,815029519,27958156.59,False
+PFLT,PennantPark Floating Rate Capital Ltd.,Financials,8.21,814578926,10610234.55,False
+FCBC,"First Community Bankshares, Inc.",Financials,43.11,813344687,4834096.74,False
+AGNT,"eXp World Holdings, Inc. Common Stock",Financials,4.92,808473706,10295208.24,False
+NAVI,Navient Corporation,Financials,8.56,804549410,18133469.76,False
+GSBC,"Great Southern Bancorp, Inc.",Financials,71.75,781587315,8322928.25,False
+HTB,"HomeTrust Bancshares, Inc.",Financials,46.47,780946938,1642668.03,False
+CCBG,"Capital City Bank Group, Inc.",Financials,45.64,780508307,5251657.88,False
+PGC,Peapack-Gladstone Financial Corporation,Financials,43.25,766319849,4390350.75,False
+CUBB,"Customers Bancorp, Inc 5.375% S",Financials,22.27,760923587,73780.51,False
+SMBC,"Southern Missouri Bancorp, Inc.",Financials,69.06,760739546,5654287.5,False
+TYG,Tortoise Energy Infrastructure Corporation,Financials,43.99,757911628,8456241.69,False
+NMFC,New Mountain Finance Corporation,Financials,8.0,755619200,3421536.0,False
+CGBD,"Carlyle Secured Lending, Inc.",Financials,10.81,751263954,7265736.11,False
+NXP,Nuveen Select Tax-Free Income Portfolio,Financials,14.3,743694180,2880291.7,False
+NEWTO,"NewtekOne, Inc. 8.5 % Notes -01.02.31",Financials,25.75,743114615,16969.25,False
+ROOT,"Root, Inc.",Financials,52.06,729884324,12688635.860000001,False
+ORRF,"Orrstown Financial Services, Inc.",Financials,37.13,729522814,2617850.6500000004,False
+GDOT,Green Dot Corporation,Financials,12.87,729475011,3988464.48,False
+LCLN,Lincoln International Inc.,Financials,22.95,726528586,11353801.049999999,False
+GEGGL,"Great Elm Group, Inc. 7.25% Notes due 2027",Financials,24.6546,718384428,32544.071999999996,False
+ALRS,Alerus Financial Corporation,Financials,28.58,718176703,6952113.579999999,False
+FDUS,Fidus Investment Corporation,Financials,18.88,716578392,2941013.1199999996,False
+SLRC,SLR Investment Corp.,Financials,13.08,713574613,3109992.36,False
+FISI,"Financial Institutions, Inc.",Financials,36.23,713237185,3485507.15,False
+SMBK,"SmartFinancial, Inc.",Financials,41.7,713006241,1911069.3,False
+IBCP,Independent Bank Corporation,Financials,34.32,707203308,3318091.92,False
+DMIIU,Drugs Made In America Acquisition II Corp. Unit,Financials,10.155,706219320,3046.5,False
+NOAH,Noah Holdings Limited,Financials,10.57,705531455,877997.05,False
+BTBT,"Bit Digital, Inc.",Financials,2.02,705363800,40813087.98,False
+LU,Lufax Holding Ltd,Financials,1.65,691792588,2177976.9,False
+SHBI,"Shore Bancshares, Inc.",Financials,20.66,691198894,3791915.74,False
+VMET,Versamet Royalties Corporation Common Stock,Financials,13.53,688875012,4182447.7199999997,False
+VEL,"Velocity Financial, Inc.",Financials,17.5,686967418,596890.0,False
+TIPT,Tiptree Inc.,Financials,18.24,685278624,8242801.919999999,False
+HIPO,Hippo Holdings Inc.,Financials,25.87,673548733,2239462.42,False
+AHRT,"AH Realty Trust, Inc.",Financials,6.81,662419644,5179202.489999999,False
+SPFI,"South Plains Financial, Inc.",Financials,40.59,659982360,3480348.9600000004,False
+HRTG,"Heritage Insurance Holdings, Inc.",Financials,21.695,658441081,7329482.19,False
+RPC,"Ridgepost Capital, Inc.",Financials,8.28,647660855,1659576.96,False
+VINP,Vinci Compass Investments Ltd.,Financials,10.13,646531386,977929.9400000001,False
+NCDL,Nuveen Churchill Direct Lending Corp.,Financials,13.08,645982810,4900173.48,False
+GEMI,"Gemini Space Station, Inc. Class A Common Stock",Financials,5.27,643890945,9292743.83,False
+MGRE,"Affiliated Managers Group, Inc.",Financials,23.81,635362707,353626.12,False
+HIFS,Hingham Institution for Savings,Financials,289.39,630942548,9424564.129999999,False
+GAIN,Gladstone Investment Corporation,Financials,15.8,629187600,3817912.0,False
+NRDS,"NerdWallet, Inc.",Financials,8.6,626097682,8310171.399999999,False
+AOMN,"Angel Oak Mortgage REIT, Inc. 9",Financials,25.02,623363292,80964.72,False
+DGICA,Donegal Group Inc.,Financials,16.97,621923229,2762088.11,False
+BCAL,Southern California Bancorp,Financials,18.98,610487904,1700570.04,False
+CARE,"Carter Bankshares, Inc.",Financials,27.3,606660600,8910856.5,False
+AROW,Arrow Financial Corporation,Financials,36.7,606614300,1530279.9000000001,False
+RRBI,"Red River Bancshares, Inc.",Financials,90.92,598680560,8527568.64,False
+PFIS,Peoples Financial Services Corp.,Financials,59.41,594746440,3392667.46,False
+NFBK,"Northfield Bancorp, Inc.",Financials,14.18,592213520,3773198.7399999998,False
+BHB,Bar Harbor Bankshares,Financials,34.94,584969114,1688510.44,False
+PRAA,"PRA Group, Inc.",Financials,15.26,582030134,12253551.1,False
+VBNK,VersaBank,Financials,18.04,578531976,453994.63999999996,False
+MSBI,"Midland States Bancorp, Inc.",Financials,27.8,576288440,2107684.8000000003,False
+EICA,Eagle Point Income Company Inc.,Financials,24.9736,575502877,238947.40480000002,False
+AMSF,"AMERISAFE, Inc.",Financials,30.65,573271470,7482002.149999999,False
+DXYZ,Destiny Tech100 Inc.,Financials,52.5,571195013,230394202.5,False
+DGXX,Digi Power X Inc.,Financials,7.81,568776371,86207061.16,False
+UNTY,"Unity Bancorp, Inc.",Financials,55.86,560884786,3040627.38,False
+FMNB,Farmers National Banc Corp.,Financials,14.18,556735117,4506177.12,False
+ACNB,ACNB Corporation,Financials,54.29,554411869,1851343.29,False
+MSIF,"MSC Income Fund, Inc.",Financials,12.22,554118711,1951411.8,False
+WDH,Waterdrop Inc.,Financials,1.53,553436251,163872.18,False
+PONO,Pono Capital Corp.,Financials,9.87,550379823,25336.289999999997,False
+NRIM,"Northrim BanCorp, Inc.",Financials,24.71,549668168,2398278.47,False
+SFST,"Southern First Bancshares, Inc.",Financials,57.77,546224882,9041351.620000001,False
+ECC,Eagle Point Credit Company Inc.,Financials,4.12,544700124,4989583.68,False
+HQL,Tekla Life Sciences Investors,Financials,17.86,543086880,1131466.72,False
+FFIC,Flushing Financial Corporation,Financials,15.97,541121092,5180316.66,False
+TCBX,"Third Coast Bancshares, Inc.",Financials,38.26,539506517,1230632.9,False
+CIVB,"Civista Bancshares, Inc.",Financials,25.9,538287470,2834677.3,False
+TREE,"LendingTree, Inc.",Financials,38.2,533004600,6467680.2,False
+DMII,Drugs Made In America Acquisition II Corp. Ordinary Shares,Financials,10.06,528295870,553400.6,False
+CAEP,"Cantor Equity Partners III, Inc. Class A Ordinary Shares",Financials,15.0,526200000,309840.0,False
+BWB,"Bridgewater Bancshares, Inc.",Financials,18.86,525880302,1354883.54,False
+CBNK,"Capital Bancorp, Inc.",Financials,31.92,519916152,1537809.84,False
+GLRE,"Greenlight Capital Re, Ltd.",Financials,15.67,519718240,2644453.53,False
+KRNY,Kearny Financial Corp.,Financials,8.24,518566841,2141946.8000000003,False
+CRD-A,Crawford & Company,Financials,10.45,514402065,408678.6,False
+SPME,"Sound Point Meridian Capital, Inc.",Financials,25.0799,513484719,37996.0485,False
+NWAX,New America Acquisition I Corp.,Financials,10.17,506466010,50178.78,False
+ACIC,American Coastal Insurance Corporation,Financials,10.45,506448800,3196372.8499999996,False
+HBCP,"Home Bancorp, Inc.",Financials,64.38,504908519,2890597.6199999996,False
+BOT,"RoboStrategy, Inc. Common Stock",Financials,24.88,504421300,13609683.44,False
+BSRR,Sierra Bancorp,Financials,37.98,496748016,3579083.28,False
+ALTI,"AlTi Global, Inc.",Financials,3.3,490026705,294620.7,False
+HTT,High Templar Tech Limited,Financials,2.99,484115555,1030395.8600000001,False
+FBIZ,"First Business Financial Services, Inc.",Financials,57.52,480991788,1197048.72,False
+IFN,"Aberdeen India Fund, Inc.",Financials,11.26,480260394,1305011.48,False
+BCSS,Bain Capital GSS Investment Cor,Financials,10.19,477911000,11188.619999999999,False
+KRSP,Rice Acquisition Corporation 3,Financials,10.37,477046941,29865.6,False
+XRN,Chiron Real Estate Inc.,Financials,36.04,476983273,3416267.64,False
+CEPF,"Cantor Equity Partners IV, Inc. Class A Ordinary Shares",Financials,10.34,474606000,12201.2,False
+ANSC,Agriculture & Natural Solutions Acquisition Corporation Class A Ordinary Shares,Financials,11.375,472599798,0.0,False
+CRAN,Crane Harbor Acquisition Corp. II Class A Ordinary Shares,Financials,10.03,470406970,36820.13,False
+COFS,"ChoiceOne Financial Services, Inc.",Financials,31.4,470215000,2440753.4,False
+GTEN,"Gores Holdings X, Inc.",Financials,10.3699,467423222,10483.9689,False
+OBT,"Orange County Bancorp, Inc.",Financials,34.12,457477548,1419494.3599999999,False
+BETR,Better Home & Finance Holding Company,Financials,29.17,457068172,12970586.350000001,False
+CWBC,Community West Bancshares,Financials,24.01,456894453,5560595.95,False
+PDLB,"Ponce Financial Group, Inc.",Financials,18.88,456667552,1617241.92,False
+MGRB,"Affiliated Managers Group, Inc.",Financials,16.81,448569807,380729.68999999994,False
+GCBC,"Greene County Bancorp, Inc.",Financials,26.24,446749120,395987.83999999997,False
+BCAR,D. Boral ARC Acquisition I Corp. Class A Ordinary Shares,Financials,10.97,444960160,18619073.84,False
+ITIC,Investors Title Company,Financials,234.75,443207061,13464790.5,False
+LDI,"loanDepot, Inc.",Financials,1.32,442237942,1635402.12,False
+GLAD,Gladstone Capital Corporation,Financials,19.37,437627747,4166312.6700000004,False
+DBCAU,D. Boral Acquisition I Corp. Unit,Financials,10.18,435775260,2738.42,False
+IACO,Idea Acquisition Corp. Class A Ordinary Shares,Financials,9.89,432687520,320811.82,False
+GBFH,GBank Financial Holdings Inc.,Financials,29.79,431071786,3024638.28,False
+MESH,Meshflow Acquisition Corp.,Financials,9.98,430387480,88362.92,False
+CCXIU,Churchill Capital Corp XI Units,Financials,10.25,429475000,6375.5,False
+CCXI,Churchill Capital Corp XI,Financials,10.22,428218000,2498575.3800000004,False
+KRAQ,KRAKacquisition Corp Class A Ordinary Shares,Financials,9.92,427800000,597640.32,False
+GCGRU,General Catalyst Global Resilience Merger Corp. Units,Financials,10.25,421838750,67404.0,False
+BSVN,Bank7 Corp.,Financials,44.26,421325546,578920.7999999999,False
+CCAP,"Crescent Capital BDC, Inc.",Financials,11.41,420412860,1698275.81,False
+VACHU,Voyager Acquisition Corp Unit,Financials,12.8,419712000,12.8,False
+BMRC,Bank of Marin Bancorp,Financials,25.84,418341822,1503112.8,False
+BWFG,"Bankwell Financial Group, Inc.",Financials,52.32,417156778,1347240.0,False
+CEPT,"Cantor Equity Partners II, Inc. Class A Ordinary Share",Financials,13.525,413594486,9011112.4,False
+KFII,K&F Growth Acquisition Corp. II Class A Ordinary shares,Financials,10.52,412973741,0.0,False
+SAY,Saratoga Investment Corp 8.125%,Financials,25.26,410922102,122940.42000000001,False
+SAJ,Saratoga Investment Corp 8.00%,Financials,25.35,410266935,55541.850000000006,False
+XRPN,Armada Acquisition Corp. II,Financials,10.39,410093310,209337.72,False
+SAZ,Saratoga Investment Corp 8.50%,Financials,25.24,408486684,60525.52,False
+WTBA,"West Bancorporation, Inc.",Financials,23.94,407652714,684157.3200000001,False
+BBCQ,Bleichroeder Acquisition Corp. II,Financials,10.59,405949975,6711179.52,False
+SAV,Saratoga Investment Corp 7.50%,Financials,25.05,405411705,207338.85,False
+RBB,RBB Bancorp,Financials,23.92,405106728,1215542.6400000001,False
+SAT,Saratoga Investment Corp 6.00%,Financials,24.88,402660408,94270.31999999999,False
+MGRD,"Affiliated Managers Group, Inc.",Financials,15.07,402138429,358424.88,False
+NEWT,"NewtekOne, Inc.",Financials,13.88,400561532,1891233.28,False
+LEO,"BNY Mellon Strategic Municipals, Inc.",Financials,6.43,400530191,1355894.0999999999,False
+CCIX,Churchill Capital Corp IX Ordinary Shares,Financials,10.81,396321625,3774354.74,False
+CBK,"Commercial Bancgroup, Inc. Common Stock",Financials,28.89,395829661,1391226.84,False
+AEXA,American Exceptionalism Acquisition Corp. A,Financials,11.36,393908000,1399813.28,False
+TACO,Berto Acquisition Corp.,Financials,10.485,393384094,1965748.7699999998,False
+FRBA,First Bank,Financials,15.64,393102016,986446.0800000001,False
+ALF,Centurion Acquisition Corp.,Financials,10.85,389921886,15438215.45,False
+GPAT,GP-Act III Acquisition Corp.,Financials,10.85,389921875,32.55,False
+MTAL,Metals Acquisition Corp. II,Financials,10.15,389083350,588963.9,False
+MBAV,M3-Brigade Acquisition V Corp. Class A Ordinary shares,Financials,10.81,388484375,298323.57,False
+RDAG,Republic Digital Acquisition Company Class A Ordinary Shares,Financials,10.31,386625010,0.0,False
+GBLI,"Global Indemnity Group, LLC",Financials,27.0,386457372,312957.0,False
+SIMAU,SIM Acquisition Corp. I Unit,Financials,13.7,386214412,61759.6,False
+WENN,Wen Acquisition Corp Class A Ordinary Shares,Financials,10.29,386067958,205923.47999999998,False
+FMAO,"Farmers & Merchants Bancorp, Inc.",Financials,27.93,384545491,1440210.45,False
+TACOU,Berto Acquisition Corp. Unit,Financials,11.0,383196000,33.0,False
+AVBC,"Avidia Bancorp, Inc.",Financials,19.06,382653325,1007073.22,False
+CZNC,Citizens & Northern Corporation,Financials,21.06,377323301,2156228.1,False
+SOR,"Source Capital, Inc.",Financials,45.7846,376851623,688325.6764,False
+PBFS,"Pioneer Bancorp, Inc.",Financials,14.93,374396624,163319.27,False
+LX,LexinFintech Holdings Ltd.,Financials,2.2,372839619,3621149.4000000004,False
+MLAAU,Mountain Lake Acquisition Corp. II Units,Financials,10.08,372758400,16128.0,False
+MCI,Barings Corporate Investors,Financials,18.04,370825766,1339127.24,False
+CXIIU,Churchill Capital Corp XII Units,Financials,10.17,369679500,125446.95,False
+FCRS,FutureCrest Acquisition Corp.,Financials,10.24,368000000,508538.88,False
+ENHA,Enhanced Group Inc. Class A,Financials,3.01,367913655,5391355.4799999995,False
+PLBC,Plumas Bancorp,Financials,52.63,366733208,1515796.6300000001,False
+SAR,Saratoga Investment Corp.,Financials,22.51,366185927,1975320.03,False
+PKBK,"Parke Bancorp, Inc.",Financials,30.73,363923006,1787656.29,False
+SSSS,SuRo Capital Corp.,Financials,13.88,361854376,2256027.44,False
+CRANU,Crane Harbor Acquisition Corp. II Units,Financials,10.22,361788000,1032.22,False
+ALUB,Alussa Energy Acquisition Corp. II,Financials,10.03,360453115,505732.66,False
+TACH,Titan Acquisition Corp.,Financials,10.39,358455000,204734.95,False
+OTGA,OTG Acquisition Corp. I Class A Ordinary Share,Financials,10.16,358393980,182676.8,False
+DMAA,Drugs Made In America Acquisition Corp. Ordinary Shares,Financials,10.61,357738887,2599.45,False
+FRST,Primis Financial Corp.,Financials,14.43,357460999,2264903.94,False
+CCII,Cohen Circle Acquisition Corp. II,Financials,10.28,356647453,112658.51999999999,False
+GECCI,Great Elm Capital Corp. 8.50% Notes DUE 2029,Financials,25.4499,356252790,103275.6942,False
+ACAA,Averin Capital Acquisition Corp.,Financials,9.98,356111450,252573.84,False
+IPCX,Inflection Point Acquisition Corp. III,Financials,10.32,355764766,262066.08000000002,False
+CCXIW,Churchill Capital Corp XI Warrants,Financials,0.9,354857143,6010.2,False
+KCHV,Kochav Defense Acquisition Corp.,Financials,10.34,354221340,517000.0,False
+MBVIU,M3-Brigade Acquisition VI Corp. Units,Financials,10.24,353280000,1054.72,False
+AXIN,Axiom Intelligence Acquisition Corp 1,Financials,10.39,352567351,8687899.81,False
+ARCI,Archimedes Tech SPAC Partners III Co.,Financials,9.99,352267380,294466.456782,False
+CBAN,"Colony Bankcorp, Inc.",Financials,19.8,352247980,2213679.6,False
+PAII,Pyrophyte Acquisition Corp. II,Financials,10.2,351824438,297870.6,False
+TLNC,Talon Capital Corp. Class A Ordinary Shares,Financials,10.29,350118166,105493.07999999999,False
+PCB,PCB Bancorp,Financials,24.57,349746579,542726.73,False
+MBVI,M3-Brigade Acquisition VI Corp. Class A Ordinary Shares,Financials,10.13,349485000,10383.25,False
+BDCI,BTC Development Corp. Class A Ordinary Shares,Financials,10.05,349204023,147353.1,False
+OYSE,Oyster Enterprises II Acquisition Corp,Financials,10.26,347960215,20.52,False
+BLZR,Trailblazer Acquisition Corp.,Financials,10.12,347875000,327584.39999999997,False
+KRAQU,KRAKacquisition Corp Unit,Financials,10.05,346725000,2120.55,False
+RILY,"BRC Group Holdings, Inc.",Financials,9.33,346428423,23321846.46,False
+SBXE,SilverBox Corp V,Financials,10.03,346035000,85255.0,False
+CGCT,Cartesian Growth Corporation III,Financials,12.53,345828000,819386.82,False
+SCPQW,Social Commerce Partners Corporation,Financials,0.63,344736000,998.55,False
+MVBF,MVB Financial Corp.,Financials,26.75,343734825,1557866.5,False
+DSAC,Daedalus Special Acquisition Corp.,Financials,9.99,339843127,434894.67,False
+USCB,"USCB Financial Holdings, Inc.",Financials,18.54,338612706,704241.9,False
+RM,Regional Management Corp.,Financials,36.76,338491594,1296745.76,False
+PSBD,Palmer Square Capital BDC Inc.,Financials,10.85,337660832,1801534.0,False
+CION,CION Investment Corporation,Financials,6.75,336077168,4235503.5,False
+BCML,BayCom Corp,Financials,30.8,336006440,1667974.0,False
+NECB,"Northeast Community Bancorp, Inc.",Financials,24.24,335336693,1091454.48,False
+BEAG,Bold Eagle Acquisition Corp.,Financials,10.695,334946010,426559.38,False
+WSBF,"Waterstone Financial, Inc.",Financials,18.51,334162548,637688.01,False
+RREV,RRE Ventures Acquisition Corp.,Financials,9.88,333329998,559761.28,False
+CUB,Lionheart Holdings,Financials,10.83,332119993,12819676.77,False
+ATII,Archimedes Tech SPAC Partners II Co. Ordinary Shares,Financials,11.22,331999800,5765374.5600000005,False
+BLUW,Blue Water Acquisition Corp III,Financials,10.27,331803160,54266.68,False
+CHMG,Chemung Financial Corporation,Financials,68.68,331025238,2823915.56,False
+SIMA,SIM Acquisition Corp. I,Financials,10.7603,329982515,10276.086500000001,False
+INV,"Innventure, Inc.",Financials,5.33,329353769,31565144.78,False
+MLAC,Mountain Lake Acquisition Corp.,Financials,10.62,329140350,61627.85999999999,False
+FNLC,"The First Bancorp, Inc.",Financials,29.11,328237315,569187.83,False
+SVAC,Spring Valley Acquisition Corp. III Class A Ordinary Shares,Financials,10.66,326906681,4875660.14,False
+CSHR,CoinShares PLC Ordinary Shares,Financials,4.96,326483067,1455799.68,False
+RTAC,Renatus Tactical Acquisition Corp I Class A Ordinary Shares,Financials,10.43,325012234,653637.6699999999,False
+FERA,Fifth Era Acquisition Corp I Class A Ordinary Shares,Financials,10.39,324860701,8135.370000000001,False
+VACI,Viking Acquisition Corp. I,Financials,10.35,324231035,567759.6,False
+OBA,Oxley Bridge Acquisition Limited,Financials,10.22,323207510,0.0,False
+PCAP,ProCap Acquisition Corp,Financials,10.27,323123490,17479.54,False
+TCPC,BlackRock TCP Capital Corp.,Financials,3.85,323025780,3322623.15,False
+PACH,Pioneer Acquisition I Corp.,Financials,10.21,322891260,511030.92000000004,False
+EVOX,Evolution Global Acquisition Corp Class A Ordinary Shares,Financials,10.02,320640000,63075.899999999994,False
+AII,"American Integrity Insurance Group, Inc.",Financials,16.36,320505750,1296759.04,False
+NPAC,New Providence Acquisition Corp. III,Financials,10.3459,319554589,24540.4748,False
+SVIVU,Spring Valley Acquisition Corp. IV Units,Financials,10.33,319447575,10.33,False
+ALDF,Aldel Financial II Inc.,Financials,10.67,318693854,160242.06,False
+TSBK,"Timberland Bancorp, Inc.",Financials,40.58,317658333,910412.2999999999,False
+LPAAU,Launch One Acquisition Corp. Unit,Financials,10.74,317427853,0.0,False
+POLE,Andretti Acquisition Corp. II,Financials,10.73,316642268,37941.28,False
+SAC,Safeguard Acquisition Corp.,Financials,10.06,315548700,39988.5,False
+TVA,Texas Ventures Acquisition III Corp,Financials,10.5,315000000,78025.5,False
+JACS,Jackson Acquisition Company II,Financials,10.62,314245789,11703.24,False
+CZFS,"Citizens Financial Services, Inc.",Financials,65.03,312465248,391805.75,False
+NHIC,NewHold Investment Corp III,Financials,11.3,312024222,6326655.300000001,False
+IEAGU,Infinite Eagle Acquisition Corp. Unit,Financials,10.26,311391000,119806.02,False
+GRAF,Graf Global Corp.,Financials,10.83,311362489,3866.31,False
+LPAA,Launch One Acquisition Corp.,Financials,10.8,310499989,43.2,False
+LEGO,Legato Merger Corp. IV,Financials,9.91,309852670,307864.06,False
+DBCA,D. Boral Acquisition I Corp. Class A Ordinary Shares,Financials,9.98,308881000,136726.0,False
+KBONU,Karbon Capital Partners Corp. Units,Financials,10.29,308700000,497109.89999999997,False
+LPBB,Launch Two Acquisition Corp.,Financials,10.69,307337468,11128.289999999999,False
+COSO,"CoastalSouth Bancshares, Inc.",Financials,25.53,307266315,689922.7200000001,False
+LWAC,LightWave Acquisition Corp.,Financials,10.21,307065750,53622.920000000006,False
+VHCPU,Vine Hill Capital Investment Corp. II,Financials,10.09,306490046,513106.77,False
+LWACU,LightWave Acquisition Corp.,Financials,10.2674,305794950,51.337,False
+FUFU,BitFuFu Inc.,Financials,1.86,305646771,1174539.78,False
+ISTR,Investar Holding Corporation,Financials,28.26,305540564,2223044.64,False
+VACH,Voyager Acquisition Corp.,Financials,9.61,303916221,47905.85,False
+LOKV,Live Oak Acquisition Corp. V Class A Ordinary Shares,Financials,10.55,303312511,2088.9,False
+VALU,"Value Line, Inc.",Financials,32.2,302269128,89161.8,False
+FSBW,"FS Bancorp, Inc.",Financials,40.71,301846005,335246.85000000003,False
+ALOVU,"Aldabra 4 Liquidity Opportunity Vehicle, Inc. Units",Financials,10.05,301650750,3015.0,False
+IEAG,Infinite Eagle Acquisition Corp. Class A Ordinary Shares,Financials,10.04,301200000,2515230.84,False
+JMSB,"John Marshall Bancorp, Inc.",Financials,21.27,300166983,741004.26,False
+ADT,ADT Inc.,Industrials,6.71,4931514500,41103983.8,False
+XMTR,"Xometry, Inc.",Industrials,95.29,4871557076,56113994.04000001,False
+SEB,Seaboard Corporation,Industrials,5081.93,4867442062,94727175.2,False
+UNF,UniFirst Corporation,Industrials,265.42,4853612120,16872749.400000002,False
+OMAB,"Grupo Aeroportuario del Centro Norte, S.A.B. de C.V.",Industrials,100.32,4842564577,9165235.2,False
+SITE,"SiteOne Landscape Supply, Inc.",Industrials,108.6,4811873669,79704580.8,False
+REZI,"Resideo Technologies, Inc.",Industrials,31.27,4735091020,22840452.29,False
+WSC,WillScot Holdings Corporation,Industrials,25.73,4656993091,42757805.24,False
+FBIN,"Fortune Brands Innovations, Inc.",Industrials,38.97,4648864460,47192981.76,False
+FCN,"FTI Consulting, Inc.",Industrials,153.18,4617457920,55443041.46,False
+PLUG,Plug Power Inc.,Industrials,3.95,4530177631,269100413.65000004,False
+CSW,"CSW Industrials, Inc.",Industrials,276.97,4520007207,27191252.78,False
+AIR,AAR Corp.,Industrials,112.62,4478251862,40604577.9,False
+MIR,"Mirion Technologies, Inc.",Industrials,18.28,4472306525,84396200.80000001,False
+HRI,Herc Holdings Inc.,Industrials,133.0,4441275783,32130406.0,False
+KBR,"KBR, Inc.",Industrials,34.95,4431308997,93879020.25000001,False
+MDU,"MDU Resources Group, Inc.",Industrials,21.08,4405846480,43815770.76,False
+FELE,"Franklin Electric Co., Inc.",Industrials,98.38,4346644836,26697380.599999998,False
+CAAP,Corporación América Airports S.A.,Industrials,26.6,4340534800,6140157.800000001,False
+TREX,"Trex Company, Inc.",Industrials,41.4,4301407381,48684785.4,False
+BCO,The Brink's Company,Industrials,104.02,4283606012,37952841.22,False
+TEX,Terex Corporation,Industrials,58.18,4261686338,36260161.38,False
+VSEC,VSE Corporation,Industrials,185.15,4232281454,121787411.55,False
+RXO,"RXO, Inc.",Industrials,25.58,4218661581,28764965.799999997,False
+BETA,"BETA Technologies, Inc.",Industrials,18.34,4076148080,24696533.96,False
+AZZ,AZZ Inc.,Industrials,135.51,4067549466,31991065.29,False
+BRC,Brady Corporation,Industrials,86.08,4055469308,15425622.08,False
+GFF,Griffon Corporation,Industrials,87.98,4035346195,20849148.48,False
+MWA,"Mueller Water Products, Inc.",Industrials,25.21,3944633910,18894693.32,False
+HAFN,Hafnia Limited,Industrials,7.65,3823326983,19645429.5,False
+ATMU,Atmus Filtration Technologies Inc.,Industrials,46.78,3820635995,32626430.32,False
+TPC,Tutor Perini Corporation,Industrials,71.49,3774060761,46872275.519999996,False
+KAI,Kadant Inc.,Industrials,319.18,3769024901,32256649.98,False
+RDW,Redwire Corporation,Industrials,24.57,3690056040,1579619722.59,False
+KFY,Korn Ferry,Industrials,69.98,3631059258,18138396.12,False
+CMBT,Cmb.Tech N.V.,Industrials,15.47,3549684274,25540784.36,False
+PONY,Pony AI Inc. American Depositary Shares,Industrials,10.03,3535101413,44378758.059999995,False
+GPGI,"GPGI, Inc.",Industrials,12.16,3524709760,32970016.0,False
+SKYW,"SkyWest, Inc.",Industrials,85.65,3396904695,36896307.0,False
+SXI,Standex International Corporation,Industrials,277.01,3355954543,33768904.05,False
+MMS,"Maximus, Inc.",Industrials,61.93,3253826972,31237244.28,False
+ATRO,Astronics Corporation,Industrials,87.0,3118110972,40392621.0,False
+SBLK,Star Bulk Carriers Corp.,Industrials,27.25,3102330750,43410803.25,False
+HAWK,"HawkEye 360, Inc.",Industrials,33.01,3072716440,29937330.169999998,False
+HAYW,"Hayward Holdings, Inc.",Industrials,14.11,3061347930,25123800.369999997,False
+ARCB,ArcBest Corporation,Industrials,136.69,3043238822,46807850.22,False
+ATS,ATS Corporation,Industrials,30.92,3033456072,5092152.96,False
+GEO,"The GEO Group, Inc.",Industrials,22.67,3029120060,45666765.38,False
+RHI,Robert Half International Inc.,Industrials,29.44,3011535360,94040309.76,False
+BWLP,BW LPG Limited,Industrials,19.6,2966315999,12537943.600000001,False
+VOYG,"Voyager Technologies, Inc.",Industrials,49.53,2935253992,157928237.61,False
+AMPX,"Amprius Technologies, Inc.",Industrials,20.28,2872199008,136584542.64000002,False
+ZIM,ZIM Integrated Shipping Services Ltd.,Industrials,23.49,2831002985,62073241.11,False
+EXPO,"Exponent, Inc.",Industrials,58.32,2829198203,47504381.04,False
+WOR,"Worthington Industries, Inc.",Industrials,56.77,2812759517,11781932.26,False
+ATKR,Atkore Inc.,Industrials,82.81,2796267297,23107716.45,False
+HLIO,"Helios Technologies, Inc.",Industrials,83.09,2745821886,23430050.560000002,False
+FA,First Advantage Corporation,Industrials,16.0,2744592752,12887888.0,False
+CECO,CECO Environmental Corp.,Industrials,74.75,2681509067,164200933.0,False
+MGRC,McGrath RentCorp,Industrials,108.99,2676990582,20886080.669999998,False
+VVX,"V2X, Inc.",Industrials,83.13,2602840535,37162601.46,False
+TRN,"Trinity Industries, Inc.",Industrials,32.44,2579158517,16552509.999999998,False
+HUBG,"Hub Group, Inc.",Industrials,41.54,2516435335,46389462.68,False
+KMT,Kennametal Inc.,Industrials,32.8,2499691280,31260302.4,False
+WERN,"Werner Enterprises, Inc.",Industrials,41.51,2488528651,55975653.86,False
+TRTN-PC,Triton International Limited,Industrials,24.53,2481475037,309495.01,False
+AERO,"Grupo Aeroméxico, S.A.B. de C.V.",Industrials,16.96,2474521664,4118634.24,False
+TNK,Teekay Tankers Ltd.,Industrials,70.35,2437195199,28332688.65,False
+AMSC,American Superconductor Corporation,Industrials,50.94,2429552736,68088798.17999999,False
+DCO,Ducommun Incorporated,Industrials,152.22,2296323791,29976684.6,False
+ABM,ABM Industries Incorporated,Industrials,39.06,2286291949,15366360.24,False
+DAC,Danaos Corporation,Industrials,125.21,2279260235,17567714.259999998,False
+CDLR,Cadeler A/S,Industrials,25.8,2272854767,3083745.0,False
+DXPE,"DXP Enterprises, Inc.",Industrials,145.06,2249200559,23784182.66,False
+PCT,"PureCycle Technologies, Inc.",Industrials,12.39,2240899385,45174138.24,False
+CXT,"Crane NXT, Co.",Industrials,38.84,2234945534,38143987.2,False
+EOSE,"Eos Energy Enterprises, Inc.",Industrials,8.43,2198016636,134600090.28,False
+PBI,Pitney Bowes Inc.,Industrials,16.1,2180606943,45409325.50000001,False
+CTOS,"Custom Truck One Source, Inc.",Industrials,9.58,2178806425,7605542.84,False
+CYD,China Yuchai International Limited,Industrials,56.72,2128039224,8685817.2,False
+BW,"Babcock & Wilcox Enterprises, Inc.",Industrials,18.45,2110437032,56953212.75,False
+TNET,"TriNet Group, Inc.",Industrials,45.68,2098751292,20613967.919999998,False
+JBLU,JetBlue Airways Corporation,Industrials,5.47,2034943350,135115312.38,False
+THR,"Thermon Group Holdings, Inc.",Industrials,61.16,2014591685,67726321.08,False
+GRC,The Gorman-Rupp Company,Industrials,74.95,1979444490,4999839.55,False
+NMM,Navios Maritime Partners L.P.,Industrials,69.27,1977381420,10067840.34,False
+AVEX,Aevex Corp.,Industrials,38.47,1952128412,93281863.64999999,False
+AMRC,"Ameresco, Inc.",Industrials,35.98,1905191912,14821817.079999998,False
+BLDP,Ballard Power Systems Inc.,Industrials,6.29,1896283002,87323447.29,False
+CMRE,Costamare Inc.,Industrials,15.38,1854658820,5876851.800000001,False
+ALG,Alamo Group Inc.,Industrials,150.71,1833890974,16643508.14,False
+TE,T1 Energy Inc,Industrials,10.56,1833543656,337781642.88,False
+ARXS,"Arxis, Inc. Class A Common Stock",Industrials,44.93,1819665000,44072915.32,False
+PLPC,Preformed Line Products Company,Industrials,369.82,1807684598,29032349.28,False
+TIC,"TIC Solutions, Inc.",Industrials,8.17,1805918075,13375907.66,False
+PRLB,"Proto Labs, Inc.",Industrials,75.76,1802633440,9471742.48,False
+CBZ,"CBIZ, Inc.",Industrials,33.2,1781137902,22957036.400000002,False
+EPAC,Enerpac Tool Group Corp.,Industrials,33.49,1767478521,11655859.600000001,False
+HURN,Huron Consulting Group Inc.,Industrials,107.39,1740988316,22464162.37,False
+ENVX,Enovix Corporation,Industrials,7.98,1740860940,84121345.56,False
+TH,Target Hospitality Corp.,Industrials,17.36,1738847040,41882371.44,False
+NVRI,Enviri Corporation,Industrials,20.72,1713660032,77058198.0,False
+VSTS,Vestis Corporation,Industrials,12.92,1706797659,15068053.36,False
+HTZ,"Hertz Global Holdings, Inc.",Industrials,5.4,1705128424,34992345.6,False
+HNI,HNI Corporation,Industrials,31.19,1685817629,12727984.01,False
+ALGT,Allegiant Travel Company,Industrials,91.61,1673357971,48421106.77,False
+ECO,Okeanis Eco Tankers Corp.,Industrials,47.21,1543523680,32682633.22,False
+PRG,"PROG Holdings, Inc.",Industrials,36.77,1473210788,13343502.07,False
+MAN,ManpowerGroup Inc.,Industrials,31.63,1471025899,31403054.75,False
+SFL,SFL Corporation Ltd.,Industrials,11.04,1468240335,11163648.0,False
+TNC,Tennant Company,Industrials,86.11,1467219937,8095287.21,False
+HLMN,Hillman Solutions Corp.,Industrials,7.46,1463726600,13323694.28,False
+GBX,"The Greenbrier Companies, Inc.",Industrials,47.11,1457517163,8122423.54,False
+ARLO,"Arlo Technologies, Inc.",Industrials,13.34,1448854959,8131303.62,False
+WLFC,Willis Lease Finance Corporation,Industrials,177.01,1410170698,16484941.299999999,False
+MRTN,"Marten Transport, Ltd.",Industrials,17.24,1406596687,23106978.88,False
+ULCC,"Frontier Group Holdings, Inc.",Industrials,6.05,1390223450,34987797.35,False
+WLDN,"Willdan Group, Inc.",Industrials,90.84,1372646904,23361231.96,False
+NSSC,"Napco Security Technologies, Inc.",Industrials,37.53,1340845569,26255274.93,False
+CCEC,Capital Clean Energy Carriers Corp.,Industrials,22.24,1336922016,620273.6,False
+CDRE,"Cadre Holdings, Inc.",Industrials,31.14,1332711036,5770709.100000001,False
+NSP,"Insperity, Inc.",Industrials,34.47,1315691704,15649345.53,False
+GSL,"Global Ship Lease, Inc.",Industrials,36.43,1308500026,12780226.88,False
+ENR,"Energizer Holdings, Inc.",Industrials,18.22,1247586897,9487518.399999999,False
+DSGR,"Distribution Solutions Group, Inc.",Industrials,27.0,1247269455,3017223.0,False
+ICFI,"ICF International, Inc.",Industrials,68.84,1246293128,17819165.16,False
+PRSU,"Pursuit Attractions and Hospitality, Inc.",Industrials,44.77,1223048797,6481576.75,False
+NNE,Nano Nuclear Energy Inc,Industrials,28.88,1200906441,83279061.11999999,False
+IRS,IRSA Inversiones y Representaciones Sociedad Anónima,Industrials,15.44,1193414357,8653054.64,False
+GIC,Global Industrial Company,Industrials,30.4,1163137410,1775147.2,False
+HTLD,"Heartland Express, Inc.",Industrials,14.99,1161570543,7190508.13,False
+EVLV,"Evolv Technologies Holdings, Inc.",Industrials,6.45,1160167950,16678268.1,False
+ASTE,"Astec Industries, Inc.",Industrials,50.36,1157907336,6992888.88,False
+BV,"BrightView Holdings, Inc.",Industrials,12.36,1151952000,6413888.279999999,False
+FCEL,"FuelCell Energy, Inc.",Industrials,21.66,1147500578,195320674.5,False
+ROCK,"Gibraltar Industries, Inc.",Industrials,38.65,1146432435,18616197.65,False
+LNN,Lindsay Corporation,Industrials,109.29,1142590775,18260391.78,False
+NWPX,"NWPX Infrastructure, Inc.",Industrials,117.96,1136781464,13770768.36,False
+GHM,Graham Corporation,Industrials,100.14,1108828189,29761307.580000002,False
+NAT,Nordic American Tankers Limited,Industrials,5.15,1090515914,22949579.35,False
+UPWK,Upwork Inc.,Industrials,8.82,1089429968,52016726.160000004,False
+LZ,"LegalZoom.com, Inc.",Industrials,6.29,1079665920,18518175.14,False
+GNK,Genco Shipping & Trading Limited,Industrials,24.06,1048463847,7743566.64,False
+EVEX,"Eve Holding, Inc.",Industrials,3.45,1038042900,2923247.1,False
+CVLG,"Covenant Logistics Group, Inc.",Industrials,39.669,997937126,5367890.073,False
+RHLD,"Resolute Holdings Management, Inc.",Industrials,118.98,982470449,24042764.52,False
+AEBI,Aebi Schmidt Holding AG,Industrials,12.48,967276440,3455949.12,False
+PSIX,"Power Solutions International, Inc.",Industrials,41.68,960742756,20613927.68,False
+RJET,Republic Airways Holdings Inc.,Industrials,20.35,952980325,3934774.2500000005,False
+LMB,"Limbach Holdings, Inc.",Industrials,77.45,923286639,27919485.8,False
+NPK,"National Presto Industries, Inc.",Industrials,126.57,907006063,16673952.09,False
+AIAI,AIAI Holdings Corporation Class A Common Stock,Industrials,12.83,902128492,1671094.67,False
+VLRS,"Controladora Vuela Compañía de Aviación, S.A.B. de C.V.",Industrials,7.82,898170964,6629405.0,False
+CRAI,"CRA International, Inc.",Industrials,138.75,896746523,19649220.0,False
+NX,Quanex Building Products Corporation,Industrials,18.61,854913661,4917264.47,False
+CODI,Compass Diversified,Industrials,11.35,853928214,12049375.65,False
+KFRC,Kforce Inc.,Industrials,46.99,837925680,10981422.030000001,False
+MATW,Matthews International Corporation,Industrials,26.54,828111696,5923091.04,False
+APOG,"Apogee Enterprises, Inc.",Industrials,38.41,820091910,13956119.86,False
+BBSI,"Barrett Business Services, Inc.",Industrials,32.54,799170978,11065161.92,False
+CDNL,Cardinal Infrastructure Group Inc. Class A Common Stock,Industrials,51.89,793552940,20169591.11,False
+CYRX,"Cryoport, Inc.",Industrials,15.69,790812087,25683698.43,False
+TRNS,"Transcat, Inc.",Industrials,84.52,789475710,22944644.4,False
+CRESY,"Cresud Sociedad Anónima, Comercial, Inmobiliaria, Financiera y Agropecuaria",Industrials,11.91,772651722,5203788.66,False
+KRNT,Kornit Digital Ltd.,Industrials,16.13,747471894,3625330.4099999997,False
+SPIR,"Spire Global, Inc.",Industrials,22.84,743130736,30657583.84,False
+JBI,"Janus International Group, Inc.",Industrials,5.34,728335731,6001860.96,False
+ADSE,ADS-TEC Energy PLC,Industrials,11.94,721608228,76917.48,False
+SKYH,Sky Harbour Group Corporation,Industrials,9.39,718597432,2793571.95,False
+HSHP,Himalaya Shipping Ltd.,Industrials,14.75,695388735,3234719.25,False
+SWBI,"Smith & Wesson Brands, Inc.",Industrials,15.22,677194114,12731149.5,False
+ASC,Ardmore Shipping Corporation,Industrials,16.08,656105808,7501239.6,False
+HY,"Hyster-Yale Materials Handling, Inc.",Industrials,36.32,644181762,4339586.24,False
+SB,"Safe Bulkers, Inc.",Industrials,6.25,639031250,3240537.5,False
+PKE,Park Aerospace Corp.,Industrials,31.87,635035182,30323189.55,False
+KE,"Kimball Electronics, Inc.",Industrials,25.93,623588625,4289003.51,False
+RGR,"Sturm, Ruger & Company, Inc.",Industrials,39.09,623262687,3782973.8400000003,False
+SERV,Serve Robotics Inc.,Industrials,9.35,622733973,62885491.349999994,False
+SWIM,"Latham Group, Inc.",Industrials,5.28,619933190,4861628.640000001,False
+SLDP,"Solid Power, Inc.",Industrials,3.31,611258041,17143780.9,False
+FBYD,"Falcon's Beyond Global, Inc. Class A Common Stock",Industrials,15.5,607600000,1493177.0,False
+CASS,"Cass Information Systems, Inc.",Industrials,46.03,592458988,4823207.5200000005,False
+ONT,"Onterris, Inc.",Industrials,16.01,578589024,9546138.610000001,False
+ADUR,Aduro Clean Technologies Inc.,Industrials,16.85,568305056,9646523.9,False
+TATT,TAT Technologies Ltd.,Industrials,43.31,562298061,9631927.450000001,False
+MG,"Mistras Group, Inc.",Industrials,17.58,559337252,2081384.0999999999,False
+ORN,"Orion Group Holdings, Inc.",Industrials,13.76,556994865,2794862.4,False
+RR,Richtech Robotics Inc. Class B Common Stock,Industrials,3.02,554656604,56093117.6,False
+BWMN,Bowman Consulting Group Ltd.,Industrials,31.53,552017781,4333924.62,False
+MEC,"Mayville Engineering Company, Inc.",Industrials,26.85,550263900,5822825.25,False
+SRTA,"Strata Critical Medical, Inc.",Industrials,6.31,545982657,4410772.029999999,False
+XE,"X-Energy, Inc. Class A Common Stock",Industrials,26.91,538655452,73520272.8,False
+IIIN,"Insteel Industries, Inc.",Industrials,27.49,534219960,5782026.68,False
+ASPN,"Aspen Aerogels, Inc.",Industrials,6.4,530415699,10278067.200000001,False
+FIP,FTAI Infrastructure Inc.,Industrials,4.46,527009433,4378926.12,False
+TRC,Tejon Ranch Co.,Industrials,19.33,521991186,1245083.96,False
+EBF,"Ennis, Inc.",Industrials,20.46,517492734,1729013.22,False
+MVST,"Microvast Holdings, Inc.",Industrials,1.55,516393350,6987328.7,False
+TITN,Titan Machinery Inc.,Industrials,21.82,508606744,3209678.36,False
+PANL,"Pangaea Logistics Solutions, Ltd.",Industrials,7.57,495190793,4296088.55,False
+PKOH,Park-Ohio Holdings Corp.,Industrials,32.56,468805392,1558419.28,False
+TWI,"Titan International, Inc.",Industrials,7.22,464765551,2658570.06,False
+LXFR,Luxfer Holdings PLC,Industrials,17.03,459918992,2103784.02,False
+CMCO,Columbus McKinnon Corporation,Industrials,15.96,458680281,5165725.32,False
+ELMT,Elmet Group Co.,Industrials,15.28,458092291,16058470.16,False
+ELVA,Electrovaya Inc.,Industrials,11.69,456905041,3716402.9699999997,False
+ESEA,Euroseas Ltd.,Industrials,63.7,449459556,3134931.8000000003,False
+ACTG,Acacia Research Corporation,Industrials,4.65,449139315,1106960.4000000001,False
+FSTR,L.B. Foster Company,Industrials,41.14,430270095,18005702.66,False
+MTW,"The Manitowoc Company, Inc.",Industrials,11.83,424810379,1500659.16,False
+XRX,Xerox Holdings Corporation,Industrials,3.24,423725940,43898841.0,False
+ERII,"Energy Recovery, Inc.",Industrials,8.17,421124766,7288653.08,False
+ULH,"Universal Logistics Holdings, Inc.",Industrials,15.91,419541784,946088.15,False
+ROMA,Roma Green Finance Limited Ordinary Shares,Industrials,6.94,413378116,882414.06,False
+MAGN,Magnera Corp.,Industrials,11.37,404772000,1737347.3699999999,False
+BXC,BlueLinx Holdings Inc.,Industrials,51.99,404606976,4067333.67,False
+KELYA,"Kelly Services, Inc.",Industrials,11.62,402855999,6291044.76,False
+JLHL,Julong Holding Limited Class A Ordinary Shares,Industrials,19.59,399387638,323058.69,False
+RLGT,"Radiant Logistics, Inc.",Industrials,8.49,397600844,1098266.4000000001,False
+BBCP,"Concrete Pumping Holdings, Inc.",Industrials,7.82,394992157,579782.62,False
+CMDB,Costamare Bulkers Holdings Ltd,Industrials,16.14,390272818,313664.76,False
+SPCE,"Virgin Galactic Holdings, Inc.",Industrials,6.18,385514283,1056597313.02,False
+QUAD,"Quad/Graphics, Inc.",Industrials,7.45,384118431,1141913.6500000001,False
+CVEO,Civeo Corporation,Industrials,34.15,373713558,1728365.65,False
+EH,EHang Holdings Limited,Industrials,10.16,372521632,12548290.88,False
+KNOP,KNOT Offshore Partners LP,Industrials,11.0,370263762,3120392.0,False
+MTRX,Matrix Service Company,Industrials,13.13,369396794,2368927.73,False
+ACCO,ACCO Brands Corporation,Industrials,3.96,365340888,2730067.56,False
+GASS,StealthGas Inc.,Industrials,9.18,341364597,1456801.74,False
+PHOE,Phoenix Asia Holdings Limited Ordinary Shares,Industrials,15.59,336744000,370231.32,False
+FWRD,Forward Air Corporation,Industrials,10.58,334592987,9249988.2,False
+SBC,SBC Medical Group Holdings Incorporated,Industrials,3.21,330138710,837662.34,False
+SHIP,Seanergy Maritime Holdings Corp.,Industrials,15.5,327268550,6360533.5,False
+WNC,Wabash National Corporation,Industrials,7.93,322544558,5927500.54,False
+UP,Wheels Up Experience Inc.,Industrials,8.82,319540662,2039413.32,False
+OP,OceanPal Inc.,Industrials,10.06,313082039,13450.220000000001,False
+ASLE,AerSale Corporation,Industrials,6.59,311395952,1892213.06,False
+CIX,CompX International Inc.,Industrials,25.14,309801653,78336.24,False
+ISSC,"Innovative Aerosystems, Inc.",Industrials,17.24,308470958,8788658.92,False
+AIRJ,AirJoule Technologies Corporation,Industrials,4.49,307442603,8849345.49,False
+PPHC,"Public Policy Holding Company, Inc. Common Stock",Industrials,10.41,305534302,1038085.2000000001,False
+OFLX,"Omega Flex, Inc.",Industrials,30.23,305151354,948315.1,False
+CAI,"Caris Life Sciences, Inc.",Healthcare,16.72,4726421220,36554902.559999995,False
+LGND,Ligand Pharmaceuticals Incorporated,Healthcare,231.96,4648724510,35621169.36,False
+BLLN,"BillionToOne, Inc.",Healthcare,98.99,4553092565,40192612.73,False
+INDV,Indivior Pharmaceuticals Inc,Healthcare,36.02,4494215400,60154984.88,False
+SHC,Sotera Health Company,Healthcare,15.64,4460011786,41884952.24,False
+SYRE,"Spyre Therapeutics, Inc.",Healthcare,73.5,4439507898,81863565.0,False
+TVTX,"Travere Therapeutics, Inc.",Healthcare,47.18,4387405022,102721805.76,False
+RDNT,"RadNet, Inc.",Healthcare,55.53,4366557126,32718720.240000002,False
+HNGE,"Hinge Health, Inc.",Healthcare,56.21,4349555207,116893191.8,False
+XENE,Xenon Pharmaceuticals Inc.,Healthcare,54.73,4320789451,75270114.27,False
+MANE,"Veradermics, Incorporated",Healthcare,100.91,4215887305,86388041.89999999,False
+AMRX,"Amneal Pharmaceuticals, Inc.",Healthcare,13.17,4201530171,28818594.0,False
+TWST,Twist Bioscience Corporation,Healthcare,66.87,4164081831,142650226.89000002,False
+LIVN,LivaNova PLC,Healthcare,73.8,4054092300,52251654.6,False
+DOCS,"Doximity, Inc.",Healthcare,21.4,4002339815,85871908.39999999,False
+ERAS,"Erasca, Inc.",Healthcare,12.84,3993041519,81997742.28,False
+NAMS,NewAmsterdam Pharma Company N.V.,Healthcare,33.68,3937326013,82855864.88,False
+DNTH,"Dianthus Therapeutics, Inc.",Healthcare,93.01,3883167500,116145400.41000001,False
+NVST,Envista Holdings Corp,Healthcare,23.55,3832242587,77432753.25,False
+CPRX,"Catalyst Pharmaceuticals, Inc.",Healthcare,31.23,3821958380,81360926.91,False
+VKTX,"Viking Therapeutics, Inc.",Healthcare,32.74,3801298752,57220581.980000004,False
+MMSI,"Merit Medical Systems, Inc.",Healthcare,63.06,3761835156,55503772.440000005,False
+CRNX,"Crinetics Pharmaceuticals, Inc.",Healthcare,35.55,3748392000,68654160.0,False
+IRTC,"iRhythm Technologies, Inc.",Healthcare,113.9,3743028157,36490598.6,False
+ACAD,ACADIA Pharmaceuticals Inc.,Healthcare,21.66,3708968944,37804779.18,False
+VCYT,"Veracyte, Inc.",Healthcare,46.34,3697589084,57131937.24,False
+EWTX,"Edgewise Therapeutics, Inc.",Healthcare,34.16,3675376880,39866154.72,False
+KNSA,"Kiniksa Pharmaceuticals, Ltd.",Healthcare,48.38,3636795573,34943180.7,False
+TXG,"10x Genomics, Inc.",Healthcare,28.305,3593495015,82540493.55,False
+OGN,Organon & Co.,Healthcare,13.34,3503095499,72259058.14,False
+BEAM,Beam Therapeutics Inc.,Healthcare,32.93,3387805470,59234055.91,False
+ICUI,"ICU Medical, Inc.",Healthcare,135.39,3383881473,40149769.11,False
+DNLI,Denali Therapeutics Inc.,Healthcare,21.04,3339252866,35764696.72,False
+OPCH,"Option Care Health, Inc.",Healthcare,20.87,3277164008,49251634.75,False
+DYN,"Dyne Therapeutics, Inc.",Healthcare,19.33,3195515638,29042687.109999996,False
+TLX,Telix Pharmaceuticals Limited,Healthcare,9.43,3194667572,1329799.74,False
+CON,"Concentra Group Holdings Parent, Inc.",Healthcare,24.87,3182409469,25098281.73,False
+ALHC,"Alignment Healthcare, Inc.",Healthcare,15.32,3167162168,78028360.2,False
+HAE,Haemonetics Corporation,Healthcare,67.81,3081693260,46687117.190000005,False
+GRAL,"GRAIL, Inc.",Healthcare,71.68,3076261171,89438361.60000001,False
+BKD,Brookdale Senior Living Inc.,Healthcare,12.87,3073596991,36317814.39,False
+ITGR,Integer Holdings Corporation,Healthcare,89.38,3034883510,52811781.839999996,False
+WRBY,Warby Parker Inc.,Healthcare,24.52,3008977660,49340933.96,False
+LFST,"LifeStance Health Group, Inc.",Healthcare,7.71,2990200140,19960426.71,False
+KLRA,"Kailera Therapeutics, Inc.",Healthcare,22.94,2972235048,12753355.360000001,False
+NHC,National HealthCare Corporation,Healthcare,184.42,2880566632,8515777.92,False
+PRVA,"Privia Health Group, Inc.",Healthcare,21.51,2710518120,20490985.26,False
+RLAY,"Relay Therapeutics, Inc.",Healthcare,14.05,2691783300,48733731.650000006,False
+ARQT,"Arcutis Biotherapeutics, Inc.",Healthcare,21.46,2684281180,34973555.14,False
+SUPN,"Supernus Pharmaceuticals, Inc.",Healthcare,46.18,2680273346,25159464.34,False
+HTFL,"Heartflow, Inc. Common Stock",Healthcare,30.98,2671740851,53639236.7,False
+ALMS,Alumis Inc. Common Stock,Healthcare,21.6,2666132755,22131943.200000003,False
+IRON,"Disc Medicine, Inc.",Healthcare,69.57,2657510622,25106908.589999996,False
+DFTX,"Definium Therapeutics, Inc.",Healthcare,24.19,2638325408,42095583.14,False
+IDYA,"IDEAYA Biosciences, Inc.",Healthcare,29.47,2589260723,32355702.4,False
+TARS,"Tarsus Pharmaceuticals, Inc.",Healthcare,59.4,2555623165,36589806.0,False
+TNGX,"Tango Therapeutics, Inc.",Healthcare,21.98,2553445658,75017542.18,False
+RCUS,"Arcus Biosciences, Inc.",Healthcare,25.34,2551006688,55238818.04,False
+VERA,"Vera Therapeutics, Inc.",Healthcare,35.52,2549728608,36783481.92,False
+GRDN,"Guardian Pharmacy Services, Inc.",Healthcare,38.74,2453041400,15687530.56,False
+ADPT,Adaptive Biotechnologies Corporation,Healthcare,15.15,2424666600,34743207.15,False
+ELVN,"Enliven Therapeutics, Inc.",Healthcare,39.57,2410006893,29594996.55,False
+ANAB,"AnaptysBio, Inc.",Healthcare,55.67,2400623062,27956416.27,False
+RARE,Ultragenyx Pharmaceutical Inc.,Healthcare,23.94,2357831448,44146628.82,False
+TMDX,"TransMedics Group, Inc.",Healthcare,67.2,2322492480,85546204.8,False
+GPCR,Structure Therapeutics Inc.,Healthcare,39.34,2264672640,19949195.98,False
+PBH,Prestige Consumer Healthcare Inc.,Healthcare,47.53,2251600666,25672426.43,False
+ORKA,"Oruka Therapeutics, Inc.",Healthcare,58.53,2191994973,71950402.23,False
+LMAT,"LeMaitre Vascular, Inc.",Healthcare,94.65,2162818755,48848770.35,False
+ACHC,"Acadia Healthcare Company, Inc.",Healthcare,23.2,2133635026,64102435.199999996,False
+AXGN,"AxoGen, Inc.",Healthcare,39.48,2099459544,33200508.599999998,False
+XRAY,DENTSPLY SIRONA Inc.,Healthcare,10.47,2097420371,80861045.46000001,False
+CLDX,"Celldex Therapeutics, Inc.",Healthcare,31.43,2091303829,15547540.959999999,False
+PHVS,Pharvaris N.V.,Healthcare,30.16,2089560200,12482952.56,False
+MLYS,"Mineralys Therapeutics, Inc.",Healthcare,31.5,2088319496,34382911.5,False
+IMNM,"Immunome, Inc.",Healthcare,21.83,2086844046,37729596.70999999,False
+ESTA,Establishment Labs Holdings Inc.,Healthcare,70.69,2080434269,32464877.33,False
+CLOV,"Clover Health Investments, Corp.",Healthcare,3.98,2062662717,40452266.28,False
+SEM,Select Medical Holdings Corporation,Healthcare,16.5,2046191301,14950633.5,False
+NBTX,Nanobiotix S.A.,Healthcare,40.4,2044138273,1582306.4,False
+TRVI,"Trevi Therapeutics, Inc.",Healthcare,14.14,2007593071,14245654.08,False
+OMCL,"Omnicell, Inc.",Healthcare,44.14,2007438646,29834976.38,False
+PGNY,"Progyny, Inc.",Healthcare,25.56,2002175377,33415661.52,False
+BHC,Bausch Health Companies Inc.,Healthcare,5.36,2001829452,13513760.64,False
+HCM,HUTCHMED (China) Limited,Healthcare,11.45,1997647471,1011561.7,False
+TYRA,"Tyra Biosciences, Inc.",Healthcare,33.41,1986882243,36013039.919999994,False
+ZLAB,Zai Lab Limited,Healthcare,17.69,1986193451,16164856.65,False
+MESO,Mesoblast Limited,Healthcare,15.4,1981797017,4486343.4,False
+NVCR,NovoCure Limited,Healthcare,17.04,1973588818,22822472.88,False
+OCUL,"Ocular Therapeutix, Inc.",Healthcare,9.01,1972832826,21669725.75,False
+AUPH,Aurinia Pharmaceuticals Inc.,Healthcare,15.33,1971468660,20001526.23,False
+NEOG,Neogen Corporation,Healthcare,8.97,1952527178,39732767.49,False
+KOD,Kodiak Sciences Inc.,Healthcare,36.71,1943067569,21903572.150000002,False
+SION,"Sionna Therapeutics, Inc.",Healthcare,42.82,1933337131,27633244.7,False
+STOK,"Stoke Therapeutics, Inc.",Healthcare,30.91,1925125956,16808177.98,False
+SRPT,"Sarepta Therapeutics, Inc.",Healthcare,17.87,1886643120,65308041.53,False
+ABCL,AbCellera Biologics Inc.,Healthcare,6.17,1884163750,57586849.71,False
+BCRX,"BioCryst Pharmaceuticals, Inc.",Healthcare,8.91,1870152974,28800202.86,False
+GLPG,Galapagos N.V.,Healthcare,28.365,1869170419,106595.67,False
+LKFT,Galapagos N.V. Sponsored ADR,Healthcare,28.35,1868182757,3340792.35,False
+ASTH,"Astrana Health, Inc.",Healthcare,37.62,1865328185,14604234.479999999,False
+AAPG,Ascentage Pharma Group International,Healthcare,20.01,1860197014,312055.95,False
+ADMA,"ADMA Biologics, Inc.",Healthcare,7.98,1849548540,24739356.6,False
+ZYME,Zymeworks Inc.,Healthcare,25.13,1848913137,14722913.1,False
+HRMY,"Harmony Biosciences Holdings, Inc.",Healthcare,31.59,1828829635,32711855.669999998,False
+NVAX,"Novavax, Inc.",Healthcare,10.97,1803884860,78563805.12,False
+ANIP,"ANI Pharmaceuticals, Inc.",Healthcare,78.51,1784894859,33756552.15,False
+QURE,uniQure N.V.,Healthcare,28.53,1783963782,101416561.02000001,False
+MD,"Pediatrix Medical Group, Inc.",Healthcare,21.54,1768905963,12114009.84,False
+AGIO,"Agios Pharmaceuticals, Inc.",Healthcare,29.4,1748465040,42175593.6,False
+SGRY,"Surgery Partners, Inc.",Healthcare,13.36,1747327680,16452546.08,False
+SNDX,"Syndax Pharmaceuticals, Inc.",Healthcare,19.59,1735869900,16887481.14,False
+PLSE,"Pulse Biosciences, Inc.",Healthcare,25.0,1730242500,6716450.0,False
+ADUS,Addus HomeCare Corporation,Healthcare,91.68,1711186664,15086035.680000002,False
+UFPT,"UFP Technologies, Inc.",Healthcare,220.1,1702900274,40996706.4,False
+VCEL,Vericel Corporation,Healthcare,33.33,1702103106,16019364.569999998,False
+ATAI,Atai Beckley Inc.,Healthcare,4.53,1667795033,27309616.89,False
+NUVB,Nuvation Bio Inc.,Healthcare,4.78,1659625421,20063175.26,False
+GHRS,GH Research PLC,Healthcare,23.99,1644687228,7643166.02,False
+VIR,"Vir Biotechnology, Inc.",Healthcare,9.54,1608939832,29475757.08,False
+RXRX,"Recursion Pharmaceuticals, Inc.",Healthcare,3.59,1605417901,107640962.45,False
+VRDN,"Viridian Therapeutics, Inc.",Healthcare,17.62,1585755263,24597837.16,False
+INVA,"Innoviva, Inc.",Healthcare,21.42,1580983404,24937870.860000003,False
+NTLA,"Intellia Therapeutics, Inc.",Healthcare,14.07,1578802101,77950881.33,False
+AVAH,Aveanna Healthcare Holdings Inc.,Healthcare,7.17,1561303350,12472071.6,False
+WGS,GeneDx Holdings Corp.,Healthcare,51.99,1543479120,59447133.660000004,False
+IMTX,Immatics N.V.,Healthcare,11.51,1543456470,4952741.49,False
+AGL,"Agilon Health, Inc.",Healthcare,92.28,1539579772,16407568.56,False
+NRIX,"Nurix Therapeutics, Inc.",Healthcare,17.76,1539199988,20552031.840000004,False
+DMRA,"Galecto, Inc.",Healthcare,24.88,1531443317,21069055.759999998,False
+PRGO,Perrigo Company plc,Healthcare,11.05,1528963859,17178959.85,False
+INBX,"Inhibrx Biosciences, Inc.",Healthcare,104.01,1525950056,25497739.470000003,False
+NNNN,Anbio Biotechnology Class A Ordinary Shares,Healthcare,34.41,1510296192,281852.31,False
+PRCT,PROCEPT BioRobotics Corporation,Healthcare,26.33,1498673110,23750054.95,False
+ARDX,"Ardelyx, Inc.",Healthcare,6.04,1492055160,16935024.48,False
+STAA,STAAR Surgical Company,Healthcare,29.89,1488178116,33900729.87,False
+TSHA,"Taysha Gene Therapies, Inc.",Healthcare,5.87,1468826814,12653512.88,False
+IMCR,Immunocore Holdings plc,Healthcare,28.89,1468534400,14594130.18,False
+IOVA,"Iovance Biotherapeutics, Inc.",Healthcare,4.1,1465886292,70844920.89999999,False
+MAZE,"Maze Therapeutics, Inc.",Healthcare,26.46,1464435580,17847005.400000002,False
+FTRE,Fortrea Holdings Inc.,Healthcare,15.39,1455658995,31432797.630000003,False
+RAPP,"Rapport Therapeutics, Inc. Common Stock",Healthcare,39.5,1441655911,13652227.0,False
+KALV,"KalVista Pharmaceuticals, Inc.",Healthcare,26.87,1430582661,35853097.79,False
+HCSG,"Healthcare Services Group, Inc.",Healthcare,20.6,1414091367,19093460.200000003,False
+MLTX,MoonLake Immunotherapeutics,Healthcare,19.18,1411943295,21994108.78,False
+AVBP,"ArriVent BioPharma, Inc. Common Stock",Healthcare,30.27,1409823071,39648523.83,False
+PVLA,"Palvella Therapeutics, Inc.",Healthcare,118.46,1402261958,18439246.68,False
+ATRC,"AtriCure, Inc.",Healthcare,27.67,1401235640,19983689.05,False
+AHCO,AdaptHealth Corp.,Healthcare,10.13,1378227020,14707625.440000001,False
+TDOC,"Teladoc Health, Inc.",Healthcare,7.61,1373703930,48796172.32,False
+URGN,UroGen Pharma Ltd.,Healthcare,28.13,1370541421,24703315.919999998,False
+CAPR,"Capricor Therapeutics, Inc.",Healthcare,29.96,1369682908,25200614.32,False
+SEPN,"Septerna, Inc.",Healthcare,30.2,1361281097,8169371.8,False
+SLS,"SELLAS Life Sciences Group, Inc.",Healthcare,9.31,1326135020,240817338.44000003,False
+MRVI,"Maravai LifeSciences Holdings, Inc.",Healthcare,4.8,1325863397,13356254.4,False
+ARDT,"Ardent Health Partners, LLC",Healthcare,9.23,1323120786,2154688.12,False
+HROW,"Harrow Health, Inc.",Healthcare,35.21,1312456271,33601043.84,False
+ENOV,Enovis Corporation,Healthcare,22.68,1305519768,12491304.84,False
+PGEN,"Precigen, Inc.",Healthcare,4.34,1303859998,24061354.939999998,False
+OCS,Oculis Holding AG,Healthcare,22.705,1298033498,34509125.154999994,False
+GLUE,"Monte Rosa Therapeutics, Inc.",Healthcare,19.71,1283571038,25227715.95,False
+NKTR,Nektar Therapeutics,Healthcare,64.88,1267814890,63153283.67999999,False
+WVE,Wave Life Sciences Ltd.,Healthcare,6.58,1266005160,23355242.82,False
+CMPS,COMPASS Pathways plc,Healthcare,13.06,1254880352,59552058.92,False
+PAHC,Phibro Animal Health Corporation,Healthcare,30.79,1248177829,10441720.33,False
+IART,Integra LifeSciences Holdings Corporation,Healthcare,16.04,1247862324,19203857.919999998,False
+KMTS,"Kestra Medical Technologies, Ltd.",Healthcare,21.26,1241017464,4856358.0200000005,False
+BLFS,"BioLife Solutions, Inc.",Healthcare,24.92,1217526782,22542009.0,False
+AVLN,Avalyn Pharma Inc. Common Stock,Healthcare,28.78,1203350684,7716292.140000001,False
+AMLX,"Amylyx Pharmaceuticals, Inc.",Healthcare,14.35,1192843750,13257936.299999999,False
+ATEC,"Alphatec Holdings, Inc.",Healthcare,7.75,1191864750,20254183.25,False
+INSP,"Inspire Medical Systems, Inc.",Healthcare,41.36,1191712008,46777456.88,False
+BCAX,Bicara Therapeutics Inc. Common Stock,Healthcare,21.75,1191454103,7583616.0,False
+PNTG,"The Pennant Group, Inc.",Healthcare,34.25,1190788827,9772792.25,False
+BFLY,"Butterfly Network, Inc.",Healthcare,4.55,1190466172,14960204.35,False
+CDNA,"CareDx, Inc",Healthcare,22.82,1178869356,15637929.86,False
+TNDM,"Tandem Diabetes Care, Inc.",Healthcare,17.2,1178700331,51779378.8,False
+BHVN,Biohaven Ltd.,Healthcare,11.01,1165577327,46375077.87,False
+MNKD,MannKind Corporation,Healthcare,3.77,1164741500,76877300.89,False
+AVNS,"Avanos Medical, Inc.",Healthcare,24.805,1161488990,14567033.91,False
+IRMD,IRadimed Corporation,Healthcare,90.66,1158906780,14763346.379999999,False
+OLMA,"Olema Pharmaceuticals, Inc.",Healthcare,13.19,1152113142,21200814.599999998,False
+EYPT,"EyePoint Pharmaceuticals, Inc.",Healthcare,13.58,1138564827,14409398.5,False
+SDGR,"Schrödinger, Inc.",Healthcare,15.2,1135754868,35669931.199999996,False
+AMN,"AMN Healthcare Services, Inc.",Healthcare,28.97,1123631926,53853317.98,False
+AKTS,"Aktis Oncology, Inc.",Healthcare,20.74,1107611757,2944561.5,False
+OPK,"OPKO Health, Inc.",Healthcare,1.46,1102434694,4211821.14,False
+EVO,Evotec SE,Healthcare,3.07,1090427390,88879.56999999999,False
+COLL,"Collegium Pharmaceutical, Inc.",Healthcare,33.61,1090099312,16468765.56,False
+AORT,"Artivion, Inc.",Healthcare,22.19,1077175827,10126273.360000001,False
+CNMD,CONMED Corporation,Healthcare,35.7,1074898440,8291217.9,False
+OMDA,Omada Health,Healthcare,17.97,1068289635,26107876.229999997,False
+SVRA,Savara Inc.,Healthcare,5.2,1065620400,11629181.200000001,False
+XERS,"Xeris Biopharma Holdings, Inc.",Healthcare,6.16,1063474720,11936121.120000001,False
+CRON,Cronos Group Inc.,Healthcare,2.84,1061200191,3803018.44,False
+MBX,"MBX Biosciences, Inc. Common Stock",Healthcare,31.47,1057175770,25849300.65,False
+AZTA,"Azenta, Inc.",Healthcare,22.88,1054603264,32661909.279999997,False
+ABSI,Absci Corporation,Healthcare,6.75,1052358750,64666221.75,False
+ALVO,Alvotech,Healthcare,3.36,1048481280,2349241.44,False
+CRVS,"Corvus Pharmaceuticals, Inc.",Healthcare,12.41,1043561864,42181974.71,False
+INNV,InnovAge Holding Corp.,Healthcare,7.59,1030236240,2268294.27,False
+PSNL,"Personalis, Inc.",Healthcare,11.4,1012369567,50975715.6,False
+GDRX,"GoodRx Holdings, Inc.",Healthcare,2.92,1012158359,5812648.359999999,False
+CGEM,"Cullinan Therapeutics, Inc.",Healthcare,16.44,1010369520,30870423.720000003,False
+MGTX,MeiraGTx Holdings plc,Healthcare,10.65,986291175,24374207.7,False
+USPH,"U.S. Physical Therapy, Inc.",Healthcare,64.26,977960088,9614388.42,False
+LXRX,"Lexicon Pharmaceuticals, Inc.",Healthcare,2.18,968347280,3526971.8600000003,False
+SPTX,"Seaport Therapeutics, Inc. Common Stock",Healthcare,18.19,964575991,2047702.87,False
+DRTS,Alpha Tau Medical Ltd.,Healthcare,10.83,953145051,15766628.07,False
+SANA,"Sana Biotechnology, Inc.",Healthcare,3.3,918362247,16552697.7,False
+PHAR,Pharming Group N.V.,Healthcare,12.99,917421348,282610.44,False
+PCRX,"Pacira BioSciences, Inc.",Healthcare,23.22,913358700,11877656.94,False
+KURA,"Kura Oncology, Inc.",Healthcare,10.2,905498523,17566011.599999998,False
+CERT,"Certara, Inc.",Healthcare,5.82,905386019,23315874.48,False
+ABUS,Arbutus Biopharma Corporation,Healthcare,4.56,900771958,10870000.319999998,False
+SPRY,"ARS Pharmaceuticals, Inc.",Healthcare,9.07,900680586,19530222.39,False
+JANX,"Janux Therapeutics, Inc.",Healthcare,14.59,889761725,15346608.22,False
+QDEL,QuidelOrtho Corporation,Healthcare,13.02,887846677,18370933.56,False
+INMD,InMode Ltd.,Healthcare,13.93,882586691,13649017.969999999,False
+XNCR,"Xencor, Inc.",Healthcare,11.88,880802160,7687144.08,False
+ORIC,"ORIC Pharmaceuticals, Inc.",Healthcare,8.45,874723399,33618908.05,False
+TALK,"Talkspace, Inc.",Healthcare,5.2,871065343,15054759.200000001,False
+ETON,"Eton Pharmaceuticals, Inc.",Healthcare,30.45,834097301,11477183.549999999,False
+AMPH,"Amphastar Pharmaceuticals, Inc.",Healthcare,18.85,831151523,16004912.950000001,False
+TBPH,"Theravance Biopharma, Inc.",Healthcare,16.06,827941180,8531072.0,False
+ZBIO,"Zenas BioPharma, Inc.",Healthcare,18.4,821428569,13336779.999999998,False
+LBRX,LB Pharmaceuticals Inc Common Stock,Healthcare,27.97,802085956,10016532.49,False
+GERN,Geron Corporation,Healthcare,1.25,801901218,14621208.75,False
+OMER,Omeros Corporation,Healthcare,11.04,799023919,28667490.72,False
+SSII,"SS Innovations International, Inc.",Healthcare,3.94,788518248,183667.04,False
+NUTX,"Nutex Health, Inc.",Healthcare,129.11,768763030,15971810.770000001,False
+PHAT,"Phathom Pharmaceuticals, Inc.",Healthcare,9.59,764859081,15861716.15,False
+CLYM,"Climb Bio, Inc.",Healthcare,10.96,747301375,6634931.920000001,False
+HSTM,"HealthStream, Inc.",Healthcare,24.97,729503544,6943557.72,False
+BBOT,BridgeBio Oncology Therapeutics Inc.,Healthcare,8.97,718560723,2210019.6300000004,False
+REPL,"Replimune Group, Inc.",Healthcare,8.69,717555894,446435376.09,False
+SNDA,"Sonida Senior Living, Inc.",Healthcare,35.35,706959595,14430506.3,False
+ANRO,"Alto Neuroscience, Inc.",Healthcare,20.07,704335376,2825053.2,False
+CBLL,"CeriBell, Inc.",Healthcare,18.45,700042815,3313121.85,False
+JBIO,"Jade Biosciences, Inc.",Healthcare,21.04,686447084,23692449.68,False
+ZVRA,"Zevra Therapeutics, Inc.",Healthcare,11.59,685143824,26201118.94,False
+DRUG,Bright Minds Biosciences Inc.,Healthcare,88.07,683556626,19341316.91,False
+CRMD,CorMedix Inc.,Healthcare,8.44,662133960,8790420.36,False
+TLRY,"Tilray Brands, Inc.",Healthcare,5.51,659018040,18295084.419999998,False
+DSGN,"Design Therapeutics, Inc.",Healthcare,10.48,654549088,16717130.08,False
+BIOA,"BioAge Labs, Inc.",Healthcare,17.29,650962189,4048920.3299999996,False
+ESPR,"Esperion Therapeutics, Inc.",Healthcare,3.13,650754290,16619780.42,False
+ANNX,"Annexon, Inc.",Healthcare,5.42,648205176,11798158.44,False
+SGP,"SpyGlass Pharma, Inc. Common Stock",Healthcare,19.26,643926360,858745.6200000001,False
+PRME,"Prime Medicine, Inc.",Healthcare,3.55,641191948,11848685.899999999,False
+CSTL,"Castle Biosciences, Inc.",Healthcare,21.08,639355388,7559983.64,False
+ANL,Adlai Nortye Ltd.,Healthcare,11.94,633775200,1260804.3,False
+SIBN,"SI-BONE, Inc.",Healthcare,14.1,625324890,7970222.399999999,False
+BWAY,BrainsWay Ltd.,Healthcare,15.89,623253470,1084508.3900000001,False
+CABA,"Cabaletta Bio, Inc.",Healthcare,3.78,616347129,9589640.76,False
+PROK,ProKidney Corp.,Healthcare,1.83,615344597,1836747.21,False
+DNA,"Ginkgo Bioworks Holdings, Inc.",Healthcare,9.37,612090490,10892334.53,False
+PHR,"Phreesia, Inc.",Healthcare,9.86,609465216,34664230.12,False
+CERS,Cerus Corporation,Healthcare,3.04,609121681,10006780.16,False
+TECX,"Tectonic Therapeutic, Inc.",Healthcare,31.165,588058182,10486149.879999999,False
+IRWD,"Ironwood Pharmaceuticals, Inc.",Healthcare,3.57,587668410,7270255.02,False
+ARVN,"Arvinas, Inc.",Healthcare,8.98,579400358,7147577.12,False
+CTMX,"CytomX Therapeutics, Inc.",Healthcare,3.6,578964704,9457718.4,False
+BVS,Bioventus Inc.,Healthcare,8.51,576535888,6053733.17,False
+GYRE,"Gyre Therapeutics, Inc.",Healthcare,5.91,573234540,636637.02,False
+SLDB,Solid Biosciences Inc.,Healthcare,7.34,571860868,9309380.72,False
+GMRS,GMR Solutions Inc.,Healthcare,12.5,569829238,3850950.0,False
+CBIO,"Crescent Biopharma, Inc.",Healthcare,20.65,569359735,8668167.899999999,False
+RIGL,"Rigel Pharmaceuticals, Inc.",Healthcare,30.49,564128419,10678177.309999999,False
+NPCE,"NeuroPace, Inc.",Healthcare,16.54,563910542,2941639.0,False
+TRAX,First Tracks Biotherapeutics Inc,Healthcare,15.96,556882401,7525427.28,False
+VALN,Valneva SE,Healthcare,6.25,556604269,459887.5,False
+TCMD,"Tactile Systems Technology, Inc.",Healthcare,24.61,555110543,7154914.52,False
+AGMB,AgomAb Therapeutics N.V. American Depositary Shares,Healthcare,11.25,554039719,196177.5,False
+ACRS,"Aclaris Therapeutics, Inc.",Healthcare,4.55,548707250,5389379.45,False
+MDXG,"MiMedx Group, Inc.",Healthcare,3.68,548120290,12113930.72,False
+CTKB,"Cytek Biosciences, Inc.",Healthcare,4.19,541107440,4315373.180000001,False
+BBNX,"Beta Bionics, Inc.",Healthcare,12.12,540087743,5215635.96,False
+ACHV,"Achieve Life Sciences, Inc.",Healthcare,5.24,537933160,5758980.08,False
+PRTA,Prothena Corporation plc,Healthcare,10.18,532955953,5104598.12,False
+ALLO,"Allogene Therapeutics, Inc.",Healthcare,2.17,529196587,22328321.33,False
+RLMD,"Relmada Therapeutics, Inc.",Healthcare,7.21,528735415,6823082.56,False
+XOMA,XOMA Royalty Corp.,Healthcare,41.71,523085110,3266143.2600000002,False
+FDMT,"4D Molecular Therapeutics, Inc.",Healthcare,9.91,518057677,32869933.95,False
+FLGT,"Fulgent Genetics, Inc.",Healthcare,18.14,515187301,21500707.1,False
+CTNM,"Contineum Therapeutics, Inc. Class A Common Stock",Healthcare,13.49,504342199,1358874.68,False
+AUTL,Autolus Therapeutics plc,Healthcare,1.87,497687935,4492796.55,False
+ODTX,"Odyssey Therapeutics, Inc.",Healthcare,17.01,491473383,2811787.0200000005,False
+IMMX,"Immix Biopharma, Inc.",Healthcare,9.0,489702843,8676099.0,False
+AURA,"Aura Biosciences, Inc.",Healthcare,7.47,479572327,3279546.63,False
+ANGO,"AngioDynamics, Inc.",Healthcare,11.48,474340972,2853285.12,False
+EBS,Emergent BioSolutions Inc.,Healthcare,9.12,470558256,10552277.76,False
+TOI,"The Oncology Institute, Inc.",Healthcare,4.69,468919801,7217365.960000001,False
+OCGN,"Ocugen, Inc.",Healthcare,1.38,467160161,17567634.599999998,False
+CGC,Canopy Growth Corporation,Healthcare,1.09,464161240,8465527.51,False
+PACB,"Pacific Biosciences of California, Inc.",Healthcare,1.49,462796515,10448662.25,False
+DBVT,DBV Technologies S.A.,Healthcare,19.1,456905215,5162271.600000001,False
+CADL,"Candel Therapeutics, Inc.",Healthcare,8.3,455677329,11339493.200000001,False
+KMDA,Kamada Ltd.,Healthcare,7.81,450528097,276747.35,False
+LAB,Standard BioTools Inc.,Healthcare,1.15,448923200,8078452.149999999,False
+NGNE,Neurogene Inc.,Healthcare,28.34,447825846,2789676.2399999998,False
+EVH,"Evolent Health, Inc.",Healthcare,3.95,444300215,10652687.85,False
+KIDS,OrthoPediatrics Corp.,Healthcare,17.17,441011450,2541726.6100000003,False
+NRC,National Research Corporation,Healthcare,19.53,440141751,1707586.02,False
+ASMB,"Assembly Biosciences, Inc.",Healthcare,27.66,439589316,3838101.6,False
+PRTC,PureTech Health plc,Healthcare,18.05,439403352,24114.8,False
+MNPR,Monopar Therapeutics Inc.,Healthcare,65.04,435706862,7768312.5600000005,False
+MOBI,"Mobia Medical, Inc. Common Stock",Healthcare,13.1,433418622,872591.0,False
+ADCT,ADC Therapeutics S.A.,Healthcare,3.4,432449400,1836391.0,False
+EOLS,"Evolus, Inc.",Healthcare,6.56,432007167,5420055.68,False
+VREX,Varex Imaging Corporation,Healthcare,10.23,430683000,4369427.37,False
+CTEV,Claritev Corporation,Healthcare,25.12,428240435,2359898.4,False
+CCRN,"Cross Country Healthcare, Inc.",Healthcare,13.09,423235043,5720264.55,False
+XFOR,"X4 Pharmaceuticals, Inc.",Healthcare,4.31,406517907,3786408.2699999996,False
+LYEL,"Lyell Immunopharma, Inc.",Healthcare,17.33,404379728,1137177.2699999998,False
+LXEO,"Lexeo Therapeutics, Inc. Common Stock",Healthcare,5.14,403601199,3427202.94,False
+AQST,"Aquestive Therapeutics, Inc.",Healthcare,4.02,399212677,5322737.279999999,False
+TBRG,"TruBridge, Inc.",Healthcare,25.96,389377571,3939144.44,False
+VNDA,Vanda Pharmaceuticals Inc.,Healthcare,6.45,387874375,5221036.350000001,False
+SNDL,SNDL Inc.,Healthcare,1.48,383616000,1306606.16,False
+CYH,"Community Health Systems, Inc.",Healthcare,2.72,383294240,2098703.04,False
+CLPT,"ClearPoint Neuro, Inc.",Healthcare,12.67,379967763,20255883.76,False
+AIRS,"AirSculpt Technologies, Inc.",Healthcare,5.38,379535764,2760381.16,False
+VMD,"Viemed Healthcare, Inc.",Healthcare,9.84,377234142,2742132.48,False
+MYGN,"Myriad Genetics, Inc.",Healthcare,3.97,374959354,23987923.060000002,False
+OFIX,Orthofix Medical Inc.,Healthcare,9.27,374708714,3904097.5799999996,False
+FULC,"Fulcrum Therapeutics, Inc.",Healthcare,6.92,374450736,2705886.08,False
+AVIR,"Atea Pharmaceuticals, Inc.",Healthcare,4.67,373726552,1490066.24,False
+KYTX,"Kyverna Therapeutics, Inc.",Healthcare,8.52,373105361,5239569.96,False
+DCTH,"Delcath Systems, Inc.",Healthcare,10.78,372143355,4578675.64,False
+PALI,"Palisade Bio, Inc.",Healthcare,2.12,367988900,1594358.72,False
+PBYI,"Puma Biotechnology, Inc.",Healthcare,7.17,364949100,1475987.52,False
+PTN,"Palatin Technologies, Inc.",Healthcare,14.02,364601316,109944.84,False
+GLSI,"Greenwich LifeSciences, Inc.",Healthcare,26.175,362642558,5222619.225000001,False
+RGNX,REGENXBIO Inc.,Healthcare,7.01,362400176,7906522.92,False
+CCCC,"C4 Therapeutics, Inc.",Healthcare,4.37,361954812,25747021.79,False
+SOPH,SOPHiA GENETICS S.A.,Healthcare,5.05,361926935,268084.3,False
+OVID,Ovid Therapeutics Inc.,Healthcare,2.73,360044600,4567268.16,False
+KROS,"Keros Therapeutics, Inc.",Healthcare,11.25,359978299,1832940.0,False
+PRE,Prenetics Global Limited,Healthcare,21.1,358708271,7996773.4,False
+IRD,"Opus Genetics, Inc.",Healthcare,4.36,354884541,4261878.2,False
+CLLS,Cellectis S.A.,Healthcare,3.52,353430317,188415.04,False
+NAUT,"Nautilus Biotechnology, Inc.",Healthcare,2.74,348196063,1493143.82,False
+SLP,"Simulations Plus, Inc.",Healthcare,17.11,345715797,4462613.09,False
+NMRA,"Neumora Therapeutics, Inc. Common Stock",Healthcare,1.85,342775844,1650923.35,False
+EDIT,"Editas Medicine, Inc.",Healthcare,3.46,338755798,13537533.72,False
+SIGA,"SIGA Technologies, Inc.",Healthcare,4.68,335668774,1951517.88,False
+RCKT,"Rocket Pharmaceuticals, Inc.",Healthcare,3.07,335224195,6945632.47,False
+LCTX,"Lineage Cell Therapeutics, Inc.",Healthcare,1.33,331566340,719132.3300000001,False
+FATE,"Fate Therapeutics, Inc.",Healthcare,2.84,331027560,14749676.319999998,False
+ORGO,Organogenesis Holdings Inc.,Healthcare,2.57,330693588,2387231.88,False
+ABEO,Abeona Therapeutics Inc.,Healthcare,5.78,329431932,4131185.64,False
+CMPX,"Compass Therapeutics, Inc.",Healthcare,2.38,329121396,14402003.559999999,False
+EVMN,"Evommune, Inc.",Healthcare,23.23,329036805,6479311.600000001,False
+SLN,Silence Therapeutics plc,Healthcare,6.9,325914241,1449345.0,False
+BCYC,Bicycle Therapeutics plc,Healthcare,4.69,325460369,763349.0900000001,False
+DMAC,DiaMedica Therapeutics Inc.,Healthcare,5.99,322760967,1285537.86,False
+OABI,"OmniAb, Inc.",Healthcare,2.7,321544442,1231294.5,False
+MASS,908 Devices Inc.,Healthcare,8.41,318012376,2834960.54,False
+RZLT,"Rezolute, Inc.",Healthcare,3.3,317764590,4962124.2,False
+AVR,Anteris Technologies Global Corp.,Healthcare,8.62,317116534,9244122.479999999,False
+ELMD,"Electromed, Inc.",Healthcare,37.72,312323863,2195417.16,False
+NAGE,Niagen Bioscience Inc,Healthcare,3.86,307427102,7373730.9799999995,False
+AUNA,Auna S.A.,Healthcare,4.15,307193840,2657012.6,False
+XOMAP,XOMA Corporation,Healthcare,25.455,307072676,5651.009999999999,False
+ENTA,"Enanta Pharmaceuticals, Inc.",Healthcare,13.16,305530943,2474027.36,False
+SI,"Shoulder Innovations, Inc.",Healthcare,14.7,304851922,260190.0,False
+CATX,"Perspective Therapeutics, Inc.",Healthcare,3.94,304365000,2991039.18,False
+BNTC,Benitec Biopharma Inc.,Healthcare,11.56,303415852,954474.52,False
+VSTM,"Verastem, Inc.",Healthcare,4.33,300129191,9119252.790000001,False

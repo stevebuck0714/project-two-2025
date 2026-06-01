@@ -1,0 +1,10 @@
+ticker,sector,market_cap,avg_dollar_volume,is_recent_ipo
+WAL,Financials,8696585250,55151651.25000001,False
+VLY,Financials,7630390452,71509524.03,False
+FNB,Financials,6222249829,70476982.72,False
+GTLS,Industrials,9948151374,130626507.92,False
+FIX,Industrials,64395046272,754735318.08,False
+ATKR,Industrials,2796267297,23107716.45,False
+POR,Utilities,5800387600,32056200.68,False
+OGS,Utilities,4879156750,35040994.04,False
+AVA,Utilities,3427014448,53505630.75,False

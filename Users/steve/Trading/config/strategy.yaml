@@ -1,0 +1,41 @@
+strategy:
+  name: small_mid_cap_sector_rotation
+  rebalance_frequency: monthly
+
+universe:
+  sectors:
+    Financials: 0.40
+    Industrials: 0.35
+    Healthcare: 0.25
+  market_cap:
+    min: 300000000
+    max: 5000000000
+  min_avg_dollar_volume: 5000000
+  exclude_recent_ipos: true
+
+selection:
+  names_per_sector: 5
+
+factors:
+  relative_strength_6m:
+    weight: 0.30
+    higher_is_better: true
+  earnings_revision:
+    weight: 0.25
+    higher_is_better: true
+  fcf_yield:
+    weight: 0.20
+    higher_is_better: true
+  debt_to_ebitda:
+    weight: 0.15
+    higher_is_better: false
+  volatility_6m:
+    weight: 0.10
+    higher_is_better: false
+
+risk_rules:
+  max_volatility_6m: 0.80
+  max_debt_to_ebitda: 20.0
+  min_fcf_yield: -0.25
+  min_relative_strength_6m: -0.50
+

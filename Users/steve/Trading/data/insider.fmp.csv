@@ -1,0 +1,356 @@
+ticker,filing_date,transaction_date,reporting_name,type_of_owner,transaction_type,securities_transacted,price,transaction_value,is_purchase
+TCBI,2026-04-29,2026-04-28,Arbour Paola M,director,A-Award,1092.0,0.0,0.0,False
+TCBI,2026-04-29,2026-04-28,Huntley David S.,director,A-Award,1092.0,0.0,0.0,False
+TCBI,2026-04-29,2026-04-28,Whitley Laura L,director,A-Award,1092.0,0.0,0.0,False
+TCBI,2026-04-29,2026-04-28,Midkiff Mark W,director,A-Award,1092.0,0.0,0.0,False
+TCBI,2026-04-29,2026-04-28,Tremblay Dale W,director,A-Award,1092.0,0.0,0.0,False
+TCBI,2026-04-29,2026-04-28,Long Thomas E,director,A-Award,1092.0,0.0,0.0,False
+TCBI,2026-04-29,2026-04-28,Baliff Jonathan,director,A-Award,1092.0,0.0,0.0,False
+TCBI,2026-04-29,2026-04-28,ROSENBERG STEVE,director,A-Award,1092.0,0.0,0.0,False
+TCBI,2026-04-29,2026-04-28,Clark Ranjana B,director,A-Award,1092.0,0.0,0.0,False
+TCBI,2026-04-23,2026-04-21,Hyle Charles S,director,M-Exempt,1670.0,0.0,0.0,False
+TCBI,2026-04-23,2026-04-21,Hyle Charles S,director,M-Exempt,1670.0,0.0,0.0,False
+TCBI,2026-04-23,2026-04-22,Whitley Laura L,director,M-Exempt,1670.0,0.0,0.0,False
+TCBI,2026-04-23,2026-04-22,Whitley Laura L,director,M-Exempt,1670.0,0.0,0.0,False
+TCBI,2026-04-23,2026-04-22,Tremblay Dale W,director,M-Exempt,1670.0,0.0,0.0,False
+TCBI,2026-04-23,2026-04-22,Tremblay Dale W,director,M-Exempt,1670.0,0.0,0.0,False
+TCBI,2026-04-23,2026-04-22,STALLINGS ROBERT W,director,M-Exempt,1670.0,0.0,0.0,False
+TCBI,2026-04-23,2026-04-22,STALLINGS ROBERT W,director,M-Exempt,1670.0,0.0,0.0,False
+TCBI,2026-04-23,2026-04-22,ROSENBERG STEVE,director,M-Exempt,1670.0,0.0,0.0,False
+TCBI,2026-04-23,2026-04-22,ROSENBERG STEVE,director,M-Exempt,1670.0,0.0,0.0,False
+TCBI,2026-04-23,2026-04-22,Ragusa Elysia Holt,director,M-Exempt,1670.0,0.0,0.0,False
+TCBI,2026-04-23,2026-04-22,Ragusa Elysia Holt,director,M-Exempt,1670.0,0.0,0.0,False
+TCBI,2026-04-23,2026-04-22,Midkiff Mark W,director,M-Exempt,1670.0,0.0,0.0,False
+TCBI,2026-04-23,2026-04-22,Midkiff Mark W,director,M-Exempt,1670.0,0.0,0.0,False
+TCBI,2026-04-23,2026-04-22,Long Thomas E,director,M-Exempt,1670.0,0.0,0.0,False
+TCBI,2026-04-23,2026-04-22,Long Thomas E,director,M-Exempt,1670.0,0.0,0.0,False
+WSFS,2026-04-17,2026-04-15,Wechsler James J,officer: EVP Chief Comm'l Banking Ofc,F-InKind,127.0,69.07,8771.89,False
+WSFS,2026-04-17,2026-04-15,Wechsler James J,officer: EVP Chief Comm'l Banking Ofc,F-InKind,178.0,69.07,12294.46,False
+WSFS,2026-04-17,2026-04-15,Wechsler James J,officer: EVP Chief Comm'l Banking Ofc,F-InKind,137.0,69.07,9462.589999999998,False
+WSFS,2026-04-17,2026-04-15,Wechsler James J,officer: EVP Chief Comm'l Banking Ofc,F-InKind,69.0,69.07,4765.83,False
+WSFS,2026-04-17,2026-04-15,Hopkins Jamie Patrick,officer: Executive Vice President,F-InKind,636.0,69.07,43928.52,False
+WSFS,2026-04-17,2026-04-15,Hopkins Jamie Patrick,officer: Executive Vice President,F-InKind,553.0,69.07,38195.71,False
+WSFS,2026-04-17,2026-04-15,Matyger Allan Michael Junior,officer: EVP and CIO,F-InKind,123.0,69.07,8495.609999999999,False
+WSFS,2026-04-17,2026-04-15,Matyger Allan Michael Junior,officer: EVP and CIO,F-InKind,151.0,69.07,10429.57,False
+WSFS,2026-04-17,2026-04-15,Matyger Allan Michael Junior,officer: EVP and CIO,F-InKind,119.0,69.07,8219.33,False
+WSFS,2026-04-17,2026-04-15,Matyger Allan Michael Junior,officer: EVP and CIO,F-InKind,81.0,69.07,5594.669999999999,False
+WSFS,2026-04-17,2026-04-15,LEVENSON RODGER,officer: President & CEO,F-InKind,2256.0,69.07,155821.91999999998,False
+WSFS,2026-04-17,2026-04-15,LEVENSON RODGER,officer: President & CEO,F-InKind,2764.0,69.07,190909.47999999998,False
+WSFS,2026-04-17,2026-04-15,LEVENSON RODGER,officer: President & CEO,F-InKind,2157.0,69.07,148983.99,False
+WSFS,2026-04-17,2026-04-15,LEVENSON RODGER,officer: President & CEO,F-InKind,2182.0,69.07,150710.74,False
+WSFS,2026-04-17,2026-04-15,Kruzinski Shari,"officer: EVP, Chief Consumer Bk Officer",F-InKind,341.0,69.07,23552.87,False
+WSFS,2026-04-17,2026-04-15,Kruzinski Shari,"officer: EVP, Chief Consumer Bk Officer",F-InKind,418.0,69.07,28871.26,False
+WSFS,2026-04-17,2026-04-15,Kruzinski Shari,"officer: EVP, Chief Consumer Bk Officer",F-InKind,347.0,69.07,23967.289999999997,False
+WSFS,2026-04-17,2026-04-15,Kruzinski Shari,"officer: EVP, Chief Consumer Bk Officer",F-InKind,499.0,69.07,34465.92999999999,False
+WSFS,2026-04-17,2026-04-15,Davis Christine Elizabeth,"officer: EVP, Chief Risk Officer",F-InKind,341.0,69.07,23552.87,False
+WSFS,2026-04-17,2026-04-15,Davis Christine Elizabeth,"officer: EVP, Chief Risk Officer",F-InKind,417.0,69.07,28802.19,False
+WSFS,2026-04-17,2026-04-15,Davis Christine Elizabeth,"officer: EVP, Chief Risk Officer",F-InKind,328.0,69.07,22654.96,False
+WSFS,2026-04-17,2026-04-15,Davis Christine Elizabeth,"officer: EVP, Chief Risk Officer",F-InKind,84.0,69.07,5801.879999999999,False
+WSFS,2026-04-17,2026-04-15,Burg David,"officer: Executive Vice President, CFO",F-InKind,460.0,69.07,31772.199999999997,False
+WSFS,2026-04-17,2026-04-15,BRUBAKER LISA M,"officer: EVP, CHRO",F-InKind,355.0,69.07,24519.85,False
+WSFS,2026-04-17,2026-04-15,BRUBAKER LISA M,"officer: EVP, CHRO",F-InKind,598.0,69.07,41303.85999999999,False
+FBP,2026-04-01,2026-03-31,Eaves Patricia,director,A-Award,1872.0,21.36,39985.92,False
+FBP,2026-04-01,2026-03-31,Eaves Patricia,director,F-InKind,209.0,21.36,4464.24,False
+FBP,2026-03-23,2026-03-19,RIVERA NAYDA,"officer: EVP, CCO and Chief of Staff",A-Award,13576.0,20.59,279529.84,False
+FBP,2026-03-23,2026-03-21,RIVERA NAYDA,"officer: EVP, CCO and Chief of Staff",F-InKind,2661.0,20.57,54736.770000000004,False
+FBP,2026-03-23,2026-03-19,RIVERA NAYDA,"officer: EVP, CCO and Chief of Staff",A-Award,13576.0,0.0,0.0,False
+FBP,2026-03-23,2026-03-19,Berges Gonzalez Orlando,officer: EVP and CFO,A-Award,13980.0,20.59,287848.2,False
+FBP,2026-03-23,2026-03-21,Berges Gonzalez Orlando,officer: EVP and CFO,F-InKind,2479.0,20.57,50993.03,False
+FBP,2026-03-23,2026-03-19,Berges Gonzalez Orlando,officer: EVP and CFO,A-Award,13980.0,0.0,0.0,False
+FBP,2026-03-23,2026-03-19,Ortiz Said,officer: Chief Accounting Officer,A-Award,9471.0,20.59,195007.88999999998,False
+FBP,2026-03-23,2026-03-21,Ortiz Said,officer: Chief Accounting Officer,F-InKind,1436.0,20.57,29538.52,False
+FBP,2026-03-23,2026-03-19,ALEMAN AURELIO,"director, officer: President and CEO",A-Award,58318.0,20.59,1200767.6199999999,False
+FBP,2026-03-23,2026-03-21,ALEMAN AURELIO,"director, officer: President and CEO",F-InKind,12693.0,20.57,261095.01,False
+FBP,2026-03-23,2026-03-19,ALEMAN AURELIO,"director, officer: President and CEO",A-Award,58318.0,0.0,0.0,False
+FBP,2026-03-23,2026-03-19,McDonald Michael,officer: EVP,A-Award,7613.0,20.59,156751.67,False
+FBP,2026-03-23,2026-03-21,McDonald Michael,officer: EVP,F-InKind,794.0,20.57,16332.58,False
+FBP,2026-03-23,2026-03-19,McDonald Michael,officer: EVP,A-Award,7612.0,0.0,0.0,False
+FBP,2026-03-23,2026-03-19,Lacasa Jose Maria,officer: EVP,A-Award,10693.0,20.59,220168.87,False
+FBP,2026-03-23,2026-03-21,Lacasa Jose Maria,officer: EVP,F-InKind,1596.0,20.57,32829.72,False
+FBP,2026-03-23,2026-03-19,Lacasa Jose Maria,officer: EVP,A-Award,10692.0,0.0,0.0,False
+FBP,2026-03-23,2026-03-19,Pavia Juan Carlos,"officer: EVP, Chief Operating Officer",A-Award,11583.0,20.59,238493.97,False
+FBP,2026-03-23,2026-03-21,Pavia Juan Carlos,"officer: EVP, Chief Operating Officer",F-InKind,1474.0,20.57,30320.18,False
+FBP,2026-03-23,2026-03-19,Pavia Juan Carlos,"officer: EVP, Chief Operating Officer",A-Award,11583.0,0.0,0.0,False
+FBP,2026-03-23,2026-03-19,Lopez-Lay Ginoris,officer: EVP,A-Award,9228.0,20.59,190004.52,False
+FBP,2026-03-23,2026-03-21,Lopez-Lay Ginoris,officer: EVP,F-InKind,796.0,20.57,16373.72,False
+FBP,2026-03-23,2026-03-19,Lopez-Lay Ginoris,officer: EVP,A-Award,9227.0,0.0,0.0,False
+CATY,2026-05-07,2026-05-05,WU PETER,"director, officer: Vice Chairman",S-Sale,20000.0,57.3253,1146506.0,False
+CATY,2026-04-29,2026-04-28,Chan May K.,"officer: SVP, General Counsel",S-Sale,558.1721,56.0,31257.637600000002,False
+CATY,2026-04-17,2026-04-15,Chan Lana Lai-Yan,director,A-Award,265.0,0.0,0.0,False
+CATY,2026-04-17,2026-04-15,Woo Elizabeth A.,director,A-Award,1593.0,0.0,0.0,False
+CATY,2026-04-17,2026-04-15,Kono Ann,director,A-Award,1593.0,0.0,0.0,False
+CATY,2026-04-17,2026-04-15,Sun Richard,director,A-Award,1593.0,0.0,0.0,False
+CATY,2026-04-17,2026-04-15,WU PETER,"director, officer: Vice Chairman",A-Award,1593.0,0.0,0.0,False
+CATY,2026-04-17,2026-04-15,TANG ANTHONY M,"director, officer: Vice Chairman",A-Award,1593.0,0.0,0.0,False
+CATY,2026-04-17,2026-04-15,Hung Maan-Huei,director,A-Award,1593.0,0.0,0.0,False
+CATY,2026-04-17,2026-04-15,Jelenko Jane H,director,A-Award,1593.0,0.0,0.0,False
+CATY,2026-04-17,2026-04-15,FERNANDEZ FELIX S,director,A-Award,1593.0,0.0,0.0,False
+CATY,2026-04-17,2026-04-15,CHUNG NELSON,director,A-Award,1593.0,0.0,0.0,False
+CATY,2026-04-17,2026-04-15,Wang Shally,director,A-Award,1593.0,0.0,0.0,False
+CATY,2026-04-07,2026-04-06,Liu Chang,"director, officer: President & CEO",S-Sale,4836.0,50.3527,243505.6572,False
+CATY,2026-04-03,2026-04-01,CHENG DUNSON K,"director, officer: Executive Chairman",M-Exempt,12078.0,0.0,0.0,False
+CATY,2026-04-03,2026-04-01,CHENG DUNSON K,"director, officer: Executive Chairman",F-InKind,3592.0,50.69,182078.47999999998,False
+CATY,2026-04-03,2026-04-01,CHENG DUNSON K,"director, officer: Executive Chairman",M-Exempt,17132.0,0.0,0.0,False
+CATY,2026-04-03,2026-04-01,CHENG DUNSON K,"director, officer: Executive Chairman",F-InKind,5647.0,50.69,286246.43,False
+CATY,2026-04-03,2026-04-01,CHENG DUNSON K,"director, officer: Executive Chairman",M-Exempt,13281.0,0.0,0.0,False
+CATY,2026-04-03,2026-04-01,CHENG DUNSON K,"director, officer: Executive Chairman",F-InKind,4081.0,50.69,206865.88999999998,False
+CATY,2026-04-03,2026-04-01,CHENG DUNSON K,"director, officer: Executive Chairman",M-Exempt,20932.0,0.0,0.0,False
+CATY,2026-04-03,2026-04-01,Liu Chang,"director, officer: President & CEO",M-Exempt,13992.0,0.0,0.0,False
+CATY,2026-04-03,2026-04-01,Liu Chang,"director, officer: President & CEO",M-Exempt,19846.0,0.0,0.0,False
+CATY,2026-04-03,2026-04-01,Liu Chang,"director, officer: President & CEO",F-InKind,7120.0,50.69,360912.8,False
+CATY,2026-04-03,2026-04-01,Liu Chang,"director, officer: President & CEO",F-InKind,10098.0,50.69,511867.62,False
+BFH,2026-05-22,2026-05-21,Fawcett John J.,director,P-Purchase,698.0,86.43,60328.14000000001,True
+BFH,2026-04-27,2026-04-24,BALLOU ROGER H,director,S-Sale,9687.0,90.32,874929.84,False
+BFH,2026-04-17,2026-04-15,Gerspach John C,director,A-Award,483.0,0.0,0.0,False
+BFH,2026-03-04,2026-02-17,Beberman Perry S,"officer: EVP, Chief Financial Officer",F-InKind,22516.0,73.05,1644793.8,False
+BFH,2026-03-04,2026-02-18,Driscoll Allegra S,"officer: EVP, Chief Technology Officer",F-InKind,1752.0,73.74,129192.48,False
+BFH,2026-02-20,2026-02-19,BALLOU ROGER H,director,G-Gift,1351.0,0.0,0.0,False
+BFH,2026-02-20,2026-02-17,Campbell Jonathan Bryan,"officer: SVP, Chief Accounting Officer",A-Award,1728.0,0.0,0.0,False
+BFH,2026-02-19,2026-02-17,Andretta Ralph J,"director, officer: President and CEO",A-Award,19123.0,0.0,0.0,False
+BFH,2026-02-19,2026-02-17,Andretta Ralph J,"director, officer: President and CEO",A-Award,63183.0,0.0,0.0,False
+BFH,2026-02-19,2026-02-17,Andretta Ralph J,"director, officer: President and CEO",F-InKind,56858.0,73.05,4153476.9,False
+BFH,2026-02-19,2026-02-18,Andretta Ralph J,"director, officer: President and CEO",F-InKind,5326.0,73.74,392739.24,False
+BFH,2026-02-19,2026-02-17,Andretta Ralph J,"director, officer: President and CEO",A-Award,42122.0,0.0,0.0,False
+BFH,2026-02-19,2026-02-17,Motes Joseph L III,"officer: EVP, CAO, Gen Counsel & Secy",A-Award,4262.0,0.0,0.0,False
+BFH,2026-02-19,2026-02-17,Motes Joseph L III,"officer: EVP, CAO, Gen Counsel & Secy",A-Award,12005.0,0.0,0.0,False
+BFH,2026-02-19,2026-02-17,Motes Joseph L III,"officer: EVP, CAO, Gen Counsel & Secy",A-Award,8004.0,0.0,0.0,False
+BFH,2026-02-19,2026-02-17,Motes Joseph L III,"officer: EVP, CAO, Gen Counsel & Secy",F-InKind,16918.0,73.05,1235859.9,False
+BFH,2026-02-19,2026-02-18,Motes Joseph L III,"officer: EVP, CAO, Gen Counsel & Secy",F-InKind,1470.0,73.74,108397.79999999999,False
+BFH,2026-02-19,2026-02-17,Greer Valerie E,"officer: EVP, Chief Commercial Officer",A-Award,5543.0,0.0,0.0,False
+BFH,2026-02-19,2026-02-17,Greer Valerie E,"officer: EVP, Chief Commercial Officer",A-Award,14217.0,0.0,0.0,False
+BFH,2026-02-19,2026-02-17,Greer Valerie E,"officer: EVP, Chief Commercial Officer",A-Award,9478.0,0.0,0.0,False
+BFH,2026-02-19,2026-02-17,Greer Valerie E,"officer: EVP, Chief Commercial Officer",F-InKind,23834.0,73.05,1741073.7,False
+BFH,2026-02-19,2026-02-18,Greer Valerie E,"officer: EVP, Chief Commercial Officer",F-InKind,2003.0,73.74,147701.22,False
+BFH,2026-02-19,2026-02-17,Beberman Perry S,"officer: EVP, Chief Financial Officer",A-Award,5543.0,0.0,0.0,False
+BFH,2026-02-19,2026-02-17,Beberman Perry S,"officer: EVP, Chief Financial Officer",A-Award,15796.0,0.0,0.0,False
+BFH,2026-02-19,2026-02-17,Beberman Perry S,"officer: EVP, Chief Financial Officer",A-Award,10531.0,0.0,0.0,False
+CPRX,2026-02-19,2026-02-17,Russo Gregg,officer: Chief HR Officer,M-Exempt,687.0,0.0,0.0,False
+CPRX,2026-02-19,2026-02-17,Russo Gregg,officer: Chief HR Officer,M-Exempt,687.0,0.0,0.0,False
+CPRX,2026-02-19,2026-02-17,Russo Gregg,officer: Chief HR Officer,F-InKind,211.0,0.0,0.0,False
+CPRX,2026-01-06,2026-01-05,Kalb Michael Wayne,officer: Executive Vice President & CFO,M-Exempt,7139.0,0.0,0.0,False
+CPRX,2026-01-06,2026-01-05,Kalb Michael Wayne,officer: Executive Vice President & CFO,M-Exempt,7139.0,0.0,0.0,False
+CPRX,2026-01-06,2026-01-05,Kalb Michael Wayne,officer: Executive Vice President & CFO,F-InKind,2080.0,0.0,0.0,False
+CPRX,2026-01-06,2026-01-05,Daly Richard J,"director, officer: President and CEO",M-Exempt,42105.0,0.0,0.0,False
+CPRX,2026-01-06,2026-01-05,Daly Richard J,"director, officer: President and CEO",M-Exempt,42105.0,0.0,0.0,False
+CPRX,2026-01-06,2026-01-05,Daly Richard J,"director, officer: President and CEO",F-InKind,10577.0,0.0,0.0,False
+CPRX,2025-12-30,2025-12-29,DENKHAUS DONALD A,director,M-Exempt,1334.0,0.0,0.0,False
+CPRX,2025-12-30,2025-12-29,DENKHAUS DONALD A,director,M-Exempt,1334.0,0.0,0.0,False
+CPRX,2025-12-30,2025-12-29,Elsbernd Brian,officer: Chief Compliance/Legal Officer,M-Exempt,6667.0,0.0,0.0,False
+CPRX,2025-12-30,2025-12-29,Elsbernd Brian,officer: Chief Compliance/Legal Officer,M-Exempt,6667.0,0.0,0.0,False
+CPRX,2025-12-30,2025-12-29,Elsbernd Brian,officer: Chief Compliance/Legal Officer,F-InKind,2623.0,0.0,0.0,False
+CPRX,2025-12-30,2025-12-29,Tierney David S,director,M-Exempt,1334.0,0.0,0.0,False
+CPRX,2025-12-30,2025-12-29,Tierney David S,director,M-Exempt,1334.0,0.0,0.0,False
+CPRX,2025-12-30,2025-12-29,Sundaram Preethi,officer: Chief Strategy Officer,M-Exempt,6667.0,0.0,0.0,False
+CPRX,2025-12-30,2025-12-29,Sundaram Preethi,officer: Chief Strategy Officer,M-Exempt,6667.0,0.0,0.0,False
+CPRX,2025-12-30,2025-12-29,Sundaram Preethi,officer: Chief Strategy Officer,F-InKind,2369.0,0.0,0.0,False
+CPRX,2025-12-30,2025-12-29,Miller Steve,officer: Chief Op. & Scientific Officer,M-Exempt,14000.0,0.0,0.0,False
+CPRX,2025-12-30,2025-12-29,Miller Steve,officer: Chief Op. & Scientific Officer,M-Exempt,14000.0,0.0,0.0,False
+CPRX,2025-12-30,2025-12-29,Harper Molly,director,M-Exempt,1334.0,0.0,0.0,False
+CPRX,2025-12-30,2025-12-29,Harper Molly,director,M-Exempt,1334.0,0.0,0.0,False
+CPRX,2025-12-30,2025-12-29,MCENANY PATRICK J,"director, other: Chairman of Board of Directors",M-Exempt,26334.0,0.0,0.0,False
+CPRX,2025-12-30,2025-12-29,MCENANY PATRICK J,"director, other: Chairman of Board of Directors",F-InKind,6786.0,0.0,0.0,False
+NHC,2026-05-27,2026-05-22,FLATT BEN ANDERSON SR,officer: Senior VP & CIO,M-Exempt,4000.0,94.1,376400.0,False
+NHC,2026-05-27,2026-05-22,FLATT BEN ANDERSON SR,officer: Senior VP & CIO,F-InKind,2739.0,196.0,536844.0,False
+NHC,2026-05-27,2026-05-22,FLATT BEN ANDERSON SR,officer: Senior VP & CIO,M-Exempt,4000.0,94.1,376400.0,False
+NHC,2026-05-22,2026-05-21,LAROCHE RICHARD F JR,director,S-Sale,7500.0,195.1421,1463565.75,False
+NHC,2026-05-22,2026-05-20,Flatt Stephen Fowler,"director, officer: CEO",G-Gift,26.0,0.0,0.0,False
+NHC,2026-05-20,2026-05-19,Shelly Timothy J.,officer: Sr.VP Operations,S-Sale,1853.0,197.2176,365444.2128,False
+NHC,2026-05-18,2026-05-14,Flatt Stephen Fowler,"director, officer: CEO",M-Exempt,1000.0,90.62,90620.0,False
+NHC,2026-05-18,2026-05-14,Flatt Stephen Fowler,"director, officer: CEO",M-Exempt,5000.0,94.1,470500.0,False
+NHC,2026-05-18,2026-05-14,Flatt Stephen Fowler,"director, officer: CEO",F-InKind,4492.0,197.96,889236.3200000001,False
+NHC,2026-05-18,2026-05-14,Flatt Stephen Fowler,"director, officer: CEO",M-Exempt,1000.0,90.62,90620.0,False
+NHC,2026-05-18,2026-05-14,Flatt Stephen Fowler,"director, officer: CEO",M-Exempt,5000.0,94.1,470500.0,False
+NHC,2026-05-18,2026-05-14,KIDD BRIAN F,"officer: SVP, CFO",M-Exempt,500.0,90.62,45310.0,False
+NHC,2026-05-18,2026-05-14,KIDD BRIAN F,"officer: SVP, CFO",M-Exempt,4000.0,94.1,376400.0,False
+NHC,2026-05-18,2026-05-14,KIDD BRIAN F,"officer: SVP, CFO",F-InKind,3134.0,197.96,620406.64,False
+NHC,2026-05-18,2026-05-14,KIDD BRIAN F,"officer: SVP, CFO",M-Exempt,500.0,90.62,45310.0,False
+NHC,2026-05-18,2026-05-14,KIDD BRIAN F,"officer: SVP, CFO",M-Exempt,4000.0,94.1,376400.0,False
+NHC,2026-05-08,2026-05-06,Trail Sandra Y.,director,M-Exempt,3140.0,55.75,175055.0,False
+NHC,2026-05-08,2026-05-06,Trail Sandra Y.,director,M-Exempt,3140.0,55.75,175055.0,False
+NHC,2026-05-08,2026-05-07,Adams William A.,director,A-Award,7500.0,171.42,1285650.0,False
+NHC,2026-05-07,2026-05-07,Trail Sandra Y.,director,A-Award,7500.0,171.42,1285650.0,False
+NHC,2026-05-07,2026-05-07,ABERNATHY JAMES PAUL,director,A-Award,7500.0,171.42,1285650.0,False
+NHC,2026-05-07,2026-05-07,Adams William A.,director,A-Award,7500.0,0.0,0.0,False
+NHC,2026-05-07,2026-05-07,Gifford David R.,director,A-Award,7500.0,171.42,1285650.0,False
+NHC,2026-05-07,2026-05-07,Piercey Lisa,director,A-Award,7500.0,171.42,1285650.0,False
+NHC,2026-05-07,2026-05-07,ADAMS ROBERT G,director,A-Award,7500.0,171.42,1285650.0,False
+LFST,2026-05-14,2026-05-12,Bessler Robert,director,S-Sale,287517.0,8.02,2305886.34,False
+LFST,2026-05-14,2026-05-12,Bessler Robert,director,S-Sale,287517.0,8.02,2305886.34,False
+LFST,2026-05-14,2026-05-12,Shuey Eric,director,S-Sale,243362.0,8.02,1951763.24,False
+LFST,2026-05-14,2026-05-12,BLACK DARREN M.,director,S-Sale,5899661.0,8.02,47315281.22,False
+LFST,2026-05-14,2026-05-12,"TPG GP A, LLC",10 percent owner,S-Sale,28281943.0,8.02,226821182.85999998,False
+LFST,2026-05-11,2026-05-07,Bessler Robert,director,S-Sale,37500.0,8.55,320625.0,False
+LFST,2026-05-11,2026-05-07,Bessler Robert,director,S-Sale,37500.0,8.55,320625.0,False
+LFST,2026-04-27,2026-04-23,Bessler Robert,director,S-Sale,3876.0,7.0,27132.0,False
+LFST,2026-04-27,2026-04-24,Bessler Robert,director,S-Sale,31074.0,7.05,219071.69999999998,False
+LFST,2026-04-27,2026-04-23,Bessler Robert,director,S-Sale,3876.0,7.0,27132.0,False
+LFST,2026-04-27,2026-04-24,Bessler Robert,director,S-Sale,31073.0,7.05,219064.65,False
+LFST,2026-04-23,2026-04-21,Bessler Robert,director,S-Sale,2550.0,7.01,17875.5,False
+LFST,2026-04-23,2026-04-21,Bessler Robert,director,S-Sale,2551.0,7.01,17882.51,False
+LFST,2026-04-03,2026-04-01,Pardo Ryan,"director, officer: See Remarks",F-InKind,9376.0,6.37,59725.12,False
+LFST,2026-03-26,2026-03-24,McGroarty Ryan,officer: See Remarks,F-InKind,24255.0,6.45,156444.75,False
+LFST,2026-03-19,2026-03-17,McGroarty Ryan,officer: See Remarks,F-InKind,47594.0,6.89,327922.66,False
+LFST,2026-03-11,2026-03-09,Burdick Kenneth A,director,A-Award,706960.0,0.0,0.0,False
+LFST,2026-03-11,2026-03-09,Burdick Kenneth A,director,F-InKind,278192.0,6.91,1922306.72,False
+LFST,2026-03-11,2026-03-09,Burdick Kenneth A,director,A-Award,33544.0,0.0,0.0,False
+LFST,2026-03-11,2026-03-09,Burdick Kenneth A,director,F-InKind,13201.0,6.91,91218.91,False
+LFST,2026-03-11,2026-03-09,Burdick Kenneth A,director,F-InKind,35816.0,6.91,247488.56,False
+LFST,2026-03-11,2026-03-09,Bourdon David,"director, officer: Chief Executive Officer",A-Award,205550.0,0.0,0.0,False
+LFST,2026-03-11,2026-03-09,Bourdon David,"director, officer: Chief Executive Officer",F-InKind,86024.0,6.91,594425.84,False
+LFST,2026-03-11,2026-03-09,Bourdon David,"director, officer: Chief Executive Officer",A-Award,122994.0,0.0,0.0,False
+LFST,2026-03-11,2026-03-09,Bourdon David,"director, officer: Chief Executive Officer",F-InKind,51474.0,6.91,355685.34,False
+LIVN,2026-05-27,2026-05-26,Bianchi Francesco,director,S-Sale,1800.0,75.75,136350.0,False
+LIVN,2026-04-01,2026-03-30,Tezel Ahmet,officer: Chief Innovation Officer,A-Award,13873.0,0.0,0.0,False
+LIVN,2026-04-01,2026-03-30,Tezel Ahmet,officer: Chief Innovation Officer,M-Exempt,3408.0,0.0,0.0,False
+LIVN,2026-04-01,2026-03-30,Tezel Ahmet,officer: Chief Innovation Officer,M-Exempt,3408.0,0.0,0.0,False
+LIVN,2026-04-01,2026-03-30,Tezel Ahmet,officer: Chief Innovation Officer,A-Award,4624.0,0.0,0.0,False
+LIVN,2026-04-01,2026-03-30,Tezel Ahmet,officer: Chief Innovation Officer,F-InKind,1186.0,61.27,72666.22,False
+LIVN,2026-04-01,2026-03-30,Poletti Franco,"officer: President, Cardiopulmonary",M-Exempt,3184.0,0.0,0.0,False
+LIVN,2026-04-01,2026-03-30,Poletti Franco,"officer: President, Cardiopulmonary",F-InKind,1370.0,61.27,83939.90000000001,False
+LIVN,2026-04-01,2026-03-30,Poletti Franco,"officer: President, Cardiopulmonary",M-Exempt,2130.0,0.0,0.0,False
+LIVN,2026-04-01,2026-03-30,Poletti Franco,"officer: President, Cardiopulmonary",M-Exempt,558.0,0.0,0.0,False
+LIVN,2026-04-01,2026-03-30,Poletti Franco,"officer: President, Cardiopulmonary",M-Exempt,325.0,0.0,0.0,False
+LIVN,2026-04-01,2026-03-30,Poletti Franco,"officer: President, Cardiopulmonary",M-Exempt,171.0,0.0,0.0,False
+LIVN,2026-04-01,2026-03-30,Shvartsburg Alex,officer: Chief Financial Officer,M-Exempt,30835.0,0.0,0.0,False
+LIVN,2026-04-01,2026-03-30,Shvartsburg Alex,officer: Chief Financial Officer,F-InKind,12868.0,61.27,788422.36,False
+LIVN,2026-04-01,2026-03-30,Shvartsburg Alex,officer: Chief Financial Officer,A-Award,16321.0,0.0,0.0,False
+LIVN,2026-04-01,2026-03-30,Shvartsburg Alex,officer: Chief Financial Officer,M-Exempt,3621.0,0.0,0.0,False
+LIVN,2026-04-01,2026-03-30,Shvartsburg Alex,officer: Chief Financial Officer,A-Award,5440.0,0.0,0.0,False
+LIVN,2026-04-01,2026-03-30,Shvartsburg Alex,officer: Chief Financial Officer,M-Exempt,1787.0,0.0,0.0,False
+LIVN,2026-04-01,2026-03-30,Shvartsburg Alex,officer: Chief Financial Officer,M-Exempt,2364.0,0.0,0.0,False
+LIVN,2026-04-01,2026-03-30,Shvartsburg Alex,officer: Chief Financial Officer,M-Exempt,10769.0,0.0,0.0,False
+LIVN,2026-04-01,2026-03-30,Shvartsburg Alex,officer: Chief Financial Officer,M-Exempt,914.0,0.0,0.0,False
+LIVN,2026-04-01,2026-03-30,Makatsaria Vladimir,"director, officer: Chief Executive Officer",A-Award,52227.0,0.0,0.0,False
+LIVN,2026-04-01,2026-03-30,Makatsaria Vladimir,"director, officer: Chief Executive Officer",M-Exempt,21042.0,0.0,0.0,False
+LIVN,2026-04-01,2026-03-30,Makatsaria Vladimir,"director, officer: Chief Executive Officer",M-Exempt,11713.0,0.0,0.0,False
+LIVN,2026-04-01,2026-03-30,Makatsaria Vladimir,"director, officer: Chief Executive Officer",A-Award,17409.0,0.0,0.0,False
+KNSA,2026-05-05,2026-05-01,Paolini John F.,officer: CHIEF MEDICAL OFFICER,M-Exempt,58424.0,10.36,605272.64,False
+KNSA,2026-05-05,2026-05-01,Paolini John F.,officer: CHIEF MEDICAL OFFICER,S-Sale,37327.0,53.52,1997741.04,False
+KNSA,2026-05-05,2026-05-01,Paolini John F.,officer: CHIEF MEDICAL OFFICER,S-Sale,21097.0,54.04,1140081.88,False
+KNSA,2026-05-05,2026-05-01,Paolini John F.,officer: CHIEF MEDICAL OFFICER,M-Exempt,58424.0,10.36,605272.64,False
+KNSA,2026-05-01,2026-05-01,Patel Sanj K,"director, officer: CHAIRMAN & CEO",M-Exempt,48565.0,30.93,1502115.45,False
+KNSA,2026-05-01,2026-05-01,Patel Sanj K,"director, officer: CHAIRMAN & CEO",M-Exempt,48565.0,30.93,1502115.45,False
+KNSA,2026-05-01,2026-05-01,Patel Sanj K,"director, officer: CHAIRMAN & CEO",S-Sale,48565.0,54.02,2623481.3000000003,False
+KNSA,2026-04-30,2026-04-28,Patel Sanj K,"director, officer: CHAIRMAN & CEO",M-Exempt,51750.0,30.93,1600627.5,False
+KNSA,2026-04-30,2026-04-28,Patel Sanj K,"director, officer: CHAIRMAN & CEO",M-Exempt,431904.0,10.36,4474525.4399999995,False
+KNSA,2026-04-30,2026-04-28,Patel Sanj K,"director, officer: CHAIRMAN & CEO",S-Sale,74635.0,50.43,3763843.05,False
+KNSA,2026-04-30,2026-04-28,Patel Sanj K,"director, officer: CHAIRMAN & CEO",S-Sale,113673.0,51.47,5850749.31,False
+KNSA,2026-04-30,2026-04-28,Patel Sanj K,"director, officer: CHAIRMAN & CEO",M-Exempt,51750.0,30.93,1600627.5,False
+KNSA,2026-04-30,2026-04-28,Patel Sanj K,"director, officer: CHAIRMAN & CEO",S-Sale,243596.0,52.02,12671863.92,False
+KNSA,2026-04-30,2026-04-29,Patel Sanj K,"director, officer: CHAIRMAN & CEO",M-Exempt,22544.0,30.93,697285.92,False
+KNSA,2026-04-30,2026-04-30,Patel Sanj K,"director, officer: CHAIRMAN & CEO",M-Exempt,2141.0,30.93,66221.13,False
+KNSA,2026-04-30,2026-04-29,Patel Sanj K,"director, officer: CHAIRMAN & CEO",M-Exempt,22544.0,30.93,697285.92,False
+KNSA,2026-04-30,2026-04-30,Patel Sanj K,"director, officer: CHAIRMAN & CEO",M-Exempt,2141.0,30.93,66221.13,False
+KNSA,2026-04-30,2026-04-30,Patel Sanj K,"director, officer: CHAIRMAN & CEO",S-Sale,2141.0,54.01,115635.40999999999,False
+KNSA,2026-04-30,2026-04-28,Patel Sanj K,"director, officer: CHAIRMAN & CEO",M-Exempt,431904.0,10.36,4474525.4399999995,False
+KNSA,2026-04-30,2026-04-28,Patel Sanj K,"director, officer: CHAIRMAN & CEO",S-Sale,51750.0,54.02,2795535.0,False
+KNSA,2026-04-29,2026-04-28,Quart Barry D,director,M-Exempt,13099.0,14.33,187708.67,False
+KNSA,2026-04-29,2026-04-28,Quart Barry D,director,M-Exempt,13099.0,14.33,187708.67,False
+KNSA,2026-04-29,2026-04-28,Quart Barry D,director,S-Sale,13099.0,50.1,656259.9,False
+KNSA,2026-04-13,2026-04-09,Megna Michael R,officer: CHIEF ACCOUNTING OFFICER,S-Sale,6625.0,46.69,309321.25,False
+KNSA,2026-04-13,2026-04-09,Moat Ross,officer: CHIEF OPERATING OFFICER,S-Sale,1703.0,46.69,79513.06999999999,False
+BWLP,2026-03-17,2028-03-01,Leo Pui Ying,officer: Chief People Officer,officer: Chief People Officer,50812.0,12.96,658523.52,False
+BWLP,2026-03-17,2027-03-01,Banerjee Prodyut,officer: Chief Operations Officer,officer: Chief Operations Officer,50812.0,9.48,481697.76,False
+BWLP,2026-03-17,2028-03-01,Banerjee Prodyut,officer: Chief Operations Officer,officer: Chief Operations Officer,50812.0,12.96,658523.52,False
+BWLP,2026-03-17,2029-03-01,Banerjee Prodyut,officer: Chief Operations Officer,officer: Chief Operations Officer,50812.0,19.42,986769.04,False
+BWLP,2026-03-17,2027-03-01,Knutsen Knut-Helge,officer: Chief Technical Officer,officer: Chief Technical Officer,50812.0,9.48,481697.76,False
+BWLP,2026-03-17,2028-03-01,Knutsen Knut-Helge,officer: Chief Technical Officer,officer: Chief Technical Officer,50812.0,12.96,658523.52,False
+BWLP,2026-03-17,2029-03-01,Knutsen Knut-Helge,officer: Chief Technical Officer,officer: Chief Technical Officer,50812.0,19.42,986769.04,False
+BWLP,2026-03-17,2026-03-17,Wei Xu Samantha,officer: Chief Financial Officer,officer: Chief Financial Officer,0.0,0.0,0.0,False
+BWLP,2026-03-17,2027-03-01,Wei Xu Samantha,officer: Chief Financial Officer,officer: Chief Financial Officer,85000.0,9.48,805800.0,False
+BWLP,2026-03-17,2028-03-01,Wei Xu Samantha,officer: Chief Financial Officer,officer: Chief Financial Officer,85000.0,12.96,1101600.0,False
+BWLP,2026-03-17,2029-03-01,Wei Xu Samantha,officer: Chief Financial Officer,officer: Chief Financial Officer,85000.0,19.42,1650700.0000000002,False
+BWLP,2026-03-17,2026-03-17,Nai Zhi Xiang,officer,officer,0.0,0.0,0.0,False
+BWLP,2026-03-17,2026-03-17,Sorensen Kristian,officer: Chief Executive Officer,officer: Chief Executive Officer,0.0,0.0,0.0,False
+BWLP,2026-03-17,2027-03-01,Sorensen Kristian,officer: Chief Executive Officer,officer: Chief Executive Officer,220647.0,9.48,2091733.56,False
+BWLP,2026-03-17,2028-03-01,Sorensen Kristian,officer: Chief Executive Officer,officer: Chief Executive Officer,220647.0,12.96,2859585.12,False
+BWLP,2026-03-17,2029-03-01,Sorensen Kristian,officer: Chief Executive Officer,officer: Chief Executive Officer,220647.0,19.42,4284964.74,False
+BWLP,2026-03-17,2026-03-17,Gillet Luc Bernard Marie,director: ,director: ,0.0,0.0,0.0,False
+BWLP,2026-03-17,2026-03-17,Misra Sanjiv,director: ,director: ,0.0,0.0,0.0,False
+BWLP,2026-03-17,2026-03-17,Chandmal Sonali Asit,director: ,director: ,0.0,0.0,0.0,False
+BWLP,2026-03-17,2026-03-17,Dalane Anne Grethe,director: ,director: ,0.0,0.0,0.0,False
+BWLP,2026-03-17,2026-03-17,Sohmen-Pao Andreas,director,director,0.0,0.0,0.0,False
+AZZ,2026-04-29,2026-04-28,Bella Todd Michael,officer: President-Metal Coatings,M-Exempt,89.0,0.0,0.0,False
+AZZ,2026-04-29,2026-04-28,Bella Todd Michael,officer: President-Metal Coatings,M-Exempt,3512.0,0.0,0.0,False
+AZZ,2026-04-29,2026-04-28,Bella Todd Michael,officer: President-Metal Coatings,F-InKind,1164.0,141.58,164799.12000000002,False
+AZZ,2026-04-29,2026-04-28,Bella Todd Michael,officer: President-Metal Coatings,M-Exempt,16.0,0.0,0.0,False
+AZZ,2026-04-29,2026-04-28,Bella Todd Michael,officer: President-Metal Coatings,M-Exempt,637.0,0.0,0.0,False
+AZZ,2026-04-29,2026-04-28,Bella Todd Michael,officer: President-Metal Coatings,F-InKind,210.0,141.58,29731.800000000003,False
+AZZ,2026-04-29,2026-04-25,Bella Todd Michael,officer: President-Metal Coatings,M-Exempt,4.0,0.0,0.0,False
+AZZ,2026-04-29,2026-04-25,Bella Todd Michael,officer: President-Metal Coatings,M-Exempt,324.0,0.0,0.0,False
+AZZ,2026-04-29,2026-04-25,Bella Todd Michael,officer: President-Metal Coatings,F-InKind,120.0,144.78,17373.6,False
+AZZ,2026-04-29,2026-04-27,Bella Todd Michael,officer: President-Metal Coatings,A-Award,1010.0,0.0,0.0,False
+AZZ,2026-04-29,2026-04-27,Bella Todd Michael,officer: President-Metal Coatings,A-Award,1009.0,0.0,0.0,False
+AZZ,2026-04-29,2026-04-25,Bella Todd Michael,officer: President-Metal Coatings,M-Exempt,324.0,0.0,0.0,False
+AZZ,2026-04-29,2026-04-28,Bella Todd Michael,officer: President-Metal Coatings,M-Exempt,637.0,0.0,0.0,False
+AZZ,2026-04-29,2026-04-28,Bella Todd Michael,officer: President-Metal Coatings,M-Exempt,3512.0,0.0,0.0,False
+AZZ,2026-04-29,2026-04-28,Crawford Jason,officer: Chief Financial Officer,M-Exempt,157.0,0.0,0.0,False
+AZZ,2026-04-29,2026-04-28,Crawford Jason,officer: Chief Financial Officer,M-Exempt,6147.0,0.0,0.0,False
+AZZ,2026-04-29,2026-04-28,Crawford Jason,officer: Chief Financial Officer,F-InKind,2480.0,141.58,351118.4,False
+AZZ,2026-04-29,2026-04-28,Crawford Jason,officer: Chief Financial Officer,M-Exempt,28.0,0.0,0.0,False
+AZZ,2026-04-29,2026-04-28,Crawford Jason,officer: Chief Financial Officer,M-Exempt,1114.0,0.0,0.0,False
+AZZ,2026-04-29,2026-04-28,Crawford Jason,officer: Chief Financial Officer,F-InKind,449.0,141.58,63569.420000000006,False
+AZZ,2026-04-29,2026-04-25,Crawford Jason,officer: Chief Financial Officer,M-Exempt,12.0,0.0,0.0,False
+AZZ,2026-04-29,2026-04-25,Crawford Jason,officer: Chief Financial Officer,M-Exempt,971.0,0.0,0.0,False
+AZZ,2026-04-29,2026-04-25,Crawford Jason,officer: Chief Financial Officer,F-InKind,386.0,144.78,55885.08,False
+AZZ,2026-04-29,2026-04-27,Crawford Jason,officer: Chief Financial Officer,A-Award,2430.0,0.0,0.0,False
+AZZ,2026-04-29,2026-04-27,Crawford Jason,officer: Chief Financial Officer,A-Award,2430.0,0.0,0.0,False
+SBLK,2026-05-22,2026-05-20,Reskos Nikolaos,officer: Chief Operating Officer,S-Sale,9914.0,26.55,263216.7,False
+SBLK,2026-05-22,2026-05-21,Reskos Nikolaos,officer: Chief Operating Officer,S-Sale,30000.0,27.29,818700.0,False
+SBLK,2026-05-20,2026-05-18,Reskos Nikolaos,officer: Chief Operating Officer,S-Sale,33103.0,26.278,869880.634,False
+SBLK,2026-05-20,2026-05-19,Reskos Nikolaos,officer: Chief Operating Officer,S-Sale,86.0,26.49,2278.14,False
+SBLK,2026-04-16,2026-04-08,Plakantonaki Charis,officer: Chief Strategy Officer,S-Sale,16500.0,24.5564,405180.6,False
+SBLK,2026-04-16,2026-04-14,Reskos Nikolaos,officer: COO,S-Sale,1594.0,25.0,39850.0,False
+SBLK,2026-04-16,2026-04-15,Reskos Nikolaos,officer: COO,S-Sale,8406.0,25.05,210570.30000000002,False
+SBLK,2026-04-16,2026-04-08,Plakantonaki Charis,officer: Chief Strategy Officer,S-Sale,16500.0,24.5564,405180.6,False
+SBLK,2026-04-01,2026-03-31,Zagari Raffaele,director,S-Sale,11500.0,22.7538,261668.69999999998,False
+SBLK,2026-04-01,2026-03-31,Zagari Raffaele,director,S-Sale,11500.0,227538.0,2616687000.0,False
+SBLK,2026-04-01,2026-03-31,Zagari Raffaele,director,director,0.0,0.0,0.0,False
+SBLK,2026-03-18,2026-03-18,Norton Hamish,officer: PRESIDENT,officer: PRESIDENT,0.0,0.0,0.0,False
+SBLK,2026-03-18,2026-03-18,Norton Hamish,officer: PRESIDENT,officer: PRESIDENT,0.0,0.0,0.0,False
+SBLK,2026-03-18,2026-03-18,Pappas Petros,director: ,director: ,0.0,0.0,0.0,False
+SBLK,2026-03-17,2026-03-17,Zagari Raffaele,director,director,0.0,0.0,0.0,False
+SBLK,2026-03-17,2026-03-17,Zagari Raffaele,director,director,0.0,0.0,0.0,False
+SBLK,2026-03-17,2026-03-17,Pappas Alexandros,other: Head of Operations,other: Head of Operations,0.0,0.0,0.0,False
+SBLK,2026-03-17,2026-03-17,Pappas Alexandros,other: Head of Operations,other: Head of Operations,0.0,0.0,0.0,False
+SBLK,2026-03-17,2026-03-17,Pappa Milena Maria,director,director,0.0,0.0,0.0,False
+SBLK,2026-03-17,2026-03-17,Pappa Milena Maria,director,director,0.0,0.0,0.0,False
+SBLK,2026-03-16,2026-03-16,Weston Gary,director,director,0.0,0.0,0.0,False
+SBLK,2026-03-16,2026-03-16,Weston Gary,director,director,0.0,0.0,0.0,False
+SBLK,2026-03-16,2026-03-16,Reskos Nikolaos,officer: Chief Operating Officer,officer: Chief Operating Officer,0.0,0.0,0.0,False
+SBLK,2026-03-16,2026-03-16,Plakantonaki Charis,officer: Chief Strategy Officer,officer: Chief Strategy Officer,0.0,0.0,0.0,False
+SBLK,2026-03-16,2026-03-16,Begleris Christos,officer: co CFO,officer: co CFO,0.0,0.0,0.0,False
+CAAP,2026-03-31,2026-03-18,Zenarruza Andres Pedro Mariano,officer: Head of Legal & Compliance,officer: Head of Legal & Compliance,0.0,0.0,0.0,False
+CAAP,2026-03-18,2026-03-18,Eurnekian Martin Francisco Antranik,officer,officer,0.0,0.0,0.0,False
+CAAP,2026-03-18,2026-03-18,McGeoch Roderick Hamilton,director,director,0.0,0.0,0.0,False
+CAAP,2026-03-18,2026-03-18,Arruda Filho Jorge,officer: Chief Financial Officer,officer: Chief Financial Officer,0.0,0.0,0.0,False
+CAAP,2026-03-18,2026-03-18,Pechon Valerie,director: ,director: ,0.0,0.0,0.0,False
+CAAP,2026-03-18,2026-03-18,Montagna Carlo Alberto,director: ,director: ,0.0,0.0,0.0,False
+CAAP,2026-03-18,2026-03-18,MARX DANIEL,director: ,director: ,0.0,0.0,0.0,False
+CAAP,2026-03-18,2026-03-18,Bomchil Maximo Luis,director: ,director: ,0.0,0.0,0.0,False
+CAAP,2026-03-18,2026-03-18,Arendt David Ernest Maximilien Glenn,director: ,director: ,0.0,0.0,0.0,False
+HAFN,2026-04-14,2026-04-10,Skov Mikael Opstun,officer: Chief Executive Officer,S-Sale,500000.0,8.12,4059999.9999999995,False
+HAFN,2026-04-14,2026-04-13,Skov Mikael Opstun,officer: Chief Executive Officer,S-Sale,500000.0,8.11,4054999.9999999995,False
+HAFN,2026-04-09,2026-04-07,Van Echtelt Petrus Wouter,officer: Chief Financial Officer,S-Sale,90000.0,8.22,739800.0,False
+HAFN,2026-03-30,2026-03-18,Tan Emily,,,0.0,0.0,0.0,False
+HAFN,2026-03-18,2026-03-18,Skov Mikael Opstun,officer: Chief Executive Officer,officer: Chief Executive Officer,0.0,0.0,0.0,False
+HAFN,2026-03-18,2027-03-05,Skov Mikael Opstun,officer: Chief Executive Officer,officer: Chief Executive Officer,617581.0,7.66,4730670.46,False
+HAFN,2026-03-18,2028-02-27,Skov Mikael Opstun,officer: Chief Executive Officer,officer: Chief Executive Officer,770533.0,6.31,4862063.2299999995,False
+HAFN,2026-03-18,2029-02-26,Skov Mikael Opstun,officer: Chief Executive Officer,officer: Chief Executive Officer,771013.0,8.3,6399407.9,False
+HAFN,2026-03-18,2027-03-15,Skov Mikael Opstun,officer: Chief Executive Officer,officer: Chief Executive Officer,60974.0,0.0,0.0,False
+HAFN,2026-03-18,2027-03-05,Jensen Soeren Steenberg,"officer: EVP, Head of Asset Management","officer: EVP, Head of Asset Management",123170.0,7.66,943482.2000000001,False
+HAFN,2026-03-18,2028-02-27,Jensen Soeren Steenberg,"officer: EVP, Head of Asset Management","officer: EVP, Head of Asset Management",179627.0,6.31,1133446.3699999999,False
+HAFN,2026-03-18,2029-02-26,Jensen Soeren Steenberg,"officer: EVP, Head of Asset Management","officer: EVP, Head of Asset Management",179739.0,8.3,1491833.7000000002,False
+HAFN,2026-03-18,2026-03-18,Anand Suyin,,,0.0,0.0,0.0,False
+HAFN,2026-03-18,2026-03-18,Read Peter Graham,,,0.0,0.0,0.0,False
+HAFN,2026-03-18,2026-03-18,Ridgway Donald John,,,0.0,0.0,0.0,False
+HAFN,2026-03-18,2026-03-18,Sohmen-Pao Andreas,director,director,0.0,0.0,0.0,False
+HAFN,2026-03-18,2026-03-18,Jorgensen Mia Krogslund,"officer: VP, Head of People, Culture &","officer: VP, Head of People, Culture &",0.0,0.0,0.0,False
+HAFN,2026-03-18,2027-03-05,Jorgensen Mia Krogslund,"officer: VP, Head of People, Culture &","officer: VP, Head of People, Culture &",123170.0,7.66,943482.2000000001,False
+HAFN,2026-03-18,2028-02-27,Jorgensen Mia Krogslund,"officer: VP, Head of People, Culture &","officer: VP, Head of People, Culture &",179627.0,6.31,1133446.3699999999,False
+HAFN,2026-03-18,2029-02-26,Jorgensen Mia Krogslund,"officer: VP, Head of People, Culture &","officer: VP, Head of People, Culture &",179739.0,8.3,1491833.7000000002,False
+HAFN,2026-03-18,2026-03-18,Van Echtelt Petrus Wouter,officer: Chief Financial Officer,officer: Chief Financial Officer,0.0,0.0,0.0,False
+HAFN,2026-03-18,2027-03-05,Van Echtelt Petrus Wouter,officer: Chief Financial Officer,officer: Chief Financial Officer,134479.0,7.66,1030109.14,False
+HAFN,2026-03-18,2028-02-27,Van Echtelt Petrus Wouter,officer: Chief Financial Officer,officer: Chief Financial Officer,193475.0,6.31,1220827.25,False
+HAFN,2026-03-18,2029-02-26,Van Echtelt Petrus Wouter,officer: Chief Financial Officer,officer: Chief Financial Officer,193596.0,8.3,1606846.8,False
+HAFN,2026-03-18,2026-03-18,Juhl Ralph Steen,"officer: EVP, Head of Technical","officer: EVP, Head of Technical",0.0,0.0,0.0,False
